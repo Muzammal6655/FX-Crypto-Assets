@@ -65,6 +65,56 @@ class User extends Authenticatable
       return $this->belongsTo('App\Models\Country', 'country_id');
     }
 
+    public function balances()
+    {
+      return $this->hasMany('App\Models\Balance', 'user_id');
+    }
+
+    public function deposits()
+    {
+      return $this->hasMany('App\Models\Deposit', 'user_id');
+    }
+
+    public function documents()
+    {
+      return $this->hasMany('App\Models\Document', 'user_id');
+    }
+
+    public function passwords()
+    {
+      return $this->hasMany('App\Models\Password', 'user_id');
+    }
+
+    public function poolInvestments()
+    {
+      return $this->hasMany('App\Models\PoolInvestment', 'user_id');
+    }
+
+    public function withdraws()
+    {
+      return $this->hasMany('App\Models\Withdraw', 'user_id');
+    }
+
+    public function transactions()
+    {
+      return $this->hasMany('App\Models\Transaction', 'user_id');
+    }
+
+    public function referrals()
+    {
+      return $this->hasMany('App\Models\Referral', 'referrer_id');
+    }
+
+    public function referralMembers()
+    {
+      return $this->hasOne('App\Models\Referral', 'refer_member_id');
+    }
+
+    public function referrerAccount()
+    {
+      return $this->belongsTo('App\Models\User','referrer_account_id'); 
+    }
+    
     // ************************** //
     //  Append Extra Attributes   //
     // ************************** //
