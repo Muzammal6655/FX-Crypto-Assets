@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'original_password', 'status', 'language', 'timezone', 'profile_image', 'last_login','street','city','postcode','country_id','ip_address','otp_auth_status','otp_auth_secret_key','otp_auth_qr_image','is_approved'
+      'name', 'email', 'password', 'original_password', 'status', 'language', 'timezone', 'profile_image', 'last_login','street','city','postcode','country_id','ip_address','otp_auth_status','otp_auth_secret_key','otp_auth_qr_image','is_approved', 'mobile_number', 'family_name', 'dob', 'state', 'invitation_code', 'referral_code', 'referral_code_end_date', 'referrer_account_id', 'btc_wallet_address', 'account_balance', 'deposit_total'
     ];
 
     /**

@@ -25,9 +25,16 @@
 							<h4 class="heading">Basic Information</h4>
 
 							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Name</label>
+								<label for="name" class="col-sm-3 control-label">First Name</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->name }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="family_name" class="col-sm-3 control-label">Family Name</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->family_name }}">
 								</div>
 							</div>
 
@@ -35,6 +42,27 @@
 								<label for="email" class="col-sm-3 control-label">Email</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->email }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="mobile_number" class="col-sm-3 control-label">Mobile Number</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->mobile_number }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="dob" class="col-sm-3 control-label">Date of Birth</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->dob }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="btc_wallet_address" class="col-sm-3 control-label">BTC Wallet Address</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->btc_wallet_address }}">
 								</div>
 							</div>
 
@@ -68,17 +96,46 @@
 
 							<hr>
 
+							<h4 class="heading">Referral Information</h4>
+
+							<div class="form-group">
+								<label for="invitation_code" class="col-sm-3 control-label">Invitation Code</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->invitation_code }}">
+								</div>
+							</div>
+
+							<hr>
+
+							<h4 class="heading">Account Information</h4>
+
+							<div class="form-group">
+								<label for="account_balance" class="col-sm-3 control-label">Account Balance</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->account_balance }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="deposit_total" class="col-sm-3 control-label">Deposit Total</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->deposit_total }}">
+								</div>
+							</div>
+
+							<hr>
+
 							<h4 class="heading">Address Information</h4>
 
 							<div class="form-group">
-								<label for="street" class="col-sm-3 control-label">Street</label>
+								<label for="street" class="col-sm-3 control-label">Address</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->street }}">
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="city" class="col-sm-3 control-label">City</label>
+								<label for="city" class="col-sm-3 control-label">Suburb</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->city }}">
 								</div>
@@ -88,6 +145,13 @@
 								<label for="postcode" class="col-sm-3 control-label">Zip Code</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->postcode }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="state" class="col-sm-3 control-label">State</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->state }}">
 								</div>
 							</div>
 

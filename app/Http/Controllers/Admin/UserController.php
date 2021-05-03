@@ -158,7 +158,7 @@ class UserController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'email' => ['required','string','max:100',Rule::unique('users')],
-                'name' => ['required','string','max:100'],
+                'name' => ['required','string','max:30'],
                 'password' => 'required|string|min:8|max:30',
                 'country_id' => 'required'
             ]);
@@ -180,6 +180,7 @@ class UserController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'email' => ['required','string',Rule::unique('users')->ignore($input['id'])],
+                'name' => ['required','string','max:30'],
                 'password' => 'required|string|min:8|max:30',
                 'country_id' => 'required'
             ]);
@@ -207,6 +208,13 @@ class UserController extends Controller
         $model->fill($input);
         $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
         $model->save();
+
+        if($input['action'] == 'Add')
+        {
+            $model->invitation_code = Hashids::encode($model->id);
+            $model->referral_code_end_date = date('Y-m-d', strtotime('+2 month'));
+            $model->save();
+        }
 
         $request->session()->flash('flash_success', $flash_message);
         return redirect('admin/investors');

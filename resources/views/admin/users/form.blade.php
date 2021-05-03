@@ -31,10 +31,18 @@
 							<h4 class="heading">Basic Information</h4>
 
 							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Name*</label>
+								<label for="name" class="col-sm-3 control-label">First Name*</label>
 								<div class="col-sm-9">
-									<input type="text" name="name" maxlength="100" class="form-control" required=""
+									<input type="text" name="name" maxlength="30" class="form-control" required=""
 										value="{{ ($action == 'Add') ? old('name') : $user->name}}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="family_name" class="col-sm-3 control-label">Family Name*</label>
+								<div class="col-sm-9">
+									<input type="text" name="family_name" maxlength="30" class="form-control" required="" 
+										value="{{ ($action == 'Add') ? old('family_name') : $user->family_name}}">
 								</div>
 							</div>
 
@@ -43,6 +51,21 @@
 								<div class="col-sm-9">
 									<input type="email" name="email" maxlength="100" class="form-control"
 										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="mobile_number" class="col-sm-3 control-label">Mobile Number*</label>
+								<div class="col-sm-9">
+									<input type="tel" name="mobile_number" maxlength="30" class="form-control"
+										value="{{ ($action == 'Add') ? old('mobile_number') : $user->mobile_number}}" required="">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="dob" class="col-sm-3 control-label">Date of Birth*</label>
+								<div class="col-sm-9">
+									<input type="date" max="{{ date('Y-m-d', strtotime('-18 year')) }}" name="dob" class="form-control" value="{{ ($action == 'Add') ? old('dob') : $user->dob}}" required="">
 								</div>
 							</div>
 
@@ -96,16 +119,16 @@
 							<h4 class="heading">Address Information</h4>
 
 							<div class="form-group">
-								<label for="street" class="col-sm-3 control-label">Street</label>
+								<label for="street" class="col-sm-3 control-label">Address*</label>
 								<div class="col-sm-9">
-									<input type="text" name="street" maxlength="250" class="form-control" value="{{ ($action == 'Add') ? old('street') : $user->street}}">
+									<input type="text" name="street" maxlength="250" class="form-control" value="{{ ($action == 'Add') ? old('street') : $user->street}}" required="">
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="city" class="col-sm-3 control-label">City</label>
+								<label for="city" class="col-sm-3 control-label">Suburb*</label>
 								<div class="col-sm-9">
-									<input type="text" name="city" maxlength="100" class="form-control" value="{{ ($action == 'Add') ? old('city') : $user->city}}">
+									<input type="text" name="city" maxlength="100" class="form-control" value="{{ ($action == 'Add') ? old('city') : $user->city}}" required="">
 								</div>
 							</div>
 
@@ -113,6 +136,13 @@
 								<label for="postcode" class="col-sm-3 control-label">Zip Code</label>
 								<div class="col-sm-9">
 									<input type="text" name="postcode" maxlength="50" class="form-control" value="{{ ($action == 'Add') ? old('postcode') : $user->postcode}}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="state" class="col-sm-3 control-label">State*</label>
+								<div class="col-sm-9">
+									<input type="text" name="state" maxlength="50" class="form-control" value="{{ ($action == 'Add') ? old('state') : $user->state}}" required="">
 								</div>
 							</div>
 
