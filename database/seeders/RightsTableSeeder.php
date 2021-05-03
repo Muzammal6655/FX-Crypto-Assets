@@ -127,6 +127,30 @@ class RightsTableSeeder extends Seeder
                 'name' => 'investors-view',
                 'status' => 1,
             ),
+            18 => 
+            array (
+                'module_id' => 6,
+                'name' => 'pools-list',
+                'status' => 1,
+            ),
+            19 => 
+            array (
+                'module_id' => 6,
+                'name' => 'pools-create',
+                'status' => 1,
+            ),
+            20 => 
+            array (
+                'module_id' => 6,
+                'name' => 'pools-edit',
+                'status' => 1,
+            ),
+            21 => 
+            array (
+                'module_id' => 6,
+                'name' => 'pools-delete',
+                'status' => 1,
+            ),
         ));
         
         

@@ -66,6 +66,14 @@ $segment_3 = Request::segment(3);
                 </li>
             @endif
 
+            @if(have_right('pools-list'))
+                <li>
+                    <a href="{{  url('admin/pools') }}" class="{{($segment_2 == 'pools') ? 'active' : ''}}">
+                        <i class="fa fa-product-hunt"></i><span class="title">Pools</span>
+                    </a>
+                </li>
+            @endif
+
             @if(have_right('email-templates-list'))
                 <li>
                     <a href="{{  url('admin/email-templates') }}" class="{{($segment_2 == 'email-templates') ? 'active' : ''}}">

@@ -46,6 +46,15 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-md-3 col-xs-6">
+								<div class="widget-metric_6 animate">
+									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-product-hunt"></i></span>
+									<div class="right">
+										<span class="value">{{ $pools }}</span>
+										<span class="title">Pools</span>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<div class="row margin-bottom-30">

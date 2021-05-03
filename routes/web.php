@@ -45,6 +45,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
 
     Route::resource('roles', 'RoleController');
     Route::resource('email-templates', 'EmailTemplateController');
+
+    Route::resource('pools', 'PoolController');
 });
 
 // ******************* //

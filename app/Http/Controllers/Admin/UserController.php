@@ -259,7 +259,7 @@ class UserController extends Controller
         }
         else
         {
-        return redirect('admin/investors');
+            return redirect('admin/investors');
         }
     }
 

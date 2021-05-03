@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
-@section('title', 'Investors')
+@section('title', 'Pools')
 @section('sub-title', 'Listing')
+
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
-
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li>Investors</li>
+			<li>Pools</li>
 		</ul>
 	</div>
 	<div class="container-fluid">
@@ -15,10 +15,10 @@
 		<!-- DATATABLE -->
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">Investors Listing</h3>
-				@if(have_right('investors-create'))
+				<h3 class="panel-title">Pools Listing</h3>
+				@if(have_right('pools-create'))
 				<div class="right">
-					<a href="{{url('admin/investors/create')}}" class="pull-right">
+					<a href="{{url('admin/pools/create')}}" class="pull-right">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Add</span>
 						</button>
@@ -27,14 +27,17 @@
 				@endif
 			</div>
 			<div class="panel-body">
-				<table id="investors-datatable" class="table table-hover" style="width:100%">
+				<table id="pools-datatable" class="table table-hover" style="width:100%">
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>Name</th>
-							<th>Email</th>
-							<th>Mobile Number</th>
-							<th>Approval Status</th>
+							<th>Min Deposits</th>
+							<th>Max Deposits</th>
+							<th>Users Limit</th>
+							<th>Profit %</th>
+							<th>Management Fee %</th>
+							<th>Days</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -52,7 +55,7 @@
 <script>
 	$(function()
     {
-		$('#investors-datatable').dataTable(
+		$('#pools-datatable').dataTable(
 		{
 			pageLength: 50,
 			scrollX: true,
@@ -65,13 +68,16 @@
 			// dom: 'Bfrtip',
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
-			ajax: "{{ url('admin/investors') }}",
+			ajax: "{{ url('admin/pools') }}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'name', name: 'name'},
-				{data: 'email', name: 'email'},
-				{data: 'mobile_number', name: 'mobile_number'},
-				{data: 'is_approved', name: 'is_approved'},
+				{data: 'min_deposits', name: 'min_deposits'},
+				{data: 'max_deposits', name: 'max_deposits'},
+				{data: 'users_limit', name: 'users_limit'},
+				{data: 'profit_percentage', name: 'profit_percentage'},
+				{data: 'management_fee_percentage', name: 'management_fee_percentage'},
+				{data: 'days', name: 'days'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]

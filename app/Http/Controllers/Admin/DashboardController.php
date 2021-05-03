@@ -21,7 +21,8 @@ class DashboardController extends Controller
     {
     	$data['roles'] = DB::table('roles')->count();
     	$data['admins'] = DB::table('admins')->count();
-    	$data['users'] = DB::table('users')->count();
+        $data['users'] = DB::table('users')->count();
+    	$data['pools'] = DB::table('pools')->count();
         $data['deleted_users'] = User::where('status',3)->orderBy('name','DESC')->get();
     
         return view('admin.dashboard')->with($data);
