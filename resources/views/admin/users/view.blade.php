@@ -110,16 +110,37 @@
 							<h4 class="heading">Account Information</h4>
 
 							<div class="form-group">
-								<label for="account_balance" class="col-sm-3 control-label">Account Balance</label>
+								<label for="account_balance" class="col-sm-3 control-label">Account Balance ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->account_balance }}">
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="deposit_total" class="col-sm-3 control-label">Deposit Total</label>
+								<label for="deposit_total" class="col-sm-3 control-label">Deposit Total ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->deposit_total }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="withdraw_total" class="col-sm-3 control-label">Withdraw Total ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->withdraw_total }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="commission_total" class="col-sm-3 control-label">Commission Total ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->commission_total }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="profit_total" class="col-sm-3 control-label">Profit Total ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $user->profit_total }}">
 								</div>
 							</div>
 

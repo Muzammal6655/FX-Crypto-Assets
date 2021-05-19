@@ -173,23 +173,6 @@
 
 							<hr>
 
-							<!-- <h4 class="heading">Company Information</h4>
-
-							<div class="form-group">
-								<label for="company_name" class="col-sm-3 control-label">Company Name</label>
-								<div class="col-sm-9">
-									<input type="text" name="company_name" maxlength="100" class="form-control" value="{{ ($action == 'Add') ? old('company_name') : $user->company_name}}">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="company_website" class="col-sm-3 control-label">Company Website</label>
-								<div class="col-sm-9">
-									<input type="url" name="company_website" maxlength="100" class="form-control" value="{{ ($action == 'Add') ? old('company_website') : $user->company_website}}">
-								</div>
-							</div>
-
-							<hr> -->
 							<h4 class="heading">
 								Password & Confirm Password
 								@if($action == 'Edit')

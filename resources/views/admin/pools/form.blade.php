@@ -44,7 +44,15 @@
 							</div>
 
 							<div class="form-group">
-								<label for="min_deposits" class="col-sm-3 control-label">Min Deposits*</label>
+								<label for="wallet_address" class="col-sm-3 control-label">Wallet Address*</label>
+								<div class="col-sm-9">
+									<input type="text" name="wallet_address" maxlength="100" class="form-control" required=""
+										value="{{ ($action == 'Add') ? old('wallet_address') : $model->wallet_address}}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="min_deposits" class="col-sm-3 control-label">Min Deposits ({{config('constants.currency')['symbol']}})*</label>
 								<div class="col-sm-9">
 									<input type="number" name="min_deposits" class="form-control" required=""
 										value="{{ ($action == 'Add') ? old('min_deposits') : $model->min_deposits}}">
@@ -52,7 +60,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="max_deposits" class="col-sm-3 control-label">Max Deposits*</label>
+								<label for="max_deposits" class="col-sm-3 control-label">Max Deposits ({{config('constants.currency')['symbol']}})*</label>
 								<div class="col-sm-9">
 									<input type="number" name="max_deposits" class="form-control" required=""
 										value="{{ ($action == 'Add') ? old('max_deposits') : $model->max_deposits}}">

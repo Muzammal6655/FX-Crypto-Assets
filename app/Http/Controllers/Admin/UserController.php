@@ -76,6 +76,11 @@ class UserController extends Controller
             {
                 $actions = '<span class="actions">';
 
+                if(have_right('investors-documents'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/documents').'" title="KYC"><i class="fa fa-id-card"></i></a>';
+                }
+
                 if(have_right('investors-view'))
                 {
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id)).'" title="View"><i class="fa fa-eye"></i></a>';
@@ -281,5 +286,33 @@ class UserController extends Controller
 
         Session::flash('flash_success', 'Password has been sent successfully.');
         return redirect('admin/investors/'.$id.'/edit');
+    }
+
+    /**
+     * Show the form for kyc verification of the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function documents($id)
+    {
+        if(!have_right('investors-documents'))
+            access_denied();
+
+        $id = Hashids::decode($id)[0];
+        $data['user'] = User::findOrFail($id);
+        return view('admin.users.documents')->with($data);
+    }
+
+    public function verifyDocuments(Request $request)
+    {
+        $input = $request->all();
+
+        $model = User::findOrFail($input['id']);
+        $model->fill($input);
+        $model->save();
+
+        $request->session()->flash('flash_success', 'Documents verification has been updated successfully.');
+        return redirect('admin/investors');
     }
 }
