@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Deposit;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Models\User;
+use App\Models\Deposit;
+use App\Models\Transaction;
+use App\Models\Balance;
+use App\Models\PoolInvestment;
+use Carbon\Carbon;
 use Session;
 use Hashids;
 use Auth;
@@ -25,10 +30,23 @@ class DepositController extends Controller
             access_denied();
 
         $data = [];
+        $data['users'] = User::where('status',1)->get();
+        $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
 
         if($request->ajax())
         {
-            $db_record = Deposit::orderBy('created_at','ASC');
+            $db_record = Deposit::orderBy('created_at','DESC');
+
+            if($request->has('user_id') && !empty($request->user_id))
+            {
+                $db_record = $db_record->where('user_id',$request->user_id);
+            }
+
+            if($request->has('status') && $request->status != "")
+            {
+                $db_record = $db_record->where('status',$request->status);
+            }
+
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();
 
@@ -42,6 +60,11 @@ class DepositController extends Controller
                 if(!empty($row->pool_id))
                     return $row->pool->name;
                 return '';
+            });
+
+            $datatable = $datatable->editColumn('created_at', function($row)
+            {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
             });
 
             $datatable = $datatable->editColumn('status', function($row)
@@ -91,6 +114,7 @@ class DepositController extends Controller
 
         $model = Deposit::findOrFail($input['id']);
         $model->fill($input);
+        $model->reason = !empty($request->reason_select) ? $request->reason_select : $request->reason;
         $model->save();
         $request->session()->flash('flash_success', 'Deposit has been updated successfully.');
         return redirect('admin/deposits');
@@ -111,5 +135,74 @@ class DepositController extends Controller
         $data['action'] = "View";
         $data['model'] = Deposit::findOrFail($id);
         return view('admin.deposits.view')->with($data);
+    }
+
+    public function approve(Request $request, $id)
+    {
+        if(!have_right('deposits-approve'))
+            access_denied();
+
+        $id = Hashids::decode($id)[0];
+        $model = Deposit::findOrFail($id);
+        $model->status = 1;
+        $model->save();
+
+        $user = $model->user;
+        $user->update([
+            'account_balance' => $user->account_balance + $model->amount,
+            'deposit_total' => $user->deposit_total + $model->amount,
+        ]);
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+            'actual_amount' => $model->amount,
+            'description' => 'Amount deposited.',
+            'deposit_id' => $model->id
+        ]);
+
+        Balance::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+        ]);
+
+        if(!empty($model->pool_id))
+        {
+            $pool = $model->pool;
+
+            $user->update([
+                'account_balance' => $user->account_balance - $model->amount
+            ]);
+
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'investment',
+                'amount' => $model->amount,
+                'actual_amount' => $model->amount,
+                'description' => 'Amount invested in '.$pool->name.' pool.',
+                'deposit_id' => $model->id
+            ]);
+
+            Balance::create([
+                'user_id' => $user->id,
+                'type' => 'investment',
+                'amount' => -1 * $model->amount,
+            ]);
+
+            PoolInvestment::create([
+                'user_id' => $user->id,
+                'pool_id' => $model->pool_id,
+                'deposit_amount' => $model->amount,
+                'profit_percentage' => $pool->profit_percentage,
+                'management_fee_percentage' => $pool->management_fee_percentage,
+                'start_date' => Carbon::now('UTC')->timestamp,
+                'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
+            ]);
+        }
+
+        $request->session()->flash('flash_success', 'Deposit has been approved successfully.');
+        return redirect('admin/deposits');
     }
 }

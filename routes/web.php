@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('sub-admins', 'AdminController');
 
     Route::get('investors/send-password/{id}', 'UserController@sendPassword');
+    Route::get('investors/{id}/balances', 'UserController@balances');
     Route::get('investors/{id}/documents', 'UserController@documents');
     Route::post('investors/verify-documents', 'UserController@verifyDocuments');
     Route::resource('investors', 'UserController');
@@ -49,6 +50,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('email-templates', 'EmailTemplateController');
 
     Route::resource('pools', 'PoolController');
+    
+    Route::get('deposits/{id}/approve', 'DepositController@approve');
     Route::resource('deposits', 'DepositController');
 });
 

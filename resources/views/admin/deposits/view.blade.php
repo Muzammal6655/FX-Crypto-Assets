@@ -25,9 +25,10 @@
 							@csrf
 
 							<input name="id" type="hidden" value="{{ $model->id }}" />
+							<input name="status" type="hidden" value="2" />
 
 							<div class="form-group">
-								<label for="user" class="col-sm-3 control-label">User</label>
+								<label for="user" class="col-sm-3 control-label">Investor</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->user->name }}">
 								</div>
@@ -66,11 +67,18 @@
 							<div class="form-group">
 								<label for="proof" class="col-sm-3 control-label">Proof</label>
 								<div class="col-sm-9">
-									@if (!empty($model->proof) && \File::exists(public_path() . '/storage/deposits/' . $model->user_id . '/deposits/' . $model->proof))
-										<a href="{{ checkImage(asset('storage/deposits/' . $model->user_id . '/deposits/' . $model->proof),'placeholder.png',$model->proof) }}" download="">Download</a>
+									@if (!empty($model->proof) && \File::exists(public_path() . '/storage/users/' . $model->user_id . '/deposits/' . $model->proof))
+										<a href="{{ checkImage(asset('storage/users/' . $model->user_id . '/deposits/' . $model->proof),'placeholder.png',$model->proof) }}" download="">Download</a>
 									@else
 										<strong><i>No proof provided</i></strong>
 									@endif
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="created_at" class="col-sm-3 control-label">Created At</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $model->created_at }}">
 								</div>
 							</div>
 
@@ -87,23 +95,45 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label for="reason" class="col-sm-3 control-label">Reason</label>
-								<div class="col-sm-9">
-									<textarea name="reason" maxlength="1000" class="form-control" rows="5">{{ $model->reason}}</textarea>
+							@if($model->status == 0 || $model->status == 2)
+								<h4 class="heading">Rejection Reason</h4>
+
+								<div class="form-group">
+									<label for="role" class="col-sm-3 control-label">Select Reason</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="reason_select">
+											<option value="">Select Reason</option>
+											<option value="Deposit does not match Receipt please contact IFX – admin@interestingfx.com">Deposit does not match Receipt</option>
+											<option value="Wallet Address has been changed from Companies account please contact IFX - admin@interestingfx.com">Wallet Address has been changed from Companies account</option>
+										</select>
+									</div>
 								</div>
-							</div>
+								<div class="form-group">
+									<label for="reason" class="col-sm-3 control-label">Other</label>
+									<div class="col-sm-9">
+										<textarea name="reason" maxlength="1000" class="form-control" rows="3">{{ $model->reason}}</textarea>
+									</div>
+								</div>
+							@endif
 
 							<div class="text-right">
-								<a href="{{url('admin/deposits')}}">
-									<button type="button" class="btn cancel btn-fullrounded">
-										<span>Cancel</span>
-									</button>
-								</a>
+								@if($model->status == 0 || $model->status == 2)
+									<a href="{{url('admin/deposits')}}">
+										<button type="button" class="btn cancel btn-fullrounded">
+											<span>Cancel</span>
+										</button>
+									</a>
 
-								<button type="submit" class="btn btn-primary btn-fullrounded">
-									<span>Save</span>
-								</button>
+									<a href="{{url('admin/deposits/'. Hashids::encode($model->id) . '/approve')}}">
+										<button type="button" class="btn btn-success btn-fullrounded">
+											<span>Approve</span>
+										</button>
+									</a>
+
+									<button type="submit" class="btn btn-danger btn-fullrounded">
+										<span>Reject</span>
+									</button>
+								@endif
 							</div>
 						</form>
 					</div>

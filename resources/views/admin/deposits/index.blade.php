@@ -12,6 +12,50 @@
 	</div>
 	<div class="container-fluid">
 		@include('admin.messages')
+
+		<div class="panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">Advance Filters</h3>
+			</div>
+			<div class="panel-body">
+				<form id="filter-form" class="form-inline filter-form-des" method="GET">
+					<div class="row">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group">
+								<select class="form-control" name="user_id" id="user_id">
+									<option value="">Select Investor</option>
+									@foreach ($users as $user)
+										<option value="{{$user->id}}">{{$user->name}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group">
+								<select class="form-control" name="status" id="status">
+									<option value="">Select Status</option>
+									@foreach($statuses as $key => $val)
+										<option value="{{$key}}">{{$val}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<a href="{{url('admin/deposits')}}">
+								<button type="button" class="btn cancel btn-fullrounded">
+									<span>Reset</span>
+								</button>
+							</a>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<button type="submit" class="btn btn-primary btn-fullrounded btn-apply">
+								<span>Apply</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 		<!-- DATATABLE -->
 		<div class="panel">
 			<div class="panel-heading">
@@ -22,9 +66,10 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>User</th>
+							<th>Investor</th>
 							<th>Pool</th>
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
+							<th>Created At</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -55,12 +100,19 @@
 			// dom: 'Bfrtip',
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
-			ajax: "{{ url('admin/deposits') }}",
+			ajax: {
+                url: '/admin/deposits',
+                data: function (d) {
+                    d.user_id = $('#user_id option:selected').val();
+                    d.status = $('#status option:selected').val();
+                }
+            },
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'user', name: 'user'},
 				{data: 'pool', name: 'pool'},
 				{data: 'amount', name: 'amount'},
+				{data: 'created_at', name: 'created_at'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]
@@ -73,6 +125,11 @@
 		}).on('search.dt', function () {
     		showOverlayLoader();
 		});
+
+		$('#filter-form').on('submit', function (e) {
+			e.preventDefault();
+	        $('#deposits-datatable').DataTable().draw();
+	    });
 	});
 </script>
 @endsection

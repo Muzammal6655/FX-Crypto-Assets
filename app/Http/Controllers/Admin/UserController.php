@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Timezone;
 use App\Models\Country;
 use App\Models\EmailTemplate;
+use App\Models\Balance;
 use Carbon\Carbon;
 use Auth;
 use Hashids;
@@ -75,6 +76,11 @@ class UserController extends Controller
             $datatable = $datatable->addColumn('action', function($row)
             {
                 $actions = '<span class="actions">';
+
+                if(have_right('investors-balances'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/balances').'" title="Balances"><i class="fa fa-money"></i></a>';
+                }
 
                 if(have_right('investors-documents'))
                 {
@@ -314,5 +320,55 @@ class UserController extends Controller
 
         $request->session()->flash('flash_success', 'Documents verification has been updated successfully.');
         return redirect('admin/investors');
+    }
+
+    public function balances(Request $request,$id)
+    {
+        if(!have_right('investors-balances'))
+            access_denied();
+
+        $data = [];
+        $data['id'] = $id;
+        $id = Hashids::decode($id)[0];
+        $data['user'] = User::find($id);
+        
+        if ($request->ajax())
+        {
+            $db_record = Balance::where('user_id',$id)->orderBy('id','DESC');
+
+            $datatable = Datatables::of($db_record);
+            $datatable = $datatable->addIndexColumn();
+
+            $datatable = $datatable->editColumn('type', function($row)
+            {
+                return ucwords($row->type);
+            });
+
+            $datatable = $datatable->editColumn('amount', function($row)
+            {
+                $amount = '';
+                if ($row->amount <= 0)
+                {
+                    $amount = '<span style="color:red">'.$row->amount.'</span>';
+                }
+                else
+                {
+                    $amount = '<span style="color:green">+'.$row->amount.'</span>';
+                }
+
+                return $amount;
+            });
+
+            $datatable = $datatable->editColumn('created_at', function($row)
+            {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+            });
+            
+            $datatable = $datatable->rawColumns(['amount']);
+            $datatable = $datatable->make(true);
+            return $datatable;
+        }
+
+        return view('admin.users.balances',$data);
     }
 }
