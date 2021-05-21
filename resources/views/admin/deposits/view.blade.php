@@ -124,15 +124,19 @@
 										</button>
 									</a>
 
-									<a href="{{url('admin/deposits/'. Hashids::encode($model->id) . '/approve')}}">
-										<button type="button" class="btn btn-success btn-fullrounded">
-											<span>Approve</span>
-										</button>
-									</a>
+									@if(have_right('deposits-approve'))
+										<a href="{{url('admin/deposits/'. Hashids::encode($model->id) . '/approve')}}">
+											<button type="button" class="btn btn-success btn-fullrounded">
+												<span>Approve</span>
+											</button>
+										</a>
+									@endif
 
-									<button type="submit" class="btn btn-danger btn-fullrounded">
-										<span>Reject</span>
-									</button>
+									@if(have_right('deposits-reject'))
+										<button type="submit" class="btn btn-danger btn-fullrounded">
+											<span>Reject</span>
+										</button>
+									@endif
 								@endif
 							</div>
 						</form>

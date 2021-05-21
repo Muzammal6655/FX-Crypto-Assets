@@ -73,6 +73,15 @@
                                     @endif
                                 </div>
 							</div>
+
+							@if($model->status == 0 || $model->status == 2)
+								<div class="form-group">
+									<label for="reason" class="col-sm-3 control-label">Rejection Reason</label>
+									<div class="col-sm-9">
+										<textarea name="reason" maxlength="1000" class="form-control" rows="3">{{ $model->reason}}</textarea>
+									</div>
+								</div>
+							@endif
                             
 							<div class="text-right">
 								@if($model->status == 0 || $model->status == 2)
@@ -82,15 +91,19 @@
 										</button>
 									</a>
 
-									<a href="{{url('admin/withdraws/'. Hashids::encode($model->id) . '/approve')}}">
-										<button type="button" class="btn btn-success btn-fullrounded">
-											<span>Approve</span>
-										</button>
-									</a>
+									@if(have_right('withdraws-approve'))
+										<a href="{{url('admin/withdraws/'. Hashids::encode($model->id) . '/approve')}}">
+											<button type="button" class="btn btn-success btn-fullrounded">
+												<span>Approve</span>
+											</button>
+										</a>
+									@endif
 
-									<button type="submit" class="btn btn-danger btn-fullrounded">
-										<span>Reject</span>
-									</button>
+									@if(have_right('withdraws-reject'))
+										<button type="submit" class="btn btn-danger btn-fullrounded">
+											<span>Reject</span>
+										</button>
+									@endif
 								@endif
 							</div>
 						</form>

@@ -205,4 +205,53 @@ class DepositController extends Controller
         $request->session()->flash('flash_success', 'Deposit has been approved successfully.');
         return redirect('admin/deposits');
     }
+
+    public function downloadCsv(Request $request)
+    {
+        $db_record = Deposit::orderBy('created_at','ASC');
+
+        if($request->has('user_id') && !empty($request->user_id))
+        {
+            $db_record = $db_record->where('user_id',$request->user_id);
+        }
+
+        if($request->has('status') && $request->status != "")
+        {
+            $db_record = $db_record->where('status',$request->status);
+        }
+
+        $db_record = $db_record->get();
+
+        if(!$db_record->isEmpty())
+        {
+
+            $filename = 'deposits-' . date('d-m-Y') . '.csv';
+            $file = fopen('php://memory', 'w');
+            fputcsv($file, array('Date','Customer Id','Amount'));
+
+            foreach ($db_record as $record) 
+            {
+                $row = [];
+                $row[0] = Carbon::createFromTimeStamp(strtotime($record->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
+                $row[1] = $record->user_id;
+                $row[2] = $record->amount;
+
+                fputcsv($file, $row);
+            }
+
+            // reset the file pointer to the start of the file
+            fseek($file, 0);
+            // tell the browser it's going to be a csv file
+            header('Content-Type: application/csv');
+            // tell the browser we want to save it instead of displaying it
+            header('Content-Disposition: attachment; filename="'.$filename.'";');
+            // make php send the generated csv lines to the browser
+            fpassthru($file);
+        }
+        else
+        {
+            $request->session()->flash('flash_danger', 'No data available for export.');
+            return redirect()->back();
+        }
+    }
 }

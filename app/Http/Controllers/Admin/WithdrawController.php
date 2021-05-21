@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Models\Withdraw;
 use App\Models\Transaction;
 use App\Models\Balance;
-use App\Models\PoolInvestment;
 use Carbon\Carbon;
 use Session;
 use Hashids;
@@ -103,10 +102,11 @@ class WithdrawController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+
         $model = Withdraw::findOrFail($input['id']);
         $model->fill($input);
-        $model->reason = !empty($request->reason_select) ? $request->reason_select : $request->reason;
         $model->save();
+
         $request->session()->flash('flash_success', 'Withdraw has been updated successfully.');
         return redirect('admin/withdraws');
     }
@@ -133,7 +133,6 @@ class WithdrawController extends Controller
         if(!have_right('withdraws-approve'))
             access_denied();
 
-        $request->all();
         $id = Hashids::decode($id)[0];
         $model = Withdraw::findOrFail($id);
         $model->status = 1;
@@ -153,7 +152,7 @@ class WithdrawController extends Controller
                 'type' => 'withdraw',
                 'amount' => $model->amount,
                 'actual_amount' => $model->amount,
-                'description' => 'Amount Withdraws.',
+                'description' => 'Amount has been withdrawn.',
                 'withdraw_id' => $model->id
             ]);
 
@@ -170,7 +169,7 @@ class WithdrawController extends Controller
                 'type' => 'withdraw',
                 'amount' => $model->amount,
                 'actual_amount' =>  $user->account_balance,
-                'description' => 'Amount of account balance withdrawn.',
+                'description' => 'Amount of account balance has been withdrawn.',
                 'withdraw_id' => $model->id
             ]);
 
@@ -191,5 +190,53 @@ class WithdrawController extends Controller
   
         $request->session()->flash('flash_success', 'Withdraw has been approved successfully.');
         return redirect('admin/withdraws');
+    }
+
+    public function downloadCsv(Request $request)
+    {
+        $db_record = Withdraw::orderBy('created_at','ASC');
+
+        if($request->has('user_id') && !empty($request->user_id))
+        {
+            $db_record = $db_record->where('user_id',$request->user_id);
+        }
+
+        if($request->has('status') && $request->status != "")
+        {
+            $db_record = $db_record->where('status',$request->status);
+        }
+
+        $db_record = $db_record->get();
+
+        if(!$db_record->isEmpty())
+        {
+            $filename = 'withdraws-' . date('d-m-Y') . '.csv';
+            $file = fopen('php://memory', 'w');
+            fputcsv($file, array('Date','Customer Id','Amount'));
+
+            foreach ($db_record as $record) 
+            {
+                $row = [];
+                $row[0] = Carbon::createFromTimeStamp(strtotime($record->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
+                $row[1] = $record->user_id;
+                $row[2] = $record->amount;
+
+                fputcsv($file, $row);
+            }
+
+            // reset the file pointer to the start of the file
+            fseek($file, 0);
+            // tell the browser it's going to be a csv file
+            header('Content-Type: application/csv');
+            // tell the browser we want to save it instead of displaying it
+            header('Content-Disposition: attachment; filename="'.$filename.'";');
+            // make php send the generated csv lines to the browser
+            fpassthru($file);
+        }
+        else
+        {
+            $request->session()->flash('flash_danger', 'No data available for export.');
+            return redirect()->back();
+        }
     }
 }

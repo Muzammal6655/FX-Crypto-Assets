@@ -18,11 +18,11 @@
 				<h3 class="panel-title">Advance Filters</h3>
 			</div>
 			<div class="panel-body">
-				<form id="filter-form" class="form-inline filter-form-des" method="GET">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="row">
+					<form id="filter-form" class="form-inline filter-form-des" method="GET">
+						<div class="col-lg-3 col-md-4 col-sm-4">
 							<div class="form-group">
-								<select class="form-control" name="user_id" id="user_id">
+								<select class="form-control" id="user_id">
 									<option value="">Select Investor</option>
 									@foreach ($users as $user)
 										<option value="{{$user->id}}">{{$user->name}}</option>
@@ -30,9 +30,9 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="col-lg-3 col-md-4 col-sm-4">
 							<div class="form-group">
-								<select class="form-control" name="status" id="status">
+								<select class="form-control" id="status">
 									<option value="">Select Status</option>
 									@foreach($statuses as $key => $val)
 										<option value="{{$key}}">{{$val}}</option>
@@ -52,8 +52,18 @@
 								<span>Apply</span>
 							</button>
 						</div>
+					</form>
+					<div class="col-lg-2 col-md-2 col-sm-2">
+						<form action="{{url('admin/deposits/download-csv')}}" method="post">
+							@csrf
+							<input type="hidden" name="user_id">
+							<input type="hidden" name="status">
+							<button type="submit" class="btn btn-info btn-fullrounded btn-apply">
+								<span>Download CSV</span>
+							</button>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<!-- DATATABLE -->
@@ -129,6 +139,13 @@
 		$('#filter-form').on('submit', function (e) {
 			e.preventDefault();
 	        $('#deposits-datatable').DataTable().draw();
+	    });
+
+	    $('#user_id').change(function () {
+	    	$('input[name="user_id"]').val($(this).val());
+	    });
+	    $('#status').change(function () {
+	    	$('input[name="status"]').val($(this).val());
 	    });
 	});
 </script>

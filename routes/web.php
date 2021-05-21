@@ -52,8 +52,11 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('pools', 'PoolController');
     
     Route::get('deposits/{id}/approve', 'DepositController@approve');
+    Route::post('deposits/download-csv', 'DepositController@downloadCsv');
     Route::resource('deposits', 'DepositController');
+
     Route::get('withdraws/{id}/approve', 'WithdrawController@approve');
+    Route::post('withdraws/download-csv', 'WithdrawController@downloadCsv');
     Route::resource('withdraws', 'WithdrawController');
 });
 
