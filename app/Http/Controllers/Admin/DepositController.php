@@ -224,7 +224,6 @@ class DepositController extends Controller
 
         if(!$db_record->isEmpty())
         {
-
             $filename = 'deposits-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
             fputcsv($file, array('Date','Customer Id','Amount'));
