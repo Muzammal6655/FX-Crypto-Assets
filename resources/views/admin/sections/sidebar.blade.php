@@ -82,6 +82,14 @@ $segment_3 = Request::segment(3);
                 </li>
             @endif
 
+            @if(have_right('withdraws-list'))
+                <li>
+                    <a href="{{  url('admin/withdraws') }}" class="{{($segment_2 == 'withdraws') ? 'active' : ''}}">
+                        <i class="fa fa-money"></i><span class="title">Withdraws</span>
+                    </a>
+                </li>
+            @endif
+
             @if(have_right('email-templates-list'))
                 <li>
                     <a href="{{  url('admin/email-templates') }}" class="{{($segment_2 == 'email-templates') ? 'active' : ''}}">

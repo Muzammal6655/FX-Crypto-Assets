@@ -53,6 +53,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     
     Route::get('deposits/{id}/approve', 'DepositController@approve');
     Route::resource('deposits', 'DepositController');
+    Route::get('withdraws/{id}/approve', 'WithdrawController@approve');
+    Route::resource('withdraws', 'WithdrawController');
 });
 
 // ******************* //
