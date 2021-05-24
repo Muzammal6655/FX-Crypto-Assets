@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('sub-admins', 'AdminController');
 
     Route::get('investors/send-password/{id}', 'UserController@sendPassword');
+    Route::get('investors/{id}/transactions', 'UserController@transactions');
     Route::get('investors/{id}/balances', 'UserController@balances');
     Route::get('investors/{id}/documents', 'UserController@documents');
     Route::post('investors/verify-documents', 'UserController@verifyDocuments');

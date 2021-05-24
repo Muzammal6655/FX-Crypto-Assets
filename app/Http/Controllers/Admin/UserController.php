@@ -10,6 +10,7 @@ use App\Models\Timezone;
 use App\Models\Country;
 use App\Models\EmailTemplate;
 use App\Models\Balance;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Auth;
 use Hashids;
@@ -76,6 +77,11 @@ class UserController extends Controller
             $datatable = $datatable->addColumn('action', function($row)
             {
                 $actions = '<span class="actions">';
+
+                if(have_right('investors-transactions'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/transactions').'" title="Transactions"><i class="fa fa-exchange"></i></a>';
+                }
 
                 if(have_right('investors-balances'))
                 {
@@ -324,6 +330,7 @@ class UserController extends Controller
 
     public function balances(Request $request,$id)
     {
+        
         if(!have_right('investors-balances'))
             access_denied();
 
@@ -370,5 +377,36 @@ class UserController extends Controller
         }
 
         return view('admin.users.balances',$data);
+    }
+
+    public function transactions(Request $request,$id)
+    {
+        
+        if(!have_right('investors-transactions'))
+            access_denied();
+
+        $data = [];
+        $data['id'] = $id;
+        $id = Hashids::decode($id)[0];
+        $data['user'] = User::find($id);
+        
+        if ($request->ajax())
+        {
+            $db_record = Transaction::where('user_id',$id)->orderBy('id','DESC');
+
+            $datatable = Datatables::of($db_record);
+            $datatable = $datatable->addIndexColumn();
+
+            $datatable = $datatable->editColumn('created_at', function($row)
+            {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+            });
+            
+            $datatable = $datatable->rawColumns(['amount']);
+            $datatable = $datatable->make(true);
+            return $datatable;
+        }
+
+        return view('admin.users.transactions',$data);
     }
 }
