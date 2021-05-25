@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FX-blockchain</title>
+    <link rel="icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" />
+    <link href="{{asset('css/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{asset('css/aos.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <!--Header Section-->
+        @include('frontend.sections.header')
+        <!--End-->
+        
+        @yield('content')
+
+        <!--footer-->
+        @include('frontend.sections.footer')
+        <!--End footer-->
+    </div>
+    <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>
+    <script type="application/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script type="application/javascript" src="{{asset('js/aos.js')}}"></script>
+    <script type="application/javascript" src="{{asset('js/style.js')}}"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
