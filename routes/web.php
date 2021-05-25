@@ -80,7 +80,7 @@ Route::post('send-reset-link-email', 'Auth\ForgotPasswordController@sendResetLin
 Route::get('reset-password/{token}', 'Auth\ForgotPasswordController@resetPasswordForm');
 Route::post('reset-password', 'Auth\ForgotPasswordController@resetPassword')->name('auth.reset-password');
 
-Route::get('/', 'AppController@index');
+Route::get('/', 'HomeController@index');
 
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
