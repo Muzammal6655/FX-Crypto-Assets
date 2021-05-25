@@ -34,7 +34,7 @@
                                                 <button id="v-pills-password-tab" data-toggle="pill"
                                                     href="#v-pills-password" role="tab"
                                                     aria-controls="v-pills-password" aria-selected="false"
-                                                    type="submit" class="btn-theme text-capitalize">Forget Password
+                                                    type="submit" class="btn-theme text-capitalize">Forgot Password
                                                     <span class="btn-theme__inner">
                                                         <span class="btn-theme__blobs">
                                                             <span class="btn-theme__blob"></span>
