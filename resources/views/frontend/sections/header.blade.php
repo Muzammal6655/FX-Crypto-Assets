@@ -12,7 +12,7 @@
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav list-unstyled">
                             <li class="nav-item active">
-                                <a class="nav-link active" href="{{ url('/pages/') }}" data-menu-name="Home">Home</a>
+                                <a class="nav-link active" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/pages/about-us') }}" data-menu-name="About us">About us</a>
