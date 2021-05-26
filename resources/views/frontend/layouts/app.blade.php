@@ -36,6 +36,7 @@
     <script>
         AOS.init();
     </script>
+    @yield('js')
 </body>
 
 </html>

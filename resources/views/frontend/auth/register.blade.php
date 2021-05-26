@@ -61,9 +61,21 @@
                                                 <input type="checkbox" class="form-check-input">
                                                 <label class="form-check-label">I have read and agree to the <a href="{{ url('/pages/terms/') }}" target="_blank">T&C</a></label>
                                             </div>
-                                            
-                                            <br>
-                                            <p><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX does not require a user to use Binance it offers this link as a service only.</p>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes">
+                                                <label class="form-check-label">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no">
+                                                <label class="form-check-label">No</label>
+                                            </div>
+
+                                            <div class="form-group" id="btc_wallet_address" style="display: none">
+                                                <input type="text" class="form-control" placeholder="BTC Wallet Address">
+                                            </div>
+
+                                            <p id="binance" style="display: none;"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
 
                                             <div class="bottom">
                                                 <p>Already have an account <a href="{{ url('/login') }}">click here</a> to login
@@ -111,6 +123,17 @@
 @section('js')
     <script>
         $(function () {
+            $('input[name=BTCOptions]').change(function() {
+                if (this.value == 'yes') {
+                    $('#btc_wallet_address').show();
+                    $('#binance').hide();
+                }
+                else if (this.value == 'no') {
+                    $('#btc_wallet_address').hide();
+                    $('#binance').show();
+                }
+            });
+
             $('#country').select2(
             {
                 placeholder: 'Select a Country',
