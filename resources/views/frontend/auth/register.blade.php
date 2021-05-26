@@ -28,28 +28,43 @@
                                         <h2>Join Interesting FX</h2>
                                         <form>
                                             <div class="form-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="Username">
+                                                <input type="text" class="form-control" placeholder="First Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Family Name">
                                             </div>
                                             <div class="form-group">
                                                 <input type="email" class="form-control" placeholder="Email">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Contact">
+                                                <input type="text" class="form-control" placeholder="Mobile Number">
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control">
-                                                  <option>Country</option>
-                                                  <option>Country A</option>
-                                                  <option>Country B</option>
-                                                  <option>Country C</option>
-                                                  <option>Country D</option>
-                                                </select>
-                                              </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control"
-                                                    placeholder="How you know about FX ">
+                                                <input type="date" class="form-control" placeholder="Date of Birth">
                                             </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Address">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Suburb">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="State">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Country">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Emergency ID Verification Code">
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input">
+                                                <label class="form-check-label">I have read and agree to the <a href="{{ url('/pages/terms/') }}" target="_blank">T&C</a></label>
+                                            </div>
+                                            
+                                            <br>
+                                            <p><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX does not require a user to use Binance it offers this link as a service only.</p>
+
                                             <div class="bottom">
                                                 <p>Already have an account <a href="{{ url('/login') }}">click here</a> to login
                                                 </p>

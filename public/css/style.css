@@ -862,7 +862,12 @@ li .number.orange {
     overflow-y: scroll;
     padding: 20px 0;
     display: flex;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+.login-signup-wrapper .tab-content::-webkit-scrollbar {
+    display: none;
+  }
 .login-signup-wrapper .tab-content .tab-pane {
     margin: auto;
     width: 100%;
@@ -876,6 +881,7 @@ li .number.orange {
     height: 100%;
     position: relative;
     display: inline-block;
+    padding-bottom: 50px;
 }
 .login-signup-wrapper .form-wrapper h2 {
     margin-bottom: 90px;
@@ -1024,6 +1030,9 @@ li .number.orange {
     }
     .solution-sec .content-wrapper ul li{
         margin-bottom: 10px;
+    }
+    .under-construction {
+        height: calc(100vh - 69px);
     }
 }
 @media(max-width:991px){
@@ -1276,6 +1285,9 @@ li .number.orange {
 @media(max-width:575px){
     .pool-sec.section-padding {
         padding: 40px 20px;
+    }
+    .under-construction .image img{
+        height: auto;
     }
 }
 @media (max-width: 480px){
