@@ -64,7 +64,7 @@
                                                 <input type="text" class="form-control" placeholder="Emergency ID Verification Code">
                                             </div>
 
-                                            <p>Were you referred to Interesting FX?</p>
+                                            <p><strong>Were you referred to Interesting FX?</strong></p>
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1">
@@ -86,7 +86,7 @@
 
                                             <p id="provide_later_text" style="display: none">You have till the last day of next month to provide Referral Code.</p>
 
-                                            <p>Do you have an Existing BTC wallet for withdrawals?</p>
+                                            <p><strong>Do you have an Existing BTC wallet for withdrawals?</strong></p>
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="BTCOptions1">
