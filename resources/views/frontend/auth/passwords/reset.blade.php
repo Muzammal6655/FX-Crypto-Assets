@@ -25,8 +25,8 @@
                                 <div class="tab-pane fade show active" id="v-pills-password" role="tabpanel"
                                     aria-labelledby="v-pills-password-tab">
                                     <div class="form-wrapper">
-                                        <h2>Set New Password</h2>
-                                        <form>
+                                        <h2>Reset Password</h2>
+                                        <form class="text-right">
                                             <div class="form-group">
                                                 <input type="password" class="form-control"
                                                     placeholder="New Password">

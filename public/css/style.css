@@ -865,9 +865,19 @@ li .number.orange {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+.login-signup-wrapper .tab-content ::-webkit-scrollbar-track {
+  background: #fff; 
+}
+/* Handle */
+.login-signup-wrapper .tab-content::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 8px;
+}
 .login-signup-wrapper .tab-content::-webkit-scrollbar {
-    display: none;
-  }
+    /* display: none; */
+    background: #fff; 
+    width: 5px;
+}
 .login-signup-wrapper .tab-content .tab-pane {
     margin: auto;
     width: 100%;
@@ -884,18 +894,21 @@ li .number.orange {
     padding-bottom: 50px;
 }
 .login-signup-wrapper .form-wrapper h2 {
-    margin-bottom: 90px;
-    margin-top: 50px;
+    margin-bottom: 60px;
+    margin-top: 40px;
 }
 .content-wrapper .form-wrapper .logo {
     width: 80px;
     margin: 0 auto 20px;
 }
 .login-signup-wrapper .form-wrapper form {
-    text-align: right;
+    /* text-align: right; */
 }
 .login-signup-wrapper .form-wrapper .form-group{
     margin-bottom: 30px;
+}
+.login-signup-wrapper .form-wrapper .form-check{
+    margin-bottom: 10px;
 }
 .login-signup-wrapper .form-wrapper .form-group:last-child{
     margin: 0;
@@ -912,6 +925,9 @@ li .number.orange {
     box-shadow: none;
     border-color: #d0af3e;
 }
+.login-signup-wrapper .form-wrapper form a {
+    color: #d00000;
+}
 .login-signup-wrapper .form-wrapper .forget{
     color: #d00000;
 }
@@ -919,7 +935,7 @@ li .number.orange {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 70px;
+    margin-top: 40px;
     /* position: absolute;
     bottom: 40px;
     width: 100%;

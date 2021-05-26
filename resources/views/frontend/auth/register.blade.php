@@ -26,7 +26,7 @@
                                     aria-labelledby="v-pills-signup-tab">
                                     <div class="form-wrapper">
                                         <h2>Join Interesting FX</h2>
-                                        <form>
+                                        <form class="text-left">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="First Name">
                                             </div>
@@ -35,6 +35,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <input type="email" class="form-control" placeholder="Email">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Confirm Password">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Mobile Number">
@@ -63,12 +69,12 @@
                                             </div>
 
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes">
-                                                <label class="form-check-label">Yes</label>
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="inlineRadio1">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no">
-                                                <label class="form-check-label">No</label>
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no" id="inlineRadio2">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
                                             </div>
 
                                             <div class="form-group" id="btc_wallet_address" style="display: none">

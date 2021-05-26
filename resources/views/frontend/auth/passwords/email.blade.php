@@ -25,8 +25,8 @@
                                 <div class="tab-pane fade show active" id="v-pills-forget" role="tabpanel"
                                     aria-labelledby="v-pills-forget-tab">
                                     <div class="form-wrapper">
-                                        <h2>Enter your email to continue</h2>
-                                        <form>
+                                        <h2>Forgot Password</h2>
+                                        <form class="text-right">
                                             <div class="form-group">
                                                 <input type="email" class="form-control" placeholder="Email">
                                             </div>
