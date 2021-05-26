@@ -52,22 +52,10 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="footer-content">
-                                <h4>Our Service</h4>
-                                <ul class="list-styled">
-                                    <li><a href="{{ url('/pages/contact-us/') }}">Contact us</a></li>
-                                </ul>
-                            </div>
+        
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="footer-content">
-                                <h4>Legal</h4>
-                                <ul class="list-styled">
-                                    <li><a href="{{ url('/pages/faq/') }}">Faqs</a></li>
-                                    <li><a href="{{ url('/pages/terms/') }}">Terms</a></li>
-                                    <li><a href="{{ url('/pages/privacy-policy/') }}">Privacy Policy</a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="footer-content contact-detail">
