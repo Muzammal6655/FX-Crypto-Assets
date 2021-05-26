@@ -64,19 +64,41 @@
                                                 <input type="text" class="form-control" placeholder="Emergency ID Verification Code">
                                             </div>
 
-                                            <p>Do you an Existing BTC wallet for withdrawals?</p>
+                                            <p>Were you referred to Interesting FX?</p>
 
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="inlineRadio1">
-                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1">
+                                                <label class="form-check-label" for="ReferredOptions1">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no" id="inlineRadio2">
-                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                                <input class="form-check-input" type="radio" name="ReferredOptions"value="no" id="ReferredOptions2">
+                                                <label class="form-check-label" for="ReferredOptions2">No</label>
+                                            </div>
+
+                                            <div class="form-group referral-code" style="display: none">
+                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code">
+                                            </div>
+
+                                            <div class="form-check referral-code" style="display: none">
+                                                <input type="checkbox" class="form-check-input" id="provide_later">
+                                                <label class="form-check-label" for="provide_later">Provide Later</label>
+                                            </div>
+
+                                            <p id="provide_later_text" style="display: none">You have till the last day of next month to provide Referral Code.</p>
+
+                                            <p>Do you have an Existing BTC wallet for withdrawals?</p>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="BTCOptions1">
+                                                <label class="form-check-label" for="BTCOptions1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no" id="BTCOptions2">
+                                                <label class="form-check-label" for="BTCOptions2">No</label>
                                             </div>
 
                                             <div class="form-group" id="btc_wallet_address" style="display: none">
-                                                <input type="text" class="form-control" placeholder="BTC Wallet Address">
+                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address">
                                             </div>
 
                                             <p id="binance" style="display: none;"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
@@ -139,7 +161,27 @@
                 }
                 else if (this.value == 'no') {
                     $('#btc_wallet_address').hide();
+                    $('input[name=btc_wallet_address]').val('');
                     $('#binance').show();
+                }
+            });
+
+            $('input[name=ReferredOptions]').change(function() {
+                if (this.value == 'yes') {
+                    $('.referral-code').show();
+                }
+                else if (this.value == 'no') {
+                    $('.referral-code').hide();
+                    $('input[name=referral_code]').val('');
+                }
+            });
+
+            $('#provide_later').change(function() {
+                if($(this).is(":checked")) {
+                    $('#provide_later_text').show();
+                }
+                else{
+                    $('#provide_later_text').hide();
                 }
             });
 
