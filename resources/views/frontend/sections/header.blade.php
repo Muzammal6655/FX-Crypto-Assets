@@ -30,11 +30,20 @@
                                 <a class="nav-link" href="{{ url('/pages/contact-us/') }}" data-menu-name="Contact us">Contact us</a>
                             </li>
                         </ul>
-                        <div class="button-wrap">
-                            <a class="nav-link btn-login" href="{{ url('/login') }}">login</a>
-                            <a class="nav-link btn-header" href="{{ url('/register') }}">Register</a>
-                        </div>
-
+                        @if (Auth::check())
+                            <div class="button-wrap">
+                                <a class="nav-link btn-login" href="{{ url('/profile') }}">Profile</a>
+                                <a class="nav-link btn-header" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        @else
+                            <div class="button-wrap">
+                                <a class="nav-link btn-login" href="{{ url('/login') }}">login</a>
+                                <a class="nav-link btn-header" href="{{ url('/register') }}">Register</a>
+                            </div>
+                        @endif
                     </div>
                 </nav>
             </div>

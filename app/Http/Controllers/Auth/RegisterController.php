@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\EmailTemplate;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Referral;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
@@ -59,9 +60,8 @@ class RegisterController extends Controller
     {
         $validator = Validator::make($data, [
             'name' => ['required','string','max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'country_id' => ['required']
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
         ]);
 
         if ($validator->fails())
@@ -80,20 +80,83 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'country_id' => $data['country_id'],
-            'status' => 2,
-            'is_approved' => 0,
-            'original_password' => $data['password'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User();
+        $user->fill($data);
 
-        $email = $user->email;
+        /**
+         * Were you referred to Interesting FX?
+         */
+
+        $referrer = NULL;
+
+        if($data['ReferredOptions'] == "yes")
+        {
+            if(!empty($data['referral_code']))
+            {
+                $referrer = User::where('invitation_code', $data['referral_code'])->first();
+                if(!empty($referrer))
+                {
+                    $user->referral_code = $data['referral_code'];    
+                }
+                else
+                {
+                    return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
+                }
+            }
+            else
+            {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is required.']);
+            }
+        }
+        else
+        {
+            $user->referral_code = NULL;
+            $user->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));
+        }
+
+        /**
+         * Do you have an Existing BTC wallet for withdrawals?
+         */
+
+        if($data['BTCOptions'] == "yes")
+        {
+            if(!empty($data['btc_wallet_address']))
+            {
+                $user->btc_wallet_address = $data['btc_wallet_address'];
+            }
+            else
+            {
+                return redirect()->back()->withInput()->withErrors(['error' => 'BTC wallet is required.']);
+            }
+        }
+        else
+        {
+            $user->btc_wallet_address = NULL;
+        }
+
+        $user->status = 2; // pending
+        $user->is_approved = 0; // pending
+        $user->original_password = $data['password'];
+        $user->password = Hash::make($data['password']);
+        $user->ip_address = $_SERVER['REMOTE_ADDR'];
+        $user->save();
+
+        if(!empty($referrer))
+        {
+            $user->referrer_account_id = $referrer->id;
+
+            Referral::create([
+                'referrer_id' => $referrer->id,
+                'refer_member_id' => $user->id
+            ]);
+        }
+
+        $user->invitation_code = Hashids::encode($user->id);
+        $user->save();
 
         $email_template = EmailTemplate::where('type','sign_up_confirmation')->first();
         
+        $email = $user->email;
         $subject = $email_template->subject;
         $content = $email_template->content;
 

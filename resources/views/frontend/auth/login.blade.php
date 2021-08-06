@@ -26,12 +26,15 @@
                                     aria-labelledby="v-pills-login-tab">
                                     <div class="form-wrapper">
                                         <h2>Welcome, Login</h2>
-                                        <form class="text-right">
+                                        @include('frontend.messages')
+
+                                        <form id="login-form" class="text-right" method="POST" action="{{ route('login') }}">
+                                            {{ csrf_field() }}
                                             <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email Address" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password">
+                                                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                                             </div>
                                             <a class="forget" href="{{ url('/forgot-password') }}">Forgot Password?</a>
                                             <div class="bottom">
@@ -76,7 +79,6 @@
     </div>
 @endsection
 
-
 @section('js')
     <script>
         $(function () {
@@ -110,8 +112,6 @@
                 }
             });
         });
-
-
     </script>
 
 @endsection

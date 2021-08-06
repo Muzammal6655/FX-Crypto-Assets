@@ -162,12 +162,12 @@
 								</div>
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="postcode" class="col-sm-3 control-label">Zip Code</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->postcode }}">
 								</div>
-							</div>
+							</div> -->
 
 							<div class="form-group">
 								<label for="state" class="col-sm-3 control-label">State</label>
@@ -182,12 +182,13 @@
 									<input type="text" class="form-control" readonly="" value="{{ $user->country->name }}">
 								</div>
 							</div>
-							<div class="form-group">
+							
+							<!-- <div class="form-group">
 								<label for="timezone" class="col-sm-3 control-label">Timezone</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->timezone }}">
 								</div>
-							</div>
+							</div> -->
 
 							<div class="text-right">
 								<a href="{{url('admin/investors')}}">

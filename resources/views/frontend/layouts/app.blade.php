@@ -10,6 +10,7 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
     <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('admin-assets/vendor/select2/css/select2.min.css') }}">
     <link href="{{asset('css/owl.carousel.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{asset('css/aos.css')}}" />
@@ -30,6 +31,8 @@
     </div>
     <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('admin-assets/vendor/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('admin-assets/js/jquery.validate.js') }}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/aos.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/style.js')}}"></script>

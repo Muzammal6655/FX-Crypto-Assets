@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Referral extends Model
 {
     protected $fillable = [
-        'referrer_id', 'refer_member_id'
+      'referrer_id', 'refer_member_id'
     ];
 
     public function referrer()

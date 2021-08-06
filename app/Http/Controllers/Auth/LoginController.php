@@ -80,25 +80,24 @@ class LoginController extends Controller
 
         switch ($user->is_approved) {
           case 0:
-              $message = 'Your account is under review. Please contact with Admin in case of any concerns.';
-              $is_approved = false;
-              break;
+            $message = 'Your account is under review. Please contact with Admin in case of any concerns.';
+            $is_approved = false;
+            break;
           case 2:
-              $message = 'Your account is rejected. Please contact with Admin in case of any concerns.';
-              $is_approved = false;
-              break;
+            $message = 'Your account is rejected. Please contact with Admin in case of any concerns.';
+            $is_approved = false;
+            break;
         }
 
         if($is_approved == false)
         {
           auth()->logout();
           return redirect()->back()->withErrors(['error' => $message]);
-
         }
 
         // if successful, then redirect to their intended location
         session(['timezone' => $request->timezone]);
-        return redirect()->intended(route('frontend.user.dashboard'));
+        return redirect()->intended(route('frontend.dashboard.index'));
       }
       // if unsuccessful, then redirect back to the login with the form data
       return redirect()->back()->withErrors(['error' => 'These credentials do not match our records.']);

@@ -26,86 +26,103 @@
                                     aria-labelledby="v-pills-signup-tab">
                                     <div class="form-wrapper">
                                         <h2>Join Interesting FX</h2>
-                                        <form class="text-left">
+                                        @include('frontend.messages')
+                                        <form class="text-left" id="signup-form" method="POST" action="{{ route('register') }}">
+                                            {{ csrf_field() }}
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="First Name">
+                                                <input type="text" class="form-control" name="name" maxlength="100" placeholder="First Name" value="{{old('name')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Family Name">
+                                                <input type="text" class="form-control" name="family_name" maxlength="30" placeholder="Family Name" value="{{old('family_name')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" class="form-control" name="email" maxlength="100" placeholder="Email" value="{{old('email')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Password">
+                                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" value="{{old('password')}}" minlength="8" maxlength="30" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control" placeholder="Confirm Password">
+                                                <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" value="{{old('password')}}"  required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Mobile Number">
+                                                <input type="text" class="form-control" placeholder="Mobile Number" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="date" class="form-control" placeholder="Date of Birth">
+                                                <input type="date" class="form-control" placeholder="Date of Birth" name="dob" value="{{old('dob')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Address">
+                                                <input type="text" class="form-control" placeholder="Address" name="street" value="{{old('street')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Suburb">
+                                                <input type="text" class="form-control" placeholder="Suburb" name="city" value="{{old('city')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="State">
+                                                <input type="text" class="form-control" placeholder="State" name="state" value="{{old('state')}}" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Country">
+                                                <select class="form-control" name="country_id" id="country_id" required="required">
+                                                    <option value="">Select Country</option>
+                                                    @foreach ($countries as $country)
+                                                        @if($country->id == old('country_id'))
+                                                            <option value="{{$country->id}}" selected="">{{$country->name}}</option>
+                                                        @else
+                                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Emergency ID Verification Code">
+                                                <input type="text" class="form-control" placeholder="Emergency ID Verification Code" name="emergency_id_verification_code" value="{{old('emergency_id_verification_code')}}" required="required">
                                             </div>
 
                                             <p><strong>Were you referred to Interesting FX?</strong></p>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1">
-                                                <label class="form-check-label" for="ReferredOptions1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="ReferredOptions"value="no" id="ReferredOptions2">
-                                                <label class="form-check-label" for="ReferredOptions2">No</label>
-                                            </div>
-
-                                            <div class="form-group referral-code" style="display: none">
-                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1" required="" {{ old('ReferredOptions') == 'yes' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="ReferredOptions1">Yes</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="ReferredOptions"value="no" id="ReferredOptions2" {{ old('ReferredOptions') == 'no' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="ReferredOptions2">No</label>
+                                                </div>
                                             </div>
 
-                                            <div class="form-check referral-code" style="display: none">
-                                                <input type="checkbox" class="form-check-input" id="provide_later">
+                                            <div class="form-group referral-code" style="display: {{ old('ReferredOptions') == 'yes' ? '' : 'none' }}">
+                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code" value="{{old('referral_code')}}">
+                                            </div>
+
+                                            <div class="form-check referral-code" style="display: {{ old('ReferredOptions') == 'yes' ? '' : 'none' }}">
+                                                <input type="checkbox" class="form-check-input" name="provide_later" id="provide_later" {{ old('provide_later') == 'on' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="provide_later">Provide Later</label>
                                             </div>
 
-                                            <p id="provide_later_text" style="display: none">You have till the last day of next month to provide Referral Code.</p>
+                                            <p id="provide_later_text" style="display: {{ old('provide_later') == 'on' ? '' : 'none' }}">You have till the last day of next month to provide Referral Code.</p>
 
                                             <p><strong>Do you have an Existing BTC wallet for withdrawals?</strong></p>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="BTCOptions1">
-                                                <label class="form-check-label" for="BTCOptions1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="BTCOptions"value="no" id="BTCOptions2">
-                                                <label class="form-check-label" for="BTCOptions2">No</label>
-                                            </div>
-
-                                            <div class="form-group" id="btc_wallet_address" style="display: none">
-                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address">
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="BTCOptions"value="yes" id="BTCOptions1" required="" {{ old('BTCOptions') == 'yes' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="BTCOptions1">Yes</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="BTCOptions"value="no" id="BTCOptions2" {{ old('BTCOptions') == 'no' ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="BTCOptions2">No</label>
+                                                </div>
                                             </div>
 
-                                            <p id="binance" style="display: none;"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
+                                            <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
+                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}">
+                                            </div>
 
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input">
-                                                <label class="form-check-label">I have read and agree to the <a href="{{ url('/pages/terms/') }}" target="_blank">T&C</a></label>
+                                            <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
+
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="agree" class="form-check-input" required="" {{ old('agree') == 'on' ? 'checked' : '' }}>
+                                                    <label class="form-check-label">I have read and agree to the <a href="{{ url('/pages/terms/') }}" target="_blank">T&C</a></label>
+                                                </div>
                                             </div>
 
                                             <div class="bottom">
@@ -161,7 +178,7 @@
                 }
                 else if (this.value == 'no') {
                     $('#btc_wallet_address').hide();
-                    $('input[name=btc_wallet_address]').val('');
+                    //$('input[name=btc_wallet_address]').val('');
                     $('#binance').show();
                 }
             });
@@ -172,7 +189,7 @@
                 }
                 else if (this.value == 'no') {
                     $('.referral-code').hide();
-                    $('input[name=referral_code]').val('');
+                    //$('input[name=referral_code]').val('');
                 }
             });
 
@@ -185,7 +202,7 @@
                 }
             });
 
-            $('#country').select2(
+            $('#country_id').select2(
             {
                 placeholder: 'Select a Country',
                 allowClear: true
@@ -210,7 +227,7 @@
 
                 messages: {
                     password: {
-                        passwordCheck: "Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters",
+                        passwordCheck: "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
                     },
                     email: {
                         emailCheck: "Please enter a valid email address."
@@ -226,11 +243,15 @@
                 },
                 errorPlacement: function (error, element) {
                     if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-                        var controls = element.closest('div[class*="col-"]');
-                        if (controls.find(':checkbox,:radio').length > 1)
+                        var controls = element.closest('.form-group');
+                        if (controls.find(':checkbox,:radio').length >= 1)
+                        {
                             controls.append(error);
+                        }
                         else
+                        {
                             error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                        }
                     } else if (element.is('.select2')) {
                         error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
                     } else if (element.is('.chosen-select')) {
@@ -238,8 +259,11 @@
                     } else
                         error.insertAfter(element.parent());
                 },
-                invalidHandler: function (form) {
-                }
+                invalidHandler: function (form,validator) {
+                    $('html, body, #v-pills-tabContent').animate({
+                        scrollTop: $(validator.errorList[0].element).offset().top - 70
+                    }, 500);
+                },
             });
             $.validator.addMethod("passwordCheck", function (value) {
                 return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value)
@@ -248,15 +272,6 @@
                 return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
             });
         });
-
-        function signUpEnable(ele) {
-            if ($("input[type=checkbox]").is(
-                ":checked")) {
-                $('#signupButton').attr('disabled', false);
-            } else {
-                $('#signupButton').attr('disabled', true);
-            }
-        }
 
     </script>
 

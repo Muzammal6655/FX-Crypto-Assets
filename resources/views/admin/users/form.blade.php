@@ -132,12 +132,12 @@
 								</div>
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="postcode" class="col-sm-3 control-label">Zip Code</label>
 								<div class="col-sm-9">
 									<input type="text" name="postcode" maxlength="50" class="form-control" value="{{ ($action == 'Add') ? old('postcode') : $user->postcode}}">
 								</div>
-							</div>
+							</div> -->
 
 							<div class="form-group">
 								<label for="state" class="col-sm-3 control-label">State*</label>
@@ -158,7 +158,8 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group">
+							
+							<!-- <div class="form-group">
 								<label for="timezone" class="col-sm-3 control-label">Timezone*</label>
 								<div class="col-sm-9">
 									<select class="form-control" name="timezone" id="timezone" required="">
@@ -169,7 +170,7 @@
 										@endforeach
 									</select>
 								</div>
-							</div>
+							</div> -->
 
 							<hr>
 

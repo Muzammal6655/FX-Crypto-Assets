@@ -175,9 +175,8 @@ class UserController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'email' => ['required','string','max:100',Rule::unique('users')],
-                'name' => ['required','string','max:30'],
+                'name' => ['required','string','max:100'],
                 'password' => 'required|string|min:8|max:30',
-                'country_id' => 'required'
             ]);
 
             if ($validator->fails())
@@ -188,7 +187,6 @@ class UserController extends Controller
 
             $input['original_password'] = $input['password'];
             $input['password'] = Hash::make($input['password']);
-            $input['language'] = "en";
 
             $model = new User();
             $flash_message = 'Investor has been created successfully.';
@@ -197,9 +195,8 @@ class UserController extends Controller
         {
             $validator = Validator::make($request->all(), [
                 'email' => ['required','string',Rule::unique('users')->ignore($input['id'])],
-                'name' => ['required','string','max:30'],
+                'name' => ['required','string','max:100'],
                 'password' => 'required|string|min:8|max:30',
-                'country_id' => 'required'
             ]);
 
             if ($validator->fails())
@@ -229,7 +226,7 @@ class UserController extends Controller
         if($input['action'] == 'Add')
         {
             $model->invitation_code = Hashids::encode($model->id);
-            $model->referral_code_end_date = date('Y-m-d', strtotime('+2 month'));
+            $model->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));
             $model->save();
         }
 
@@ -381,7 +378,6 @@ class UserController extends Controller
 
     public function transactions(Request $request,$id)
     {
-        
         if(!have_right('investors-transactions'))
             access_denied();
 
