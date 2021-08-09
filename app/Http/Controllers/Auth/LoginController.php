@@ -62,9 +62,8 @@ class LoginController extends Controller
             $is_user_active = false;
             break;
           case 2:
-            $message = 'Your account is not verified. Please contact with Admin in case of any concerns.';
+            $message = 'Your account is not verified. If you didn`t receive verification email then <a class="font-weight-bold btn-link" href="'.url('/resend-email?id='.\Hashids::encode($user->id)).'">click here.</a>';
             $is_user_active = false;
-            $resend_email_flag = true;
             break;
           case 3:
             $message = 'Your account has been deleted. Please contact with Admin in case of any concerns.';
@@ -97,7 +96,7 @@ class LoginController extends Controller
 
         // if successful, then redirect to their intended location
         session(['timezone' => $request->timezone]);
-        return redirect()->intended(route('frontend.dashboard.index'));
+        return redirect()->intended(route('frontend.dashboard'));
       }
       // if unsuccessful, then redirect back to the login with the form data
       return redirect()->back()->withErrors(['error' => 'These credentials do not match our records.']);

@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\EmailTemplate;
 use App\Models\Balance;
 use App\Models\Transaction;
+use App\Models\Password;
 use Carbon\Carbon;
 use Auth;
 use Hashids;
@@ -205,18 +206,43 @@ class UserController extends Controller
                 return redirect()->back()->withInput();
             }
 
+            $model = User::findOrFail($input['id']);
+            $flash_message = 'Investor has been updated successfully.';
+
             if(!empty($input['password']))
             {
                 $input['original_password'] = $input['password'];
                 $input['password'] = Hash::make($input['password']);
+
+                /**
+                 * Old password keeping 
+                 */
+
+                if($request->password != $model->original_password)
+                {
+                    $password = Password::where(['user_id' => $model->id, 'password' => $request->password])->first();
+                    if(!empty($password))
+                    {
+                        Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
+                        return redirect()->back()->withInput();
+                    }
+
+                    Password::updateOrCreate(
+                        [
+                            'user_id' => $model->id,
+                            'password' => $model->original_password
+                        ],
+                        [
+                            'user_id' => $model->id,
+                            'password' => $model->original_password
+                        ]
+                    );
+                }
             }
             else
             {
                 unset($input['password']);
             }
-
-            $model = User::findOrFail($input['id']);
-            $flash_message = 'Investor has been updated successfully.';
         }
 
         $model->fill($input);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\EmailTemplate;
 use App\Models\PasswordReset;
+use App\Models\Password;
 use Session;
 use Hash;
 use Carbon\Carbon;
@@ -61,7 +62,7 @@ class ForgotPasswordController extends Controller
             $replace = array($name,$reset_link,env('APP_NAME'));
             $content  = str_replace($search,$replace,$content);
 
-            sendEmail($email, $subject, $content, '', '', $lang);
+            sendEmail($email, $subject, $content);
 
             Session::flash('flash_success', 'We have e-mailed you reset password link! Please check your inbox or spam folder.');
             return redirect()->back();
@@ -111,6 +112,24 @@ class ForgotPasswordController extends Controller
             Session::flash('flash_danger', "We can't find a user with that e-mail address.");
             return redirect()->back()->withInput();
         }
+
+        $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
+        if(!empty($password))
+        {
+            Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
+            return redirect()->back()->withInput();
+        }
+
+        Password::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'password' => $user->original_password
+            ],
+            [
+                'user_id' => $user->id,
+                'password' => $user->original_password
+            ]
+        );
             
         $user->original_password = $request->password;
         $user->password = Hash::make($request->password);

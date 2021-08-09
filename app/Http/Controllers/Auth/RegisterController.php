@@ -91,22 +91,30 @@ class RegisterController extends Controller
 
         if($data['ReferredOptions'] == "yes")
         {
-            if(!empty($data['referral_code']))
+            if(isset($data['provide_later']) && $data['provide_later'] == "on")
             {
-                $referrer = User::where('invitation_code', $data['referral_code'])->first();
-                if(!empty($referrer))
-                {
-                    $user->referral_code = $data['referral_code'];    
-                }
-                else
-                {
-                    return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
-                }
+                $user->referral_code = NULL;
+                $user->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));
             }
             else
             {
-                return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is required.']);
-            }
+                if(!empty($data['referral_code']))
+                {
+                    $referrer = User::where('invitation_code', $data['referral_code'])->first();
+                    if(!empty($referrer))
+                    {
+                        $user->referral_code = $data['referral_code'];    
+                    }
+                    else
+                    {
+                        return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
+                    }
+                }
+                else
+                {
+                    return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is required.']);
+                }
+            }   
         }
         else
         {

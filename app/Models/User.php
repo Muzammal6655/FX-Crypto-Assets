@@ -54,6 +54,13 @@ class User extends Authenticatable
         }
         
       });
+
+      static::created(function ($user) {
+        Password::create([
+          'user_id' => $user->id,
+          'password' => $user->original_password
+        ]);
+      });
     }
 
     // ************************** //

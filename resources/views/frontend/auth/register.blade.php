@@ -48,7 +48,7 @@
                                                 <input type="text" class="form-control" placeholder="Mobile Number" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="date" class="form-control" placeholder="Date of Birth" name="dob" value="{{old('dob')}}" required="required">
+                                                <input type="date" class="form-control" placeholder="Date of Birth" name="dob" value="{{old('dob')}}" max="{{ date('Y-m-d', strtotime('-18 year')) }}" required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address" name="street" value="{{old('street')}}" required="required">
@@ -211,7 +211,7 @@
             $('#signup-form').validate({
                 errorElement: 'div',
                 errorClass: 'help-block text-danger',
-                focusInvalid: false,
+                focusInvalid: true,
 
                 rules: {
                     password: {
@@ -260,9 +260,9 @@
                         error.insertAfter(element.parent());
                 },
                 invalidHandler: function (form,validator) {
-                    $('html, body, #v-pills-tabContent').animate({
-                        scrollTop: $(validator.errorList[0].element).offset().top - 70
-                    }, 500);
+                    // $('html, body, #v-pills-tabContent').animate({
+                    //     scrollTop: $(validator.errorList[0].element).offset().top - 70
+                    // }, 500);
                 },
             });
             $.validator.addMethod("passwordCheck", function (value) {

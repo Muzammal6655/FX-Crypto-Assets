@@ -38,6 +38,12 @@
     <script type="application/javascript" src="{{asset('js/style.js')}}"></script>
     <script>
         AOS.init();
+        if(!$('.alert').hasClass('persist-alert'))
+        {
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 5000);
+        }
     </script>
     @yield('js')
 </body>

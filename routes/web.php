@@ -81,16 +81,22 @@ Route::get('reset-password/{token}', 'Auth\ForgotPasswordController@resetPasswor
 Route::post('reset-password', 'Auth\ForgotPasswordController@resetPassword')->name('auth.reset-password');
 
 Route::get('/', 'HomeController@index');
+Route::get('/resend-email', 'HomeController@resendEmail');
 Route::get('/verify-account/{id}', 'HomeController@verifyAccount');
 
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
     // *************************** //
-    //     Dashboard Routes
+    //     Auth Routes
     // *************************** //
 
-    Route::group(['namespace' => 'Dashboard', 'as' => 'dashboard.', 'middleware'=> ['auth','user.check.status']], function () {
-        Route::get('/dashboard', 'DashboardController@index')->name('index');
+    Route::group(['middleware'=> ['auth','user.check.status']], function () {
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::get('/profile', 'UserController@profile');
+        Route::post('/profile', 'UserController@updateProfile');
+
+        Route::get('/documents', 'UserController@documents');
+        Route::post('/documents', 'UserController@uploadDocuments');
     });
 });
 

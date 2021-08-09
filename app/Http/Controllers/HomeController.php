@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\EmailTemplate;
 use Session;
 use Hashids;
 
@@ -37,5 +38,27 @@ class HomeController extends Controller
 
         Session::flash('flash_success', 'Your account has been verified successfully');
         return redirect()->route('login');
+    }
+
+    public function resendEmail(Request $request)
+    {
+        $id = Hashids::decode($request->id)[0];
+        $user = User::find($id);
+
+        $email_template = EmailTemplate::where('type','sign_up_confirmation')->first();
+        
+        $email = $user->email;
+        $subject = $email_template->subject;
+        $content = $email_template->content;
+
+        $link = url('/verify-account/'.$request->id);
+        
+        $search = array("{{name}}","{{app_name}}","{{link}}");
+        $replace = array($user->username,env('APP_NAME'),$link);
+        $content  = str_replace($search,$replace,$content);
+
+        sendEmail($email, $subject, $content);
+
+        return redirect()->back()->with('flash_success','Account verification link has been sent to your account.');
     }
 }

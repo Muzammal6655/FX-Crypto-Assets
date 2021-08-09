@@ -26,14 +26,17 @@
                                     aria-labelledby="v-pills-password-tab">
                                     <div class="form-wrapper">
                                         <h2>Reset Password</h2>
-                                        <form class="text-right">
+                                        @include('frontend.messages')
+                                        <form class="text-right" id="reset-password" method="post" action="{{ route('auth.reset-password') }}">
+                                            @csrf
                                             <div class="form-group">
-                                                <input type="password" class="form-control"
-                                                    placeholder="New Password">
+                                                <input type="email" class="form-control" name="email" value="{{$email}}" readonly="">
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control"
-                                                    placeholder="Confirm Password">
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required="required">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required="required">
                                             </div>
                                             <div class="btn-wrap">
                                                 <button type="submit" class="btn-theme"> Reset Password
@@ -92,7 +95,7 @@
 
             messages: {
                 password: {
-                    passwordCheck: "Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters",
+                    passwordCheck: "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
                 },
             },
 

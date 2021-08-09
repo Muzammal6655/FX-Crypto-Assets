@@ -26,15 +26,14 @@
                                     aria-labelledby="v-pills-forget-tab">
                                     <div class="form-wrapper">
                                         <h2>Forgot Password</h2>
-                                        <form class="text-right">
+                                        @include('frontend.messages')
+                                        <form id="forgot-password" class="text-right" action="{{ route('auth.send-reset-link-email') }}" method="POST">
+                                            @csrf
                                             <div class="form-group">
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" class="form-control" name="email" placeholder="Email" required >
                                             </div>
                                             <div class="btn-wrap">
-                                                <button id="v-pills-password-tab" data-toggle="pill"
-                                                    href="#v-pills-password" role="tab"
-                                                    aria-controls="v-pills-password" aria-selected="false"
-                                                    type="submit" class="btn-theme text-capitalize">Forgot Password
+                                                <button type="submit" class="btn-theme text-capitalize">Forgot Password
                                                     <span class="btn-theme__inner">
                                                         <span class="btn-theme__blobs">
                                                             <span class="btn-theme__blob"></span>
@@ -104,13 +103,6 @@
                 }
             });
         });
-
-        if(!$('.alert').hasClass('persist-alert'))
-        {
-            setTimeout(function() {
-                $('.alert').fadeOut('slow');
-            }, 5000);
-        }
     </script>
 
 @endsection
