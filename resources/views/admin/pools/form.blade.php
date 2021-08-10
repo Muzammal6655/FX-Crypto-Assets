@@ -92,10 +92,18 @@
 							</div>
 
 							<div class="form-group">
-								<label for="days" class="col-sm-3 control-label">Number of Days*</label>
+								<label for="start_date" class="col-sm-3 control-label">Start Date*</label>
 								<div class="col-sm-9">
-									<input type="number" name="days" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('days') : $model->days}}">
+									<input type="date" name="start_date" class="form-control" required=""
+										value="{{ ($action == 'Add') ? old('start_date') : $model->start_date}}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="end_date" class="col-sm-3 control-label">End Date*</label>
+								<div class="col-sm-9">
+									<input type="date" name="end_date" class="form-control" required=""
+										value="{{ ($action == 'Add') ? old('end_date') : $model->end_date}}">
 								</div>
 							</div>
 

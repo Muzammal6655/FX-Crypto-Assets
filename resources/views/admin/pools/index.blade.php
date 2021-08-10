@@ -37,7 +37,8 @@
 							<th>Users Limit</th>
 							<th>Profit %</th>
 							<th>Management Fee %</th>
-							<th>Days</th>
+							<th>Start Date</th>
+							<th>End Date</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -77,7 +78,8 @@
 				{data: 'users_limit', name: 'users_limit'},
 				{data: 'profit_percentage', name: 'profit_percentage'},
 				{data: 'management_fee_percentage', name: 'management_fee_percentage'},
-				{data: 'days', name: 'days'},
+				{data: 'start_date', name: 'start_date'},
+				{data: 'end_date', name: 'end_date'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]

@@ -97,6 +97,16 @@ class PoolController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'start_date' => 'before:end_date',
+        ]);
+
+        if ($validator->fails())
+        {
+            Session::flash('flash_danger', $validator->messages());
+            return redirect()->back()->withInput();
+        }
+
         $input = $request->all();
 
         if($input['action'] == 'Add')

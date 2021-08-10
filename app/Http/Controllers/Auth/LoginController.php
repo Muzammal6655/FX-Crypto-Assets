@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -48,9 +49,55 @@ class LoginController extends Controller
         'password' => 'required'
       ]);
 
+      /**
+       * Password attempt handling 
+       */
+
+      $user = User::where('email',$request->email)->first();
+      if(!empty($user))
+      {
+        if(date('Y-m-d') == $user->password_attempts_date)
+        {
+          return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.']);
+        }
+        else if($request->password != $user->original_password)
+        {
+          // Reset attempts
+          if($user->password_attempts_count == 3)
+          {
+            $user->password_attempts_count = 0;
+            $user->save();
+          }
+
+          $error = '';
+          if($user->password_attempts_count == 0)
+          {
+            $user->password_attempts_count = 1;
+            $error = 'Wrong password has been entered once today. This is your first attempt for today.';
+          }
+          else if($user->password_attempts_count == 1)
+          {
+            $user->password_attempts_count = 2;
+            $error = 'Wrong password has been entered twice today. This is your last attempt for today.';
+          }
+          else if($user->password_attempts_count == 2)
+          {
+            $user->password_attempts_count = 3;
+            $user->password_attempts_date = date('Y-m-d');
+            $error = 'Wrong password has been entered Three times. Your account is still functioning, but access is restricted until we can sort the issue out.';
+          }
+
+          $user->save();
+          return redirect()->back()->withErrors(['error' => $error]);
+        }
+      }
+
       // Attempt to log the user in
       if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
         $user = auth()->user();
+        $user->password_attempts_count = 0;
+        $user->password_attempts_date = Null;
+        $user->save();
 
         $message = '';
         $is_user_active = true;
