@@ -141,9 +141,20 @@ class LoginController extends Controller
           return redirect()->back()->withErrors(['error' => $message]);
         }
 
-        // if successful, then redirect to their intended location
-        session(['timezone' => $request->timezone]);
-        return redirect()->intended(route('frontend.dashboard'));
+        if($user->otp_auth_status)
+        {
+          $data['id'] = \Hashids::encode($user->id);
+          $data['email'] = $request->email;
+          $data['password'] = $request->password;
+          auth()->logout();
+          return view('frontend.otp-auth.verify', $data);
+        }
+        else
+        {
+          // if successful, then redirect to their intended location
+          session(['timezone' => $request->timezone]);
+          return redirect()->intended(route('frontend.dashboard'));
+        }
       }
       // if unsuccessful, then redirect back to the login with the form data
       return redirect()->back()->withErrors(['error' => 'These credentials do not match our records.']);
