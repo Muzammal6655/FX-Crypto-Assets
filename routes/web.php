@@ -105,16 +105,13 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::get('otp-auth/setup-two-factor-authentication', 'OtpAuthController@setupTwoFactorAuthentication');
         Route::post('otp-auth/enable-two-factor-authentication', 'OtpAuthController@enableTwoFactorAuthentication');
         Route::get('otp-auth/disable-two-factor-authentication', 'OtpAuthController@disableTwoFactorAuthentication');
+
+        Route::get('/pools', 'PoolController@index');
+        Route::get('/pools/{id}', 'PoolController@show');
+
+        Route::resource('deposits', 'DepositController');
     });
 });
-// ******************* //
-//     Pools  Routes
-// ******************* //
-Route::get('/pools', 'Frontend\PoolController@index');
-Route::get('/pools/{id}', 'Frontend\PoolController@show');
-
-
-
 
 // ******************* //
 //     Test Routes

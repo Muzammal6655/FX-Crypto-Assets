@@ -75,6 +75,16 @@
                 </div>
               </div>
 
+              <h4 class="heading">Wallet Address</h4>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Wallet Address</label>
+                <div class="col-sm-9">
+                  <input type="text" name="wallet_address" class="form-control"
+                    value="{{isset($settings['wallet_address']) ? $settings['wallet_address'] : ''}}">
+                </div>
+              </div>
+
               <h4 class="heading">User Deletion Settings</h4>
 
               <div class="form-group">
