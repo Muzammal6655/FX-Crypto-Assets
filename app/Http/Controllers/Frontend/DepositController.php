@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Deposit;
+use App\Models\Pool;
 use Hashids;
 use Session;
 
@@ -18,7 +19,7 @@ class DepositController extends Controller
 
     public function index()
     {
-        $data['deposits'] = Deposit::where('user_id',auth()->user()->id)->get();
+        $data['deposits'] = Deposit::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(5);
         return view('frontend.deposits.index')->with($data);
     }
 
@@ -27,9 +28,26 @@ class DepositController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $data['wallet_address'] = settingValue('wallet_address');
+        $data = array();
+
+        if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
+        {
+            $pool = Pool::findOrFail($id[0]);
+            $data['pool_id'] = $pool->id;
+            $data['min_deposits'] = $pool->min_deposits;
+            $data['max_deposits'] = $pool->max_deposits;
+            $data['wallet_address'] = $pool->wallet_address;
+        }
+        else
+        {
+            $data['pool_id'] = '';
+            $data['min_deposits'] = 0;
+            $data['max_deposits'] = 1000;
+            $data['wallet_address'] = settingValue('wallet_address');
+        }
+
         return view('frontend.deposits.create')->with($data);
     }
 
@@ -47,7 +65,7 @@ class DepositController extends Controller
         $validator = Validator::make($request->all(), [
             'wallet_address' => 'required',
             'amount' => 'required',
-            'transaction_id' => 'required',
+            'transaction_id' => 'required|unique:deposits',
             'proof' => 'required',
         ]);
 
@@ -78,5 +96,17 @@ class DepositController extends Controller
         $model->save();
         $request->session()->flash('flash_success', 'Deposit has been created successfully. Please wait until admin approves your deposit.');
         return redirect('/deposits');
+    }
+
+    /**
+     * Show the form for creating a resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $id = Hashids::decode($id)[0];
+        $data['deposit'] = Deposit::findOrFail($id);
+        return view('frontend.deposits.view')->with($data);
     }
 }

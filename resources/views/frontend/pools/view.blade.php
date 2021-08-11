@@ -26,7 +26,8 @@
 				</strong></span>
 			</div>
 			<div class="card-footer">
-				 <small class="text-muted">End Date: {{date('d M,Y', strtotime($pool['end_date']))}}</small>
+				<small class="text-muted">End Date: {{date('d M,Y', strtotime($pool['end_date']))}}</small>
+				<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a>
 			</div>
 		</div>
 	</div>

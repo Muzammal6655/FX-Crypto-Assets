@@ -12,13 +12,14 @@
 			@include('frontend.messages')
 			<form id="deposits-form" method="POST" action="{{url('/deposits')}}" enctype="multipart/form-data">
 				{{ csrf_field() }}
+				<input type="hidden" class="form-control" name="pool_id" value="{{ $pool_id }}">
 				<div class="form-group">
 					<label for="wallet_address">Recipient Wallet Address</label>
 					<input type="text" class="form-control" id="wallet_address" name="wallet_address" value="{{$wallet_address}}" readonly="">
 				</div>
 				<div class="form-group">
 					<label for="amount">Amount of BTC</label>
-					<input type="number" class="form-control" min="0" id="amount" name="amount" required="">
+					<input type="number" class="form-control" min="{{ $min_deposits }}" max="{{ $max_deposits }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
 				</div>
 				<div class="form-group">
 					<label for="transaction_id">Transaction Id</label>

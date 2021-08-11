@@ -21,8 +21,8 @@
 				<span >Started Date:<strong>{{date('d M,Y', strtotime($pool['start_date']))}}</strong></span>
 			</div>
 			<div class="card-footer">
-				 <small class="text-muted">End Date: {{date('d M,Y', strtotime($pool['end_date']))}}</small>
-			 	<a href="{{ url('/pools/' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-info pull-right">View</a>
+				<small class="text-muted">End Date: {{date('d M,Y', strtotime($pool['end_date']))}}</small>
+			 	<a href="{{ url('/pools/' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">View</a>
  			</div>
 		</div>
 		@endforeach

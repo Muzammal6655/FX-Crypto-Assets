@@ -24,9 +24,10 @@
 					</tr>
 				</thead>
 				<tbody>
+					@php $count = $deposits->firstItem();  @endphp
 					@foreach($deposits as $deposit)
 						<tr>
-							<th scope="row">1</th>
+							<th scope="row">{{ $count++ }}</th>
 							<td>{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
 							<td>{{ $deposit->amount }}</td>
 							<td>{{ $deposit->created_at }}</td>
@@ -47,6 +48,9 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="card-footer text-center">
+	    	{{ $deposits->links() }}
+	  	</div>
 	</div>
 </div>
 @endsection
