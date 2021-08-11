@@ -169,6 +169,7 @@ return [
         Orangehill\Iseed\IseedServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        PragmaRX\Google2FALaravel\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,6 +234,7 @@ return [
         'Hashids' => Torann\Hashids\Facade\Hashids::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'LaravelPDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'Google2FA' => PragmaRX\Google2FALaravel\Facade::class,
     ],
 
 ];

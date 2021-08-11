@@ -86,6 +86,9 @@ Route::get('/verify-account/{id}', 'HomeController@verifyAccount');
 
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
+    Route::post('otp-auth/verify-two-factor-authentication', 'OtpAuthController@verifyTwoFactorAuthentication');
+    Route::get('otp-auth/reset-two-factor-authentication', 'OtpAuthController@resetTwoFactorAuthentication');
+
     // *************************** //
     //     Auth Routes
     // *************************** //
@@ -97,6 +100,11 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
         Route::get('/documents', 'UserController@documents');
         Route::post('/documents', 'UserController@uploadDocuments');
+
+        Route::get('otp-auth/info', 'OtpAuthController@info');
+        Route::get('otp-auth/setup-two-factor-authentication', 'OtpAuthController@setupTwoFactorAuthentication');
+        Route::post('otp-auth/enable-two-factor-authentication', 'OtpAuthController@enableTwoFactorAuthentication');
+        Route::get('otp-auth/disable-two-factor-authentication', 'OtpAuthController@disableTwoFactorAuthentication');
     });
 });
 // ******************* //
