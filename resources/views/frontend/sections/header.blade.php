@@ -23,6 +23,9 @@ $segment_2 = Request::segment(2);
                                 <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'pools') ? 'active' : ''}} " href="{{ url('/pools') }}" data-menu-name="Pools">Pools</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{($segment_1 == 'deposits') ? 'active' : ''}} " href="{{ url('/deposits') }}" data-menu-name="Deposits">Deposits</a>
+                                </li>
                             </ul>
                             <div class="button-wrap">
                                 <a class="nav-link btn-login" href="{{ url('/profile') }}">Profile</a>
