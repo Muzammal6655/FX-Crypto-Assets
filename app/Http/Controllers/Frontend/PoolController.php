@@ -16,7 +16,7 @@ class PoolController extends Controller
 
     public function index()
     {
-        $data['pools'] = Pool::where('status','1')->get();
+        $data['pools'] = Pool::where('status','1')->where('end_date','>=',date('Y-m-d'))->get();
         return view('frontend.pools.index')->with($data);
     }
 

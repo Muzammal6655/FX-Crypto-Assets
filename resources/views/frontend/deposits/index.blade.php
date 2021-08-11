@@ -25,7 +25,7 @@
 				</thead>
 				<tbody>
 					@php $count = $deposits->firstItem();  @endphp
-					@foreach($deposits as $deposit)
+					@forelse($deposits as $deposit)
 						<tr>
 							<th scope="row">{{ $count++ }}</th>
 							<td>{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
@@ -44,7 +44,11 @@
 								<a href="{{ url('/deposits/' . Hashids::encode($deposit->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
 							</td>
 						</tr>
-					@endforeach
+					@empty
+    					<tr>
+    						<td>No records found!</td>
+    					</tr>
+					@endforelse
 				</tbody>
 			</table>
 		</div>

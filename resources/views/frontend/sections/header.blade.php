@@ -21,6 +21,9 @@ $segment_2 = Request::segment(2);
                                     <a class="nav-link" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link {{($segment_1 == 'dashboard') ? 'active' : ''}} " href="{{ url('/dashboard') }}" data-menu-name="Dashboard">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'pools') ? 'active' : ''}} " href="{{ url('/pools') }}" data-menu-name="Pools">Pools</a>
                                 </li>
                                 <li class="nav-item">

@@ -176,7 +176,7 @@ class WithdrawController extends Controller
             Balance::create([
                 'user_id' => $user->id,
                 'type' => 'withdraw',
-                'amount' =>  $user->account_balance,
+                'amount' =>  -1 * $user->account_balance,
             ]);
 
             $model->amount = $user->account_balance;

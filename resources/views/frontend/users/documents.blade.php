@@ -27,6 +27,13 @@
                                     aria-labelledby="v-pills-signup-tab">
                                     <div class="form-wrapper">
                                         <h2>Documents Verification</h2>
+
+                                        @if($user->passport_status == 0 || $user->photo_status == 0)
+                                            <div class="alert alert-danger persist-alert" role="alert">
+                                                Your documents are under verification!
+                                            </div>
+                                        @endif
+
                                         @include('frontend.messages')
                                         <form class="text-left" id="documents-form" method="POST" action="{{ url('/documents') }}" enctype="multipart/form-data">
                                             {{ csrf_field() }}
