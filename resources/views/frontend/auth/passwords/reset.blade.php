@@ -95,7 +95,7 @@
 
             messages: {
                 password: {
-                    passwordCheck: "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters",
+                    passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
                 },
             },
 
@@ -124,7 +124,7 @@
             }
         });
         $.validator.addMethod("passwordCheck", function(value) {
-            return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(value)
+           return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)
         });
     });
 

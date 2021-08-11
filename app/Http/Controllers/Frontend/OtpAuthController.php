@@ -116,6 +116,11 @@ class OtpAuthController extends Controller
         // Get User
         $user = User::where('email',$request->email)->first();
 
+        if(date('Y-m-d') == $user->otp_attempts_date)
+        {
+            return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.']);
+        }
+
         // Initialise the 2FA class
         $google2fa = app('pragmarx.google2fa');
 
@@ -125,17 +130,42 @@ class OtpAuthController extends Controller
         if($response)
         {
             Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-
             // if successful, then redirect to their intended location
             session(['timezone' => $request->timezone]);
             return redirect()->intended(route('frontend.dashboard'));
         }
         else
-        {
-            $request->session()->flash('flash_danger', __('Two Factor Authentication (OTP) is not correct.'));
-            return redirect()->back();
+        {   
+            $error = '';
+            // Reset attempts
+            if($user->otp_attempts_count == 2)
+            {
+                $user->otp_attempts_count = 0;
+                $user->save();
+            }
+            
+            if($user->otp_attempts_count == 0)
+            { 
+                $user->otp_attempts_count = 1;
+                $error = 'Wrong Two Factor Authentication (OTP) has been entered once today. This is your first attempt for today.';
+            } 
+            else if($user->otp_attempts_count == 1)
+            {
+                $user->otp_attempts_count = 2;
+                $user->otp_attempts_date = date('Y-m-d');
+                $error = 'You have failed to Log on using 2 factor authentications. 
+                          Your account is still functioning, but access is restricted until this 
+                          issue is sorted out. Please contact Interesting FX, if someone from 
+                          Interesting FX has not contact you via the methods, we have on file within 
+                          3 business days.';
+            }
         }
+
+        $user->save(); 
+        $request->session()->flash('flash_danger', $error);
+        return redirect()->back();
     }
+ 
 
     public function resetTwoFactorAuthentication(Request $request)
     {

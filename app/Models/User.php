@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-      'name', 'email', 'email_verified_at', 'password', 'original_password', 'status', 'language', 'timezone', 'profile_image', 'last_login','street','city','postcode','country_id','ip_address','otp_auth_status','otp_auth_secret_key','otp_auth_qr_image','is_approved', 'mobile_number', 'family_name', 'dob', 'state', 'invitation_code', 'referral_code', 'referral_code_end_date', 'referrer_account_id', 'btc_wallet_address', 'account_balance', 'deposit_total', 'withdraw_total', 'commission_total', 'profit_total', 'passport', 'passport_status', 'photo', 'photo_status','emergency_id_verification_code','au_doc_verification','documents_rejection_reason', 'password_attempts_count', 'password_attempts_date', '2fa_attempts_count', '2fa_attempts_date'
+      'name', 'email', 'email_verified_at', 'password', 'original_password', 'status', 'language', 'timezone', 'profile_image', 'last_login','street','city','postcode','country_id','ip_address','otp_auth_status','otp_auth_secret_key','otp_auth_qr_image','is_approved', 'mobile_number', 'family_name', 'dob', 'state', 'invitation_code', 'referral_code', 'referral_code_end_date', 'referrer_account_id', 'btc_wallet_address', 'account_balance', 'deposit_total', 'withdraw_total', 'commission_total', 'profit_total', 'passport', 'passport_status', 'photo', 'photo_status','emergency_id_verification_code','au_doc_verification','documents_rejection_reason', 'password_attempts_count', 'password_attempts_date', 'otp_attempts_count', 'otp_attempts_date'
     ];
 
     /**

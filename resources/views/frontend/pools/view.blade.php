@@ -6,7 +6,7 @@
 		<div class="card">
 			<div class="card-body">
 				<h5 class="card-title text-center">{{$pool['name']}}</h5>
-				<h5 class="card-title">{{$pool['description']}}</h5>
+				<p class="card-title">{{$pool['description']}}</p>
 				<span class="card-title">Wallet Address:<strong>{{$pool['wallet_address']}}
 				</strong></span>
 				<br>
