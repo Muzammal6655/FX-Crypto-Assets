@@ -99,6 +99,14 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::post('/documents', 'UserController@uploadDocuments');
     });
 });
+// ******************* //
+//     Pools  Routes
+// ******************* //
+Route::get('/pools', 'Frontend\PoolController@index');
+Route::get('/pools/{id}', 'Frontend\PoolController@show');
+
+
+
 
 // ******************* //
 //     Test Routes

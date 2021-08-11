@@ -1,3 +1,8 @@
+<?php
+$segment_1 = Request::segment(1);
+$segment_2 = Request::segment(2);
+?>
+
 <header class="site-header">
     <div class="container-fluid">
         <div class="main-menu">
@@ -13,10 +18,10 @@
                         @if (Auth::check())
                             <ul class="navbar-nav list-unstyled">
                                 <li class="nav-item active">
-                                    <a class="nav-link active" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
+                                    <a class="nav-link" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pools') }}" data-menu-name="Pools">Pools</a>
+                                    <a class="nav-link {{($segment_1 == 'pools') ? 'active' : ''}} " href="{{ url('/pools') }}" data-menu-name="Pools">Pools</a>
                                 </li>
                             </ul>
                             <div class="button-wrap">
