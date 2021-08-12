@@ -30,6 +30,8 @@
 
                                         <form id="login-form" class="text-right" method="POST" action="{{ route('login') }}">
                                             {{ csrf_field() }}
+                                            <input id="timezone" type="text" name="timezone">
+
                                             <div class="form-group">
                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email Address" required="required">
                                             </div>
@@ -111,7 +113,8 @@
                 invalidHandler: function (form) {
                 }
             });
+
+            $('#timezone').val(Intl.DateTimeFormat().resolvedOptions().timeZone);
         });
     </script>
-
 @endsection

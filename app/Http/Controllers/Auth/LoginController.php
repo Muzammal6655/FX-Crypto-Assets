@@ -97,6 +97,7 @@ class LoginController extends Controller
         $user = auth()->user();
         $user->password_attempts_count = 0;
         $user->password_attempts_date = Null;
+        $user->timezone = $request->timezone;
         $user->save();
 
         $message = '';

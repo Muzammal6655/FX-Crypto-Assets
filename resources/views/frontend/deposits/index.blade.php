@@ -30,7 +30,7 @@
 							<th scope="row">{{ $count++ }}</th>
 							<td>{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
 							<td>{{ $deposit->amount }}</td>
-							<td>{{ $deposit->created_at }}</td>
+							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 							<td>
 								@if($deposit->status == 0)
 									<span class="badge bg-warning">Pending</span>

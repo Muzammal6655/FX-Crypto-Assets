@@ -36,6 +36,7 @@ class DepositController extends Controller
         {
             $pool = Pool::findOrFail($id[0]);
             $data['pool_id'] = $pool->id;
+            $data['pool_name'] = $pool->name;
             $data['min_deposits'] = $pool->min_deposits;
             $data['max_deposits'] = $pool->max_deposits;
             $data['wallet_address'] = $pool->wallet_address;
@@ -43,6 +44,7 @@ class DepositController extends Controller
         else
         {
             $data['pool_id'] = '';
+            $data['pool_name'] = '';
             $data['min_deposits'] = 0;
             $data['max_deposits'] = 1000;
             $data['wallet_address'] = settingValue('wallet_address');

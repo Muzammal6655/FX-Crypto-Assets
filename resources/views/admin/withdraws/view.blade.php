@@ -33,14 +33,16 @@
 								</div>
 							</div>
 
-                            <div class="form-group">
-								<label for="user" class="col-sm-3 control-label">Account Balance</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->user->account_balance}}">
+							@if($model->status != 1)
+	                            <div class="form-group">
+									<label for="user" class="col-sm-3 control-label">Account Balance</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" readonly="" value="{{ $model->user->account_balance}}">
+									</div>
 								</div>
-							</div>
+							@endif
 							
-                        <div class="form-group">
+                        	<div class="form-group">
 								<label for="amount" class="col-sm-3 control-label">Amount ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->amount }}">

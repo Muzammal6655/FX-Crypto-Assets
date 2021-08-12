@@ -13,6 +13,12 @@
 			<form id="deposits-form" method="POST" action="{{url('/deposits')}}" enctype="multipart/form-data">
 				{{ csrf_field() }}
 				<input type="hidden" class="form-control" name="pool_id" value="{{ $pool_id }}">
+				@if(!empty($pool_name))
+					<div class="form-group">
+						<label for="pool_name">Pool Name</label>
+						<input type="text" class="form-control" id="pool_name" name="pool_name" value="{{$pool_name}}" readonly="">
+					</div>
+				@endif
 				<div class="form-group">
 					<label for="wallet_address">Recipient Wallet Address</label>
 					<input type="text" class="form-control" id="wallet_address" name="wallet_address" value="{{$wallet_address}}" readonly="">

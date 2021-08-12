@@ -17,52 +17,52 @@
 					@if(!empty($deposit->pool_id))
 					<tr>
 						<th scope="row">Pool</th>
-					 	<th scope="row">{{ $deposit->pool->name }}</th>
+					 	<td>{{ $deposit->pool->name }}</td>
 					</tr>
 					@endif
 	 				<tr>
 						<th scope="row">Amount({{config('constants.currency')['symbol']}})</th>
-					 	<th scope="row">{{ $deposit->amount }}</th>
+					 	<td>{{ $deposit->amount }}</td>
 					</tr>
 					<tr>
 						<th scope="row">Wallet Address</th>
-					 	<th scope="row">{{ $deposit->wallet_address }}</th>
+					 	<td>{{ $deposit->wallet_address }}</td>
 					</tr>
 					<tr>
 						<th scope="row">Transaction Id</th>
-					 	<th scope="row">{{ $deposit->transaction_id }}</th>
+					 	<td>{{ $deposit->transaction_id }}</td>
 					</tr>
 					<tr>
 						<th scope="row">Proof</th>
-					 	<th scope="row">
+					 	<td>
 
 					 		@if (!empty($deposit->proof) && \File::exists(public_path() . '/storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof))
-									<a href="{{ checkImage(asset('storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof),'placeholder.png',$deposit->proof) }}" download="">Download</a>
+								<a class="btn btn-secondary" href="{{ checkImage(asset('storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof),'placeholder.png',$deposit->proof) }}" download="">Download</a>
 							@else
 								<strong><i>No proof provided</i></strong>
 							@endif
-						</th>
+						</td>
 					</tr>
 					<tr> 
 						<th scope="row">Created At</th>
-					 	<th scope="row">{{date('d M,Y', strtotime($deposit->created_at))}}</th>
+					 	<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 					</tr>
 					<tr> 
 						<th scope="row">Status</th>
-					 	<th scope="row"> 
-					 			@if($deposit->status == 0)
-									<span class="badge bg-danger">Pending</span>
-								@elseif($deposit->status == 1)
-									<span class="badge bg-danger">Approved</span>
-								@elseif($deposit->status == 2)
-									<span class="badge bg-danger">Rejected</span>
-								@endif
-						</th>
+					 	<td> 
+				 			@if($deposit->status == 0)
+								<span class="badge bg-danger">Pending</span>
+							@elseif($deposit->status == 1)
+								<span class="badge bg-danger">Approved</span>
+							@elseif($deposit->status == 2)
+								<span class="badge bg-danger">Rejected</span>
+							@endif
+						</td>
 					</tr>
 					@if(!empty($deposit->reason))
 					<tr> 
 						<th scope="row">Rejection Reason</th>
-						<th scope="row">{{$deposit->reason}}</th>
+						<td>{{$deposit->reason}}</td>
 					</tr>
 					@endif
 				</tbody>

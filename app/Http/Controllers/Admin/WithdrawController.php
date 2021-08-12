@@ -136,6 +136,7 @@ class WithdrawController extends Controller
         $id = Hashids::decode($id)[0];
         $model = Withdraw::findOrFail($id);
         $model->status = 1;
+        $model->actual_amount = $model->amount;
         $model->save();
 
         $user = $model->user;
@@ -179,7 +180,7 @@ class WithdrawController extends Controller
                 'amount' =>  -1 * $user->account_balance,
             ]);
 
-            $model->amount = $user->account_balance;
+            $model->actual_amount = $user->account_balance;
             $model->save();
 
             $user->update([
