@@ -1,19 +1,22 @@
 @extends('frontend.layouts.app')
-
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="login-page">
-        <div class="container">
-            <div class="login-signup-wrapper">
-                <div class="row m-0">
-                    <p>You are logged in successfully!</p>
-                </div>
+<div class="container">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-header">
+                Dashboard
+            </div><br><br><br>
+            <div class="card-body">
+
+                @if ( !CheckKYCStatus() ) 
+                <p>Your documents are under verification.Please wait for Admin approval.</p>
+                @else
+                <p>You are logged in successfully!</p>
+                @endif
             </div>
         </div>
     </div>
-@endsection
-
-@section('js')
-    
+</div>
 @endsection

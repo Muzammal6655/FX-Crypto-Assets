@@ -220,4 +220,16 @@ function convertToByte($p_sFormatted) {
     return $iUnits * pow(1024, $aUnits[$sUnit]);
 }
 
+function CheckKYCStatus()
+{
+    $user = \Auth::user();
+    if ($user['photo_status'] == 0 || $user['passport_status'] == 0 )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 ?>
