@@ -9,7 +9,7 @@
 				Pool
 			</div>
 			<div class="card-body">
-				@foreach($pools as $pool)
+				@forelse($pools as $pool)
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title"><strong>{{$pool['name']}}</strong></h5>
@@ -30,7 +30,9 @@
 						<a href="{{ url('/pools/' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">View</a>
 					</div>
 				</div>
-				@endforeach
+				@empty
+		 		<p>No recorded are fund.</p>
+			 	@endforelse
 			</div>
 		</div>
 	</div>
