@@ -105,13 +105,14 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::get('otp-auth/setup-two-factor-authentication', 'OtpAuthController@setupTwoFactorAuthentication');
         Route::post('otp-auth/enable-two-factor-authentication', 'OtpAuthController@enableTwoFactorAuthentication');
         Route::get('otp-auth/disable-two-factor-authentication', 'OtpAuthController@disableTwoFactorAuthentication');
-
-
-         Route::group(['middleware'=> ['auth','user.check.kyc']], function () {
+ 
+        Route::group(['middleware'=> ['auth','user.check.kyc']], function () {
             Route::get('/pools', 'PoolController@index');
             Route::get('/pools/{id}', 'PoolController@show');
 
             Route::resource('deposits', 'DepositController');
+            Route::get('transactions', 'ListingController@transactions');
+            Route::get('balances', 'ListingController@balances');
         });
     });
 });
