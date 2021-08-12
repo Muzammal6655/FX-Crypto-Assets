@@ -212,4 +212,31 @@ class OtpAuthController extends Controller
         $request->session()->flash('flash_success', __('Two Factor Authentication reset details has been sent to your email address.'));
         return redirect()->back();
     }
+
+    public function sendEmailCode()
+    {
+        $code = random_int(100000, 999999);
+        session()->put('email_verification_otp', $code);
+
+        $user = auth()->user();
+        $name = $user->name;
+        $email = $user->email;
+
+        // ********************* //
+        // Send email to Support //
+        // ********************* //
+
+        $email_template = EmailTemplate::where('type','email_verification_otp')->first();
+
+        $subject = $email_template->subject;
+        $content = $email_template->content;
+
+        $search = array("{{name}}","{{email}}","{{app_name}}","{{code}}");
+        $replace = array($name,$email,env('APP_NAME'),$code);
+        $content  = str_replace($search,$replace,$content);
+
+        sendEmail($email, $subject, $content);
+
+        return "A verification code has been sent to your email address.";
+    }
 }

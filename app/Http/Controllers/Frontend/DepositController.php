@@ -76,6 +76,29 @@ class DepositController extends Controller
             return redirect()->back()->withInput();
         }
 
+        /**
+         * OTP Verification
+         */
+
+        if(empty(session()->get('email_verification_otp')) || session()->get('email_verification_otp') != $request->email_code)
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+        }
+
+        if($user->otp_auth_status)
+        {
+            // Initialise the 2FA class
+            $google2fa = app('pragmarx.google2fa');
+
+            // Add the secret key to the user data
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key,$request->two_fa_code);
+
+            if(!$response)
+            {
+               return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            }
+        }
+
         $model = new Deposit();
 
         if (!empty($request->files) && $request->hasFile('proof')) {
@@ -96,6 +119,9 @@ class DepositController extends Controller
         $model->user_id = $user->id;
         $model->status = 0;
         $model->save();
+
+        session()->forget('email_verification_otp');
+
         $request->session()->flash('flash_success', 'Deposit has been created successfully. Please wait until admin approves your deposit.');
         return redirect('/deposits');
     }
