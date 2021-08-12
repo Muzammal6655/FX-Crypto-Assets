@@ -154,10 +154,10 @@ Please open Google Authenticator App and reset your 2FA by adding below details:
             4 => 
             array (
                 'id' => 5,
-                'type' => 'email_otp_code',
-                'subject' => 'Email OTP Passcode',
+                'type' => 'email_verification_otp',
+                'subject' => 'Email Verification OTP',
                 'content' => '<div style=" padding:10px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
-<h3 style=" font-size: 22px; font-family: Segoe, \'Segoe UI\', \'sans-serif\'; margin-top: 20px;color: #000000;">Email OTP Passcode</h3><h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+<h3 style=" font-size: 22px; font-family: Segoe, \'Segoe UI\', \'sans-serif\'; margin-top: 20px;color: #000000;">Email Verification OTP (One Time Password)</h3><h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
 Hi {{name}}, 
 </h3>
 <p style="font-size: 17px; line-height: 25px; margin-top: 40px; margin-bottom: 40px; color: rgb(85, 85, 85);"><span style="font-weight: normal;">To verify your request, please use the following code: </span><b>{{code}}</b></p>
@@ -170,11 +170,11 @@ Hi {{name}},
 {{app_name}}
 </div>
 </div>',
-                'info' => '{"name":"User full name","app_name":"Website name","code":"OTP Passcode"}',
+                'info' => '{"name":"User full name","app_name":"Website name","code":"6 Digits Code"}',
                 'status' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2021-08-12 10:19:04',
-                'updated_at' => '2021-08-12 11:26:21',
+                'updated_at' => '2021-08-12 11:38:52',
             ),
         ));
         
