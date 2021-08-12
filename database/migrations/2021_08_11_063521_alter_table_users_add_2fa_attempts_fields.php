@@ -15,7 +15,7 @@ class AlterTableUsersAdd2faAttemptsFields extends Migration
     {
         DB::statement("ALTER TABLE `users`   
         ADD COLUMN `otp_attempts_count` TINYINT(1) DEFAULT 0  NULL AFTER `password_attempts_date`,
-        ADD COLUMN `otp_attempts_date` DATE NULL AFTER `2fa_attempts_count`;");
+        ADD COLUMN `otp_attempts_date` DATE NULL AFTER `otp_attempts_count`;");
     }
 
     /**
