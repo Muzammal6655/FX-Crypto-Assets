@@ -114,6 +114,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::resource('deposits', 'DepositController');
             Route::get('transactions', 'ListingController@transactions');
             Route::get('balances', 'ListingController@balances');
+            Route::resource('withdraws', 'WithdrawController');
         });
     });
 });

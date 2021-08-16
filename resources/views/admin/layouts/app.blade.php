@@ -79,74 +79,74 @@
 	<script type="text/javascript">
 		var scrollTopDifference = 70;
 
-			$.ajaxSetup({
-		        headers: {
-		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		        }
-		    });
+		$.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+	    });
 
-			if(!$('.alert').hasClass('persist-alert'))
-			{
-				setTimeout(function() {
-			    $('.alert').fadeOut('slow');
-				}, 5000);
-			}
+		if(!$('.alert').hasClass('persist-alert'))
+		{
+			setTimeout(function() {
+		    $('.alert').fadeOut('slow');
+			}, 5000);
+		}
 
-		    function readURL(input,id,types,error_type_id,media_type) 
+	    function readURL(input,id,types,error_type_id,media_type) 
+		{
+	        if (input.files && input.files[0]) 
 			{
-		        if (input.files && input.files[0]) 
+				var mimeType = input.files[0]['type'];
+				var extention = mimeType.split('/');
+				var file_type = extention[0];
+				extention = extention[1];
+				
+				if(jQuery.inArray(extention, types) == -1)
 				{
-					var mimeType = input.files[0]['type'];
-					var extention = mimeType.split('/');
-					var file_type = extention[0];
-					extention = extention[1];
-					
-					if(jQuery.inArray(extention, types) == -1)
+					$('input[name="'+id+'"]').val('');
+					var error_message = types.join(", ");
+					error_message = 'The '+media_type+' must be a file of type: '+media_type+'/' + error_message; 
+					$('#'+error_type_id).css('display','block');
+					$('#'+error_type_id).html(error_message);
+				}
+				else
+				{
+					var size = input.files[0]['size'];
+					size = size / 1024;
+					var max_size = (file_type == "image") ? {{ config('constants.file_size') }} : {{ config('constants.file_size') }};
+
+					if(size > max_size)
 					{
+						max_size = max_size / 1024;
 						$('input[name="'+id+'"]').val('');
-						var error_message = types.join(", ");
-						error_message = 'The '+media_type+' must be a file of type: '+media_type+'/' + error_message; 
 						$('#'+error_type_id).css('display','block');
-						$('#'+error_type_id).html(error_message);
+						$('#'+error_type_id).html('The '+file_type+' size must be '+max_size+'MB or less.');
 					}
 					else
 					{
-						var size = input.files[0]['size'];
-						size = size / 1024;
-						var max_size = (file_type == "image") ? {{ config('constants.file_size') }} : {{ config('constants.file_size') }};
-	
-						if(size > max_size)
+						$('#'+error_type_id).css('display','none');
+						if(file_type == 'image')
 						{
-							max_size = max_size / 1024;
-							$('input[name="'+id+'"]').val('');
-							$('#'+error_type_id).css('display','block');
-							$('#'+error_type_id).html('The '+file_type+' size must be '+max_size+'MB or less.');
-						}
-						else
-						{
-							$('#'+error_type_id).css('display','none');
-							if(file_type == 'image')
-							{
-								var reader = new FileReader();
-								reader.onload = function(e) {
-									$('#'+id).attr('src', e.target.result);
-								}
-								reader.readAsDataURL(input.files[0]);
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$('#'+id).attr('src', e.target.result);
 							}
+							reader.readAsDataURL(input.files[0]);
 						}
 					}
-		        }
-		    }
+				}
+	        }
+	    }
 
-		    function showOverlayLoader()
-		    {
-		    	document.getElementById("page-overlay").style.display = "block";
-		    }
+	    function showOverlayLoader()
+	    {
+	    	document.getElementById("page-overlay").style.display = "block";
+	    }
 
-		    function hideOverlayLoader()
-		    {
-		    	document.getElementById("page-overlay").style.display = "none";
-		    }
+	    function hideOverlayLoader()
+	    {
+	    	document.getElementById("page-overlay").style.display = "none";
+	    }
 	</script>
 	
 	@yield('js')

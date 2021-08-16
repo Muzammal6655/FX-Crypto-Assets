@@ -145,6 +145,34 @@
 	    $('#status').change(function () {
 	    	$('input[name="status"]').val($(this).val());
 	    });
+
+	    /**
+	     * Date range picker
+	     */
+
+	    var start = moment('{{$from}}');
+        var end = moment('{{$to}}');
+
+        function cb(start, end) {
+            $('#dateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('#from').val(start.format('YYYY-MM-D'));
+            $('#to').val(end.format('YYYY-MM-D'));
+        }
+
+        $('#dateRange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                '{{__('Today')}}': [moment(), moment()],
+                '{{__('Yesterday')}}': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '{{__('Last 7 Days')}}': [moment().subtract(6, 'days'), moment()],
+                '{{__('Last 30 Days')}}': [moment().subtract(30, 'days'), moment()],
+                '{{__('This Month')}}': [moment().startOf('month'), moment().endOf('month')],
+                '{{__('Last Month')}}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
 	});
 </script>
 @endsection
