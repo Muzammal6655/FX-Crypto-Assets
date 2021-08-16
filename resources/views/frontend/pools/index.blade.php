@@ -9,6 +9,7 @@
 				Pool
 			</div>
 			<div class="card-body">
+				@include('frontend.messages')
 				@forelse($pools as $pool)
 				<div class="card">
 					<div class="card-body">

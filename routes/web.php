@@ -108,6 +108,8 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::get('otp-auth/send-email-code', 'OtpAuthController@sendEmailCode');
 
         Route::group(['middleware'=> ['user.check.kyc']], function () {
+            Route::get('/pools/{id}/invest', 'PoolController@invest');
+            Route::post('/invest', 'PoolController@saveInvestment');
             Route::get('/pools', 'PoolController@index');
             Route::get('/pools/{id}', 'PoolController@show');
 
