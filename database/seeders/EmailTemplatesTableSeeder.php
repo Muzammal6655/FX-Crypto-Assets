@@ -176,6 +176,60 @@ Hi {{name}},
                 'created_at' => '2021-08-12 10:19:04',
                 'updated_at' => '2021-08-12 11:38:52',
             ),
+            5 => 
+            array (
+                'id' => 6,
+                'type' => 'deposit_request',
+                'subject' => 'Deposit Request',
+                'content' => '<div style="padding: 10px 30px;">
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 22px; margin-top: 20px; color: rgb(0, 0, 0);">Deposit Request</h3><h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; line-height: 25px; font-weight: normal;">
+Hi Admin, 
+</h3>
+<p style="line-height: 25px; margin-top: 40px; margin-bottom: 40px;"><font color="#555555" face="Segoe, Segoe UI, sans-serif"><span style="font-size: 17px;">The deposit request has been submitted by <b>{{name}} ({{email}})</b>. Click on the button below to view the deposit request.</span></font></p>
+<div style="margin: 40px 0; text-align: center;">
+<a href="{{link}}" target="_blank" style="display: inline-block;padding: 12px 15px;font-family: \'Source Sans Pro\', Helvetica, Arial, sans-serif;font-size: 16px;color: #ffffff;text-decoration: none;border-radius: 6px;width: 130px;background-color:#787759;text-align: center;">View Deposit Request</a>
+</div>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers,</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","email":"Email Address","link":"Link for view deposit request","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-08-13 12:53:50',
+                'updated_at' => '2021-08-16 07:30:48',
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'type' => 'withdrawal_request',
+                'subject' => 'Withdrawal Request',
+                'content' => '<div style="padding: 10px 30px;">
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 22px; margin-top: 20px; color: rgb(0, 0, 0);">Withdrawal Request</h3><h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; line-height: 25px; font-weight: normal;">
+Hi Admin, 
+</h3>
+<p style="line-height: 25px; margin-top: 40px; margin-bottom: 40px;"><font color="#555555" face="Segoe, Segoe UI, sans-serif"><span style="font-size: 17px;">The withdrawal request has been submitted by <b>{{name}} ({{email}})</b>. Click on the button below to view the withdrawal request.</span></font></p>
+<div style="margin: 40px 0; text-align: center;">
+<a href="{{link}}" target="_blank" style="display: inline-block;padding: 12px 15px;font-family: \'Source Sans Pro\', Helvetica, Arial, sans-serif;font-size: 16px;color: #ffffff;text-decoration: none;border-radius: 6px;width: 130px;background-color:#787759;text-align: center;">View Withdrawal Request</a>
+</div>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers,</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","email":"Email Address","link":"Link for view withdrawal request","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-08-13 12:56:05',
+                'updated_at' => '2021-08-16 07:31:06',
+            ),
         ));
         
         
