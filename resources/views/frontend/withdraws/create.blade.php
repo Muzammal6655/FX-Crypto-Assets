@@ -1,11 +1,11 @@
 @extends('frontend.layouts.app')
-@section('title', 'Create Deposit')
+@section('title', 'Create Withdraw')
 @section('content')
 
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			Create Deposit
+			Create Withdraw
 		</div>
 		<div class="card-body">
 			<h5 class="card-title">Fill the form below to create withdraw</h5>

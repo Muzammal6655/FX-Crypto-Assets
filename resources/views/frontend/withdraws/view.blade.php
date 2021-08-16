@@ -1,13 +1,13 @@
 @extends('frontend.layouts.app')
-@section('title', 'View Deposits')
+@section('title', 'View Withdraws')
 @section('content')
 
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			Deposits View
+			Withdraw View
 			<span class="pull-right">
-				<a href="{{url('/deposits/create')}}" class="btn btn-success">Create Deposit</a>
+				<a href="{{url('/withdraws/create')}}" class="btn btn-success">Create Withdraw</a>
 			</span>
 		</div>
 		<div class="card-body">

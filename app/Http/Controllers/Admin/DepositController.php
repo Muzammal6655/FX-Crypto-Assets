@@ -32,10 +32,15 @@ class DepositController extends Controller
         $data = [];
         $data['users'] = User::where('status',1)->get();
         $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
+        $data['from'] = $from = date('Y-m-d', strtotime("-1 months")) . ' 00:00:00';
+        $data['to'] = $to = date('Y-m-d') . ' 23:59:59';
 
         if($request->ajax())
         {
-            $db_record = Deposit::orderBy('created_at','DESC');
+            $data['from'] = $from = $request->from . ' 00:00:00';;
+            $data['to'] = $to = $request->to . ' 23:59:59';
+
+            $db_record = Deposit::whereBetween('created_at', [$from, $to]);
 
             if($request->has('user_id') && !empty($request->user_id))
             {
@@ -46,6 +51,8 @@ class DepositController extends Controller
             {
                 $db_record = $db_record->where('status',$request->status);
             }
+
+            $db_record = $db_record->orderBy('created_at','DESC');
 
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();

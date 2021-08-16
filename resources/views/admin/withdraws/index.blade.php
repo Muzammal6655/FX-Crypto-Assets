@@ -20,7 +20,16 @@
 			<div class="panel-body">
 				<div class="row">
 					<form id="filter-form" class="form-inline filter-form-des" method="GET">
-						<div class="col-lg-3 col-md-4 col-sm-4">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<input type="hidden" id="from" name="from" value="{{ $from }}">
+                            <input type="hidden" id="to" name="to" value="{{ $to }}">
+
+							<div id="dateRange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+	                            <i class="fa fa-calendar"></i>&nbsp;
+	                            <span></span> <i class="fa fa-caret-down"></i>
+	                        </div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="form-group">
 								<select class="form-control" id="user_id">
 									<option value="">Select Investor</option>
@@ -30,7 +39,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-4 col-sm-4">
+						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="form-group">
 								<select class="form-control" id="status">
 									<option value="">Select Status</option>
@@ -40,6 +49,7 @@
 								</select>
 							</div>
 						</div>
+						<br><br>
 						<div class="col-lg-2 col-md-2 col-sm-2">
 							<a href="{{url('admin/withdraws')}}">
 								<button type="button" class="btn cancel btn-fullrounded">
@@ -114,6 +124,8 @@
                 data: function (d) {
                     d.user_id = $('#user_id option:selected').val();
                     d.status = $('#status option:selected').val();
+                    d.from = $('#from').val();
+                    d.to = $('#to').val();
                 }
             },
 			columns: [

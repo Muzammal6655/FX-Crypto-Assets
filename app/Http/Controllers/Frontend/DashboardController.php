@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $data = array();
+        $data['user'] = auth()->user();
         return view('frontend.dashboard.index', $data);
     }
 }
