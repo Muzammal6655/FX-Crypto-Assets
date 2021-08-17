@@ -46,7 +46,7 @@ class DepositController extends Controller
         {
             $data['pool_id'] = '';
             $data['pool_name'] = '';
-            $data['min_deposits'] = 0;
+            $data['min_deposits'] = "0.00000001";
             $data['max_deposits'] = 1000;
             $data['wallet_address'] = settingValue('wallet_address');
         }
@@ -81,7 +81,7 @@ class DepositController extends Controller
          * OTP Verification
          */
 
-        if(empty(session()->get('email_verification_otp')) || session()->get('email_verification_otp') != $request->email_code)
+        if(empty(session()->get('deposit_email_verification_otp')) || session()->get('deposit_email_verification_otp') != $request->email_code)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
         }
@@ -140,7 +140,7 @@ class DepositController extends Controller
 
         sendEmail(settingValue('contact_email'), $subject, $content);
 
-        session()->forget('email_verification_otp');
+        session()->forget('deposit_email_verification_otp');
 
         $request->session()->flash('flash_success', 'Deposit has been created successfully. Please wait until admin approves your deposit.');
         return redirect('/deposits');

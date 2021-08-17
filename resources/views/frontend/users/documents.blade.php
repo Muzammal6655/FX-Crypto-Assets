@@ -28,7 +28,7 @@
                                     <div class="form-wrapper">
                                         <h2>Documents Verification</h2>
 
-                                        @if($user->passport_status == 0 || $user->photo_status == 0)
+                                        @if((!empty($user->passport) && $user->passport_status == 0) || (!empty($user->photo) && $user->photo_status == 0))
                                             <div class="alert alert-danger persist-alert" role="alert">
                                                 Your documents are under verification!
                                             </div>
@@ -41,17 +41,18 @@
                                             <p>
                                                 <strong>Passport:</strong>
                                                 @php $passport_status = $user->passport_status @endphp
-                                                
-                                                <div class="pull-right">
-                                                    Approval Status: 
-                                                    @if($passport_status == 0)
-                                                        <span class="badge bg-warning">Pending</span>
-                                                    @elseif($passport_status == 1)
-                                                        <span class="badge bg-success">Approved</span>
-                                                    @elseif($passport_status == 2)
-                                                        <span class="badge bg-danger">Rejected</span>
-                                                    @endif
-                                                </div>
+                                                @if(!empty($user->passport))
+                                                    <div class="pull-right">
+                                                        Approval Status: 
+                                                        @if($passport_status == 0)
+                                                            <span class="badge bg-warning">Pending</span>
+                                                        @elseif($passport_status == 1)
+                                                            <span class="badge bg-success">Approved</span>
+                                                        @elseif($passport_status == 2)
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                        @endif
+                                                    </div>
+                                                @endif
                                             </p>
                                             <div class="form-group">
                                                 <div>
@@ -70,17 +71,18 @@
                                             <p>
                                                 <strong>Photo:</strong>
                                                 @php $photo_status = $user->photo_status @endphp
-                                                
-                                                <div class="pull-right">
-                                                    Approval Status: 
-                                                    @if($photo_status == 0)
-                                                        <span class="badge bg-warning">Pending</span>
-                                                    @elseif($photo_status == 1)
-                                                        <span class="badge bg-success">Approved</span>
-                                                    @elseif($photo_status == 2)
-                                                        <span class="badge bg-danger">Rejected</span>
+                                                @if(!empty($user->photo_status))
+                                                    <div class="pull-right">
+                                                        Approval Status: 
+                                                        @if($photo_status == 0)
+                                                            <span class="badge bg-warning">Pending</span>
+                                                        @elseif($photo_status == 1)
+                                                            <span class="badge bg-success">Approved</span>
+                                                        @elseif($photo_status == 2)
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                        @endif
+                                                    </div>
                                                     @endif
-                                                </div>
                                             </p>
                                             <div class="form-group">
                                                 <div>
