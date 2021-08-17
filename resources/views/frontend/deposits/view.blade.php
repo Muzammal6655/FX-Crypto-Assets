@@ -51,9 +51,9 @@
 						<th scope="row">Status</th>
 					 	<td> 
 				 			@if($deposit->status == 0)
-								<span class="badge bg-danger">Pending</span>
+								<span class="badge bg-warning">Pending</span>
 							@elseif($deposit->status == 1)
-								<span class="badge bg-danger">Approved</span>
+								<span class="badge bg-success">Approved</span>
 							@elseif($deposit->status == 2)
 								<span class="badge bg-danger">Rejected</span>
 							@endif

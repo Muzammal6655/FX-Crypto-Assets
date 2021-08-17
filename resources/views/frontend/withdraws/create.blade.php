@@ -23,7 +23,7 @@
 				</div>
 				<div class="form-group">
 					<label for="amount">Amount of BTC</label>
-					<input type="number" class="form-control" min="1" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
+					<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
 				</div>
 
 				<h5>OTP Verification</h5>

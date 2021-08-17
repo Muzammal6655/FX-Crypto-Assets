@@ -67,7 +67,7 @@ class WithdrawController extends Controller
          * OTP Verification
          */
 
-        if(empty(session()->get('email_verification_otp')) || session()->get('email_verification_otp') != $request->email_code)
+        if(empty(session()->get('withdraw_email_verification_otp')) || session()->get('withdraw_email_verification_otp') != $request->email_code)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
         }
@@ -112,7 +112,7 @@ class WithdrawController extends Controller
 
         sendEmail(settingValue('contact_email'), $subject, $content);
 
-        session()->forget('email_verification_otp');
+        session()->forget('withdraw_email_verification_otp');
 
         $request->session()->flash('flash_success', 'Withdraw has been created successfully. Please wait until admin approves your withdraw.');
         return redirect('/withdraws');
