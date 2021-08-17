@@ -124,6 +124,8 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::get('pool-investments/{id}', 'PoolController@investmentDetail');
 
             Route::resource('withdraws', 'WithdrawController');
+
+            Route::get('invite-a-friend', 'ReferralController@inviteFriend');
         });
     });
 });

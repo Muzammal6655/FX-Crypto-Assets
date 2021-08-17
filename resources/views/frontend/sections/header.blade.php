@@ -39,8 +39,11 @@ $segment_2 = Request::segment(2);
                                  <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'pool-investments') ? 'active' : ''}} " href="{{ url('/pool-investments') }}" data-menu-name="Transactions">Pool Investments</a>
                                 </li>
-                                 <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'balances') ? 'active' : ''}} " href="{{ url('/balances') }}" data-menu-name="Balances">Balances</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{($segment_1 == 'invite-a-friend') ? 'active' : ''}} " href="{{ url('/invite-a-friend') }}" data-menu-name="Invite A Friend">Invite A Friend</a>
                                 </li>
                                 @endif
                             </ul>
