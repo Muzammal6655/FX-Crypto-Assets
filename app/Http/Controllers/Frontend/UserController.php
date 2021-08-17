@@ -29,6 +29,27 @@ class UserController extends Controller
         $input = $request->all();
         $user = Auth::user();
 
+        /**
+         * Were you referred to Interesting FX?
+         */
+
+        if($request->has('referral_code') && !empty($request->referral_code))
+        {
+            $referrer = User::where('id','!=',$user->id)->where('invitation_code', $request->referral_code)->first();
+            if(!empty($referrer))
+            {
+                $input['referral_code'] = $request->referral_code;    
+            }
+            else
+            {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
+            }
+        }
+
+        /**
+         * Update password
+         */
+
         $password = $request->input('password');
 
         if(!empty($password)){

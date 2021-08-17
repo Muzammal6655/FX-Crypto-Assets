@@ -34,16 +34,21 @@ $segment_2 = Request::segment(2);
                                     <a class="nav-link {{($segment_1 == 'withdraws') ? 'active' : ''}} " href="{{ url('/withdraws') }}" data-menu-name="Withdraws">Withdraws</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{($segment_1 == 'transactions') ? 'active' : ''}} " href="{{ url('/transactions') }}" data-menu-name="Transactions">Transactions</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link {{($segment_1 == 'pool-investments') ? 'active' : ''}} " href="{{ url('/pool-investments') }}" data-menu-name="Transactions">Pool Investments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{($segment_1 == 'balances') ? 'active' : ''}} " href="{{ url('/balances') }}" data-menu-name="Balances">Balances</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'invite-a-friend') ? 'active' : ''}} " href="{{ url('/invite-a-friend') }}" data-menu-name="Invite A Friend">Invite A Friend</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item {{($segment_1 == 'pool-investments') ? 'active' : ''}} " href="{{ url('/pool-investments') }}">Pool Investments</a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a class="dropdown-item {{($segment_1 == 'transactions') ? 'active' : ''}} " href="{{ url('/transactions') }}">Transactions</a>
+
+                                        <div class="dropdown-divider"></div>
+
+                                        <a class="dropdown-item {{($segment_1 == 'balances') ? 'active' : ''}} " href="{{ url('/balances') }}" data-menu-name="Balances">Balances</a>
+                                    </div>
                                 </li>
                                 @endif
                             </ul>
