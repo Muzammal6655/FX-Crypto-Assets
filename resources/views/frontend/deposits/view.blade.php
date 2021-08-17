@@ -59,7 +59,7 @@
 							@endif
 						</td>
 					</tr>
-					@if(!empty($deposit->reason))
+					@if( $deposit->status == 2 && !empty($deposit->reason))
 					<tr> 
 						<th scope="row">Rejection Reason</th>
 						<td>{{$deposit->reason}}</td>

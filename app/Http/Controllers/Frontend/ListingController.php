@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Balance;
+use App\Models\PoolInvestment;
+use Hashids;
 
 class ListingController extends Controller
 {
@@ -14,6 +16,7 @@ class ListingController extends Controller
         $data['transactions'] = Transaction::where('user_id',auth()->user()->id)->orderBy('id','DESC')->paginate(10);
         return view('frontend.listing.transactions')->with($data);
     }
+    
     public function balances()
     {
         $data['balances'] = Balance::where('user_id',auth()->user()->id)->orderBy('id','DESC')->paginate(10);

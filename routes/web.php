@@ -56,6 +56,10 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::post('deposits/download-csv', 'DepositController@downloadCsv');
     Route::resource('deposits', 'DepositController');
 
+    Route::resource('pool-investments', 'PoolInvestmentController');
+    Route::get('pool-investments/{id}/approve', 'PoolInvestmentController@approve');
+    Route::post('pool-investments/download-csv', 'PoolInvestmentController@downloadCsv');
+
     Route::get('withdraws/{id}/approve', 'WithdrawController@approve');
     Route::post('withdraws/download-csv', 'WithdrawController@downloadCsv');
     Route::resource('withdraws', 'WithdrawController');
@@ -116,6 +120,9 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::resource('deposits', 'DepositController');
             Route::get('transactions', 'ListingController@transactions');
             Route::get('balances', 'ListingController@balances');
+            Route::get('pool-investments', 'PoolController@investments');
+            Route::get('pool-investments/{id}', 'PoolController@investmentDetail');
+
             Route::resource('withdraws', 'WithdrawController');
         });
     });

@@ -93,10 +93,24 @@ class PoolController extends Controller
             'management_fee_percentage' => $pool->management_fee_percentage,
             'start_date' => Carbon::now('UTC')->timestamp,
             'end_date' => strtotime($pool->end_date),
+            'status' => 0,
         ]);
 
         $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
         return redirect()->back();
+    }
+
+    public function investments()
+    { 
+        $data['poolInvestments'] = PoolInvestment::where('user_id',auth()->user()->id)->orderBy('id','DESC')->paginate(10);
+        return view('frontend.pools.investments')->with($data);
+    }
+
+    public function investmentDetail($id)
+    {
+        $id = Hashids::decode($id)[0];
+        $data['model'] = PoolInvestment::findOrFail($id);
+        return view('frontend.pools.investment_detail')->with($data);
     }
 }
 
