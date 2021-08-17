@@ -79,7 +79,7 @@
 
                                             <div class="form-group">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1" required="" {{ old('ReferredOptions') == 'yes' ? 'checked' : '' }}>
+                                                    <input class="form-check-input" type="radio" name="ReferredOptions"value="yes" id="ReferredOptions1" required="" {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="ReferredOptions1">Yes</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
@@ -88,11 +88,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group referral-code" style="display: {{ old('ReferredOptions') == 'yes' ? '' : 'none' }}">
-                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code" value="{{old('referral_code')}}">
+                                            <div class="form-group referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
+                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code" value="{{old('referral_code') ?? $referral_code}}">
                                             </div>
 
-                                            <div class="form-check referral-code" style="display: {{ old('ReferredOptions') == 'yes' ? '' : 'none' }}">
+                                            <div class="form-check referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
                                                 <input type="checkbox" class="form-check-input" name="provide_later" id="provide_later" {{ old('provide_later') == 'on' ? 'checked' : '' }}>
                                                 <label class="form-check-label" for="provide_later">Provide Later</label>
                                             </div>

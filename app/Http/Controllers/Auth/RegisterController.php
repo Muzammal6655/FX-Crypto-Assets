@@ -185,9 +185,10 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
         $data['countries'] = Country::all();
+        $data['referral_code'] = $request->has('ref') ? $request->ref : '';
         return view('frontend.auth.register')->with($data);
     }
 

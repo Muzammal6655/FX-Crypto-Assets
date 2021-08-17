@@ -117,6 +117,8 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::get('transactions', 'ListingController@transactions');
             Route::get('balances', 'ListingController@balances');
             Route::resource('withdraws', 'WithdrawController');
+
+            Route::get('invite-a-friend', 'ReferralController@inviteFriend');
         });
     });
 });
