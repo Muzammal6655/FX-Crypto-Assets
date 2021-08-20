@@ -14,9 +14,11 @@
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title"><strong>{{$pool['name']}}</strong></h5>
-						<span class="card-title">Min Deposite:<strong>{{$pool['min_deposits']}}</strong></span>
+						<span class="card-title">Days:<strong>{{$pool['days']}}</strong></span>
 						<br>
-						<span class="card-title">Max Deposite:<strong>{{$pool['max_deposits']}}</strong></span>
+						<span class="card-title">Min Deposit:<strong>{{$pool['min_deposits']}}</strong></span>
+						<br>
+						<span class="card-title">Max Deposit:<strong>{{$pool['max_deposits']}}</strong></span>
 						<br>
 						<span class="card-title">Profit Percentage:<strong>{{$pool['profit_percentage']}}%
 						</strong></span>
@@ -32,7 +34,7 @@
 					</div>
 				</div>
 				@empty
-		 		<p>No recorded are fund.</p>
+		 		<p>No pools are available for deposit/investment.</p>
 			 	@endforelse
 			</div>
 		</div>

@@ -36,9 +36,10 @@
 							<th>Max Deposits ({{config('constants.currency')['symbol']}})</th>
 							<th>Users Limit</th>
 							<th>Profit %</th>
-							<th>Management Fee %</th>
+							<th>Fee %</th>
 							<th>Start Date</th>
 							<th>End Date</th>
+							<th>Days</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -80,6 +81,7 @@
 				{data: 'management_fee_percentage', name: 'management_fee_percentage'},
 				{data: 'start_date', name: 'start_date'},
 				{data: 'end_date', name: 'end_date'},
+				{data: 'days', name: 'days'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]

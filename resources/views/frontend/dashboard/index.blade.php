@@ -56,9 +56,44 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Withdraw History</h3>
+                            <canvas id="withdrawChart" style="width:100%;"></canvas>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+    var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var yValues = JSON.parse("{{$withdrawYvalues}}");
+
+    new Chart("withdrawChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "rgba(0,0,255,1.0)",
+            borderColor: "rgba(0,0,255,0.1)",
+            data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        scales: {
+            //yAxes: [{ticks: {min: 6, max:16}}],
+        }
+      }
+    });
+</script>
 @endsection
