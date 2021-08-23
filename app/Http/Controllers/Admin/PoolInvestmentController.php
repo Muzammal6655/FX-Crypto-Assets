@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Pool;
+use App\Models\Transaction;
+use App\Models\Balance;
 use App\Models\PoolInvestment;
 use Carbon\Carbon;
 use Session;
@@ -165,6 +167,27 @@ class PoolInvestmentController extends Controller
         $model->update([
             'status' => 1,
         ]);
+
+        $model->user->update([
+                'account_balance' => $model->user->account_balance - $model->deposit_amount,
+            ]);
+
+        $transaction_message =   "Amount investment in " . $model->pool->name;
+
+        Transaction::create([
+            'user_id' => $model->user_id,
+            'type' => 'investment',
+            'amount' => $model->deposit_amount,
+            'actual_amount' => $model->deposit_amount,
+            'description' => $transaction_message,
+        ]);
+
+        Balance::create([
+            'user_id' => $model->user_id,
+            'type' => 'investment',
+            'amount' => -1 * $model->deposit_amount,
+        ]);
+
         $request->session()->flash('flash_success', 'Pool Investment has been approved successfully.');
         return redirect('admin/pool-investments');
     }

@@ -67,26 +67,6 @@ class PoolController extends Controller
         
         if(  $user->account_balance  >= $request->invest_amount )
         { 
-            $user->update([
-                'account_balance' => $user->account_balance - $request->invest_amount,
-            ]);
-
-            $transaction_message =   "Amount investment in " . $pool->name;
-
-            Transaction::create([
-                'user_id' => $user->id,
-                'type' => 'investment',
-                'amount' => $request->invest_amount,
-                'actual_amount' => $request->invest_amount,
-                'description' => $transaction_message,
-            ]);
-
-            Balance::create([
-                'user_id' => $user->id,
-                'type' => 'investment',
-                'amount' => -1 * $request->invest_amount,
-            ]);
-     
             PoolInvestment::create([
                 'user_id' => $user->id,
                 'pool_id' => $pool->id,
