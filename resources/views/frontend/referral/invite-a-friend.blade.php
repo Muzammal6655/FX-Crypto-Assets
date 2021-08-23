@@ -15,7 +15,7 @@
 
                 <!-- The text field -->
                 <div class="form-group">
-                    <input type="text" class="form-control" value="{{ url('/register?ref='.Hashids::encode($user->id)) }}" id="referral_code">
+                    <input type="text" class="form-control" value="{{ url('/register?ref='.Hashids::encode($user->id)) }}" id="referral_code" readonly="">
                 </div>
 
                 <!-- The button used to copy the text -->
@@ -24,6 +24,37 @@
                 <!-- ShareThis BEGIN -->
                 <div class="sharethis-inline-share-buttons" data-url="{{url('/register?ref='.Hashids::encode($user->id))}}" data-title="Create a free account | {{env('APP_NAME')}}"></div>
                 <!-- ShareThis END -->
+
+                <br>
+                <h3>Referrals:</h3>
+                <br>
+                @include('frontend.messages')
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $count = $referrals->firstItem();  @endphp
+                        @forelse($referrals as $referral)
+                            <tr>
+                                <th scope="row">{{ $count++ }}</th>
+                                <td>{{ $referral->referMember->name }}</td>
+                                <td>{{ $referral->referMember->email }}</td>
+                                <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($referral->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td>No records found!</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+                {{ $referrals->links() }}
             </div>
         </div>
     </div>

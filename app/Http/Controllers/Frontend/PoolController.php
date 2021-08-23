@@ -20,7 +20,7 @@ class PoolController extends Controller
 
     public function index()
     {
-        $data['pools'] = Pool::where('status','1')->where('end_date','>=',date('Y-m-d'))->get();
+        $data['pools'] = Pool::where('status','1')->where('start_date','<=',date('Y-m-d'))->where('end_date','>=',date('Y-m-d'))->get();
         return view('frontend.pools.index')->with($data);
     }
 
@@ -94,17 +94,18 @@ class PoolController extends Controller
                 'profit_percentage' => $pool->profit_percentage,
                 'management_fee_percentage' => $pool->management_fee_percentage,
                 'start_date' => Carbon::now('UTC')->timestamp,
-                'end_date' => strtotime($pool->end_date),
+                'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
                 'status' => 0,
             ]);
+            
             $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
-            return redirect()->back();
-
+                return redirect()->back();
         }
-
-        $request->session()->flash('flash_success', 'Please enter amount less than or equal to '.$user->account_balance.'.');
-        return redirect()->back();
-        
+        else
+        {
+            $request->session()->flash('flash_success', 'Please enter amount less than or equal to '.$user->account_balance.'.');
+            return redirect()->back();  
+        } 
     }
 
     public function investments()

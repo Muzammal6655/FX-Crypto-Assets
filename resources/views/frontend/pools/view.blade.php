@@ -9,13 +9,15 @@
 				<h5 class="card-title text-center">{{$pool['name']}}</h5>
 				<p class="card-title">{{$pool['description']}}</p>
 				<input type="hidden" class="form-control" name="pool_id" value="{{ $pool['id'] }}">
+				<span class="card-title">Days:<strong>{{$pool['days']}}</strong></span>
+				<br>
 				<span class="card-title">Wallet Address:<strong>{{$pool['wallet_address']}}
 				</strong></span>
 				<br>
- 	 			<span class="card-title">Min Deposite:<strong>{{$pool['min_deposits']}}
+ 	 			<span class="card-title">Min Deposit:<strong>{{$pool['min_deposits']}}
 				</strong></span>
  	 			<br>
- 	 			<span class="card-title">Max Deposite:<strong>{{$pool['max_deposits']}}
+ 	 			<span class="card-title">Max Deposit:<strong>{{$pool['max_deposits']}}
 				</strong></span>
  	 			<br>
  	 			<span class="card-title">Profit Percentage:<strong>{{$pool['profit_percentage']}}%

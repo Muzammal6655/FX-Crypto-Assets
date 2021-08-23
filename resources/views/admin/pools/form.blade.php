@@ -108,6 +108,14 @@
 							</div>
 
 							<div class="form-group">
+								<label for="days" class="col-sm-3 control-label">Days*</label>
+								<div class="col-sm-9">
+									<input type="number" name="days" class="form-control" min="1" required=""
+										value="{{ ($action == 'Add') ? old('days') : $model->days}}">
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label class="col-sm-3 control-label">Status</label>
 								<div class="col-sm-9">
 									@php $status = ($action == 'Add') ? old('status') : $model->status @endphp

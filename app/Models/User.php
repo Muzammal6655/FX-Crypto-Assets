@@ -107,11 +107,6 @@ class User extends Authenticatable
       return $this->hasMany('App\Models\Referral', 'referrer_id');
     }
 
-    public function referralMembers()
-    {
-      return $this->hasOne('App\Models\Referral', 'refer_member_id');
-    }
-
     public function referrerAccount()
     {
       return $this->belongsTo('App\Models\User','referrer_account_id'); 
