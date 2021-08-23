@@ -202,7 +202,7 @@ class WithdrawController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = Withdraw::orderBy('created_at','ASC');
+        $db_record = Withdraw::whereBetween('created_at', [$request->from, $request->to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -220,14 +220,16 @@ class WithdrawController extends Controller
         {
             $filename = 'withdraws-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Date','Customer Id','Amount'));
+            fputcsv($file, array('Date','Customer Id','Customer Name','Customer Email','Amount'));
 
             foreach ($db_record as $record) 
             {
                 $row = [];
-                $row[0] = Carbon::createFromTimeStamp(strtotime($record->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
-                $row[1] = $record->user_id;
-                $row[2] = $record->amount;
+                $row[] = Carbon::createFromTimeStamp(strtotime($record->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
+                $row[] = $record->user_id;
+                $row[] = $record->user->name;
+                $row[] = $record->user->email;
+                $row[] = $record->amount;
 
                 fputcsv($file, $row);
             }

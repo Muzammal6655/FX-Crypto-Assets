@@ -65,39 +65,46 @@ class PoolController extends Controller
             return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
         }
         
-        $user->update([
-            'account_balance' => $user->account_balance - $request->invest_amount,
-        ]);
+        if(  $user->account_balance  >= $request->invest_amount )
+        { 
+            $user->update([
+                'account_balance' => $user->account_balance - $request->invest_amount,
+            ]);
 
-        $transaction_message =   "Amount investment in " . $pool->name;
+            $transaction_message =   "Amount investment in " . $pool->name;
 
-        Transaction::create([
-            'user_id' => $user->id,
-            'type' => 'investment',
-            'amount' => $request->invest_amount,
-            'actual_amount' => $request->invest_amount,
-            'description' => $transaction_message,
-        ]);
+            Transaction::create([
+                'user_id' => $user->id,
+                'type' => 'investment',
+                'amount' => $request->invest_amount,
+                'actual_amount' => $request->invest_amount,
+                'description' => $transaction_message,
+            ]);
 
-        Balance::create([
-            'user_id' => $user->id,
-            'type' => 'investment',
-            'amount' => -1 * $request->invest_amount,
-        ]);
- 
-        PoolInvestment::create([
-            'user_id' => $user->id,
-            'pool_id' => $pool->id,
-            'deposit_amount' => $request->invest_amount,
-            'profit_percentage' => $pool->profit_percentage,
-            'management_fee_percentage' => $pool->management_fee_percentage,
-            'start_date' => Carbon::now('UTC')->timestamp,
-            'end_date' => strtotime($pool->end_date),
-            'status' => 0,
-        ]);
+            Balance::create([
+                'user_id' => $user->id,
+                'type' => 'investment',
+                'amount' => -1 * $request->invest_amount,
+            ]);
+     
+            PoolInvestment::create([
+                'user_id' => $user->id,
+                'pool_id' => $pool->id,
+                'deposit_amount' => $request->invest_amount,
+                'profit_percentage' => $pool->profit_percentage,
+                'management_fee_percentage' => $pool->management_fee_percentage,
+                'start_date' => Carbon::now('UTC')->timestamp,
+                'end_date' => strtotime($pool->end_date),
+                'status' => 0,
+            ]);
+            $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
+            return redirect()->back();
 
-        $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
+        }
+
+        $request->session()->flash('flash_success', 'Please enter amount less than or equal to '.$user->account_balance.'.');
         return redirect()->back();
+        
     }
 
     public function investments()

@@ -39,8 +39,8 @@ class PoolInvestmentController extends Controller
             $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
  
-            $db_record = PoolInvestment::where('start_date','>=', strtotime($from))->orWhere('end_date','<=', strtotime($to));   
-
+            $db_record = PoolInvestment::where('start_date','>=', strtotime($from))->where('end_date','<=', strtotime($to));   
+          
             if($request->has('user_id') && !empty($request->user_id))
             {
                 $db_record = $db_record->where('user_id',$request->user_id);
@@ -171,7 +171,7 @@ class PoolInvestmentController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = PoolInvestment::orderBy('created_at','ASC');
+        $db_record = PoolInvestment::where('start_date','>=', strtotime($request->from))->where('end_date','<=', strtotime($request->to));
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -194,13 +194,15 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Pool Id','Amount','Profit Percentage','Management Fee Percentage','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool Id','Amount','Profit Percentage','Management Fee Percentage','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {
                 $row = [];
                 $row[] = $record->user_id;
-                $row[] = $record->pool_id;
+                $row[] = $record->user->name;
+                $row[] = $record->user->email;
+                $row[] = $record->pool->name;
                 $row[] = $record->deposit_amount;
                 $row[] = $record->profit_percentage;
                 $row[] = $record->management_fee_percentage;

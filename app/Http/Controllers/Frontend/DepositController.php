@@ -81,7 +81,7 @@ class DepositController extends Controller
          * OTP Verification
          */
 
-        if(empty(session()->get('deposit_email_verification_otp')) || session()->get('deposit_email_verification_otp') != $request->email_code)
+        if(empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
         }

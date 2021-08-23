@@ -9,10 +9,10 @@
 			<div class="card-body">
 				<h5 class="card-title text-center">{{$pool['name']}}</h5>
 				<p class="card-title">{{$pool['description']}}</p>
-				<span class="card-title">Min Deposite:<strong>{{$pool['min_deposits']}}({{config('constants.currency')['symbol']}})
+				<span class="card-title">Min Deposit:<strong>{{$pool['min_deposits']}}({{config('constants.currency')['symbol']}})
 				</strong></span>
 				<br>
-				<span class="card-title">Max Deposite:<strong>{{$pool['max_deposits']}}({{config('constants.currency')['symbol']}})
+				<span class="card-title">Max Deposit:<strong>{{$pool['max_deposits']}}({{config('constants.currency')['symbol']}})
 				</strong></span>
 				<br>
 				<span class="card-title">Profit Percentage:<strong>{{$pool['profit_percentage']}}%
@@ -42,7 +42,7 @@
 							class="form-control" 
 							name="invest_amount" 
 							min="{{$pool->min_deposits}}" 
-							max="{{$pool->max_deposits}}" 
+							max="{{$user->account_balance >= $pool->max_deposits ? $pool->max_deposits : $user->account_balance}}" 
 							placeholder="Enter the amount" 
 							required=""
 						>

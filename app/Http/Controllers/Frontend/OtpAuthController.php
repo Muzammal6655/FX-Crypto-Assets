@@ -213,18 +213,18 @@ class OtpAuthController extends Controller
         return redirect()->back();
     }
 
-    public function sendEmailCode()
+    public function sendEmailCode(Request $request)
     {
         $code = random_int(100000, 999999);
-        session()->put('email_verification_otp', $code);
-
+        session()->put($request->type.'_email_verification_otp', $code);
+        
         $user = auth()->user();
         $name = $user->name;
         $email = $user->email;
 
         // ********************* //
         // Send email to Support //
-        // ********************* //
+        // ********************* // 
 
         $email_template = EmailTemplate::where('type','email_verification_otp')->first();
 

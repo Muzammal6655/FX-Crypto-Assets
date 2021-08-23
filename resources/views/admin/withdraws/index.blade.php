@@ -68,6 +68,8 @@
 							@csrf
 							<input type="hidden" name="user_id">
 							<input type="hidden" name="status">
+							<input type="hidden" name="from">
+							<input type="hidden" name="to">
 							<button type="submit" class="btn btn-info btn-fullrounded btn-apply">
 								<span>Download CSV</span>
 							</button>
@@ -167,8 +169,8 @@
 
         function cb(start, end) {
             $('#dateRange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            $('#from').val(start.format('YYYY-MM-D'));
-            $('#to').val(end.format('YYYY-MM-D'));
+            $('input[name="from"]').val(start.format('YYYY-MM-D'));
+            $('input[name="to"]').val(end.format('YYYY-MM-D'));
         }
 
         $('#dateRange').daterangepicker({

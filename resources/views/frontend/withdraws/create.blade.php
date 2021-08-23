@@ -88,7 +88,7 @@
         	$('#generate_otp').prop('disabled',true);
 
         	$.ajax({
-		        url: "{{ url('/otp-auth/send-email-code') }}",
+		        url: "{{ url('/otp-auth/send-email-code?type=withdraw_request') }}",
 		        type: 'GET',
 		        success: function(res) {
 		            $('#generate_otp_loading').hide();
