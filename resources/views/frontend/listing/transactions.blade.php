@@ -20,6 +20,7 @@
 						<th scope="col">Fee Percentage (%)</th>
 						<th scope="col">Description</th>
 						<th scope="col">Created At</th>
+						<th scope="col">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,6 +35,9 @@
 							<th>{{ $transaction->fee_percentage }}</th>
 							<th title="{{$transaction->description}}"><i class="fa fa-info-circle"></i></th>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+							<td>
+								<a href="{{ url('/transactions/' . Hashids::encode($transaction->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+							</td>
 						</tr>
 					@empty
     					<tr>

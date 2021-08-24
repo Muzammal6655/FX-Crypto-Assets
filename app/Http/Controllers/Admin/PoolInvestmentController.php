@@ -16,6 +16,7 @@ use Session;
 use Hashids;
 use Auth;
 use DataTables;
+use DB;
 
 class PoolInvestmentController extends Controller
 {
@@ -163,6 +164,15 @@ class PoolInvestmentController extends Controller
 
         $id = Hashids::decode($id)[0];
         $model = PoolInvestment::findOrFail($id);
+        $pool_investments_count = DB::table('pool_investments')
+                          ->where('pool_id', '=' , $pool->id )
+                          ->distinct('user_id')
+                          ->count();
+
+        if($pool_investments_count >= $model->pool->users_limit)
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
+        }
 
         $model->update([
             'status' => 1,

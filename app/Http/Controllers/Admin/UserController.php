@@ -429,8 +429,21 @@ class UserController extends Controller
             {
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
             });
+
+            $datatable = $datatable->addColumn('action', function($row)
+            {
+                $actions = '<span class="actions">';
+
+                if(have_right('transactions-detail'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/transactions/" . Hashids::encode($row->id).'/detail').'" title="Edit"><i class="fa fa-eye"></i></a>';
+                }
+
+                $actions .= '</span>';
+                return $actions;
+            });
             
-            $datatable = $datatable->rawColumns(['amount']);
+            $datatable = $datatable->rawColumns(['status','action']);
             $datatable = $datatable->make(true);
             return $datatable;
         }
@@ -475,5 +488,15 @@ class UserController extends Controller
         }
 
         return view('admin.users.referrals',$data);
+    }
+
+    public function transactionDetail($id)
+    {
+        if(!have_right('transactions-detail'))
+            access_denied();
+     
+        $id = Hashids::decode($id)[0];
+        $data['model'] = Transaction::findOrFail($id);
+        return view('admin.users.transaction_detail')->with($data);
     }
 }

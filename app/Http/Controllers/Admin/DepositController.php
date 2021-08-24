@@ -16,6 +16,7 @@ use Session;
 use Hashids;
 use Auth;
 use DataTables;
+use DB;
 
 class DepositController extends Controller
 {
@@ -151,9 +152,6 @@ class DepositController extends Controller
 
         $id = Hashids::decode($id)[0];
         $model = Deposit::findOrFail($id);
-        $model->status = 1;
-        $model->save();
-
         $user = $model->user;
         $user->update([
             'account_balance' => $user->account_balance + $model->amount,
@@ -177,6 +175,15 @@ class DepositController extends Controller
 
         if(!empty($model->pool_id))
         {
+            $pool_investments_count = DB::table('pool_investments')
+                          ->where('pool_id', '=' , $pool->id )
+                          ->distinct('user_id')
+                          ->count();
+                         
+            if($pool_investments_count >= $model->pool->users_limit)
+            {
+                return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
+            }
             $pool = $model->pool;
 
             $user->update([
@@ -210,6 +217,8 @@ class DepositController extends Controller
             ]);
         }
 
+        $model->status = 1;
+        $model->save();
         $request->session()->flash('flash_success', 'Deposit has been approved successfully.');
         return redirect('admin/deposits');
     }

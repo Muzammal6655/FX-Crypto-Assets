@@ -9,6 +9,8 @@ use App\Models\Balance;
 use App\Models\PoolInvestment;
 use Carbon\Carbon;
 use Hashids;
+use DB;
+
 
 class PoolController extends Controller
 {
@@ -54,18 +56,27 @@ class PoolController extends Controller
 
         $user = auth()->user();
         $pool = Pool::findOrFail($request->pool_id);
-       
-        if( $request->invest_amount > $pool->max_deposits)
+        $pool_investments_count = DB::table('pool_investments')
+                          ->where('pool_id', '=' , $pool->id )
+                          ->distinct('user_id')
+                          ->count();
+ 
+        if($pool_investments_count >= $pool->users_limit)
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
+        }
+
+        if($request->invest_amount > $pool->max_deposits)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'Please enter a value less than or equal to '.$pool->max_deposits.'.']);
         }
         
-        if(  $request->invest_amount  < $pool->min_deposits )
+        if($request->invest_amount < $pool->min_deposits)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
         }
         
-        if(  $user->account_balance  >= $request->invest_amount )
+        if( $user->account_balance  >= $request->invest_amount)
         { 
             PoolInvestment::create([
                 'user_id' => $user->id,

@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::get('investors/{id}/transactions', 'UserController@transactions');
     Route::get('investors/{id}/balances', 'UserController@balances');
     Route::get('investors/{id}/documents', 'UserController@documents');
+    Route::get('transactions/{id}/detail', 'UserController@transactionDetail');
     Route::post('investors/verify-documents', 'UserController@verifyDocuments');
     Route::resource('investors', 'UserController');
 
@@ -120,6 +121,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
             Route::resource('deposits', 'DepositController');
             Route::get('transactions', 'ListingController@transactions');
+            Route::get('transactions/{id}', 'ListingController@transactionDetail');
             Route::get('balances', 'ListingController@balances');
             Route::get('pool-investments', 'PoolController@investments');
             Route::get('pool-investments/{id}', 'PoolController@investmentDetail');

@@ -29,7 +29,8 @@
                             <th>Actual Amount ({{config('constants.currency')['symbol']}})</th>
                             <th>Fee Amount ({{config('constants.currency')['symbol']}})</th>
                             <th>Fee Percentage %</th>
-							<th>Created At</th>
+                            <th>Created At</th>
+                            <th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -67,6 +68,7 @@
                 {data: 'fee_amount', name: 'fee_amount'},
                 {data: 'fee_percentage', name: 'fee_percentage'},
 				{data: 'created_at', name: 'created_at'},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		}).on('length.dt', function () {
 			showOverlayLoader();

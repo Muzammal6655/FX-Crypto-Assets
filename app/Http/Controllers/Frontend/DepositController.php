@@ -46,7 +46,7 @@ class DepositController extends Controller
         {
             $data['pool_id'] = '';
             $data['pool_name'] = '';
-            $data['min_deposits'] = "0.00000001";
+            $data['min_deposits'] = "0.01";
             $data['max_deposits'] = 1000;
             $data['wallet_address'] = settingValue('wallet_address');
         }

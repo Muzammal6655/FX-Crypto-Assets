@@ -22,4 +22,11 @@ class ListingController extends Controller
         $data['balances'] = Balance::where('user_id',auth()->user()->id)->orderBy('id','DESC')->paginate(10);
         return view('frontend.listing.balances')->with($data);
     }
+
+    public function transactionDetail($id)
+    {
+        $id = Hashids::decode($id)[0];
+        $data['transaction'] = Transaction::findOrFail($id);
+        return view('frontend.listing.transaction_detail')->with($data);
+    }
 }
