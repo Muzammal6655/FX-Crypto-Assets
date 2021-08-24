@@ -196,10 +196,10 @@
       data: {
         labels: xValues,
         datasets: [{
-            fill: true,
+            fill: false,
             lineTension: 0,
             backgroundColor: "#d0af3e",
-            borderColor: "blue",
+            borderColor: "green",
             data: depositYvalues
         }]
       },
@@ -213,10 +213,10 @@
       data: {
         labels: xValues,
         datasets: [{
-            fill: true,
+            fill: false,
             lineTension: 0,
             backgroundColor: "#d0af3e",
-            borderColor: "blue",
+            borderColor: "red",
             data: withdrawYvalues
         }]
       },
