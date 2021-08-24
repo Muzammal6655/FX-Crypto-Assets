@@ -142,9 +142,6 @@ class WithdrawController extends Controller
 
         $id = Hashids::decode($id)[0];
         $model = Withdraw::findOrFail($id);
-        $model->status = 1;
-        $model->actual_amount = $model->amount;
-        $model->save();
 
         $user = $model->user;
 
@@ -170,7 +167,7 @@ class WithdrawController extends Controller
                 'amount' => -1 * $model->amount,
             ]);
         }
-        else
+        else if ($user->account_balance != 0) 
         {
             Transaction::create([
                 'user_id' => $user->id,
@@ -195,7 +192,15 @@ class WithdrawController extends Controller
                 'withdraw_total' => $user->withdraw_total + $user->account_balance,
             ]);
         }
-  
+        else
+        {
+            $request->session()->flash('flash_danger', 'Investor has insufficient balance for requested action.');
+            return redirect('admin/withdraws');
+        }
+        
+        $model->status = 1;
+        $model->actual_amount = $model->amount;
+        $model->save();
         $request->session()->flash('flash_success', 'Withdraw has been approved successfully.');
         return redirect('admin/withdraws');
     }

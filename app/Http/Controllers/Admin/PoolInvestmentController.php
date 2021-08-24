@@ -168,28 +168,36 @@ class PoolInvestmentController extends Controller
             'status' => 1,
         ]);
 
-        $model->user->update([
+        if($model->user->account_balance >= $model->deposit_amount)
+        {
+            $model->user->update([
                 'account_balance' => $model->user->account_balance - $model->deposit_amount,
             ]);
 
-        $transaction_message =   "Amount investment in " . $model->pool->name;
+            $transaction_message =   "Amount investment in " . $model->pool->name;
 
-        Transaction::create([
-            'user_id' => $model->user_id,
-            'type' => 'investment',
-            'amount' => $model->deposit_amount,
-            'actual_amount' => $model->deposit_amount,
-            'description' => $transaction_message,
-        ]);
+            Transaction::create([
+                'user_id' => $model->user_id,
+                'type' => 'investment',
+                'amount' => $model->deposit_amount,
+                'actual_amount' => $model->deposit_amount,
+                'description' => $transaction_message,
+            ]);
 
-        Balance::create([
-            'user_id' => $model->user_id,
-            'type' => 'investment',
-            'amount' => -1 * $model->deposit_amount,
-        ]);
+            Balance::create([
+                'user_id' => $model->user_id,
+                'type' => 'investment',
+                'amount' => -1 * $model->deposit_amount,
+            ]);
 
-        $request->session()->flash('flash_success', 'Pool Investment has been approved successfully.');
-        return redirect('admin/pool-investments');
+            $request->session()->flash('flash_success', 'Pool Investment has been approved successfully.');
+            return redirect('admin/pool-investments');   
+        }
+        else
+        {
+             $request->session()->flash('flash_danger', 'Investor has insufficient balance for requested action.');
+            return redirect('admin/pool-investments'); 
+        }
     }
 
     public function downloadCsv(Request $request)
