@@ -176,7 +176,7 @@ class DepositController extends Controller
         if(!empty($model->pool_id))
         {
             $pool_investments_count = DB::table('pool_investments')
-                          ->where('pool_id', '=' , $pool->id )
+                          ->where('pool_id', '=' , $model->pool->id )
                           ->distinct('user_id')
                           ->count();
                          
