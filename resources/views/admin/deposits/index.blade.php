@@ -41,6 +41,16 @@
 						</div>
 						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="form-group">
+								<select class="form-control" id="pool_id">
+									<option value="">Select Pool</option>
+									@foreach ($pools as $pool)
+										<option value="{{$pool->id}}">{{$pool->name}}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="form-group">
 								<select class="form-control" id="status">
 									<option value="">Select Status</option>
 									@foreach($statuses as $key => $val)
@@ -68,6 +78,7 @@
 							@csrf
 							<input type="hidden" name="user_id">
 							<input type="hidden" name="status">
+							<input type="hidden" name="pool_id">
 							<input type="hidden" name="from">
 							<input type="hidden" name="to">
 							<button type="submit" class="btn btn-info btn-fullrounded btn-apply">
@@ -127,6 +138,7 @@
                 data: function (d) {
                     d.user_id = $('#user_id option:selected').val();
                     d.status = $('#status option:selected').val();
+                    d.pool_id = $('#pool_id option:selected').val();
                     d.from = $('#from').val();
                     d.to = $('#to').val();
                 }
@@ -160,6 +172,9 @@
 	    });
 	    $('#status').change(function () {
 	    	$('input[name="status"]').val($(this).val());
+	    });
+	    $('#pool_id').change(function () {
+	    	$('input[name="pool_id"]').val($(this).val());
 	    });
 
 	    /**

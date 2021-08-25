@@ -144,7 +144,6 @@
 					d.status = $('#status option:selected').val();
                     d.from = $('#from').val();
                     d.to = $('#to').val();
-                  
                 }
             },
 			columns: [

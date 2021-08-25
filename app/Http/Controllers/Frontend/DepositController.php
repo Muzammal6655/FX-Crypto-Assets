@@ -32,7 +32,9 @@ class DepositController extends Controller
     public function create(Request $request)
     {
         $data = array();
-
+        $user = auth()->user();
+        $data['user'] = $user;
+        
         if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
         {
             $pool = Pool::findOrFail($id[0]);

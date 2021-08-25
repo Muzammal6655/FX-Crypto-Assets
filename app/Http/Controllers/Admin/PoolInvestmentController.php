@@ -29,20 +29,20 @@ class PoolInvestmentController extends Controller
     {
         if(!have_right('pool-investments-list'))
             access_denied();
-
+ 
         $data = [];
         $data['users'] = User::where('status',1)->get();
         $data['pools'] = Pool::where('status',1)->get();
         $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
-        $data['from'] = $from = date('Y-m-d', strtotime("-1 months")) . ' 00:00:00';
-        $data['to'] = $to = date('Y-m-d') . ' 23:59:59';
-
+        $data['from'] = $from = date('Y-m-d', strtotime("-1 months"));
+        $data['to'] = $to = date('Y-m-d');
+ 
         if($request->ajax())
         {
             $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
- 
-            $db_record = PoolInvestment::where('start_date','>=', strtotime($from))->where('end_date','<=', strtotime($to));   
+        
+            $db_record = PoolInvestment::whereBetween('start_date',[strtotime($from),strtotime($to)]);   
           
             if($request->has('user_id') && !empty($request->user_id))
             {
@@ -212,7 +212,7 @@ class PoolInvestmentController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = PoolInvestment::where('start_date','>=', strtotime($request->from))->where('end_date','<=', strtotime($request->to));
+        $db_record = PoolInvestment::whereBetween('start_date',[strtotime($request->from),strtotime($request->to)]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -235,7 +235,7 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool Id','Amount','Profit Percentage','Management Fee Percentage','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Amount','Profit Percentage','Management Fee Percentage','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {

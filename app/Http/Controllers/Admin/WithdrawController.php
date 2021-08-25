@@ -31,12 +31,12 @@ class WithdrawController extends Controller
         $data = [];
         $data['users'] = User::where('status',1)->get();
         $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
-        $data['from'] = $from = date('Y-m-d', strtotime("-1 months")) . ' 00:00:00';
-        $data['to'] = $to = date('Y-m-d') . ' 23:59:59';
+        $data['from'] = $from = date('Y-m-d', strtotime("-1 months"));
+        $data['to'] = $to = date('Y-m-d');
 
         if($request->ajax())
         {
-            $data['from'] = $from = $request->from . ' 00:00:00';;
+            $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
 
             $db_record = Withdraw::whereBetween('created_at', [$from, $to]);

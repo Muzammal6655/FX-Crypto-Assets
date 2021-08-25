@@ -6,6 +6,10 @@
 	<div class="card">
 		<div class="card-header">
 			Balances History
+			<span class="pull-right">
+				 <strong> Account Balance({{config('constants.currency')['symbol']}}):
+				 	{{$user->account_balance}}</strong>
+			</span>
 		</div>
 		<div class="card-body">
 			@include('frontend.messages')

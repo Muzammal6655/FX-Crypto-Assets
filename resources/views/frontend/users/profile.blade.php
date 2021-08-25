@@ -97,6 +97,20 @@
                                             <div class="form-group" id="btc_wallet_address">
                                                 <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}">
                                             </div>
+                                            <h5>OTP Verification</h5>
+                                            <div class="form-group">
+                                                <label for="email_code">
+                                                    Email Code
+                                                    <button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+                                                </label>
+                                                <input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
+                                            </div>
+                                            @if($user->otp_auth_status == 1)
+                                            <div class="form-group">
+                                                <label for="two_fa_code">2FA Code</label>
+                                                <input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
+                                            </div>
+                                            @endif
 
                                             <div class="bottom">
                                                 <div class="btn-wrap">
@@ -197,6 +211,20 @@
             });
             $.validator.addMethod("passwordCheck", function (value) {
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)
+            });
+            $("#generate_otp").click(function(){
+                $('#generate_otp_loading').show();
+                $('#generate_otp').prop('disabled',true);
+
+                $.ajax({
+                    url: "{{ url('/otp-auth/send-email-code?type=profile') }}",
+                    type: 'GET',
+                    success: function(res) {
+                        $('#generate_otp_loading').hide();
+                        $('#generate_otp').prop('disabled',false);
+                        alert(res);
+                    }
+                });
             });
         });
 
