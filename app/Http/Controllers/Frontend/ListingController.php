@@ -19,6 +19,7 @@ class ListingController extends Controller
     
     public function balances()
     {
+        $data['user'] = auth()->user();
         $data['balances'] = Balance::where('user_id',auth()->user()->id)->orderBy('id','DESC')->paginate(10);
         return view('frontend.listing.balances')->with($data);
     }

@@ -34,7 +34,7 @@
 					</label>
 					<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
 				</div>
-				@if($user->opt_status)
+				@if($user->otp_auth_status == 1)
 					<div class="form-group">
 						<label for="two_fa_code">2FA Code</label>
 						<input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Deposit;
 use App\Models\Transaction;
 use App\Models\Balance;
+use App\Models\Pool;
 use App\Models\PoolInvestment;
 use Carbon\Carbon;
 use Session;
@@ -32,13 +33,14 @@ class DepositController extends Controller
 
         $data = [];
         $data['users'] = User::where('status',1)->get();
+        $data['pools'] = Pool::where('status',1)->get();
         $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
-        $data['from'] = $from = date('Y-m-d', strtotime("-1 months")) . ' 00:00:00';
-        $data['to'] = $to = date('Y-m-d') . ' 23:59:59';
+        $data['from'] = $from = date('Y-m-d', strtotime("-1 months"));
+        $data['to'] = $to = date('Y-m-d');
 
         if($request->ajax())
         {
-            $data['from'] = $from = $request->from . ' 00:00:00';;
+            $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
 
             $db_record = Deposit::whereBetween('created_at', [$from, $to]);
@@ -51,6 +53,11 @@ class DepositController extends Controller
             if($request->has('status') && $request->status != "")
             {
                 $db_record = $db_record->where('status',$request->status);
+            }
+
+            if($request->has('pool_id') && $request->pool_id != "")
+            {
+                $db_record = $db_record->where('pool_id',$request->pool_id);
             }
 
             $db_record = $db_record->orderBy('created_at','DESC');
@@ -236,6 +243,11 @@ class DepositController extends Controller
         {
             $db_record = $db_record->where('status',$request->status);
         }
+
+        if($request->has('pool_id') && $request->pool_id != "")
+        {
+            $db_record = $db_record->where('pool_id',$request->pool_id);
+        }
         
         $db_record = $db_record->get();
 
@@ -243,7 +255,7 @@ class DepositController extends Controller
         {
             $filename = 'deposits-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Date','Customer Id','Customer Name','Customer Email','Amount'));
+            fputcsv($file, array('Date','Customer Id','Customer Name','Customer Email','Pool','Amount'));
 
             foreach ($db_record as $record) 
             {
@@ -252,6 +264,7 @@ class DepositController extends Controller
                 $row[] = $record->user_id;
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
+                $row[] = $record->pool->name;
                 $row[] = $record->amount;
 
                 fputcsv($file, $row);

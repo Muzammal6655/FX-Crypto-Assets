@@ -36,6 +36,8 @@ class PoolController extends Controller
     public function show($id)
     {  
         $id = Hashids::decode($id)[0];
+        $user = auth()->user();
+        $data['user'] = $user;
         $data['pool'] = Pool::findOrFail($id);
         return view('frontend.pools.view')->with($data);
     }
@@ -60,6 +62,25 @@ class PoolController extends Controller
                           ->where('pool_id', '=' , $pool->id )
                           ->distinct('user_id')
                           ->count();
+
+        if(empty(session()->get('investment_request_email_verification_otp')) || session()->get('investment_request_email_verification_otp') != $request->email_code)
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+        }
+
+        if($user->otp_auth_status)
+        {
+            // Initialise the 2FA class
+            $google2fa = app('pragmarx.google2fa');
+
+            // Add the secret key to the user data
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key,$request->two_fa_code);
+
+            if(!$response)
+            {
+               return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            }
+        }
  
         if($pool_investments_count >= $pool->users_limit)
         {
@@ -77,7 +98,7 @@ class PoolController extends Controller
         }
         
         if( $user->account_balance  >= $request->invest_amount)
-        { 
+        {  
             PoolInvestment::create([
                 'user_id' => $user->id,
                 'pool_id' => $pool->id,

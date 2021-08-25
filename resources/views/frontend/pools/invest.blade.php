@@ -47,6 +47,20 @@
 							required=""
 						>
 					</div>
+					<h5>OTP Verification</h5>
+					<div class="form-group">
+						<label for="email_code">
+							Email Code
+							<button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+						</label>
+						<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
+					</div>
+					@if($user->otp_auth_status == 1)
+					<div class="form-group">
+						<label for="two_fa_code">2FA Code</label>
+						<input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
+					</div>
+					@endif
 					<div class="card-footer">
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
@@ -91,6 +105,21 @@
 			},
 			invalidHandler: function (form,validator) {
 			}
+		});
+
+		$("#generate_otp").click(function(){
+        	$('#generate_otp_loading').show();
+        	$('#generate_otp').prop('disabled',true);
+
+        	$.ajax({
+		        url: "{{ url('/otp-auth/send-email-code?type=investment_request') }}",
+		        type: 'GET',
+		        success: function(res) {
+		            $('#generate_otp_loading').hide();
+		            $('#generate_otp').prop('disabled',false);
+		            alert(res);
+		        }
+    		});
 		});
 	});
 </script>

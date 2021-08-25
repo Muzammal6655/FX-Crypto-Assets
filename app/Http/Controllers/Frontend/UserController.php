@@ -33,6 +33,25 @@ class UserController extends Controller
          * Were you referred to Interesting FX?
          */
 
+        if(empty(session()->get('profile_email_verification_otp')) || session()->get('profile_email_verification_otp') != $request->email_code)
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+        }
+
+        if($user->otp_auth_status)
+        {
+            // Initialise the 2FA class
+            $google2fa = app('pragmarx.google2fa');
+
+            // Add the secret key to the user data
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key,$request->two_fa_code);
+
+            if(!$response)
+            {
+               return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            }
+        }
+
         if($request->has('referral_code') && !empty($request->referral_code))
         {
             $referrer = User::where('id','!=',$user->id)->where('invitation_code', $request->referral_code)->first();
