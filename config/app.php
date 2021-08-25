@@ -170,6 +170,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
         PragmaRX\Google2FALaravel\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -235,6 +236,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'LaravelPDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
         'Google2FA' => PragmaRX\Google2FALaravel\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

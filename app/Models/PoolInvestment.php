@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PoolInvestment extends Model
 {
     protected $fillable = [
-        'user_id','pool_id','deposit_amount','profit_percentage','management_fee_percentage','start_date','end_date','reason','status'
+        'user_id','pool_id','deposit_amount','profit_percentage','profit','management_fee_percentage','management_fee','commission','start_date','end_date','reason','status'
     ];
     
     public function pool()

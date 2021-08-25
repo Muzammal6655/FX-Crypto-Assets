@@ -65,6 +65,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::get('withdraws/{id}/approve', 'WithdrawController@approve');
     Route::post('withdraws/download-csv', 'WithdrawController@downloadCsv');
     Route::resource('withdraws', 'WithdrawController');
+
+    Route::resource('profits', 'ProfitController');
 });
 
 // ******************* //
