@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Profits')
+@section('title', 'Pool Balances')
 @section('sub-title', 'Import')
 
 @section('content')
@@ -7,7 +7,7 @@
 	<div class="content-heading clearfix">
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/profits')}}"><i class="fa fa-money"></i>Profits</a></li>
+			<li><a href="{{url('admin/pool-balances')}}"><i class="fa fa-money"></i>Pool Balances</a></li>
 			<li>Import</li>
 		</ul>
 	</div>
@@ -20,19 +20,19 @@
 					</div>
 					<div class="panel-body">
 						@include('admin.messages')
-						<form id="profits-form" class="form-horizontal label-left" action="{{url('admin/profits')}}"
+						<form id="pool-balances-form" class="form-horizontal label-left" action="{{url('admin/pool-balances')}}"
 							enctype="multipart/form-data" method="POST">
 							@csrf
 
 							<div class="form-group">
-								<label for="name" class="col-sm-3 control-label">Import Profit CSV*</label>
+								<label for="name" class="col-sm-3 control-label">Import Pool Balances CSV*</label>
 								<div class="col-sm-9">
-									<input type="file" name="profits" class="form-control" accept=".csv" required="">
+									<input type="file" name="pool_balances" class="form-control" accept=".csv" required="">
 								</div>
 							</div>
 
 							<div class="text-right">
-								<a href="{{url('admin/profits')}}">
+								<a href="{{url('admin/pool-balances')}}">
 									<button type="button" class="btn cancel btn-fullrounded">
 										<span>Cancel</span>
 									</button>
@@ -54,7 +54,7 @@
 @section('js')
 <script>
 	$(function(){
-        $('#profits-form').validate({
+        $('#pool-balances-form').validate({
             errorElement: 'div',
             errorClass: 'help-block',
             focusInvalid: true,

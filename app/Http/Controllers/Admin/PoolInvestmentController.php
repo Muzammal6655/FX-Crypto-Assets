@@ -173,13 +173,14 @@ class PoolInvestmentController extends Controller
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
         }
-
-        $model->update([
-            'status' => 1,
-        ]);
-
-        if($model->user->account_balance >= $model->deposit_amount)
+        else if($model->user->account_balance >= $model->deposit_amount)
         {
+            $model->update([
+                'start_date' => Carbon::now('UTC')->timestamp,
+                'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
+                'status' => 1
+            ]);
+
             $model->user->update([
                 'account_balance' => $model->user->account_balance - $model->deposit_amount,
             ]);

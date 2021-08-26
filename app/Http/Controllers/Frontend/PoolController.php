@@ -105,8 +105,6 @@ class PoolController extends Controller
                 'deposit_amount' => $request->invest_amount,
                 'profit_percentage' => $pool->profit_percentage,
                 'management_fee_percentage' => $pool->management_fee_percentage,
-                'start_date' => Carbon::now('UTC')->timestamp,
-                'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
                 'status' => 0,
             ]);
             
