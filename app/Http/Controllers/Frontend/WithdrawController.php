@@ -112,7 +112,7 @@ class WithdrawController extends Controller
 
         sendEmail(settingValue('contact_email'), $subject, $content);
 
-        session()->forget('withdraw_email_verification_otp');
+        session()->forget('withdraw_request_email_verification_otp');
 
         $request->session()->flash('flash_success', 'Withdraw has been created successfully. Please wait until admin approves your withdraw.');
         return redirect('/withdraws');

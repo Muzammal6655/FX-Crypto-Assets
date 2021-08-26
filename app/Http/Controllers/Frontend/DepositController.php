@@ -142,7 +142,7 @@ class DepositController extends Controller
 
         sendEmail(settingValue('contact_email'), $subject, $content);
 
-        session()->forget('deposit_email_verification_otp');
+        session()->forget('deposit_request_email_verification_otp');
 
         $request->session()->flash('flash_success', 'Deposit has been created successfully. Please wait until admin approves your deposit.');
         return redirect('/deposits');
