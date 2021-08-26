@@ -22,16 +22,28 @@
 					 	<td>{{ $model->User->name }}</td>
 					</tr>
 	 				<tr>
-						<th scope="row">Amount({{config('constants.currency')['symbol']}})</th>
+						<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
 					 	<td>{{ $model->deposit_amount }}</td>
 					</tr>
 					<tr>
-						<th scope="row">Profit Percentage(%)</th>
+						<th scope="row">Profit (%)</th>
 					 	<td>{{ $model->profit_percentage }}</td>
 					</tr>
 					<tr>
-						<th scope="row">Management Fee Percentage(%)</th>
+						<th scope="row">Profit ({{config('constants.currency')['symbol']}})</th>
+					 	<td>{{ $model->profit }}</td>
+					</tr>
+					<tr> 
+						<th scope="row">Management Fee (%)</th>
 					 	<td>{{ $model->management_fee_percentage }}</td>
+					</tr>
+					<tr> 
+						<th scope="row">Management Fee  ({{config('constants.currency')['symbol']}})</th>
+					 	<td>{{ $model->management_fee }}</td>
+					</tr>
+					<tr> 
+						<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
+					 	<td>{{ $model->commission }}</td>
 					</tr>
 					<tr> 
 						<th scope="row">Started Date</th>

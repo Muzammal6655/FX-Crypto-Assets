@@ -27,11 +27,11 @@
 					@forelse($balances as $balance)
 						<tr>
 							<th scope="row">{{ $count++ }}</th>
-							<th>{{ $balance->type }}</th>
+							<td>{{ $balance->type }}</td>
 							@if( $balance->amount <= 0)
-								<th style="color:red;">{{ $balance->amount }}</th>
+								<td style="color:red;">{{ $balance->amount }}</td>
 							@else
-								<th style="color:green;">+{{ $balance->amount }}</th>
+								<td style="color:green;">+{{ $balance->amount }}</td>
 							@endif
 							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($balance->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
  						</tr>

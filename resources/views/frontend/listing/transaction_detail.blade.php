@@ -20,11 +20,11 @@
 					 	<td>{{ $transaction->type }}</td>
 					</tr>
 	 				<tr>
-						<th scope="row">Amount({{config('constants.currency')['symbol']}})</th>
+						<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
 					 	<td>{{ $transaction->amount }}</td>
 					</tr>
 					<tr>
-						<th scope="row">Actual Amount({{config('constants.currency')['symbol']}})</th>
+						<th scope="row">Actual Amount ({{config('constants.currency')['symbol']}})</th>
 					 	<td>{{ $transaction->actual_amount }}</td>
 					</tr>
 					<tr>
@@ -32,12 +32,16 @@
 					 	<td>{{ $transaction->description }}</td>
 					</tr>
 					<tr>
-						<th scope="row">Fee Amount({{config('constants.currency')['symbol']}})</th>
+						<th scope="row">Management Fee (%)</th>
+					 	<td>{{ $transaction->fee_percentage }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Management Fee ({{config('constants.currency')['symbol']}})</th>
 					 	<td>{{ $transaction->fee_amount }}</td>
 					</tr>
 					<tr>
-						<th scope="row">Management Fee Percentage(%)</th>
-					 	<td>{{ $transaction->fee_percentage }}</td>
+						<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
+					 	<td>{{ $transaction->commission }}</td>
 					</tr>
 					<tr> 
 						<th scope="row">Started Date</th>

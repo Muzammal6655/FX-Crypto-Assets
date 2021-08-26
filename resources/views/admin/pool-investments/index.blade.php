@@ -104,6 +104,7 @@
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
 							<th>Profit (%)</th>
 							<th>Fee (%)</th>
+							<th>Commission ({{config('constants.currency')['symbol']}})</th>
 							<th>Start Date</th>
 							<th>End Date</th>
 							<th>Status</th>
@@ -153,6 +154,7 @@
 				{data: 'deposit_amount', name: 'deposit_amount'},
 				{data: 'profit_percentage', name: 'profit_percentage'},
 				{data: 'management_fee_percentage', name: 'management_fee_percentage'},
+				{data: 'commission', name: 'commission'},
 				{data: 'start_date', name: 'start_date'},
 				{data: 'end_date', name: 'end_date'},
 				{data: 'status', name: 'status'},

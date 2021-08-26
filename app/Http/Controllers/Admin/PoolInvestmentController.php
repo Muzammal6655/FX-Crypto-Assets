@@ -43,7 +43,6 @@ class PoolInvestmentController extends Controller
             $data['to'] = $to = $request->to . ' 23:59:59';
         
             $db_record = PoolInvestment::whereBetween('start_date',[strtotime($from),strtotime($to)]);   
-          
             if($request->has('user_id') && !empty($request->user_id))
             {
                 $db_record = $db_record->where('user_id',$request->user_id);

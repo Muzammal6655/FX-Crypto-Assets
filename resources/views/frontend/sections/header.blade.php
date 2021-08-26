@@ -17,9 +17,6 @@ $segment_2 = Request::segment(2);
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         @if (Auth::check())
                             <ul class="navbar-nav list-unstyled">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
-                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{($segment_1 == 'dashboard') ? 'active' : ''}} " href="{{ url('/dashboard') }}" data-menu-name="Dashboard">Dashboard</a>
                                 </li>

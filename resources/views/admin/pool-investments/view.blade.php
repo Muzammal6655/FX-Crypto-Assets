@@ -64,9 +64,36 @@
 							</div>
 
 							<div class="form-group">
+								<label for="profit_percentage" class="col-sm-3 control-label">Profit ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly=""
+									 value="{{ $model->profit }}"
+									 >
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label for="management_fee_percentage" class="col-sm-3 control-label">Management Fee (%) </label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->management_fee_percentage }}">
+								</div>
+							</div>  
+
+							<div class="form-group">
+								<label for="management_fee" class="col-sm-3 control-label">Management Fee ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $model->management_fee }}">
+								</div>
+							</div> 
+
+							<div class="form-group">
+								<label for="commission" class="col-sm-3 control-label">Commission ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text"
+									 class="form-control"
+									 readonly="" 
+									 value="{{ $model->commission}}"
+									>
 								</div>
 							</div>
 

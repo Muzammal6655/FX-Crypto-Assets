@@ -27,8 +27,9 @@
 							<th>Type</th>
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
                             <th>Actual Amount ({{config('constants.currency')['symbol']}})</th>
-                            <th>Fee Amount ({{config('constants.currency')['symbol']}})</th>
-                            <th>Fee Percentage %</th>
+                            <th>Fee (%)</th>
+                            <th>Fee ({{config('constants.currency')['symbol']}})</th>
+                            <th>Commission ({{config('constants.currency')['symbol']}})</th>
                             <th>Created At</th>
                             <th>Action</th>
 						</tr>
@@ -65,9 +66,10 @@
 				{data: 'type', name: 'type'},
 				{data: 'amount', name: 'amount'},
                 {data: 'actual_amount', name: 'actual_amount'},
-                {data: 'fee_amount', name: 'fee_amount'},
                 {data: 'fee_percentage', name: 'fee_percentage'},
-				{data: 'created_at', name: 'created_at'},
+                {data: 'fee_amount', name: 'fee_amount'},
+                {data: 'commission', name: 'commission'},
+                {data: 'created_at', name: 'created_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		}).on('length.dt', function () {

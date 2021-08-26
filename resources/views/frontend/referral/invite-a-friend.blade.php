@@ -35,6 +35,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Commission ({{config('constants.currency')['symbol']}})</th>
                             <th scope="col">Created At</th>
                         </tr>
                     </thead>
@@ -45,6 +46,7 @@
                                 <th scope="row">{{ $count++ }}</th>
                                 <td>{{ $referral->referMember->name }}</td>
                                 <td>{{ $referral->referMember->email }}</td>
+                                <td>{{ $referral->commission }}</td>
                                 <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($referral->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
                             </tr>
                         @empty

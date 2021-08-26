@@ -59,16 +59,23 @@
 							</div>
 
 							<div class="form-group">
-								<label for="transaction_id" class="col-sm-3 control-label">Fee Amount  ({{config('constants.currency')['symbol']}})</label>
+								<label for="transaction_id" class="col-sm-3 control-label">Fee  ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->fee_amount }}">
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="transaction_id" class="col-sm-3 control-label">Management Fee Percentage(%)</label>
+								<label for="transaction_id" class="col-sm-3 control-label">Management Fee (%)</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->fee_percentage }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="commission" class="col-sm-3 control-label">Commission  ({{config('constants.currency')['symbol']}})</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $model->commission }}">
 								</div>
 							</div>
 

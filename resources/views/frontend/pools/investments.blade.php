@@ -14,9 +14,10 @@
 					<tr>
 						<th scope="col">#</th> 
 						<th scope="col">Pool</th>
-						<th scope="col">Amount({{config('constants.currency')['symbol']}})</th>
-						<th scope="col">Profit(%)</th>
-						<th scope="col">Management Fee(%)</th>
+						<th scope="col">Amount ({{config('constants.currency')['symbol']}})</th>
+						<th scope="col">Profit (%)</th>
+						<th scope="col">Profit ({{config('constants.currency')['symbol']}})</th>
+						<th scope="col">Fee (%)</th>
 						<th scope="col">Start Date</th>
 						<th scope="col">End Date</th>
 						<th scope="col">Status</th>
@@ -31,6 +32,7 @@
 							<td>{{ !empty($poolinvestment->pool_id) ? $poolinvestment->pool->name : '' }}</td>
 							<td>{{ $poolinvestment->deposit_amount }}</td>
 							<td>{{ $poolinvestment->profit_percentage }}</td>
+							<td>{{ $poolinvestment->profit }}</td>
 							<td>{{ $poolinvestment->management_fee_percentage }}</td>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp($poolinvestment->start_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp($poolinvestment->end_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>

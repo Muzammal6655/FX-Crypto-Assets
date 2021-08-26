@@ -16,9 +16,9 @@
 						<th scope="col">Type</th>
 						<th scope="col">Amount ({{config('constants.currency')['symbol']}})</th>
 						<th scope="col">Actual Amount ({{config('constants.currency')['symbol']}})</th>
-						<th scope="col">Fee Amount ({{config('constants.currency')['symbol']}})</th>
-						<th scope="col">Fee Percentage (%)</th>
-						<th scope="col">Description</th>
+						<th scope="col">Fee (%)</th>
+						<th scope="col">Fee ({{config('constants.currency')['symbol']}})</th>
+						<th scope="col">Commission ({{config('constants.currency')['symbol']}})</th>
 						<th scope="col">Created At</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -28,12 +28,12 @@
 					@forelse($transactions as $transaction)
 						<tr>
 							<th scope="row">{{ $count++ }}</th>
-							<th>{{ $transaction->type }}</th>
-							<th>{{ $transaction->amount }}</th>
-							<th>{{ $transaction->actual_amount }}</th>
-							<th>{{ $transaction->fee_amount }}</th>
-							<th>{{ $transaction->fee_percentage }}</th>
-							<th title="{{$transaction->description}}"><i class="fa fa-info-circle"></i></th>
+							<td>{{ $transaction->type }}</td>
+							<td>{{ $transaction->amount }}</td>
+							<td>{{ $transaction->actual_amount }}</td>
+							<td>{{ $transaction->fee_percentage }}</td>
+							<td>{{ $transaction->fee_amount }}</td>
+							<td>{{$transaction->commission}}</td>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 							<td>
 								<a href="{{ url('/transactions/' . Hashids::encode($transaction->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>

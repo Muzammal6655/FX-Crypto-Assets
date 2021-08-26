@@ -26,6 +26,7 @@
 							<th>#</th>
 							<th>Name</th>
 							<th>Email</th>
+							<th>Commission</th>
 							<th>Created At</th>
 						</tr>
 					</thead>
@@ -60,6 +61,7 @@
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'name', name: 'name'},
 				{data: 'email', name: 'email'},
+				{data: 'commission', name: 'commission'},
 				{data: 'created_at', name: 'created_at'},
 			]
 		}).on('length.dt', function () {
