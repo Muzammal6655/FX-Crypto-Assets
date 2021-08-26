@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Deposit;
 use App\Models\Withdraw;
+use App\Models\PoolInvestment;
 use App\Http\Traits\GraphTrait;
 use Auth;
 use DB;
@@ -31,10 +32,11 @@ class DashboardController extends Controller
 
         $deposits = Deposit::where('status',1)->get();
         $withdraws = Withdraw::where('status',1)->get();
+        $investments = PoolInvestment::where('status',1)->get();
 
-        $response = $this->graph($deposits,$withdraws);
-        $data['depositYvalues'] = $response['depositYvalues'];
-        $data['withdrawYvalues'] = $response['withdrawYvalues'];
+        $data['depositYvalues'] = $this->graph($deposits,'amount');
+        $data['withdrawYvalues'] = $this->graph($withdraws,'actual_amount');
+        $data['investmentsYvalues'] = $this->graph($investments,'deposit_amount');
     
         return view('admin.dashboard')->with($data);
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deposit extends Model
 {
     protected $fillable = [
-        'user_id', 'pool_id','amount', 'wallet_address','transaction_id','proof','reason','status'
+        'user_id', 'pool_id','amount', 'wallet_address','transaction_id','proof','reason','status','approved_at'
     ];
 
     public function user()

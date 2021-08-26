@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProfitFiles extends Migration
+class CreateTablePoolBalances extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class CreateTableProfitFiles extends Migration
      */
     public function up()
     {
-        DB::statement("CREATE TABLE `profit_files` (
+        DB::statement("CREATE TABLE `pool_balances` (
           `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-          `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+          `pool_id` int(10) unsigned DEFAULT NULL,
+          `year_month` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+          `gross_amount` double DEFAULT NULL,
+          `net_amount` double DEFAULT NULL,
           `created_at` timestamp NULL DEFAULT NULL,
           `updated_at` timestamp NULL DEFAULT NULL,
-          PRIMARY KEY (`id`)
+          PRIMARY KEY (`id`),
+          KEY `pool_id` (`pool_id`),
+          CONSTRAINT `pool_balances_ibfk_1` FOREIGN KEY (`pool_id`) REFERENCES `pools` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
     }
 
@@ -29,6 +34,6 @@ class CreateTableProfitFiles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profit_files');
+        Schema::dropIfExists('pool_balances');
     }
 }

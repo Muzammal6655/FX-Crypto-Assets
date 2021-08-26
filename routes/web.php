@@ -67,6 +67,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('withdraws', 'WithdrawController');
 
     Route::resource('profits', 'ProfitController');
+    Route::resource('pool-balances', 'PoolBalanceController');
 });
 
 // ******************* //

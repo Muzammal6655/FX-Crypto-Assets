@@ -73,6 +73,12 @@
                             <canvas id="withdrawChart" style="width:100%;"></canvas>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Investments History</h3>
+                            <canvas id="investmentsChart" style="width:100%;"></canvas>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
@@ -86,6 +92,7 @@
     var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var depositYvalues = JSON.parse("{{$depositYvalues}}");
     var withdrawYvalues = JSON.parse("{{$withdrawYvalues}}");
+    var investmentsYvalues = JSON.parse("{{$investmentsYvalues}}");
 
     new Chart("depositChart", {
       type: "line",
@@ -114,6 +121,23 @@
             backgroundColor: "#d0af3e",
             borderColor: "red",
             data: withdrawYvalues
+        }]
+      },
+      options: {
+        legend: {display: false},
+      }
+    });
+
+    new Chart("investmentsChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+            fill: false,
+            lineTension: 0,
+            backgroundColor: "#d0af3e",
+            borderColor: "blue",
+            data: investmentsYvalues
         }]
       },
       options: {
