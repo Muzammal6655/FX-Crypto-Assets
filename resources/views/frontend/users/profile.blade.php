@@ -97,7 +97,7 @@
                                             <div class="form-group" id="btc_wallet_address">
                                                 <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
                                             </div>
-                                            <h5>OTP Verification</h5>
+                                          {{---- <h5>OTP Verification</h5>
                                             <div class="form-group">
                                                 <label for="email_code">
                                                     Email Code
@@ -110,7 +110,7 @@
                                                 <label for="two_fa_code">2FA Code</label>
                                                 <input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
                                             </div>
-                                            @endif
+                                            @endif --}}
 
                                             <div class="bottom">
                                                 <div class="btn-wrap">

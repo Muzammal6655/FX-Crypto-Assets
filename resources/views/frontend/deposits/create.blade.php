@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			Create Deposit
+		{{ ($action == 'Add') ? 'Create Deposit' : 'Edit Deposit' }}
 		</div>
 		<div class="card-body">
 			<h5 class="card-title">Fill the form below to create deposit</h5>
@@ -13,6 +13,8 @@
 			<form id="deposits-form" method="POST" action="{{url('/deposits')}}" enctype="multipart/form-data">
 				{{ csrf_field() }}
 				<input type="hidden" class="form-control" name="pool_id" value="{{ $pool_id }}">
+				<input type="hidden" name="action" value="{{$action}}" />
+				<input name="id" type="hidden" value="{{ $model->id }}" />
 				@if(!empty($pool_name))
 					<div class="form-group">
 						<label for="pool_name">Pool Name</label>
@@ -33,11 +35,12 @@
 				</div>
 				<div class="form-group">
 					<label for="amount">Amount of BTC</label>
-					<input type="number" class="form-control" min="{{ $min_deposits }}" max="{{ $max_deposits }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
+					<input type="number" class="form-control" min="{{ $min_deposits }}" max="{{ $max_deposits }}" id="amount" name="amount"
+					 value="{{ ($action == 'Edit') ? $model->amount : old('amount')}}" required="">
 				</div>
 				<div class="form-group">
 					<label for="transaction_id">Transaction Id</label>
-					<input type="text" class="form-control" id="transaction_id" name="transaction_id" value="{{ old('transaction_id') }}" required="">
+					<input type="text" class="form-control" id="transaction_id" name="transaction_id"  value="{{ ($action == 'Edit') ? $model->transaction_id : old('transaction_id')}}"  required="">
 				</div>
 				<div class="form-group">
 					<label for="proof">Deposit Receipt</label>

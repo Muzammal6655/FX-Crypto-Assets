@@ -43,6 +43,9 @@
 				                @endif
 							</td>
 							<td>
+								@if(!$deposit->status == 2)
+           						<a href="{{ url('/deposits/' . Hashids::encode($deposit->id) .'/edit') }}" class="btn  btn-success"><i class="fa fa-edit"></i></a>
+								@endif
 								<a href="{{ url('/deposits/' . Hashids::encode($deposit->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
 							</td>
 						</tr>

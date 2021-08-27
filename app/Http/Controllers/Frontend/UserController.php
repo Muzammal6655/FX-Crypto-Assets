@@ -29,9 +29,9 @@ class UserController extends Controller
         $input = $request->all();
         $user = Auth::user();
 
-        /**
+        /****
          * Were you referred to Interesting FX?
-         */
+         
 
         if(empty(session()->get('profile_email_verification_otp')) || session()->get('profile_email_verification_otp') != $request->email_code)
         {
@@ -50,7 +50,7 @@ class UserController extends Controller
             {
                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
             }
-        }
+        }****/
 
         if($request->has('referral_code') && !empty($request->referral_code))
         {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use App\Models\Deposit;
 use App\Models\Pool;
 use App\Models\EmailTemplate;
@@ -33,8 +35,10 @@ class DepositController extends Controller
     {
         $data = array();
         $user = auth()->user();
+        $data['model'] = new Pool();
         $data['user'] = $user;
-        
+        $data['action'] = "Add";
+
         if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
         {
             $pool = Pool::findOrFail($id[0]);
@@ -63,22 +67,32 @@ class DepositController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $input = $request->all();
         $user = auth()->user();
 
-        $validator = Validator::make($request->all(), [
+        $validations = [
             'wallet_address' => 'required',
             'amount' => 'required',
-            'transaction_id' => 'required|unique:deposits',
             'proof' => 'required',
-        ]);
+        ];
+      
+        if($input['action'] == 'Add')
+        { 
+            $validations['transaction_id'] = ['required',Rule::unique('deposits')];
+        }
+        else
+        {
+            $validations['transaction_id'] = ['required' , Rule::unique('deposits')->ignore($input['id'])];
+        }
+
+        $validator = Validator::make($request->all(), $validations); 
 
         if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
             return redirect()->back()->withInput();
         }
-
+        
         /**
          * OTP Verification
          */
@@ -102,7 +116,17 @@ class DepositController extends Controller
             }
         }
 
-        $model = new Deposit();
+        if($input['action'] == 'Add')
+        {   
+            $model = new Deposit();
+            $flash_message = 'Deposit has been created successfully.';
+        }
+        else
+        {
+            $model = Deposit::find($request->id);
+            $flash_message = 'Deposit has been update successfully.';
+           
+        }
 
         if (!empty($request->files) && $request->hasFile('proof')) {
             $file = $request->file('proof');
@@ -114,9 +138,25 @@ class DepositController extends Controller
             $target_path = 'public/users/'.$user->id.'/deposits';
             $filename = 'proof-' . uniqid() .'.'.$file->getClientOriginalExtension();
 
+            // **************** //
+            // Delete Old File
+            // **************** //
+
+            if ($input['action'] == 'Edit') 
+            {
+                $old_file = public_path() . '/storage/users/'.$user->id.'/deposits';
+             
+                if (file_exists($old_file) && !empty($model->proof)) 
+                {
+                    Storage::delete($target_path . '/' . $model->proof);
+                }
+            }
+         
             $path = $file->storeAs($target_path, $filename);
             $input['proof'] = $filename;
         }
+
+        
 
         $model->fill($input);
         $model->user_id = $user->id;
@@ -144,7 +184,7 @@ class DepositController extends Controller
 
         session()->forget('deposit_request_email_verification_otp');
 
-        $request->session()->flash('flash_success', 'Deposit has been created successfully. Please wait until admin approves your deposit.');
+        $request->session()->flash('flash_success',$flash_message);
         return redirect('/deposits');
     }
 
@@ -159,4 +199,34 @@ class DepositController extends Controller
         $data['deposit'] = Deposit::findOrFail($id);
         return view('frontend.deposits.view')->with($data);
     }
+
+    public function edit($id,Request $request)
+    {   
+        $id = Hashids::decode($id)[0];
+        $user = auth()->user();
+        $data['user'] = $user;
+        $data['action'] = "Edit";
+        $data['model'] = Deposit::findOrFail($id);
+
+        if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
+        {
+            $pool = Pool::findOrFail($id[0]);
+            $data['pool_id'] = $pool->id;
+            $data['pool_name'] = $pool->name;
+            $data['min_deposits'] = $pool->min_deposits;
+            $data['max_deposits'] = $pool->max_deposits;
+            $data['wallet_address'] = $pool->wallet_address;
+        }
+        else
+        {
+            $data['pool_id'] = '';
+            $data['pool_name'] = '';
+            $data['min_deposits'] = "0.01";
+            $data['max_deposits'] = 1000;
+            $data['wallet_address'] = settingValue('wallet_address');
+        }
+
+        return view('frontend.deposits.create')->with($data);
+    }
+
 }
