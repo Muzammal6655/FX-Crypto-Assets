@@ -49,6 +49,7 @@
     {
 		$('#transactions-datatable').dataTable(
 		{
+			sort: false,
 			pageLength: 50,
 			scrollX: true,
 			processing: false,

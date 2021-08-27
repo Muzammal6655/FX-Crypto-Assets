@@ -7,10 +7,10 @@ use App\Models\Pool;
 use App\Models\Transaction;
 use App\Models\Balance;
 use App\Models\PoolInvestment;
+use App\Models\EmailTemplate;
 use Carbon\Carbon;
 use Hashids;
 use DB;
-
 
 class PoolController extends Controller
 {
@@ -98,8 +98,8 @@ class PoolController extends Controller
         }
         
         if( $user->account_balance  >= $request->invest_amount)
-        {  
-            PoolInvestment::create([
+        {
+            $model = PoolInvestment::create([
                 'user_id' => $user->id,
                 'pool_id' => $pool->id,
                 'deposit_amount' => $request->invest_amount,
@@ -107,6 +107,27 @@ class PoolController extends Controller
                 'management_fee_percentage' => $pool->management_fee_percentage,
                 'status' => 0,
             ]);
+
+            $name = $user->name;
+            $email = $user->email;
+            $link = url('/admin/pool-investments/'.Hashids::encode($model->id));
+
+            // ********************* //
+            // Send email to Admin   //
+            // ********************* //
+
+            $email_template = EmailTemplate::where('type','investment_request')->first();
+
+            $subject = $email_template->subject;
+            $content = $email_template->content;
+
+            $search = array("{{name}}","{{email}}","{{app_name}}","{{link}}");
+            $replace = array($name,$email,env('APP_NAME'),$link);
+            $content  = str_replace($search,$replace,$content);
+
+            sendEmail(settingValue('contact_email'), $subject, $content);
+
+            session()->forget('investment_request_email_verification_otp');
             
             $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
                 return redirect()->back();

@@ -80,6 +80,7 @@
     {
       	$('#email-templates-datatable').dataTable(
       	{
+      		sort: false,
 			pageLength: 50,
 			scrollX: true,
 			responsive: true,
