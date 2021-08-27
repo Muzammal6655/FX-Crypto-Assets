@@ -47,6 +47,14 @@
 						<th scope="row">Created At</th>
 					 	<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 					</tr>
+					
+					<tr> 
+						<th scope="row">Approved At</th>
+						@if(!empty($deposit->approved_at))
+					 	<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+					 	@endif
+					</tr>
+					
 					<tr> 
 						<th scope="row">Status</th>
 					 	<td> 

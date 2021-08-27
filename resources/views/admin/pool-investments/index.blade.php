@@ -107,6 +107,7 @@
 							<th>Commission ({{config('constants.currency')['symbol']}})</th>
 							<th>Start Date</th>
 							<th>End Date</th>
+							<th>Approved At</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -157,6 +158,7 @@
 				{data: 'commission', name: 'commission'},
 				{data: 'start_date', name: 'start_date'},
 				{data: 'end_date', name: 'end_date'},
+				{data: 'approved_at', name: 'approved_at'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]

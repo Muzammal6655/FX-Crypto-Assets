@@ -47,11 +47,27 @@
 					</tr>
 					<tr> 
 						<th scope="row">Started Date</th>
-					 	<td>{{ \Carbon\Carbon::createFromTimeStamp($model->start_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>
+					 	<td>
+					 		@if(!empty($model->start_date))
+					 		{{ \Carbon\Carbon::createFromTimeStamp($model->start_date)->tz(auth()->user()->timezone)->format('d M, Y') }}
+					 		@endif
+					 	</td>
 					</tr>
 					<tr> 
 						<th scope="row">Ended Date</th>
-					 	<td>{{ \Carbon\Carbon::createFromTimeStamp($model->end_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>
+					 	<td>
+					 		@if(!empty($model->end_date))
+					 		{{ \Carbon\Carbon::createFromTimeStamp($model->end_date)->tz(auth()->user()->timezone)->format('d M, Y') }}
+					 		@endif
+					 	</td>
+					</tr>
+					<tr> 
+						<th scope="row">Approved At</th>
+					 	<td>
+					 		@if(!empty($model->approved_at))
+					 		{{ \Carbon\Carbon::createFromTimeStamp(strtotime($model->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y') }}
+					 		@endif
+					 	</td>
 					</tr>
 					<tr> 
 						<th scope="row">Status</th>

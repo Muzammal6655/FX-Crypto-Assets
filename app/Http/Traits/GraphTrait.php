@@ -13,7 +13,7 @@ trait GraphTrait
          */
 
         foreach ($records as $record) {
-            $month = date('F',strtotime($record->created_at));
+            $month = date('F',strtotime($record->approved_at));
 
             if(!isset($monthsArr[$month]))
             {

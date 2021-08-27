@@ -28,12 +28,18 @@
 					 	<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 					</tr>
 					<tr> 
+						<th scope="row">Approved At</th>
+						@if(!empty($withdraw->approved_at))
+					 	<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+					 	@endif
+					</tr>
+					<tr> 
 						<th scope="row">Status</th>
 					 	<td> 
 				 			@if($withdraw->status == 0)
-								<span class="badge bg-danger">Pending</span>
+								<span class="badge bg-warning">Pending</span>
 							@elseif($withdraw->status == 1)
-								<span class="badge bg-danger">Approved</span>
+								<span class="badge bg-success">Approved</span>
 							@elseif($withdraw->status == 2)
 								<span class="badge bg-danger">Rejected</span>
 							@endif

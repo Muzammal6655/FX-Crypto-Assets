@@ -95,7 +95,7 @@
                                             <p><strong>Wallet Address</strong></p>
 
                                             <div class="form-group" id="btc_wallet_address">
-                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}">
+                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
                                             </div>
                                             <h5>OTP Verification</h5>
                                             <div class="form-group">

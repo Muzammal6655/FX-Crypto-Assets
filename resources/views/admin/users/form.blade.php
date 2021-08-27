@@ -172,6 +172,20 @@
 								</div>
 							</div> -->
 
+							@if(!empty($user->otp_attempts_date) || !empty($user->password_attempts_date))
+							<hr>
+							<h4 class="heading">
+								In Case Of Wrong Password /2FA Attempt
+								@if($action == 'Edit')
+								<a href="{{url('admin/investors/enable-login/'.Hashids::encode($user->id))}}" class="pull-right">
+									<button type="button" class="btn btn-primary btn-sm btn-fullrounded">
+										<i class="fa fa-arrow-circle-down"></i><span>Enable Login</span>
+									</button>
+								</a>
+								@endif
+							</h4>
+							@endif
+
 							<hr>
 
 							<h4 class="heading">

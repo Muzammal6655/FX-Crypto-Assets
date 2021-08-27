@@ -31,9 +31,15 @@ class WithdrawController extends Controller
     public function create(Request $request)
     {
         $user = auth()->user();
+        
+        if(empty($user->btc_wallet_address))
+        {   
+            return redirect()->back()->withInput()->withErrors(['error' => 'Wallet address is required for withdraw request.']);
+        }
+        
         if($user->account_balance <= 0)
         {
-            return redirect()->back()->withInput()->withErrors(['error' => 'you have insufficient balance for the withdrawal request.']);
+            return redirect()->back()->withInput()->withErrors(['error' => 'You have insufficient balance for the withdrawal request.']);
         }
 
         $data = array();

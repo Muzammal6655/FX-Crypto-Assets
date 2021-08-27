@@ -66,6 +66,13 @@ class WithdrawController extends Controller
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
             });
 
+            $datatable = $datatable->editColumn('approved_at', function($row)
+            {   
+                if(!empty($row->approved_at ))
+                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+                return '';
+            });
+
             $datatable = $datatable->editColumn('status', function($row)
             {
                 $status = '<span class="label label-warning">Pending</span>';
@@ -109,7 +116,7 @@ class WithdrawController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
+         
         $model = Withdraw::findOrFail($input['id']);
         $model->fill($input);
         $model->save();
@@ -185,7 +192,6 @@ class WithdrawController extends Controller
             ]);
 
             $model->actual_amount = $user->account_balance;
-            $model->save();
 
             $user->update([
                 'account_balance' => 0,
@@ -200,6 +206,7 @@ class WithdrawController extends Controller
         
         $model->status = 1;
         $model->actual_amount = $model->amount;
+        $model->approved_at = date('Y-m-d H:i:s');
         $model->save();
         $request->session()->flash('flash_success', 'Withdraw has been approved successfully.');
         return redirect('admin/withdraws');

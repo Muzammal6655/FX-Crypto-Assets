@@ -91,6 +91,7 @@
 							<th>Investor</th>
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
 							<th>Created At</th>
+							<th>Approved At</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</tr>
@@ -135,6 +136,7 @@
 				{data: 'user', name: 'user'},
 				{data: 'amount', name: 'amount'},
 				{data: 'created_at', name: 'created_at'},
+				{data: 'approved_at', name: 'approved_at'},
 				{data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]

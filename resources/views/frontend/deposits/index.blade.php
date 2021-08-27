@@ -19,6 +19,7 @@
 						<th scope="col">Pool</th>
 						<th scope="col">Amount ({{config('constants.currency')['symbol']}})</th>
 						<th scope="col">Created At</th>
+						<th scope="col">Approved At</th>
 						<th scope="col">Status</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -31,6 +32,7 @@
 							<td>{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
 							<td>{{ $deposit->amount }}</td>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+							<td>{{ !empty($deposit->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>
 							<td>
 								@if($deposit->status == 0)
 									<span class="badge bg-warning">Pending</span>

@@ -19,6 +19,7 @@
 						<th scope="col">Amount ({{config('constants.currency')['symbol']}})</th>
 						<th scope="col">Wallet Address</th>
 						<th scope="col">Created At</th>
+						<th scope="col">Approved At</th>
 						<th scope="col">Status</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -31,6 +32,7 @@
 							<td>{{ $withdraw->amount }}</td>
 							<td>{{ $withdraw->wallet_address }}</td>
 							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+							<td>{{ !empty($withdraw->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>
 							<td>
 								@if($withdraw->status == 0)
 									<span class="badge bg-warning">Pending</span>

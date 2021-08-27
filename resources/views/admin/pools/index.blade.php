@@ -35,8 +35,8 @@
 							<th>Min Deposits ({{config('constants.currency')['symbol']}})</th>
 							<th>Max Deposits ({{config('constants.currency')['symbol']}})</th>
 							<th>Users Limit</th>
-							<th>Profit %</th>
-							<th>Fee %</th>
+							<th>Profit (%)</th>
+							<th>Fee (%)</th>
 							<th>Start Date</th>
 							<th>End Date</th>
 							<th>Days</th>

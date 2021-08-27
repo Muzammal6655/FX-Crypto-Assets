@@ -82,6 +82,13 @@ class DepositController extends Controller
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
             });
 
+            $datatable = $datatable->editColumn('approved_at', function($row)
+            {    
+                if(!empty($row->approved_at ))
+                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+                 return '';
+            });
+
             $datatable = $datatable->editColumn('status', function($row)
             {
                 $status = '<span class="label label-warning">Pending</span>';
@@ -156,9 +163,10 @@ class DepositController extends Controller
     {
         if(!have_right('deposits-approve'))
             access_denied();
-
+    
         $id = Hashids::decode($id)[0];
         $model = Deposit::findOrFail($id);
+ 
         $user = $model->user;
         $user->update([
             'account_balance' => $user->account_balance + $model->amount,
@@ -224,6 +232,7 @@ class DepositController extends Controller
             ]);
         }
 
+        $model->approved_at = date('Y-m-d H:i:s');
         $model->status = 1;
         $model->save();
         $request->session()->flash('flash_success', 'Deposit has been approved successfully.');

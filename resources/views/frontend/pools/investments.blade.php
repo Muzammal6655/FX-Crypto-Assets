@@ -20,6 +20,7 @@
 						<th scope="col">Fee (%)</th>
 						<th scope="col">Start Date</th>
 						<th scope="col">End Date</th>
+						<th scope="col">Approved At</th>
 						<th scope="col">Status</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -34,8 +35,9 @@
 							<td>{{ $poolinvestment->profit_percentage }}</td>
 							<td>{{ $poolinvestment->profit }}</td>
 							<td>{{ $poolinvestment->management_fee_percentage }}</td>
-							<td>{{ \Carbon\Carbon::createFromTimeStamp($poolinvestment->start_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>
-							<td>{{ \Carbon\Carbon::createFromTimeStamp($poolinvestment->end_date)->tz(auth()->user()->timezone)->format('d M, Y') }}</td>
+							<td>{{  !empty($poolinvestment->start_date	) ?  \Carbon\Carbon::createFromTimeStamp($poolinvestment->start_date)->tz(auth()->user()->timezone)->format('d M, Y') : ''}}</td>
+							<td>{{ !empty($poolinvestment->start_date	) ?  \Carbon\Carbon::createFromTimeStamp($poolinvestment->end_date)->tz(auth()->user()->timezone)->format('d M, Y') : '' }}</td>
+ 							<td>{{ !empty($poolinvestment->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($poolinvestment->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y')  : '' }}</td>
 							<td>
 								@if($poolinvestment->status == 0)
 									<span class="badge bg-warning">Pending</span>

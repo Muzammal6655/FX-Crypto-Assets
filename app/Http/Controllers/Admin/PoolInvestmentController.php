@@ -42,7 +42,7 @@ class PoolInvestmentController extends Controller
             $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
         
-            $db_record = PoolInvestment::whereBetween('start_date',[strtotime($from),strtotime($to)]);   
+            $db_record = PoolInvestment::whereBetween('created_at',[$from,$to]);   
             if($request->has('user_id') && !empty($request->user_id))
             {
                 $db_record = $db_record->where('user_id',$request->user_id);
@@ -76,13 +76,24 @@ class PoolInvestmentController extends Controller
             });
 
             $datatable = $datatable->editColumn('start_date', function($row)
-            {
-                return Carbon::createFromTimeStamp($row->start_date)->tz(session('timezone'))->format('d M, Y') ;
+            {   
+                if(!empty($row->start_date ))
+                    return Carbon::createFromTimeStamp($row->start_date)->tz(session('timezone'))->format('d M, Y') ;
+                 return '';
             });
 
             $datatable = $datatable->editColumn('end_date', function($row)
             {
-                return Carbon::createFromTimeStamp($row->end_date)->tz(session('timezone'))->format('d M, Y') ;
+                if(!empty($row->end_date ))
+                    return Carbon::createFromTimeStamp($row->end_date)->tz(session('timezone'))->format('d M, Y') ;
+                 return '';
+            });
+
+            $datatable = $datatable->editColumn('approved_at', function($row)
+            {
+                if(!empty($row->approved_at ))
+                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y') ;
+                return '';
             });
 
             $datatable = $datatable->editColumn('status', function($row)
@@ -176,7 +187,8 @@ class PoolInvestmentController extends Controller
         {
             $model->update([
                 'start_date' => Carbon::now('UTC')->timestamp,
-                'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
+                'end_date' => Carbon::now('UTC')->addDay($model->pool->days)->timestamp,
+                'approved_at' => date('Y-m-d H:i:s'),
                 'status' => 1
             ]);
 
@@ -212,7 +224,7 @@ class PoolInvestmentController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = PoolInvestment::whereBetween('start_date',[strtotime($request->from),strtotime($request->to)]);
+        $db_record = PoolInvestment::whereBetween('created_at',[$from,$to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {

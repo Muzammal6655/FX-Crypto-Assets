@@ -499,4 +499,17 @@ class UserController extends Controller
         $data['model'] = Transaction::findOrFail($id);
         return view('admin.users.transaction_detail')->with($data);
     }
+
+    public function enableLogin($id)
+    {    
+        $user = User::find(Hashids::decode($id)[0]);
+
+        $user->update([
+                'otp_attempts_date' => null,
+                'password_attempts_date' => null,
+        ]);
+ 
+        Session::flash('flash_success', 'Login has been enabled successfully.');
+        return redirect('admin/investors/'.$id.'/edit');
+    }
 }

@@ -64,6 +64,13 @@
 							</div>
 
 							<div class="form-group">
+								<label for="approved_at" class="col-sm-3 control-label">Approved At</label>
+								<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{ $model->approved_at }}">
+								</div>
+							</div>
+
+							<div class="form-group">
 								<label class="col-sm-3 control-label">Status</label>
 								<div class="col-sm-9">
 									@if($model->status == 0)
