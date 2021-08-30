@@ -157,6 +157,7 @@ class WithdrawController extends Controller
             $user->update([
                 'account_balance' => $user->account_balance - $model->amount,
                 'withdraw_total' => $user->withdraw_total + $model->amount,
+                'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
 
             Transaction::create([
@@ -196,6 +197,7 @@ class WithdrawController extends Controller
             $user->update([
                 'account_balance' => 0,
                 'withdraw_total' => $user->withdraw_total + $user->account_balance,
+                'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
         }
         else

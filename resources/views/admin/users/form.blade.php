@@ -50,7 +50,7 @@
 								<label for="email" class="col-sm-3 control-label">Email*</label>
 								<div class="col-sm-9">
 									<input type="email" name="email" maxlength="100" class="form-control"
-										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="">
+										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="" readonly="readonly">
 								</div>
 							</div>
 
@@ -317,7 +317,7 @@
             }
         });
         $.validator.addMethod("passwordCheck", function(value) {
-           	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)
+           	return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
         });
         $.validator.addMethod("emailCheck", function(value) {
            	return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)

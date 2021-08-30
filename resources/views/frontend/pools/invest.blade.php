@@ -28,7 +28,7 @@
 				</strong></span>
 				<br>
 				<span class="card-title">User Total Balance:<strong>
-				{{$user['account_balance']}}({{config('constants.currency')['symbol']}})
+				{{number_format($user->account_balance,2)}}({{config('constants.currency')['symbol']}})
 				</strong></span>
 				<form id="invest-form"  method="POST" action="{{url('/invest')}}">
 					{{ csrf_field() }}

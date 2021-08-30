@@ -118,7 +118,7 @@ class OtpAuthController extends Controller
 
         if(date('Y-m-d') == $user->otp_attempts_date)
         {
-            return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.']);
+            return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.Please contact Interesting FX,if someone from Interesting FX has not contact you via the methods.']);
         }
 
         // Initialise the 2FA class
@@ -154,10 +154,7 @@ class OtpAuthController extends Controller
                 $user->otp_attempts_count = 2;
                 $user->otp_attempts_date = date('Y-m-d');
                 $error = 'You have failed to Log on using 2 factor authentications. 
-                          Your account is still functioning, but access is restricted until this 
-                          issue is sorted out. Please contact Interesting FX, if someone from 
-                          Interesting FX has not contact you via the methods, we have on file within 
-                          3 business days.';
+                          Your account is still functioning, but access is restricted until this issue is sorted out.Please contact Interesting FX, if someone from Interesting FX has not contact you via the methods, we have on file within 3 business days.';
             }
         }
 

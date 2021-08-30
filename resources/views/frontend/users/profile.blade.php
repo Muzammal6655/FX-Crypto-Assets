@@ -210,22 +210,22 @@
                 },
             });
             $.validator.addMethod("passwordCheck", function (value) {
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
             });
-            $("#generate_otp").click(function(){
-                $('#generate_otp_loading').show();
-                $('#generate_otp').prop('disabled',true);
+            // $("#generate_otp").click(function(){
+            //     $('#generate_otp_loading').show();
+            //     $('#generate_otp').prop('disabled',true);
 
-                $.ajax({
-                    url: "{{ url('/otp-auth/send-email-code?type=profile') }}",
-                    type: 'GET',
-                    success: function(res) {
-                        $('#generate_otp_loading').hide();
-                        $('#generate_otp').prop('disabled',false);
-                        alert(res);
-                    }
-                });
-            });
+            //     $.ajax({
+            //         url: "{{ url('/otp-auth/send-email-code?type=profile') }}",
+            //         type: 'GET',
+            //         success: function(res) {
+            //             $('#generate_otp_loading').hide();
+            //             $('#generate_otp').prop('disabled',false);
+            //             alert(res);
+            //         }
+            //     });
+            // });
         });
 
     </script>

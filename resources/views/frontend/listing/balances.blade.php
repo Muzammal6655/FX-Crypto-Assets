@@ -8,7 +8,7 @@
 			Balances History
 			<span class="pull-right">
 				 <strong> Account Balance({{config('constants.currency')['symbol']}}):
-				 	{{$user->account_balance}}</strong>
+				 	{{number_format($user->account_balance,2)}}</strong>
 			</span>
 		</div>
 		<div class="card-body">

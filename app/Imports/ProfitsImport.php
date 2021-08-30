@@ -46,6 +46,7 @@ class ProfitsImport implements ToCollection
                             $referral_account->update([
                                 'account_balance' => $referral_account->account_balance + $commission,
                                 'commission_total' =>  $referral_account->commission_total + $commission,
+                                'account_balance_timestamp' =>Carbon::now('UTC')->timestamp,
                             ]);
 
                             /**
@@ -103,6 +104,7 @@ class ProfitsImport implements ToCollection
                     $user->update([
                        'account_balance' => $user->account_balance + $actual_profit + $investment->deposit_amount,
                        'profit_total' => $user->profit_total + $actual_profit,
+                       'account_balance_timestamp' =>Carbon::now('UTC')->timestamp,
                     ]);
                     
                     /**

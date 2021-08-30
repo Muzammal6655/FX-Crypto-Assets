@@ -194,6 +194,7 @@ class PoolInvestmentController extends Controller
 
             $model->user->update([
                 'account_balance' => $model->user->account_balance - $model->deposit_amount,
+                'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
 
             $transaction_message =   "Amount investment in " . $model->pool->name;

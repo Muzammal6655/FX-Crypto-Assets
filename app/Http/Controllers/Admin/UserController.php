@@ -175,7 +175,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $input = $request->all();
 
         if($input['action'] == 'Add')
@@ -253,6 +253,23 @@ class UserController extends Controller
 
         $model->fill($input);
         $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
+        
+        if ($request->status == 1 && $model->status == 0) 
+        {  
+            $name = $model->name;
+            $email = $model->email;
+            $email_template = EmailTemplate::where('type','account_approval')->first();
+
+            $subject = $email_template->subject;
+            $content = $email_template->content;
+
+            $search = array("{{name}}","{{email}}","{{app_name}}");
+            $replace = array($name,$email,env('APP_NAME'));
+            $content  = str_replace($search,$replace,$content);
+
+            sendEmail($email, $subject, $content);
+        }
+
         $model->save();
 
         if($input['action'] == 'Add')

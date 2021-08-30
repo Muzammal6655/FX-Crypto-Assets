@@ -257,6 +257,54 @@ Hi Admin,
                 'created_at' => '2021-08-26 13:06:46',
                 'updated_at' => '2021-08-26 13:06:46',
             ),
+            8 => 
+            array (
+                'id' => 9,
+                'type' => 'account_approval',
+                'subject' => 'Account Approval By Admin',
+                'content' => '<div style=" padding:10px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<h3 style=" font-size: 22px; font-family: Segoe, \'Segoe UI\', \'sans-serif\'; margin-top: 20px;color: #000000;">Account Approval By Admin</h3><h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+Hi {{name}}, 
+</h3>
+<p style="font-size: 17px; line-height: 25px; margin-top: 40px; margin-bottom: 40px; color: rgb(85, 85, 85);"><span style="font-weight: normal;">Congratulations! your account has been approved by the admin. Now you are able to log in to the site.</span></p>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers,</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-08-30 08:07:22',
+                'updated_at' => '2021-08-30 08:07:22',
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'type' => 'account_disabled',
+                'subject' => 'Account Disabled',
+                'content' => '<div style=" padding:10px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<h3 style=" font-size: 22px; font-family: Segoe, \'Segoe UI\', \'sans-serif\'; margin-top: 20px;color: #000000;">Your account is disabled</h3><h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+Hi {{name}}, 
+</h3>
+<p style="font-size: 17px; line-height: 25px; margin-top: 40px; margin-bottom: 40px; color: rgb(85, 85, 85);"><span style="font-weight: normal;">Your account is disabled because your account balance is less than 0.01 for more than 3 months. Please contact with Admin in case of any concerns.</span></p>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers,</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-08-30 08:13:05',
+                'updated_at' => '2021-08-30 08:13:05',
+            ),
         ));
         
         
