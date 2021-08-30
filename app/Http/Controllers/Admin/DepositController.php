@@ -230,6 +230,7 @@ class DepositController extends Controller
                 'management_fee_percentage' => $pool->management_fee_percentage,
                 'start_date' => Carbon::now('UTC')->timestamp,
                 'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
+                'approved_at' => date('Y-m-d H:i:s'),
                 'status' => 1,
             ]);
         }
