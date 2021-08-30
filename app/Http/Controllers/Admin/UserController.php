@@ -251,11 +251,10 @@ class UserController extends Controller
             }
         }
 
-        $model->fill($input);
-        $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
         
-        if ($request->status == 1 && $model->status == 0) 
-        {  
+        $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
+        if ($request->is_approved == 1 && $model->is_approved == 0) 
+        { 
             $name = $model->name;
             $email = $model->email;
             $email_template = EmailTemplate::where('type','account_approval')->first();
@@ -269,7 +268,7 @@ class UserController extends Controller
 
             sendEmail($email, $subject, $content);
         }
-
+        $model->fill($input);
         $model->save();
 
         if($input['action'] == 'Add')
