@@ -127,12 +127,12 @@
 										<span class="actions">
 											@if(have_right('investors-edit'))
 											<a class="btn btn-primary" title="Edit" target="_blank"
-												href="{{url('admin/users/' . Hashids::encode($user->id) . '/edit')}}"><i
+												href="{{url('admin/investors/' . Hashids::encode($user->id) . '/edit')}}"><i
 											class="fa fa-pencil-square-o"></i></a>
 											@endif
 											@if(have_right('investors-delete'))
 											<form method="POST"
-												action="{{url('admin/users/'.Hashids::encode($user->id)) }}"
+												action="{{url('admin/investors/'.Hashids::encode($user->id)) }}"
 												accept-charset="UTF-8" style="display:inline">
 												<input type="hidden" name="_method" value="DELETE">
 												<input type="hidden" name="page" value="dashboard">
