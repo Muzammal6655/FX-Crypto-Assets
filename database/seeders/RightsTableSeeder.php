@@ -151,8 +151,128 @@ class RightsTableSeeder extends Seeder
                 'name' => 'pools-delete',
                 'status' => 1,
             ),
+            22 => 
+            array (
+                'module_id' => 1,
+                'name' => 'investors-referrals',
+                'status' => 1,
+            ),
+            23 => 
+            array (
+                'module_id' => 1,
+                'name' => 'investors-transactions',
+                'status' => 1,
+            ),
+            24 => 
+            array (
+                'module_id' => 1,
+                'name' => 'investors-balances',
+                'status' => 1,
+            ),
+            25 => 
+            array (
+                'module_id' => 1,
+                'name' => 'investors-kyc',
+                'status' => 1,
+            ),
+            26 => 
+            array (
+                'module_id' => 7,
+                'name' => 'pool-investments-list',
+                'status' => 1,
+            ),
+            27 => 
+            array (
+                'module_id' => 7,
+                'name' => 'pool-investments-view',
+                'status' => 1,
+            ),
+            28 => 
+            array (
+                'module_id' => 7,
+                'name' => 'pool-investments-approve',
+                'status' => 1,
+            ),
+            29 => 
+            array (
+                'module_id' => 7,
+                'name' => 'pool-investments-reject',
+                'status' => 1,
+            ),
+            30 => 
+            array (
+                'module_id' => 8,
+                'name' => 'deposits-list',
+                'status' => 1,
+            ),
+            31 => 
+            array (
+                'module_id' => 8,
+                'name' => 'deposits-view',
+                'status' => 1,
+            ),
+            32 => 
+            array (
+                'module_id' => 8,
+                'name' => 'deposits-approve',
+                'status' => 1,
+            ),
+            33 => 
+            array (
+                'module_id' => 8,
+                'name' => 'deposits-reject',
+                'status' => 1,
+            ),
+            34 => 
+            array (
+                'module_id' => 9,
+                'name' => 'withdraws-list',
+                'status' => 1,
+            ),
+            35 => 
+            array (
+                'module_id' => 9,
+                'name' => 'withdraws-view',
+                'status' => 1,
+            ),
+            36 => 
+            array (
+                'module_id' => 9,
+                'name' => 'withdraws-approve',
+                'status' => 1,
+            ),
+            37 => 
+            array (
+                'module_id' => 9,
+                'name' => 'withdraws-reject',
+                'status' => 1,
+            ),
+            38 => 
+            array (
+                'module_id' => 10,
+                'name' => 'profits-list',
+                'status' => 1,
+            ),
+            39 => 
+            array (
+                'module_id' => 10,
+                'name' => 'profits-import',
+                'status' => 1,
+            ),
+            40 => 
+            array (
+                'module_id' => 11,
+                'name' => 'pool-balances-list',
+                'status' => 1,
+            ),
+            41 => 
+            array (
+                'module_id' => 11,
+                'name' => 'pool-balances-import',
+                'status' => 1,
+            ),
         ));
         
         
     }
-}
+} 

@@ -16,20 +16,20 @@
 		<div class="panel">
 			<div class="panel-heading">
 				<h3 class="panel-title">Profits Listing</h3>
-				@if(have_right('profits-create'))
 				<div class="right">
+				@if(have_right('profits-import'))
 					<a href="{{url('admin/profits/create')}}" class="pull-right">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Import</span>
 						</button>
 					</a>
+					@endif
 					<a href="{{ asset('ProfitSample.csv') }}" download="">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Download Sample File</span>
 						</button>
 					</a>
 				</div>
-				@endif
 			</div>
 			<div class="panel-body">
 				<table id="profits-datatable" class="table table-hover" style="width:100%">

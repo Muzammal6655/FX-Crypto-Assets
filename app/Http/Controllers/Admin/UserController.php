@@ -95,7 +95,7 @@ class UserController extends Controller
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/balances').'" title="Balances"><i class="fa fa-money"></i></a>';
                 }
 
-                if(have_right('investors-documents'))
+                if(have_right('investors-kyc'))
                 {
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/documents').'" title="KYC"><i class="fa fa-id-card"></i></a>';
                 }
@@ -353,7 +353,7 @@ class UserController extends Controller
      */
     public function documents($id)
     {
-        if(!have_right('investors-documents'))
+        if(!have_right('investors-kyc'))
             access_denied();
 
         $id = Hashids::decode($id)[0];
