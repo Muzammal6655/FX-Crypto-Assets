@@ -26,6 +26,7 @@ class ProfitsImport implements ToCollection
                     $profit = $investment->deposit_amount * ($row[5] / 100); 
                     $management_fee = $profit * ($investment->management_fee_percentage / 100);
                     $actual_profit = $profit - $management_fee; 
+                    $commission = $investment->management_fee_percentage * (10 /100);
                     
                     if(!empty($user->referral_code))
                     {
@@ -76,7 +77,7 @@ class ProfitsImport implements ToCollection
 
                             Transaction::create([
                                 'user_id' => $referral_account->id,
-                                'type' => 'Refferal commission',
+                                'type' => 'commission',
                                 'amount' => $commission,
                                 'actual_amount' => $commission,
                                 'description' => $transaction_message,
@@ -90,7 +91,7 @@ class ProfitsImport implements ToCollection
                     /**
                      * Pool Investment table update
                      */
-
+              
                     $investment->update([
                        'user_id' =>  $user->id,
                        'profit' =>  $profit,
@@ -126,7 +127,7 @@ class ProfitsImport implements ToCollection
                    
                     Transaction::create([
                         'user_id' => $user->id,
-                        'type' => 'Profit',
+                        'type' => 'profit',
                         'amount' => $profit,
                         'actual_amount' => $actual_profit,
                         'description' => $transaction_message,
