@@ -6,6 +6,7 @@
 		<div class="card-group pool-view-des">
 			<div class="card">
 				<div class="card-body">
+					@include('frontend.messages')
 					<h5 class="card-title card-top-title">{{$pool['name']}}</h5>
 					<p class="card-title text-center mb-4">{{$pool['description']}}</p>
 					<input type="hidden" class="form-control" name="pool_id" value="{{ $pool['id'] }}">

@@ -68,37 +68,38 @@
                                 <form id="deposits-form" method="POST" action="{{url('/monthly-statements')}}" enctype="multipart/form-data">
                                     <div class="card-body">
                                     {{ csrf_field() }}
-                                        <input type="text" id='start_month'" name="start_month" value="" autocomplete="off">
+                                        <input type="text" id='start_month' name="start_month" value="" autocomplete="off">
                                         <input type="text" id='end_month' name="end_month" value=""  autocomplete="off">
                                         <button type="submit" class="btn btn-primary">Download</button>
 
-                                    </div>
-                                </form>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        </br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3>Deposit History</h3>
+                                <canvas id="depositChart" style="width:100%;"></canvas>
                             </div>
                         </div>
-
-                    </div>
-                    </br>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3>Deposit History</h3>
-                            <canvas id="depositChart" style="width:100%;"></canvas>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3>Withdraw History</h3>
+                                <canvas id="withdrawChart" style="width:100%;"></canvas>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3>Withdraw History</h3>
-                            <canvas id="withdrawChart" style="width:100%;"></canvas>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3>Investments History</h3>
+                                <canvas id="investmentsChart" style="width:100%;"></canvas>
+                            </div>
                         </div>
+                        @endif
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3>Investments History</h3>
-                            <canvas id="investmentsChart" style="width:100%;"></canvas>
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </div>
         </div>

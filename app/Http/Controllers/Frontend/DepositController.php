@@ -41,7 +41,13 @@ class DepositController extends Controller
         $data['user'] = $user;
         $data['action'] = "Add";
 
-        if ($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id)) {
+        if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
+        { 
+            // if(date('d') != 01)
+            // {
+            //     return redirect()->back()->withInput()->withErrors(['error' => 'Pool Investment requests can be received by the 1st of the month.']);
+            // }
+
             $pool = Pool::findOrFail($id[0]);
             $data['pool_id'] = $pool->id;
             $data['pool_name'] = $pool->name;
@@ -89,9 +95,6 @@ class DepositController extends Controller
             return redirect()->back()->withInput();
         }
 
-
-
-
         /**
          * OTP Verification
          */
@@ -126,9 +129,6 @@ class DepositController extends Controller
             return redirect()->back()->withInput()->withErrors(['error' => 'Invalid Transaction ID']);
         }
 
-       
-
-
         if ($input['action'] == 'Add') {
             $model = new Deposit();
             $flash_message = 'Deposit has been created successfully.';
@@ -162,8 +162,6 @@ class DepositController extends Controller
             $path = $file->storeAs($target_path, $filename);
             $input['proof'] = $filename;
         }
-
-
 
         $model->fill($input);
         $model->user_id = $user->id;

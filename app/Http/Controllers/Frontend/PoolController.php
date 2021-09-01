@@ -44,6 +44,11 @@ class PoolController extends Controller
 
     public function invest($id)
     {  
+        // if(date('d') != 01) 
+        // {   
+        //     return redirect()->back()->withInput()->withErrors(['error' => 'Pool Investment requests can be received by the 1st of the month.']);
+        // }
+
         $id = Hashids::decode($id)[0];
         $data['user'] = auth()->user();
         $data['pool'] = Pool::findOrFail($id);
@@ -131,6 +136,7 @@ class PoolController extends Controller
             
             $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
                 return redirect()->back();
+            
         }
         else
         {
@@ -146,10 +152,44 @@ class PoolController extends Controller
     }
 
     public function investmentDetail($id)
-    {
+    { 
         $id = Hashids::decode($id)[0];
         $data['model'] = PoolInvestment::findOrFail($id);
+        $data['pools'] = Pool::where('id','!=',$data['model']->pool_id)->get();
         return view('frontend.pools.investment_detail')->with($data);
     }
+
+    public function transfer(Request $request, $id)
+    {   
+        $id = Hashids::decode($id)[0];
+        $model = PoolInvestment::findOrFail($id);
+        $pool = Pool::findOrFail($request->pool_id);
+        $pool_investments_count = DB::table('pool_investments')
+                          ->where('pool_id', '=' , $pool->id)
+                          ->distinct('user_id')
+                          ->count();
+
+        if($pool_investments_count >=  $pool->users_limit)
+        { 
+            return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
+        }
+
+        if($model->deposit_amount >= $pool->min_deposits && $model->deposit_amount <= $pool->max_deposits )
+        {
+            $model->update([
+                'pool_id' => $request->pool,
+                'profit_percentage' => $pool->profit_percentage,
+                'management_fee_percentage' => $pool->management_fee_percentage,
+            ]);
+        }
+        else
+        { 
+            return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
+        }
+        
+        $request->session()->flash('flash_success', 'Pool Investment successfully transfer to '.
+            $pool->name. '.');
+        return redirect()->back();
+   }
 }
 

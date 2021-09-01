@@ -102,4 +102,30 @@
 		</div>
 	</div>
 </div>
+@if($model->status == 0)
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				Pool Investment Transfer
+			</div>
+			<div class="card-body">
+				<form class="form-inline"
+					  action="{{url('pool-investments/'.Hashids::encode($model->id).'/transfer')}}" method="post">
+				@csrf
+			    <div class="form-group">
+			     	<select class="form-control"  name="pool_id" required="required">
+			            <option value="">Select Pool</option>
+			            @foreach ($pools as $pool)
+			            <option value="{{$pool->id}}">{{$pool->name}}</option>
+			            @endforeach 
+			        </select>
+			    </div>   
+			    <button type="submit" class="btn btn-primary btn-fullrounded btn-apply">
+			          <span>Transfer</span>
+			    </button>
+	  			</form>
+			</div>
+		</div>
+	</div>
+ @endif
 @endsection

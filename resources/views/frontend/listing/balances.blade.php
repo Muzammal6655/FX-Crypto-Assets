@@ -1,6 +1,7 @@
  @extends('frontend.layouts.app')
 @section('title', 'Balances')
 @section('content')
+
 <div class="main-wrapper">
 	<div class="container">
 		<div class="card">
