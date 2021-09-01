@@ -1,47 +1,48 @@
 @extends('frontend.layouts.app')
 @section('title', 'Create Withdraw')
 @section('content')
+<div class="main-wrapper">
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				Create Withdraw
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Fill the form below to create withdraw</h5>
+				@include('frontend.messages')
+				<form id="withdraws-form" method="POST" action="{{url('/withdraws')}}" enctype="multipart/form-data">
+					{{ csrf_field() }}
 
-<div class="container">
-	<div class="card">
-		<div class="card-header">
-			Create Withdraw
-		</div>
-		<div class="card-body">
-			<h5 class="card-title">Fill the form below to create withdraw</h5>
-			@include('frontend.messages')
-			<form id="withdraws-form" method="POST" action="{{url('/withdraws')}}" enctype="multipart/form-data">
-				{{ csrf_field() }}
-
-				<div class="form-group">
-					<label for="wallet_address">Wallet Address</label>
-					<input type="text" class="form-control" id="wallet_address" value="{{$wallet_address}}" readonly="">
-				</div>
-				<div class="form-group">
-					<label for="account_balance">Account Balance ({{config('constants.currency')['symbol']}})</label>
-					<input type="number" class="form-control" value="{{ $user->account_balance }}" id="account_balance" readonly="">
-				</div>
-				<div class="form-group">
-					<label for="amount">Amount of BTC</label>
-					<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
-				</div>
-
-				<h5>OTP Verification</h5>
-				<div class="form-group">
-					<label for="email_code">
-						Email Code
-						<button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
-					</label>
-					<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
-				</div>
-				@if($user->otp_auth_status == 1)
 					<div class="form-group">
-						<label for="two_fa_code">2FA Code</label>
-						<input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
+						<label for="wallet_address">Wallet Address</label>
+						<input type="text" class="form-control" id="wallet_address" value="{{$wallet_address}}" readonly="">
 					</div>
-				@endif
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</form>
+					<div class="form-group">
+						<label for="account_balance">Account Balance ({{config('constants.currency')['symbol']}})</label>
+						<input type="number" class="form-control" value="{{ $user->account_balance }}" id="account_balance" readonly="">
+					</div>
+					<div class="form-group">
+						<label for="amount">Amount of BTC</label>
+						<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
+					</div>
+
+					<h5>OTP Verification</h5>
+					<div class="form-group">
+						<label for="email_code">
+							Email Code
+							<button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+						</label>
+						<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
+					</div>
+					@if($user->otp_auth_status == 1)
+						<div class="form-group">
+							<label for="two_fa_code">2FA Code</label>
+							<input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
+						</div>
+					@endif
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
