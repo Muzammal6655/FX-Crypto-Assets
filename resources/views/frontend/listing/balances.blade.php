@@ -9,7 +9,9 @@
 			<span class="pull-right">
 				 <strong> Account Balance({{config('constants.currency')['symbol']}}):
 				 	{{$user->account_balance}}</strong>
+					 <a href="{{url('/current-month-statement')}}" class="btn btn-success">Monthly Statement</a>
 			</span>
+			
 		</div>
 		<div class="card-body">
 			@include('frontend.messages')
