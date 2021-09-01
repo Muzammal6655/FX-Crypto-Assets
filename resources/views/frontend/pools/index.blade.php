@@ -1,41 +1,62 @@
 @extends('frontend.layouts.app')
 @section('title', 'Pools')
 @section('content')
-
-<div class="container">
-	<div class="card-group">
-		<div class="card">
-			<div class="card-header">
-				Pool
-			</div>
-			<div class="card-body">
-				@include('frontend.messages')
-				@forelse($pools as $pool)
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title"><strong>{{$pool['name']}}</strong></h5>
-						<span class="card-title">Days:<strong>{{$pool['days']}}</strong></span>
-						<br>
-						<span class="card-title">Min Deposit:<strong>{{$pool['min_deposits']}}</strong></span>
-						<br>
-						<span class="card-title">Max Deposit:<strong>{{$pool['max_deposits']}}</strong></span>
-						<br>
-						<span class="card-title">Profit Percentage:<strong>{{$pool['profit_percentage']}}%
-						</strong></span>
-						<br>
-						<span class="card-title">Management Fee Percentage:<strong>{{$pool['management_fee_percentage']}}%
-						</strong></span>
-						<br>
-						<span >Started Date:<strong>{{date('d M,Y', strtotime($pool['start_date']))}}</strong></span>
-					</div>
-					<div class="card-footer">
-						<small class="text-muted">End Date: {{date('d M,Y', strtotime($pool['end_date']))}}</small>
-						<a href="{{ url('/pools/' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">View</a>
+<div class="main-wrapper">
+	<div class="container">
+		<div class="card-group pool-page-des">
+			<div class="card">
+				<div class="card-header">
+					Pool
+				</div>
+				<div class="card-body">
+					@include('frontend.messages')
+					<div class="row">
+					@forelse($pools as $pool)
+						<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+							<div class="card pool-body">
+								<div class="card-body">
+									<h5 class="card-title"><strong>{{$pool['name']}}</strong></h5>
+									<ul class="list-unstyled pool-body-info">
+										<li class="d-flex">
+											<span class="card-title">Days:</span>
+											<span class="card-detail">{{$pool['days']}}</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">Min Deposit:</span>
+											<span class="card-detail">{{$pool['min_deposits']}}</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">Max Deposit:</span>
+											<span class="card-detail">{{$pool['max_deposits']}}</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">Profit Percentage:</span>
+											<span class="card-detail">{{$pool['profit_percentage']}}%</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">Management Fee Percentage:</span>
+											<span class="card-detail">{{$pool['management_fee_percentage']}}%</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">Started Date:</span>
+											<span class="card-detail">{{date('d M,Y', strtotime($pool['start_date']))}}</span>
+										</li>
+										<li class="d-flex">
+											<span class="card-title">End Date:</span>
+											<span class="card-detail">{{date('d M,Y', strtotime($pool['end_date']))}}</span>
+										</li>
+									</ul>
+								</div>
+								<div class="card-footer text-center">
+									<a href="{{ url('/pools/' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary">View</a>
+								</div>
+							</div>
+						</div>
+					@empty
+					<p>No pools are available for deposit/investment.</p>
+					@endforelse
 					</div>
 				</div>
-				@empty
-		 		<p>No pools are available for deposit/investment.</p>
-			 	@endforelse
 			</div>
 		</div>
 	</div>

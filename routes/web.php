@@ -105,6 +105,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
 
     Route::group(['middleware'=> ['auth','user.check.status']], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+        Route::post('/monthly-statements', 'DashboardController@monthlyStatement');
         Route::get('/profile', 'UserController@profile');
         Route::post('/profile', 'UserController@updateProfile');
 
@@ -127,6 +128,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::get('transactions', 'ListingController@transactions');
             Route::get('transactions/{id}', 'ListingController@transactionDetail');
             Route::get('balances', 'ListingController@balances');
+            Route::get('current-month-statements', 'ListingController@currentMonthStatements');
             Route::get('pool-investments', 'PoolController@investments');
             Route::get('pool-investments/{id}', 'PoolController@investmentDetail');
             Route::post('pool-investments/{id}/transfer', 'PoolController@transfer');
