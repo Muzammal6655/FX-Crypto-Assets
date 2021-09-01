@@ -15,33 +15,6 @@
 				@include('frontend.messages')
 				<table class="table table-hover">
 					<thead>
-
-<div class="container">
-	<div class="card">
-		<div class="card-header">
-			Balances History
-			<span class="pull-right">
-				 <strong> Account Balance({{config('constants.currency')['symbol']}}):
-				 	{{$user->account_balance}}</strong>
-					 <a href="{{url('/current-month-statement')}}" class="btn btn-success">Monthly Statement</a>
-				 	{{number_format($user->account_balance,2)}}</strong>
-			</span>
-			
-		</div>
-		<div class="card-body">
-			@include('frontend.messages')
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Type</th>
-						<th scope="col">Amount ({{config('constants.currency')['symbol']}})</th>
-						<th scope="col">Created At</th>
- 					</tr>
-				</thead>
-				<tbody>
-					@php $count = $balances->firstItem();  @endphp
-					@forelse($balances as $balance)
 						<tr>
 							<th scope="col">#</th>
 							<th scope="col">Type</th>
