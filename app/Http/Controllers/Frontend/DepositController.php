@@ -40,7 +40,12 @@ class DepositController extends Controller
         $data['action'] = "Add";
 
         if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
-        {
+        { 
+            // if(date('d') != 01)
+            // {
+            //     return redirect()->back()->withInput()->withErrors(['error' => 'Pool Investment requests can be received by the 1st of the month.']);
+            // }
+
             $pool = Pool::findOrFail($id[0]);
             $data['pool_id'] = $pool->id;
             $data['pool_name'] = $pool->name;

@@ -29,9 +29,14 @@ class WithdrawController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
+    { 
         $user = auth()->user();
-        
+
+        // if(date('d') != 15) 
+        // {   
+        //     return redirect()->back()->withInput()->withErrors(['error' => 'Withdrawal requests can be received by the 15th of the month.']);
+        // }
+  
         if(empty($user->btc_wallet_address))
         {   
             return redirect()->back()->withInput()->withErrors(['error' => 'Wallet address is required for withdraw request.']);
