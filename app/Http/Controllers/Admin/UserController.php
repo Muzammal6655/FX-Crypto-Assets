@@ -95,7 +95,7 @@ class UserController extends Controller
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/balances').'" title="Balances"><i class="fa fa-money"></i></a>';
                 }
 
-                if(have_right('investors-documents'))
+                if(have_right('investors-kyc'))
                 {
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/documents').'" title="KYC"><i class="fa fa-id-card"></i></a>';
                 }
@@ -175,7 +175,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $input = $request->all();
 
         if($input['action'] == 'Add')
@@ -251,8 +251,24 @@ class UserController extends Controller
             }
         }
 
-        $model->fill($input);
+        
         $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
+        if ($request->is_approved == 1 && $model->is_approved == 0) 
+        { 
+            $name = $model->name;
+            $email = $model->email;
+            $email_template = EmailTemplate::where('type','account_approval')->first();
+
+            $subject = $email_template->subject;
+            $content = $email_template->content;
+
+            $search = array("{{name}}","{{email}}","{{app_name}}");
+            $replace = array($name,$email,env('APP_NAME'));
+            $content  = str_replace($search,$replace,$content);
+
+            sendEmail($email, $subject, $content);
+        }
+        $model->fill($input);
         $model->save();
 
         if($input['action'] == 'Add')
@@ -337,7 +353,7 @@ class UserController extends Controller
      */
     public function documents($id)
     {
-        if(!have_right('investors-documents'))
+        if(!have_right('investors-kyc'))
             access_denied();
 
         $id = Hashids::decode($id)[0];

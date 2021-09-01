@@ -163,7 +163,7 @@ class DepositController extends Controller
     {
         if(!have_right('deposits-approve'))
             access_denied();
-    
+   
         $id = Hashids::decode($id)[0];
         $model = Deposit::findOrFail($id);
  
@@ -171,6 +171,7 @@ class DepositController extends Controller
         $user->update([
             'account_balance' => $user->account_balance + $model->amount,
             'deposit_total' => $user->deposit_total + $model->amount,
+            'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
         ]);
 
         Transaction::create([
@@ -202,7 +203,8 @@ class DepositController extends Controller
             $pool = $model->pool;
 
             $user->update([
-                'account_balance' => $user->account_balance - $model->amount
+                'account_balance' => $user->account_balance - $model->amount,
+                'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
 
             Transaction::create([
@@ -228,6 +230,7 @@ class DepositController extends Controller
                 'management_fee_percentage' => $pool->management_fee_percentage,
                 'start_date' => Carbon::now('UTC')->timestamp,
                 'end_date' => Carbon::now('UTC')->addDay($pool->days)->timestamp,
+                'approved_at' => date('Y-m-d H:i:s'),
                 'status' => 1,
             ]);
         }

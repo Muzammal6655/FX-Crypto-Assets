@@ -51,7 +51,7 @@ class DeleteUsers extends Command
                 $current_date = Carbon::now('UTC');
 
                 if($current_date->gt($user_deleted_date))
-                {
+                {    
                     $user->delete();
                 }
             }

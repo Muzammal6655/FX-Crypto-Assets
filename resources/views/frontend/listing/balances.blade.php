@@ -10,6 +10,7 @@
 				 <strong> Account Balance({{config('constants.currency')['symbol']}}):
 				 	{{$user->account_balance}}</strong>
 					 <a href="{{url('/current-month-statement')}}" class="btn btn-success">Monthly Statement</a>
+				 	{{number_format($user->account_balance,2)}}</strong>
 			</span>
 			
 		</div>

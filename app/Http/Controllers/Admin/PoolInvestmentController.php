@@ -194,6 +194,7 @@ class PoolInvestmentController extends Controller
 
             $model->user->update([
                 'account_balance' => $model->user->account_balance - $model->deposit_amount,
+                'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
 
             $transaction_message =   "Amount investment in " . $model->pool->name;
@@ -224,7 +225,7 @@ class PoolInvestmentController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = PoolInvestment::whereBetween('created_at',[$from,$to]);
+        $db_record = PoolInvestment::whereBetween('created_at',[$request->from,$request->to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -247,7 +248,7 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Amount','Profit Percentage','Management Fee Percentage','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {
@@ -259,6 +260,8 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->deposit_amount;
                 $row[] = $record->profit_percentage;
                 $row[] = $record->management_fee_percentage;
+                $row[] = -$record->commission;
+                $row[] = -$record->management_fee;                
                 $row[] = Carbon::createFromTimeStamp($record->start_date)->tz(session('timezone'))->format('d M, Y');
                 $row[] =  Carbon::createFromTimeStamp($record->end_date)->tz(session('timezone'))->format('d M, Y');
 

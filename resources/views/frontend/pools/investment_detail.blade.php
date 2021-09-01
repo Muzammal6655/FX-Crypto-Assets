@@ -39,11 +39,20 @@
 					</tr>
 					<tr> 
 						<th scope="row">Management Fee  ({{config('constants.currency')['symbol']}})</th>
-					 	<td>{{ $model->management_fee }}</td>
+					 	@if( !empty($model->management_fee))
+						<td style="color:red;">-{{ $model->management_fee  }}</td>
+						@else
+							<td style="color:green;">{{ $model->management_fee  }}</td>
+						@endif
 					</tr>
 					<tr> 
 						<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
-					 	<td>{{ $model->commission }}</td>
+
+					 	@if( !empty($model->commission))
+						<td style="color:red;">-{{ $model->commission  }}</td>
+						@else
+							<td style="color:green;">{{ $model->commission  }}</td>
+						@endif
 					</tr>
 					<tr> 
 						<th scope="row">Started Date</th>

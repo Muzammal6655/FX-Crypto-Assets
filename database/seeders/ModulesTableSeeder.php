@@ -55,8 +55,36 @@ class ModulesTableSeeder extends Seeder
                 'name' => 'Pools',
                 'status' => 1,
             ),
+            6 => 
+            array (
+                'id' => 7,
+                'name' => 'Pool Investments',
+                'status' => 1,
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'name' => 'Deposits',
+                'status' => 1,
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'name' => 'Withdraws',
+                'status' => 1,
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'name' => 'Profits',
+                'status' => 1,
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'name' => 'Pool Balances',
+                'status' => 1,
+            ),
         ));
-        
-        
     }
 }

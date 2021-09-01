@@ -133,6 +133,10 @@ class ForgotPasswordController extends Controller
             
         $user->original_password = $request->password;
         $user->password = Hash::make($request->password);
+        $user->password_attempts_count = 0;
+        $user->password_attempts_date = null;
+        $user->otp_attempts_count = 0;  
+        $user->otp_attempts_date = null;    
         $user->save();
 
         $passwordReset = PasswordReset::where('email', $request->email)->delete();

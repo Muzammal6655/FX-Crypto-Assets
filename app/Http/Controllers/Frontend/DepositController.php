@@ -215,8 +215,9 @@ class DepositController extends Controller
         $data['action'] = "Edit";
         $data['model'] = Deposit::findOrFail($id);
 
-        if ($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id)) {
-            $pool = Pool::findOrFail($id[0]);
+        if(!empty($data['model']->pool_id))
+        {
+            $pool = Pool::findOrFail($data['model']->pool_id);
             $data['pool_id'] = $pool->id;
             $data['pool_name'] = $pool->name;
             $data['min_deposits'] = $pool->min_deposits;

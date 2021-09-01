@@ -220,38 +220,13 @@
                     passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
 
                 },
-                email: {
-                    emailCheck: "Please enter a valid email address."
-                }
-            },
-
-            highlight: function(e) {
-                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-            },
-            success: function(e) {
-                $(e).closest('.form-group').removeClass('has-error');
-                $(e).remove();
-            },
-            errorPlacement: function(error, element) {
-                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-                    var controls = element.closest('.form-group');
-                    if (controls.find(':checkbox,:radio').length >= 1) {
-                        controls.append(error);
-                    } else {
-                        error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-                    }
-                } else if (element.is('.select2')) {
-                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-                } else if (element.is('.chosen-select')) {
-                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-                } else
-                    error.insertAfter(element.parent());
-            },
-            invalidHandler: function(form, validator) {
-                // $('html, body, #v-pills-tabContent').animate({
-                //     scrollTop: $(validator.errorList[0].element).offset().top - 70
-                // }, 500);
-            },
+            });
+            $.validator.addMethod("passwordCheck", function (value) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
+            });
+            $.validator.addMethod("emailCheck", function (value) {
+                return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+            });
         });
         $.validator.addMethod("passwordCheck", function(value) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(value)

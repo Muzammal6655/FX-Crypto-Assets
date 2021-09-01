@@ -91,12 +91,12 @@ class ProfitController extends Controller
             // Upload File //
             // *********** //
 
-            // $target_path = 'public/profits';
-            // $filename = 'profit-' . uniqid() .'.'.$file->getClientOriginalExtension();
-
-            // $path = $file->storeAs($target_path, $filename);
-            // $model->name = $filename;
-            // $model->save();
+            $target_path = 'public/profits';
+            $filename = 'profit-' . uniqid() .'.'.$file->getClientOriginalExtension();
+ 
+            $path = $file->storeAs($target_path, $filename);
+            $model->name = $filename;
+            $model->save();
         }
 
         $request->session()->flash('flash_success', 'Profit file has been imported successfully. Investment records are updated.');

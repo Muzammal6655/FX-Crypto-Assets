@@ -70,8 +70,8 @@
 
                                             <p>
                                                 <strong>Photo:</strong>
-                                                @php $photo_status = $user->photo_status @endphp
-                                                @if(!empty($user->photo_status))
+                                                @php $photo_status = $user->photo_status;@endphp
+                                                @if(!empty($user->photo))
                                                     <div class="pull-right">
                                                         Approval Status: 
                                                         @if($photo_status == 0)
@@ -82,7 +82,7 @@
                                                             <span class="badge bg-danger">Rejected</span>
                                                         @endif
                                                     </div>
-                                                    @endif
+                                                @endif
                                             </p>
                                             <div class="form-group">
                                                 <div>
