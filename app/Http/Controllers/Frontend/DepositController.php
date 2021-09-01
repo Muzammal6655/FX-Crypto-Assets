@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use App\Models\Pool;
 use App\Models\EmailTemplate;
 use Hashids;
 use Session;
+use GuzzleHttp\Client;
 
 class DepositController extends Controller
 {
@@ -22,7 +24,7 @@ class DepositController extends Controller
 
     public function index()
     {
-        $data['deposits'] = Deposit::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(10);
+        $data['deposits'] = Deposit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(10);
         return view('frontend.deposits.index')->with($data);
     }
 
@@ -39,17 +41,14 @@ class DepositController extends Controller
         $data['user'] = $user;
         $data['action'] = "Add";
 
-        if($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id))
-        {
+        if ($request->has('pool_id') && !empty($request->pool_id) && $id = Hashids::decode($request->pool_id)) {
             $pool = Pool::findOrFail($id[0]);
             $data['pool_id'] = $pool->id;
             $data['pool_name'] = $pool->name;
             $data['min_deposits'] = $pool->min_deposits;
             $data['max_deposits'] = $pool->max_deposits;
             $data['wallet_address'] = $pool->wallet_address;
-        }
-        else
-        {
+        } else {
             $data['pool_id'] = '';
             $data['pool_name'] = '';
             $data['min_deposits'] = "0.01";
@@ -67,7 +66,7 @@ class DepositController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $input = $request->all();
         $user = auth()->user();
 
@@ -76,56 +75,66 @@ class DepositController extends Controller
             'amount' => 'required',
             'proof' => 'required',
         ];
-      
-        if($input['action'] == 'Add')
-        { 
-            $validations['transaction_id'] = ['required',Rule::unique('deposits')];
-        }
-        else
-        {
-            $validations['transaction_id'] = ['required' , Rule::unique('deposits')->ignore($input['id'])];
+
+        if ($input['action'] == 'Add') {
+            $validations['transaction_id'] = ['required', Rule::unique('deposits')];
+        } else {
+            $validations['transaction_id'] = ['required', Rule::unique('deposits')->ignore($input['id'])];
         }
 
-        $validator = Validator::make($request->all(), $validations); 
+        $validator = Validator::make($request->all(), $validations);
 
         if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
             return redirect()->back()->withInput();
         }
-        
+
+
+
+
         /**
          * OTP Verification
          */
 
-        if(empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code)
-        {
+        if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
         }
 
-        if($user->otp_auth_status)
-        {
+        if ($user->otp_auth_status) {
             // Initialise the 2FA class
             $google2fa = app('pragmarx.google2fa');
 
             // Add the secret key to the user data
-            $response = $google2fa->verifyKey($user->otp_auth_secret_key,$request->two_fa_code);
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key, $request->two_fa_code);
 
-            if(!$response)
-            {
-               return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            if (!$response) {
+                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
             }
         }
+        /**
+         * Deposit, Transaction Id OR Hash Verification
+        */
 
-        if($input['action'] == 'Add')
-        {   
+        $client = new Client(['base_uri' => 'https://api.etherscan.io']);
+        $response = $client->request('GET', '/api?module=transaction&action=gettxreceiptstatus&txhash='.$input['transaction_id'].'&apikey='.env('ETHERSCAN_API_KEY'));
+        $response_body = $response->getBody();
+
+        $api_result = json_decode($response_body);
+        echo $api_result->result->status;
+
+        if ($api_result->result->status == 0 || $api_result->result->status == "") {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Invalid Transaction ID']);
+        }
+
+       
+
+
+        if ($input['action'] == 'Add') {
             $model = new Deposit();
             $flash_message = 'Deposit has been created successfully.';
-        }
-        else
-        {
+        } else {
             $model = Deposit::find($request->id);
             $flash_message = 'Deposit has been update successfully.';
-           
         }
 
         if (!empty($request->files) && $request->hasFile('proof')) {
@@ -135,28 +144,26 @@ class DepositController extends Controller
             // Upload File //
             // *********** //
 
-            $target_path = 'public/users/'.$user->id.'/deposits';
-            $filename = 'proof-' . uniqid() .'.'.$file->getClientOriginalExtension();
+            $target_path = 'public/users/' . $user->id . '/deposits';
+            $filename = 'proof-' . uniqid() . '.' . $file->getClientOriginalExtension();
 
             // **************** //
             // Delete Old File
             // **************** //
 
-            if ($input['action'] == 'Edit') 
-            {
-                $old_file = public_path() . '/storage/users/'.$user->id.'/deposits';
-             
-                if (file_exists($old_file) && !empty($model->proof)) 
-                {
+            if ($input['action'] == 'Edit') {
+                $old_file = public_path() . '/storage/users/' . $user->id . '/deposits';
+
+                if (file_exists($old_file) && !empty($model->proof)) {
                     Storage::delete($target_path . '/' . $model->proof);
                 }
             }
-         
+
             $path = $file->storeAs($target_path, $filename);
             $input['proof'] = $filename;
         }
 
-        
+
 
         $model->fill($input);
         $model->user_id = $user->id;
@@ -165,26 +172,26 @@ class DepositController extends Controller
 
         $name = $user->name;
         $email = $user->email;
-        $link = url('/admin/deposits/'.Hashids::encode($model->id));
+        $link = url('/admin/deposits/' . Hashids::encode($model->id));
 
         // ********************* //
         // Send email to Admin   //
         // ********************* //
 
-        $email_template = EmailTemplate::where('type','deposit_request')->first();
+        $email_template = EmailTemplate::where('type', 'deposit_request')->first();
 
         $subject = $email_template->subject;
         $content = $email_template->content;
 
-        $search = array("{{name}}","{{email}}","{{app_name}}","{{link}}");
-        $replace = array($name,$email,env('APP_NAME'),$link);
-        $content  = str_replace($search,$replace,$content);
+        $search = array("{{name}}", "{{email}}", "{{app_name}}", "{{link}}");
+        $replace = array($name, $email, env('APP_NAME'), $link);
+        $content  = str_replace($search, $replace, $content);
 
         sendEmail(settingValue('contact_email'), $subject, $content);
 
         session()->forget('deposit_request_email_verification_otp');
 
-        $request->session()->flash('flash_success',$flash_message);
+        $request->session()->flash('flash_success', $flash_message);
         return redirect('/deposits');
     }
 
@@ -200,8 +207,8 @@ class DepositController extends Controller
         return view('frontend.deposits.view')->with($data);
     }
 
-    public function edit($id,Request $request)
-    {   
+    public function edit($id, Request $request)
+    {
         $id = Hashids::decode($id)[0];
         $user = auth()->user();
         $data['user'] = $user;
@@ -216,9 +223,7 @@ class DepositController extends Controller
             $data['min_deposits'] = $pool->min_deposits;
             $data['max_deposits'] = $pool->max_deposits;
             $data['wallet_address'] = $pool->wallet_address;
-        }
-        else
-        {
+        } else {
             $data['pool_id'] = '';
             $data['pool_name'] = '';
             $data['min_deposits'] = "0.01";
@@ -228,5 +233,4 @@ class DepositController extends Controller
 
         return view('frontend.deposits.create')->with($data);
     }
-
 }
