@@ -25,8 +25,8 @@ class ProfitsImport implements ToCollection
                     $user = $investment->user;
                     $profit = $investment->deposit_amount * ($row[5] / 100); 
                     $management_fee = $profit * ($investment->management_fee_percentage / 100);
-                    $actual_profit = $profit - $management_fee; 
-                    $commission = $investment->management_fee_percentage * (10 /100);
+                    $actual_profit = $profit - $management_fee;
+                    $commission = 0;
                     
                     if(!empty($user->referral_code))
                     {
@@ -39,7 +39,7 @@ class ProfitsImport implements ToCollection
 
                         if($referral_balance > 0.01 && $referral_account->status == 1)
                         {
-                            $commission = $investment->management_fee_percentage *10 /100;
+                            $commission = $investment->management_fee_percentage * (10 /100);
 
                             /**
                              * User Account balance Update in referral case
@@ -65,7 +65,7 @@ class ProfitsImport implements ToCollection
 
                             Balance::create([
                                 'user_id' => $referral_account->id,
-                                'type' => 'Refferal commission',
+                                'type' => 'commission',
                                 'amount' => $commission,
                             ]);
 
@@ -73,17 +73,14 @@ class ProfitsImport implements ToCollection
                              * Transactions table entry in referral case
                              */
 
-                             $transaction_message =   "Referral commission earned from " . $user->name . ' (' . $user->email. ')';
+                            $transaction_message =   "Referral commission earned from " . $user->name . ' (' . $user->email. ')';
 
                             Transaction::create([
                                 'user_id' => $referral_account->id,
                                 'type' => 'commission',
                                 'amount' => $commission,
                                 'actual_amount' => $commission,
-                                'description' => $transaction_message,
-                                'fee_amount' => $management_fee,
-                                'commission' => $commission,
-                                'fee_percentage' => $investment->management_fee_percentage,
+                                'description' => $transaction_message
                             ]);
                         }
                     }
@@ -94,9 +91,9 @@ class ProfitsImport implements ToCollection
               
                     $investment->update([
                        'user_id' =>  $user->id,
-                       'profit' =>  $profit,
-                       'management_fee' =>  $investment->management_fee + $management_fee,
-                       'commission' =>  $investment->commission + $commission,
+                       'profit' =>  $actual_profit,
+                       'management_fee' => $management_fee - $commission,
+                       'commission' => $commission,
                     ]); 
 
                     /**
@@ -113,10 +110,10 @@ class ProfitsImport implements ToCollection
                      * Balance table entry
                      */
 
-                     Balance::create([
+                    Balance::create([
                         'user_id' => $user->id,
-                        'type' => 'Profit',
-                        'amount' => $profit + $investment->deposit_amount,
+                        'type' => 'profit',
+                        'amount' => $actual_profit + $investment->deposit_amount,
                     ]);
 
                     /**
@@ -132,7 +129,7 @@ class ProfitsImport implements ToCollection
                         'actual_amount' => $actual_profit,
                         'description' => $transaction_message,
                         'fee_percentage' => $investment->management_fee_percentage,
-                        'fee_amount' => $management_fee,
+                        'fee_amount' => $management_fee - $commission,
                         'commission' => $commission,
                     ]);
                 }   
