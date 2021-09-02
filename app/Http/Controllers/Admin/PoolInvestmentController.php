@@ -224,8 +224,11 @@ class PoolInvestmentController extends Controller
     }
 
     public function downloadCsv(Request $request)
-    {
-        $db_record = PoolInvestment::whereBetween('created_at',[$request->from,$request->to]);
+    { 
+        $from = $request->from . ' 00:00:00';
+        $to = $request->to . ' 23:59:59';
+ 
+        $db_record = PoolInvestment::whereBetween('created_at',[$from,$to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {

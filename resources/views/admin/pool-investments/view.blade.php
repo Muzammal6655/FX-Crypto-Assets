@@ -101,18 +101,26 @@
  							<div class="form-group">
 								<label for="created_at" class="col-sm-3 control-label">Start Date</label>
 								<div class="col-sm-9">
+									@if($model->end_date == '')
+									<input type="text" class="form-control" readonly="">
+									@else
 									<input type="text" class="form-control" readonly="" 
 									value="{{\Carbon\Carbon::createFromTimeStamp($model->start_date)->format('d M, Y') }}"
 									>
+									@endif
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="created_at" class="col-sm-3 control-label">End Date</label>
 								<div class="col-sm-9">
+									@if($model->end_date == '')
+									<input type="text" class="form-control" readonly=""  >
+									@else
 									<input type="text" class="form-control" readonly="" 
 									value="{{\Carbon\Carbon::createFromTimeStamp($model->end_date)->format('d M, Y') }}"
 									>
+									@endif
 								</div>
 							</div>
 
