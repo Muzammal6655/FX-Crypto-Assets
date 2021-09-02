@@ -8,6 +8,7 @@ use App\Models\Deposit;
 use App\Models\Withdraw;
 use App\Models\PoolInvestment;
 use App\Http\Traits\GraphTrait;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use LaravelPDF;
@@ -20,8 +21,10 @@ class DashboardController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
+        $data['total_investments'] = Transaction::where(['user_id' => auth()->user()->id,'type' =>'investment'])->sum('actual_amount');
+
         $withdraws = Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
+        $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
 
         $data['depositYvalues'] = $this->graph($deposits, 'amount');
