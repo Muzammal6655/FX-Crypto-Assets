@@ -47,18 +47,21 @@ class DashboardController extends Controller
         $monthly_statment_period = CarbonPeriod::create($from, '1 month', $to);
 
         $monthly_deposits = Deposit::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_withdraws = Withdraw::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_investments = PoolInvestment::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('approved_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(approved_at,"%Y-%m") month'), DB::raw('sum(deposit_amount) as total_investment'), DB::raw('sum(profit) as total_profit'))
             ->groupBy('month')->orderby('approved_at')->get();
