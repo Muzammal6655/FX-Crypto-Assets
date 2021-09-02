@@ -49,6 +49,11 @@ class PoolController extends Controller
         //     return redirect()->back()->withInput()->withErrors(['error' => 'Pool Investment requests can be received by the 1st of the month.']);
         // }
 
+        if(auth()->user()->account_balance <= 0)
+        {
+            return redirect()->back()->withErrors(['error' => 'You have insufficient balance for the investment request.']);
+        }
+
         $id = Hashids::decode($id)[0];
         $data['user'] = auth()->user();
         $data['pool'] = Pool::findOrFail($id);

@@ -34,17 +34,17 @@ class WithdrawController extends Controller
 
         // if(date('d') != 15) 
         // {   
-        //     return redirect()->back()->withInput()->withErrors(['error' => 'Withdrawal requests can be received by the 15th of the month.']);
+        //     return redirect()->back()->withErrors(['error' => 'Withdrawal requests can be received by the 15th of the month.']);
         // }
   
         if(empty($user->btc_wallet_address))
         {   
-            return redirect()->back()->withInput()->withErrors(['error' => 'Wallet address is required for withdraw request.']);
+            return redirect()->back()->withErrors(['error' => 'Wallet address is required for withdraw request.']);
         }
         
         if($user->account_balance <= 0)
         {
-            return redirect()->back()->withInput()->withErrors(['error' => 'You have insufficient balance for the withdrawal request.']);
+            return redirect()->back()->withErrors(['error' => 'You have insufficient balance for the withdrawal request.']);
         }
 
         $data = array();
