@@ -244,7 +244,10 @@ class DepositController extends Controller
 
     public function downloadCsv(Request $request)
     {
-        $db_record = Deposit::whereBetween('created_at', [$request->from, $request->to]);
+        $from = $request->from . ' 00:00:00';
+        $to = $request->to . ' 23:59:59';
+
+        $db_record = Deposit::whereBetween('created_at', [$from, $to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -276,7 +279,7 @@ class DepositController extends Controller
                 $row[] = $record->user_id;
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
-                $row[] = $record->pool->name;
+                $row[] = $record->pool_id;
                 $row[] = $record->amount;
 
                 fputcsv($file, $row);
