@@ -21,8 +21,8 @@ class DashboardController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        $data['total_investments'] = Transaction::where(['user_id' => auth()->user()->id, 'type' => 'investment'])->sum('actual_amount');
-
+        $data['total_investments'] = PoolInvestment::where(['user_id' => auth()->user()->id])->sum('deposit_amount');
+    
         $withdraws = Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
@@ -47,18 +47,21 @@ class DashboardController extends Controller
         $monthly_statment_period = CarbonPeriod::create($from, '1 month', $to);
 
         $monthly_deposits = Deposit::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_withdraws = Withdraw::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_investments = PoolInvestment::where('user_id', auth()->user()->id)
+            ->where('status',1)
             ->whereBetween('approved_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(approved_at,"%Y-%m") month'), DB::raw('sum(deposit_amount) as total_investment'), DB::raw('sum(profit) as total_profit'))
             ->groupBy('month')->orderby('approved_at')->get();

@@ -224,8 +224,11 @@ class PoolInvestmentController extends Controller
     }
 
     public function downloadCsv(Request $request)
-    {
-        $db_record = PoolInvestment::whereBetween('created_at',[$request->from,$request->to]);
+    { 
+        $from = $request->from . ' 00:00:00';
+        $to = $request->to . ' 23:59:59';
+ 
+        $db_record = PoolInvestment::whereBetween('created_at',[$from,$to]);
 
         if($request->has('user_id') && !empty($request->user_id))
         {
@@ -248,7 +251,7 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Pool Investment Id','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {
@@ -257,11 +260,12 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
                 $row[] = $record->pool->name;
+                $row[] = $record->id;
                 $row[] = $record->deposit_amount;
                 $row[] = $record->profit_percentage;
                 $row[] = $record->management_fee_percentage;
-                $row[] = -$record->commission;
-                $row[] = -$record->management_fee;                
+                $row[] = $record->commission;
+                $row[] = $record->management_fee;                
                 $row[] = Carbon::createFromTimeStamp($record->start_date)->tz(session('timezone'))->format('d M, Y');
                 $row[] =  Carbon::createFromTimeStamp($record->end_date)->tz(session('timezone'))->format('d M, Y');
 
