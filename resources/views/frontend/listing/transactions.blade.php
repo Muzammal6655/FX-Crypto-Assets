@@ -6,6 +6,9 @@
 		<div class="card">
 			<div class="card-header">
 				Transactions History
+				<span class="pull-right">
+					<a href="{{url('/current-month-statements')}}" class="btn btn-success">Download Montly statement</a>
+				</span>
 			</div>
 			<div class="card-body">
 				@include('frontend.messages')

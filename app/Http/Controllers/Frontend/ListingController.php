@@ -44,18 +44,26 @@ class ListingController extends Controller
         $data['current_month_statments'] = Transaction::where('user_id',auth()->user()->id)
         ->whereMonth('created_at', Carbon::now()->subMonth(4))->orderBy('id','DESC')->get();
 
-        $data['']=$this->monthStatmentByType('investment');
-        return view('pdfs.current_month_statement')->with($data);
-        //$pdf = LaravelPDF::loadView('pdfs.monthly_statement', $data);
-        //return $pdf->download('current_month_statement '.Carbon::now('UTC')->format('Y-m-d H.i.s').'.pdf');
+        $data['total_investment']=$this->monthStatmentByType('investment');
+        $data['total_deposit']=$this->monthStatmentByType('deposit');
+        $data['total_withdraw']=$this->monthStatmentByType('withdraw');
+        $data['total_commission']=$this->monthStatmentByType('commission');
+        $data['total_profit']=$this->monthStatmentByType('profit');
+
+       
+        //return view('pdfs.current_month_statement')->with($data);
+        
+        $pdf = LaravelPDF::loadView('pdfs.current_month_statement', $data);
+        return $pdf->download('current_month_statement '.Carbon::now('UTC')->format('Y-m-d H.i.s').'.pdf');
        
     }
 
 
     public function monthStatmentByType($type){
-        $data['current_month_statments'] = Transaction::where('user_id',auth()->user()->id)
-        ->where('user_id',auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonth(4))->orderBy('id','DESC')->get();
+        $result = Transaction::where('user_id',auth()->user()->id)
+        ->where('type',$type)->whereMonth('created_at', Carbon::now()->subMonth(4))->orderBy('id','DESC')->sum('actual_amount');
 
+        return $result ;
 
     }
 }
