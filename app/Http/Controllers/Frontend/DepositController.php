@@ -24,7 +24,7 @@ class DepositController extends Controller
 
     public function index()
     {
-        $data['deposits'] = Deposit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(10);
+        $data['deposits'] = Deposit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(20);
         return view('frontend.deposits.index')->with($data);
     }
 

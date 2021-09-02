@@ -19,7 +19,7 @@ class WithdrawController extends Controller
 
     public function index()
     {
-        $data['withdraws'] = Withdraw::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(5);
+        $data['withdraws'] = Withdraw::where('user_id',auth()->user()->id)->orderBy('created_at','DESC')->paginate(20);
         return view('frontend.withdraws.index')->with($data);
     }
 

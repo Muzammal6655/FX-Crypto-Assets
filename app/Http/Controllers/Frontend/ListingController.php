@@ -15,14 +15,14 @@ class ListingController extends Controller
 {
     public function transactions()
     {
-        $data['transactions'] = Transaction::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(10);
+        $data['transactions'] = Transaction::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(20);
         return view('frontend.listing.transactions')->with($data);
     }
 
     public function balances()
     {
         $data['user'] = auth()->user();
-        $data['balances'] = Balance::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(10);
+        $data['balances'] = Balance::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(20);
         return view('frontend.listing.balances')->with($data);
     }
 
