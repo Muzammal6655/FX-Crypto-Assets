@@ -42,7 +42,7 @@ class ListingController extends Controller
     {
         //Carbon::now()->month
         $data['current_month_statments'] = Transaction::where('user_id',auth()->user()->id)
-        ->whereMonth('created_at', Carbon::now()->subMonth(4))->orderBy('id','DESC')->get();
+        ->whereMonth('created_at', Carbon::now()->month)->orderBy('id','DESC')->get();
 
         $data['total_investment']=$this->monthStatmentByType('investment');
         $data['total_deposit']=$this->monthStatmentByType('deposit');
@@ -61,7 +61,7 @@ class ListingController extends Controller
 
     public function monthStatmentByType($type){
         $result = Transaction::where('user_id',auth()->user()->id)
-        ->where('type',$type)->whereMonth('created_at', Carbon::now()->subMonth(4))->orderBy('id','DESC')->sum('actual_amount');
+        ->where('type',$type)->whereMonth('created_at', Carbon::now()->month)->orderBy('id','DESC')->sum('actual_amount');
 
         return $result ;
 

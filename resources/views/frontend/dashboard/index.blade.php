@@ -10,6 +10,7 @@
                     Dashboard
                 </div>
                 <div class="card-body">
+                    @include('frontend.messages')
                     @if($user->photo_status == 0 && $user->passport_status == 0 )
                     <p>Please upload your documents for account verification.
                         <a href="{{url('documents')}}" class="btn btn-primary"><i class="fa fa-upload"></i> Upload Documents</a>
@@ -17,24 +18,31 @@
                     <p>Your documents are under verification.Please wait for Admin approval.</p>
                     @else
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Account Balance ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->account_balance,2)}}</strong></h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Commission ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->commission_total,2)}}</strong></h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Profits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->profit_total,2)}}</strong></h5>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Investment ({{config('constants.currency')['symbol']}}): <strong>{{number_format($total_investments,2)}}</strong></h5>
                                     </div>
                                 </div>
                             </div>
@@ -80,18 +88,16 @@
                         </div>
                         </br>
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <h3>Deposit History</h3>
                                 <canvas id="depositChart" style="width:100%;"></canvas>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <h3>Withdraw History</h3>
                                 <canvas id="withdrawChart" style="width:100%;"></canvas>
                             </div>
                         </div>
+                        <br>
                         <div class="row">
                             <div class="col-sm-12">
                                 <h3>Investments History</h3>
