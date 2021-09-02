@@ -85,6 +85,7 @@ class DashboardController extends Controller
         if(count($monthly_statment)){
         
         $data['monthly_statment'] = $monthly_statment;
+       // return view('pdfs.monthly_statement', $data);
          $pdf = LaravelPDF::loadView('pdfs.monthly_statement', $data);
         return $pdf->download('monthly_statment ' . Carbon::now('UTC')->format('Y-m-d H.i.s') . '.pdf');
         }

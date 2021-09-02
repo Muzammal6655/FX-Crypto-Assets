@@ -1,53 +1,65 @@
 <html>
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{env('APP_NAME')}}</title>
 </head>
 
-<body style="padding:0; margin:0px; background:#eee;">
-
-
-    @foreach( $monthly_statment as $key=>$value)
-    <p>Month : {{$key}}</p>
-    <table>
-        <tr>
-            <td>Total Deposits</td>
-            @if(!empty($monthly_statment[$key]['total_deposits']))
-            <td>{{$monthly_statment[$key]['total_deposits']}}</td>
-            @else
-            <td>0.0</td>
-            @endif
-        </tr>
-        <tr>
-            <td>Total Withdraws</td>
-            @if(!empty($monthly_statment[$key]['total_withdraws']))
-            <td>{{$monthly_statment[$key]['total_withdraws']}}</td>
-            @else
-            <td>0.0</td>
-            @endif
-        </tr>
-        <tr>
-            <td>Total Monthly Investments</td>
-            @if(!empty($monthly_statment[$key]['total_monthly_investments']))
-            <td>{{$monthly_statment[$key]['total_monthly_investments']}}</td>
-            @else
-            <td>0.0</td>
-            @endif
-        </tr>
-        <tr>
-            <td>Total Monthly Investments Profit</td>
-            @if(!empty($monthly_statment[$key]['total_monthly_investments_profit']))
-            <td>{{$monthly_statment[$key]['total_monthly_investments_profit']}}</td>
-            @else
-            <td>0.0</td>
-            @endif
-        </tr>
-    </table>
-    @endforeach
-
-
+<body style="padding:0; margin:0px; background:#fff;font-family: Segoe, 'Segoe UI', 'sans-serif';">
+    <div style="width: 100%;max-width: 850px;min-width: 850px;margin: auto;">
+        @foreach( $monthly_statment as $key=>$value)
+        <a style="display: block;text-align: center;width: 100%; margin: 0 auto; padding: 20px 0;" href="{{ url('/') }}">
+            <img style="text-align: center;" src="https://interestingfx.arhamsoft.org/images/logo.svg" alt="logo">
+        </a>
+        <h1 style="font-size: 30px; color: #000;background: #fafafa;text-align: center;padding: 10px;">Overall Statictics</h1>
+        <p style="font-weight: bold;text-align: center;color: #d0af3e">Month : {{$key}}</p>
+        <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">
+            <tr>
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">Total Deposits</td>
+                @if(!empty($monthly_statment[$key]['total_deposits']))
+                <td style="border: 1px solid rgba(0,0,0,.125); padding:8px;width: 300px;">{{$monthly_statment[$key]['total_deposits']}}</td>
+                @else
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">0.0</td>
+                @endif
+            </tr>
+            <tr>
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">Total Withdraws</td>
+                @if(!empty($monthly_statment[$key]['total_withdraws']))
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">{{$monthly_statment[$key]['total_withdraws']}}</td>
+                @else
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">0.0</td>
+                @endif
+            </tr>
+            <tr>
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">Total Monthly Investments</td>
+                @if(!empty($monthly_statment[$key]['total_monthly_investments']))
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">{{$monthly_statment[$key]['total_monthly_investments']}}</td>
+                @else
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">0.0</td>
+                @endif
+            </tr>
+            <tr>
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">Total Monthly Investments Profit</td>
+                @if(!empty($monthly_statment[$key]['total_monthly_investments_profit']))
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">{{$monthly_statment[$key]['total_monthly_investments_profit']}}</td>
+                @else
+                <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 300px;">0.0</td>
+                @endif
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table width="100%" style="margin-top: 160px;border-collapse: collapse;font-size: 14px;line-height: 18px;">
+                        <tbody>
+                            <tr>
+                            <td width="50%" style="font-weight: 500;border-top: 1px solid rgba(0,0,0,.125); padding: 8px; text-align: center;">Interesting FX 2021. All Rights Reserved</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        @endforeach
+    </div>
 </body>
 
 </html>

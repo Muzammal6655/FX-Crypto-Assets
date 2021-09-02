@@ -985,6 +985,80 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 /* khadija css */
+.dashboard-body #investmentsChart{
+    width: 80% !important;
+    margin: 0 auto;
+}
+.dashboard-body .card.box{
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+}
+.dashboard-body .bg-success {
+    background-color: #198754!important;
+}
+.dashboard-body .bg-warning {
+    background-color: #ffc107!important;
+}
+.dashboard-body .bg-danger {
+    background-color: #dc3545!important;
+}
+.dashboard-body .bg-primary {
+    background-color: #0d6efd!important;
+}
+.dashboard-body .card.box i{
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    font-size: 22px;
+    padding: 15px;
+    top: -25px;
+    left: -22px;
+    background-color: rgba(255, 255, 255, 0.15);
+    line-height: 60px;
+    text-align: right;
+    border-radius: 50%;
+    color: #fff;
+}
+.dashboard-body .card.box h3{
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+    margin:  0 0 8px 0;
+    color: #fff;
+}
+.dashboard-body .card.box p{
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    margin:  0 0 15px 0;
+    color: #fff;
+}
+.dashboard-body .card.box h3:after{
+    content: "";
+    height: 2px;
+    width: 70%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.12);
+    display: block;
+    margin-top: 10px;
+}
+.dashboard-body .graph-wrapper{
+    border-radius: 6px;
+    box-shadow: 0px 0px 2px rgb(204 197 185 / 50%);
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 20px;
+    overflow: visible;
+}
+
+
+
+
+
+
 .deposit-form-des .form-control{
     margin: 0 10px 0 0;
 }
@@ -1140,19 +1214,22 @@ h5 {
 .pool-view-des .pool-body-info  li, .pool-invest-group .pool-body-info li{
     margin-bottom: 10px;
 }
-.pool-view-des .btn-invest{
+.pool-view-des .btn-yellow{
+    width: 100px;
+}
+.btn-yellow{
     font-size: 15px;
     font-weight: 600;
     color: #fafafa;
     background-color: #C9A93E;
     border: 1px solid #C9A93E;
-    width: 100px;
+    /* width: 100px; */
     max-width: 100%;
     height: 40px;
     padding: 5px 10px;
     line-height: 30px;
 }
-.pool-view-des .btn-invest:hover{
+.btn-yellow:hover{
     background: #d0af3ec4;
     color: #fff;
 }

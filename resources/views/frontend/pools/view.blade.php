@@ -47,7 +47,7 @@
 				</div>
 				<div class="card-footer">
 					<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a> 
-					<a href="{{ url('/pools/' . Hashids::encode($pool->id)). '/invest' }}" class="btn btn-xs btn-invest pull-right mr-2">Invest</a>
+					<a href="{{ url('/pools/' . Hashids::encode($pool->id)). '/invest' }}" class="btn btn-xs btn-yellow pull-right mr-2">Invest</a>
 				</div>
 			</div>
 		</div>
