@@ -75,8 +75,8 @@
                                 <form id="deposits-form" method="POST" action="{{url('/monthly-statements')}}" enctype="multipart/form-data">
                                     <div class="card-body">
                                     {{ csrf_field() }}
-                                        <input type="text" id='start_month' name="start_month" value="" autocomplete="off">
-                                        <input type="text" id='end_month' name="end_month" value=""  autocomplete="off">
+                                        <input type="text" id='start_month' name="start_month" value="{{\Carbon\Carbon::now()->subMonth()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}" autocomplete="off">
+                                        <input type="text" id='end_month' name="end_month" value="{{\Carbon\Carbon::now()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}"  autocomplete="off">
                                         <button type="submit" class="btn btn-primary">Download</button>
 
                                         </div>

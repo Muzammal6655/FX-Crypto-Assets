@@ -8,8 +8,8 @@
 
 <body style="padding:0; margin:0px; background:#eee;">
 
-
-
+    <p> Monthly Statement</p>
+    <p>DateTime : {{Carbon\Carbon::now()}}</p>
  
     <table>
         <tr>
@@ -28,23 +28,23 @@
         @endforeach
         <tr>
             <td>Total Investment</td>
-            <td>--</td>
+            <td>{{$total_investment}}</td>
         </tr>
         <tr>
             <td>Total Deposit</td>
-            <td>--</td>
+            <td>{{$total_deposit}}</td>
         </tr>
         <tr>
             <td>Total Withdraw</td>
-            <td>--</td>
+            <td>{{$total_withdraw}}</td>
         </tr>
         <tr>
             <td>Total Commission</td>
-            <td>--</td>
+            <td>{{$total_commission}}</td>
         </tr>
         <tr>
             <td>Total Profit</td>
-            <td>--</td>
+            <td>{{$total_profit}}</td>
         </tr>
     </table>
 
