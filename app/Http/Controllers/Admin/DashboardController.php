@@ -33,7 +33,10 @@ class DashboardController extends Controller
         $deposits = Deposit::where('status',1)->get();
         $withdraws = Withdraw::where('status',1)->get();
         $investments = PoolInvestment::where('status',1)->get();
-
+        $data['total_deposits'] = Deposit::where('status',1)->sum('amount');
+        $data['total_withdraws'] = Withdraw::where('status',1)->sum('actual_amount');
+        $data['total_investments'] =  PoolInvestment::where('status',1)->sum('deposit_amount');
+        $data['total_management_fees'] =  PoolInvestment::where('status',1)->sum('management_fee');
         $data['depositYvalues'] = $this->graph($deposits,'amount');
         $data['withdrawYvalues'] = $this->graph($withdraws,'actual_amount');
         $data['investmentsYvalues'] = $this->graph($investments,'deposit_amount');

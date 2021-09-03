@@ -54,6 +54,42 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-md-3 col-xs-6">
+								<div class="widget-metric_6 animate">
+									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-product-hunt"></i></span>
+									<div class="right">
+										<span class="value">{{ $total_deposits }}</span>
+										<span class="title">Total Deposits</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-xs-6">
+								<div class="widget-metric_6 animate">
+									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-product-hunt"></i></span>
+									<div class="right">
+										<span class="value">{{ $total_withdraws }}</span>
+										<span class="title">Total Withdraws</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-xs-6">
+								<div class="widget-metric_6 animate">
+									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-product-hunt"></i></span>
+									<div class="right">
+										<span class="value">{{ $total_investments }}</span>
+										<span class="title">Total Investment</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-xs-6">
+								<div class="widget-metric_6 animate">
+									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-product-hunt"></i></span>
+									<div class="right">
+										<span class="value">{{ $total_management_fees }}</span>
+										<span class="title">Total Management Fees</span>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="row margin-bottom-30">
 							
