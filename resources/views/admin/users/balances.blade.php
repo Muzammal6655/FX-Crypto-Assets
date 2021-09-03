@@ -17,6 +17,7 @@
 				<h3 class="panel-title">Balances Listing</h3>
 				<div class="right">
 					<span class="label label-default" style="font-size: 90%;">{{$user->name.' - '.$user->email}}</span>
+					<span >Total Balance:{{$user->account_balance}}</span>
 				</div>
 			</div>
 			<div class="panel-body">

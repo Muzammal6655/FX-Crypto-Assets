@@ -21,8 +21,9 @@ class DashboardController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        $data['total_investments'] = PoolInvestment::where(['user_id' => auth()->user()->id])->sum('deposit_amount');
-    
+        $data['total_investments'] = PoolInvestment::where(['user_id' => auth()->user()->id,
+            'status' => 1])->sum('deposit_amount');
+        
         $withdraws = Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
