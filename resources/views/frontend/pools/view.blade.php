@@ -83,17 +83,28 @@
 <script>
 	var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	var poolinvestmentsYvalues = JSON.parse("{{$poolInvestmentsYvalues}}");
+	var poolInvestmentsDepositYvalues = JSON.parse("{{$poolInvestmentsDepositYvalues}}");
 	new Chart("poolInvestmentsChart", {
 		type: "line",
 		data: {
 			labels: xValues,
 			datasets: [{
+				label: 'Profit Amount',
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#d0af3e",
+				borderColor: "green",
+				data: poolinvestmentsYvalues
+			},
+			{
+				label: 'Investment Amount',
 				fill: false,
 				lineTension: 0,
 				backgroundColor: "#d0af3e",
 				borderColor: "blue",
-				data: poolinvestmentsYvalues
-			}]
+				data: poolInvestmentsDepositYvalues
+			}
+			]
 		},
 		options: {
 			legend: {

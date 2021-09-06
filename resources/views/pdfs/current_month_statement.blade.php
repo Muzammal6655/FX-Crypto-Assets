@@ -16,15 +16,15 @@
             <table cellpadding="0" cellspacing="0" style="padding-top: 30px;width: 500px;">
                 <tr>
                     <td style="padding: 8px 0;font-weight: 700;">Name:</td>
-                    <td style="padding: 8px 0;">khadija</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->name}}</td>
                 </tr>
                 <tr>
                     <td style="padding: 8px 0; font-weight: 700;">Email:</td>
-                    <td style="padding: 8px 0;">khadija.anjum@arhamsoft.com</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->email }}</td>
                 </tr>
                 <tr>
                     <td style="padding: 8px 0; font-weight: 700;">City, State, Country:</td>
-                    <td style="padding: 8px 0;">Lahore, Punjab, Pakistan</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->city}}, {{auth()->user()->state}},  {{auth()->user()->country->name}}</td>
                 </tr>
             </table>
             <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">

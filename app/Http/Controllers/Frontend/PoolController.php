@@ -44,7 +44,7 @@ class PoolController extends Controller
         $pool_investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1, 'pool_id' => $id])->get();
         
         $data['poolInvestmentsYvalues'] = $this->graph($pool_investments, 'profit');
-        
+        $data['poolInvestmentsDepositYvalues'] = $this->graph($pool_investments, 'deposit_amount');
         return view('frontend.pools.view')->with($data);
     }
 
