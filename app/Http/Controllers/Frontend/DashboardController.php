@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $data['depositYvalues'] = $this->graph($deposits, 'amount');
         $data['withdrawYvalues'] = $this->graph($withdraws, 'actual_amount');
         $data['investmentsYvalues'] = $this->graph($investments, 'deposit_amount');
-
+        $data['poolInvestmentsProfitYvalues'] = $this->graph($investments, 'profit');
         return view('frontend.dashboard.index', $data);
     }
 

@@ -12,6 +12,7 @@
         </a>
         <h1 style="font-size: 30px; color: #000;background: #fafafa;text-align: center;padding: 10px;">Monthly Statement</h1>
         <p style="font-weight: bold;text-align: center;color: #d0af3e">DateTime : {{Carbon\Carbon::now()}}</p>
+ 
         <table cellpadding="0" cellspacing="0" style="padding-top: 30px;width: 500px;">
             <tr>
                 <td style="padding: 8px 0;font-weight: 700;">Name:</td>
@@ -53,6 +54,24 @@
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;">Total Deposit</td>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_deposit}}</td>
                         </tr>
+ 
+            <table cellpadding="0" cellspacing="0" style="padding-top: 30px;width: 500px;">
+                <tr>
+                    <td style="padding: 8px 0;font-weight: 700;">Name:</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->name}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: 700;">Email:</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->email }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: 700;">City, State, Country:</td>
+                    <td style="padding: 8px 0;">{{auth()->user()->city}}, {{auth()->user()->state}},  {{auth()->user()->country->name}}</td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">
+                    <thead>
+ 
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;">Total Withdraw</td>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_withdraw}}</td>

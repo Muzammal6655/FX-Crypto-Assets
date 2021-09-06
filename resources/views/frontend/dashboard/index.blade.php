@@ -128,11 +128,13 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
+    
     var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var depositYvalues = JSON.parse("{{$depositYvalues}}");
     var withdrawYvalues = JSON.parse("{{$withdrawYvalues}}");
     var investmentsYvalues = JSON.parse("{{$investmentsYvalues}}");
-
+    var poolInvestmentsProfitYvalues = JSON.parse("{{$poolInvestmentsProfitYvalues}}");
+   
     new Chart("depositChart", {
         type: "line",
         data: {
@@ -143,7 +145,9 @@
                 backgroundColor: "#d0af3e",
                 borderColor: "green",
                 data: depositYvalues
-            }]
+            },
+            
+            ]
         },
         options: {
             legend: {
@@ -176,12 +180,22 @@
         data: {
             labels: xValues,
             datasets: [{
+                label: 'Investment Amount',
                 fill: false,
                 lineTension: 0,
                 backgroundColor: "#d0af3e",
                 borderColor: "blue",
                 data: investmentsYvalues
-            }]
+            },
+            {
+                label: 'Profit Amount',
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "#d0af3e",
+                borderColor: "green",
+                data: poolInvestmentsProfitYvalues
+            }
+        ]
         },
         options: {
             legend: {
