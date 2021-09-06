@@ -99,8 +99,10 @@
                                             </div>
 
                                             @if(!empty($user->documents_rejection_reason))
-                                                <strong>Documents Rejection Reason:</strong>
+                                            @if( $user->photo_status != 1 || $user->passport_status != 1 )
+                                            <strong>Documents Rejection Reason:</strong>
                                                 <p>{{ $user->documents_rejection_reason }}</p>
+                                            @endif
                                             @endif
 
                                             <div class="bottom">
