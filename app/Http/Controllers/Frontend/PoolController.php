@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\Transaction;
 use App\Models\Balance;
 use App\Models\PoolInvestment;
+use App\Http\Traits\GraphTrait;
 use App\Models\EmailTemplate;
 use Carbon\Carbon;
 use Hashids;
@@ -14,6 +15,7 @@ use DB;
 
 class PoolController extends Controller
 {
+    use GraphTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,6 +41,10 @@ class PoolController extends Controller
         $user = auth()->user();
         $data['user'] = $user;
         $data['pool'] = Pool::findOrFail($id);
+        $pool_investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1, 'pool_id' => $id])->get();
+        
+        $data['poolInvestmentsYvalues'] = $this->graph($pool_investments, 'profit');
+        
         return view('frontend.pools.view')->with($data);
     }
 

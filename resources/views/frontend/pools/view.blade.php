@@ -4,8 +4,12 @@
 <div class="main-wrapper">
 	<div class="container">
 		<div class="card-group pool-view-des">
+
+
 			<div class="card">
 				<div class="card-body">
+					<!-- <div class="row">
+                            <div class="col-sm-3"> -->
 					<h5 class="card-title card-top-title">{{$pool['name']}}</h5>
 					@include('frontend.messages')
 					<p class="card-title text-center mb-4">{{$pool['description']}}</p>
@@ -47,11 +51,56 @@
 					</ul>
 				</div>
 				<div class="card-footer">
-					<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a> 
+					<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a>
 					<a href="{{ url('/pools/' . Hashids::encode($pool->id)). '/invest' }}" class="btn btn-xs btn-invest pull-right mr-2">Invest</a>
 				</div>
 			</div>
+
+			
 		</div>
+
+		</br>
+		@if (!empty($poolInvestmentsYvalues)) 
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title card-top-title">Pool Profit History Graph</h5>
+						<div class="col-sm-12">
+							<canvas id="poolInvestmentsChart" style="width:100%;"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		@endif
 	</div>
 </div>
+
+
 @endsection
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+	var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var poolinvestmentsYvalues = JSON.parse("{{$poolInvestmentsYvalues}}");
+	new Chart("poolInvestmentsChart", {
+		type: "line",
+		data: {
+			labels: xValues,
+			datasets: [{
+				fill: false,
+				lineTension: 0,
+				backgroundColor: "#d0af3e",
+				borderColor: "blue",
+				data: poolinvestmentsYvalues
+			}]
+		},
+		options: {
+			legend: {
+				display: false
+			},
+		}
+	});
+	</script
+	@endsection
