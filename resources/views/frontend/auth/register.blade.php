@@ -212,6 +212,9 @@
                 },
                 email: {
                     emailCheck: true
+                },
+                mobile_number: {
+                minlength: 8, maxlength: 30,number: true
                 }
             },
 
@@ -222,6 +225,9 @@
                 },
                 email: {
                     emailCheck: "Please enter a valid email address."
+                },
+                mobile_number: {
+                    mobileCheck: "Please enter a valid mobile number."
                 }
             },
 
@@ -262,7 +268,10 @@
         $.validator.addMethod("emailCheck", function (value) {
             return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         });
-    });
+        $.validator.addMethod("mobile_number", function (value) {
+            return /^(?=.*[0-9])(?=.*[_+-])(?=.*\d)(?=.*[_+-])[0-9\d_+-]{11,}/.test(value)
+        });
+    }); 
 
 
     $(document).ready(function() {
