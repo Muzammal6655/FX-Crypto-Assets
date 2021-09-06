@@ -20,7 +20,7 @@
         </tr>
         @foreach( $current_month_statments as $statment)
         <tr>
-           <td>{{$statment->type}}</td>
+           <td>{{ucwords($statment->type)}}</td>
            <td>{{$statment->actual_amount}}</td>
            {{--<td>{{!empty($statment->commission)?$statment->commission:0.0 }}</td>--}}
         </tr>
