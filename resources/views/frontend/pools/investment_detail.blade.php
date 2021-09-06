@@ -64,9 +64,9 @@
 						<tr> 
 							<th scope="row">Management Fee  ({{config('constants.currency')['symbol']}})</th>
 							@if( !empty($model->management_fee))
-							<td style="color:red;">-{{ $model->management_fee  }}</td>
+							<td style="color:red;">-{{number_format($model->management_fee,2)}}</td>
 							@else
-								<td style="color:green;">{{ $model->management_fee  }}</td>
+								<td style="color:green;">{{number_format($model->management_fee,2)}}</td>
 							@endif
 						</tr>
 						<tr> 

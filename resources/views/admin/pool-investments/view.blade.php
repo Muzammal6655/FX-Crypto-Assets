@@ -83,7 +83,7 @@
 								<label for="management_fee" class="col-sm-3 control-label">Management Fee ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" 
-									value="{{($model->commission != '') ? -$model->commission : ''}}" >
+									value="{{($model->management_fee != '') ? -$model->management_fee : ''}}" >
 								</div>
 							</div> 
 
@@ -93,7 +93,7 @@
 									<input type="text"
 									 class="form-control"
 									 readonly="" 
-									 value="{{($model->commission != '') ? -$model->commission : ''}}"
+									 value="{{($model->commission != '') ? -$model->commission: ''}}"
 									>
 								</div>
 							</div>

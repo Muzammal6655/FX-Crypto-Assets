@@ -251,7 +251,7 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool','Pool Investment Id','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool Id','Pool Name','Pool Investment Id','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {
@@ -259,6 +259,7 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->user_id;
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
+                $row[] = $record->pool_id;
                 $row[] = $record->pool->name;
                 $row[] = $record->id;
                 $row[] = $record->deposit_amount;

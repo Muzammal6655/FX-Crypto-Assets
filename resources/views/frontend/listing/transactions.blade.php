@@ -33,9 +33,13 @@
 								<th scope="row">{{ $count++ }}</th>
 								<td>{{ $transaction->type }}</td>
 								<td>{{ $transaction->amount }}</td>
-								<td>{{ $transaction->actual_amount }}</td>
+								<td>{{number_format($transaction->actual_amount,2)}}</td>
 								<td>{{ $transaction->fee_percentage }}</td>
-								<td>{{ $transaction->fee_amount }}</td>
+								@if($transaction->fee_amount <= 0)
+								<td></td>
+								@else
+								<td>{{number_format($transaction->fee_amount,2)}}</td>
+								@endif
 								<td>{{$transaction->commission}}</td>
 								<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 								<td>

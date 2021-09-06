@@ -90,6 +90,11 @@ class UserController extends Controller
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/transactions').'" title="Transactions"><i class="fa fa-exchange"></i></a>';
                 }
 
+                if(have_right('investors-password'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/password').'" title="Transactions"><i class="fa fa-key"></i> </a>';
+                }
+
                 if(have_right('investors-balances'))
                 {
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/balances').'" title="Balances"><i class="fa fa-money"></i></a>';
@@ -527,5 +532,40 @@ class UserController extends Controller
  
         Session::flash('flash_success', 'Login has been enabled successfully.');
         return redirect('admin/investors/'.$id.'/edit');
+    }
+
+    public function password(Request $request,$id)
+    {    
+        if(!have_right('investors-password'))
+            access_denied();
+         
+        $data = [];
+        $data['id'] = $id;
+        $id = Hashids::decode($id)[0];
+        $data['user'] = User::find($id);
+       
+        if ($request->ajax())
+        {
+            $db_record = Password::where('user_id',$id)->orderBy('id','DESC');
+
+            $datatable = Datatables::of($db_record);
+            $datatable = $datatable->addIndexColumn();
+
+            $datatable = $datatable->editColumn('password', function($row)
+            {
+                return ucwords($row->password);
+            });
+
+            $datatable = $datatable->editColumn('created_at', function($row)
+            {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+            });
+            
+            $datatable = $datatable->rawColumns(['amount']);
+            $datatable = $datatable->make(true);
+            return $datatable;
+        }
+
+        return view('admin.users.password',$data);
     }
 }

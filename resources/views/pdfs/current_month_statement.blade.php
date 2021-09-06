@@ -37,8 +37,8 @@
                 <tbody>
                     @foreach( $current_month_statments as $statment)
                     <tr>
-                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{$statment->type}}</td>
-                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{$statment->actual_amount}}</td>
+                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ucwords($statment->type)}}</td>
+                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{number_format($statment->actual_amount,2)}}</td>
                     {{--<td>{{!empty($statment->commission)?$statment->commission:0.0 }}</td>--}}
                     </tr>
                     @endforeach
@@ -63,7 +63,7 @@
                         </tr>
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;">Total Profit</td>
-                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_profit}}</td>
+                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{number_format($total_profit,2)}}</td>
                         </tr>
                         <tr>
                             <td style="padding: 8px 0;">Total Commission</td>

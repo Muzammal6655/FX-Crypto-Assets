@@ -42,7 +42,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function monthlyStatement(Request $request)
-    {
+    { 
         $from =  Carbon::createFromFormat('d/m/Y', '01/' . $request->start_month)->format('Y-m-d');
         $to =  Carbon::createFromFormat('d/m/Y',  $to = '31/' . $request->end_month)->format('Y-m-d');
         $monthly_statment_period = CarbonPeriod::create($from, '1 month', $to);
@@ -83,9 +83,10 @@ class DashboardController extends Controller
             }
             foreach ($monthly_investments as $investment) {
                 $monthly_statment[$investment->month]['total_monthly_investments'] = $investment->total_investment;
-                $monthly_statment[$investment->month]['total_monthly_investments_profit'] = $investment->total_profit;
+                $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit,2);
             }
         }
+ 
         if(count($monthly_statment)){
         
         $data['monthly_statment'] = $monthly_statment;

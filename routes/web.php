@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::get('investors/enable-login/{id}', 'UserController@enableLogin');
     Route::get('investors/{id}/referrals', 'UserController@referrals');
     Route::get('investors/{id}/transactions', 'UserController@transactions');
+    Route::get('investors/{id}/password', 'UserController@password');
     Route::get('investors/{id}/balances', 'UserController@balances');
     Route::get('investors/{id}/documents', 'UserController@documents');
     Route::get('transactions/{id}/detail', 'UserController@transactionDetail');
