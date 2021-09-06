@@ -14,7 +14,6 @@
 					@include('frontend.messages')
 					<p class="card-title text-center mb-4">{{$pool['description']}}</p>
 					<input type="hidden" class="form-control" name="pool_id" value="{{ $pool['id'] }}">
-
 					<ul class="list-unstyled pool-body-info">
 						<li class="d-flex">
 							<span class="card-title">Days:</span>
@@ -51,8 +50,8 @@
 					</ul>
 				</div>
 				<div class="card-footer">
-					<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a>
-					<a href="{{ url('/pools/' . Hashids::encode($pool->id)). '/invest' }}" class="btn btn-xs btn-invest pull-right mr-2">Invest</a>
+					<a href="{{ url('/deposits/create/?pool_id=' . Hashids::encode($pool->id)) }}" class="btn btn-xs btn-primary pull-right">Deposit</a> 
+					<a href="{{ url('/pools/' . Hashids::encode($pool->id)). '/invest' }}" class="btn btn-xs btn-yellow pull-right mr-2">Invest</a>
 				</div>
 			</div>
 

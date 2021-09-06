@@ -3,33 +3,44 @@
 @section('content')
 <div class="main-wrapper">
 	<div class="container">
-		<div class="card-group">
+		<div class="card-group pool-invest-group">
 			<div class="card">
 				@include('frontend.messages')
 				<div class="card-body">
-					<h5 class="card-title text-center">{{$pool['name']}}</h5>
-					<p class="card-title">{{$pool['description']}}</p>
-					<span class="card-title">Min Deposit:<strong>{{$pool['min_deposits']}}({{config('constants.currency')['symbol']}})
-					</strong></span>
-					<br>
-					<span class="card-title">Max Deposit:<strong>{{$pool['max_deposits']}}({{config('constants.currency')['symbol']}})
-					</strong></span>
-					<br>
-					<span class="card-title">Profit Percentage:<strong>{{$pool['profit_percentage']}}%
-					</strong></span>
-					<br>
-					<span class="card-title">Management Fee Percentage:<strong>{{$pool['management_fee_percentage']}}%
-					</strong></span>
-					<br>
-					<span class="card-title">Started Date:<strong>{{date('d M,Y', strtotime($pool['start_date']))}}
-					</strong></span>
-					<br>
-					<span class="card-title">End Date:<strong> {{date('d M,Y', strtotime($pool['end_date']))}}
-					</strong></span>
-					<br>
-					<span class="card-title">User Total Balance:<strong>
-					{{number_format($user->account_balance,2)}}({{config('constants.currency')['symbol']}})
-					</strong></span>
+					<h5 class="card-title text-center pool-title">{{$pool['name']}}</h5>
+					<p class="card-title text-center mb-4">{{$pool['description']}}</p>
+
+					<ul class="list-unstyled pool-body-info">
+						<li class="d-flex">
+							<span class="card-title">Min Deposit:</span>
+							<span class="card-detail">{{$pool['min_deposits']}}({{config('constants.currency')['symbol']}})</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">Max Deposit:</span>
+							<span class="card-detail">{{$pool['max_deposits']}}({{config('constants.currency')['symbol']}})</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">Profit Percentage:</span>
+							<span class="card-detail">{{$pool['profit_percentage']}}%</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">Management Fee Percentage:</span>
+							<span class="card-detail">{{$pool['management_fee_percentage']}}%</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">Started Date:</span>
+							<span class="card-detail">{{date('d M,Y', strtotime($pool['start_date']))}}</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">End Date:</span>
+							<span class="card-detail">{{date('d M,Y', strtotime($pool['end_date']))}}</span>
+						</li>
+						<li class="d-flex">
+							<span class="card-title">User Total Balance:</span>
+							<span class="card-detail">{{number_format($user->account_balance,2)}}({{config('constants.currency')['symbol']}})</span>
+						</li>
+					</ul>
+
 					<form id="invest-form"  method="POST" action="{{url('/invest')}}">
 						{{ csrf_field() }}
 						<input type="hidden" class="form-control" name="pool_id" value="{{ $pool['id'] }}">
@@ -47,11 +58,11 @@
 								required=""
 							>
 						</div>
-						<h5>OTP Verification</h5>
+						<h5 class="mb-4">OTP Verification</h5>
 						<div class="form-group">
 							<label for="email_code">
 								Email Code
-								<button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+								<button class="btn btn-outline-warning ml-2" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
 							</label>
 							<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
 						</div>
@@ -61,7 +72,7 @@
 							<input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
 						</div>
 						@endif
-						<div class="card-footer">
+						<div class="card-footer pl-0">
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</div>
 					</form>

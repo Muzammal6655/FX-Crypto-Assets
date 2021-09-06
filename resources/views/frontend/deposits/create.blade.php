@@ -47,7 +47,7 @@
 						<input type="file" class="form-control" id="proof" name="proof" accept="image/*" required="">
 					</div>
 
-					<h5>OTP Verification</h5>
+					<h5 class="mb-4">OTP Verification</h5>
 					<div class="form-group">
 						<label for="email_code">
 							Email Code

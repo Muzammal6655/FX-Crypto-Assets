@@ -19,30 +19,38 @@
                     @else
                         <div class="row">
                             <div class="col-sm-3">
-                                <div class="card">
+                                <div class="card bg-primary box">
+                                    <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                     <div class="card-body">
-                                        <h5 class="card-title">Account Balance ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->account_balance,2)}}</strong></h5>
+                                         <h3>{{number_format($user->account_balance,2)}}</h3>
+                                         <p>Account Balance ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="card">
+                                <div class="card bg-danger box">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Commission ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->commission_total,2)}}</strong></h5>
+                                       <h3>{{number_format($user->commission_total,2)}}</h3>
+                                       <p>Total Commission ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="card">
+                                <div class="card bg-warning box">
+                                    <i class="fa fa-line-chart" aria-hidden="true"></i>
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Profits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->profit_total,2)}}</strong></h5>
+                                         <h3>{{number_format($user->profit_total,2)}}</h3>
+                                         <p>Total Profits ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
                             </div>
                              <div class="col-sm-3">
-                                <div class="card">
+                                <div class="card bg-success box">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Investment ({{config('constants.currency')['symbol']}}): <strong>{{number_format($total_investments,2)}}</strong></h5>
+                                         <h3>{{number_format($total_investments,2)}}</h3>
+                                         <p>Total Investment ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +61,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Deposits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->deposit_total,2)}}</strong></h5>
-                                        <a href="{{ url('/deposits/create') }}" class="btn btn-success">Make New Deposit</a>
+                                        <a href="{{ url('/deposits/create') }}" class="btn btn-yellow">Make New Deposit</a>
                                         <a href="{{ url('/deposits') }}" class="btn btn-primary">Deposits History</a>
                                     </div>
                                 </div>
@@ -62,7 +70,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Withdrawals ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->withdraw_total,2)}}</strong></h5>
-                                        <a href="{{ url('/withdraws/create') }}" class="btn btn-success">Make New Withdraw</a>
+                                        <a href="{{ url('/withdraws/create') }}" class="btn btn-yellow">Make New Withdraw</a>
                                         <a href="{{ url('/withdraws') }}" class="btn btn-primary">Withdrawals History</a>
                                     </div>
                                 </div>
@@ -73,13 +81,13 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card deposit-form-des">
+                                <h3 class="mb-2">Download Overall Statistics</h3>
                                 <form id="deposits-form" method="POST" action="{{url('/monthly-statements')}}" enctype="multipart/form-data">
-                                    <div class="card-body">
+                                    <div class="card-body d-flex justify-content-between">
                                     {{ csrf_field() }}
-                                        <input type="text" id='start_month' name="start_month" value="{{\Carbon\Carbon::now()->subMonth()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}" autocomplete="off">
-                                        <input type="text" id='end_month' name="end_month" value="{{\Carbon\Carbon::now()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}"  autocomplete="off">
+                                        <input type="text" class="form-control" id='start_month' name="start_month" value="{{\Carbon\Carbon::now()->subMonth()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}" autocomplete="off">
+                                        <input type="text" class="form-control" id='end_month' name="end_month" value="{{\Carbon\Carbon::now()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}"  autocomplete="off">
                                         <button type="submit" class="btn btn-primary">Download</button>
-
                                         </div>
                                     </form>
                                 </div>
@@ -89,12 +97,16 @@
                         </br>
                         <div class="row">
                             <div class="col-sm-6">
-                                <h3>Deposit History</h3>
-                                <canvas id="depositChart" style="width:100%;"></canvas>
+                                <div class="graph-wrapper">
+                                    <h3>Deposit History</h3>
+                                    <canvas id="depositChart" style="width:100%;"></canvas>
+                                </div>
                             </div>
                             <div class="col-sm-6">
-                                <h3>Withdraw History</h3>
-                                <canvas id="withdrawChart" style="width:100%;"></canvas>
+                                <div class="graph-wrapper">
+                                    <h3>Withdraw History</h3>
+                                    <canvas id="withdrawChart" style="width:100%;"></canvas>
+                                </div>
                             </div>
                         </div>
                         <br>
