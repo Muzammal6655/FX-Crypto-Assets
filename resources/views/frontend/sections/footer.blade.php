@@ -38,10 +38,10 @@
                         <h4>Contact</h4>
                         <ul class="list-unstyled info-list">
                             <li>
-                                <a href="mailto:glenn@xxxxxxxxxx"><span class="icon fa fa-envelope"></span>{{settingValue('contact_email')}}</a>
+                                <a href="mailto:settingValue('contact_email')"><span class="icon fa fa-envelope"></span>{{settingValue('contact_email')}}</a>
                             </li>
                             <li>
-                                <a href="tel:+61xxxxxxxx80"><span class="icon fa fa-phone"></span>{{settingValue('contact_number')}}</a>
+                                <a href="tel:settingValue('contact_number')"><span class="icon fa fa-phone"></span>{{settingValue('contact_number')}}</a>
                             </li>
                         </ul>
                         <h4 class="social-heading">Social</h4>
