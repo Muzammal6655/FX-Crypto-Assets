@@ -58,7 +58,7 @@ class LoginController extends Controller
       {
         if(date('Y-m-d') == $user->password_attempts_date)
         {
-          return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out. Please contact Interesting FX Admin via email admin@interestingfx.com. If someone from Interesting FX has not contact you via the methods, we have on file within 3 business days.']);
+          return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out. Please contact Interesting FX Admin via email admin@interestingfx.com.']);
         }
         else if($request->password != $user->original_password)
         {
