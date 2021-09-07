@@ -34,6 +34,7 @@
                                             <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email Address" required="required">
                                         </div>
                                         <div class="form-group">
+                                        <span class="fa fa-fw fa-eye-slash password-field-icon toggle-password"></span>
                                             <input type="password" class="form-control" name="password" placeholder="Password" required="required">
                                         </div>
 
@@ -124,6 +125,20 @@
         });
 
         $('#timezone').val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    });
+
+    $(".toggle-password").click(function() 
+    {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $(this).siblings('input');
+        if (input.attr("type") == "password") 
+        {
+            input.attr("type", "text");
+        }
+        else 
+        {
+            input.attr("type", "password");
+        }
     });
 </script>
 @endsection
