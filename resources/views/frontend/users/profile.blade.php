@@ -95,9 +95,24 @@
                                             <p><strong>Wallet Address</strong></p>
 
                                             <div class="form-group" id="btc_wallet_address">
-                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
+                                                <input type="text" name="btc_wallet_address" minlength="42" maxlength="42" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
                                             </div>
-                                          {{---- <h5>OTP Verification</h5>
+
+                                            <p><strong>Email OTP Verification</strong></p>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="email_otp_status" id="enable" value="1" {{ ($user->email_otp_status == 1) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="enable">
+                                                Enable
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                               <input class="form-check-input" type="radio" name="email_otp_status" id="disable" value="2" {{ ($user->email_otp_status == 2) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="disable">
+                                                Disable
+                                              </label>
+                                            </div>
+                                            
+                                            {{---- <h5>OTP Verification</h5>
                                             <div class="form-group">
                                                 <label for="email_code">
                                                     Email Code

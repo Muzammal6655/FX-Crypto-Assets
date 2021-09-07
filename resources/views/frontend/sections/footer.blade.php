@@ -38,21 +38,21 @@
                         <h4>Contact</h4>
                         <ul class="list-unstyled info-list">
                             <li>
-                                <a href="mailto:glenn@xxxxxxxxxx"><span class="icon fa fa-envelope"></span>glenn@xxxxxxxxxx</a>
+                                <a href="mailto:glenn@xxxxxxxxxx"><span class="icon fa fa-envelope"></span>{{settingValue('contact_email')}}</a>
                             </li>
                             <li>
-                                <a href="tel:+61xxxxxxxx80"><span class="icon fa fa-phone"></span>+61xxxxxxxx80</a>
+                                <a href="tel:+61xxxxxxxx80"><span class="icon fa fa-phone"></span>{{settingValue('contact_number')}}</a>
                             </li>
                         </ul>
                         <h4 class="social-heading">Social</h4>
                         <ul class="list-unstyled social-list">
                             <li>
-                                <a href="#">
+                                <a href="{{settingValue('facebook')}}">
                                     <span class="icon-circle fa fa-facebook"></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{settingValue('twitter')}}">
                                     <span class="icon-circle fa fa-twitter"></span>
                                 </a>
                             </li>

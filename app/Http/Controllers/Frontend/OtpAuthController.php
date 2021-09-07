@@ -118,7 +118,7 @@ class OtpAuthController extends Controller
 
         if(date('Y-m-d') == $user->otp_attempts_date)
         {
-            return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.Please contact Interesting FX,if someone from Interesting FX has not contact you via the methods.']);
+            return redirect()->back()->withErrors(['error' => 'Your account is still functioning, but access is restricted until we can sort the issue out.Please contact Interesting FX Admin via email admin@interestingfx.com,if someone from Interesting FX has not contact you via the methods.']);
         }
 
         // Initialise the 2FA class

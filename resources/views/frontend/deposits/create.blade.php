@@ -46,7 +46,7 @@
 						<label for="proof">Deposit Receipt</label>
 						<input type="file" class="form-control" id="proof" name="proof" accept="image/*" required="">
 					</div>
-
+					@if($user->email_otp_status == 1)
 					<h5 class="mb-4">OTP Verification</h5>
 					<div class="form-group">
 						<label for="email_code">
@@ -55,6 +55,7 @@
 						</label>
 						<input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
 					</div>
+					@endif
 					@if($user->otp_auth_status == 1)
 					<div class="form-group">
 						<label for="two_fa_code">2FA Code</label>

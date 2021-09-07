@@ -28,34 +28,34 @@
                                     <form class="text-left" id="signup-form" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="name" maxlength="100" placeholder="First Name" value="{{old('name')}}" required="required">
+                                            <input type="text" class="form-control" name="name" maxlength="100" placeholder="First Name *" value="{{old('name')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="family_name" maxlength="30" placeholder="Family Name" value="{{old('family_name')}}" required="required">
+                                            <input type="text" class="form-control" name="family_name" maxlength="30" placeholder="Family Name *" value="{{old('family_name')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" name="email" maxlength="100" placeholder="Email" value="{{old('email')}}" required="required">
+                                            <input type="email" class="form-control" name="email" maxlength="100" placeholder="Email *" value="{{old('email')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" id="password" class="form-control" name="password" placeholder="Password" value="{{old('password')}}" minlength="8" maxlength="30" required="required">
+                                            <input type="password" id="password" class="form-control" name="password" placeholder="Password *" value="{{old('password')}}" minlength="8" maxlength="30" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" value="{{old('password')}}" required="required">
+                                            <input type="password" class="form-control" placeholder="Confirm Password *" name="password_confirmation" value="{{old('password')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Mobile Number" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
+                                            <input type="text" class="form-control" placeholder="Mobile Number *" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="date" class="form-control" placeholder="Date of Birth" name="dob" value="{{old('dob')}}" max="{{ date('Y-m-d', strtotime('-18 year')) }}" required="required">
+                                            <input type="date" class="form-control" placeholder="Date of Birth *" name="dob" value="{{old('dob')}}" max="{{ date('Y-m-d', strtotime('-18 year')) }}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Address" name="street" value="{{old('street')}}" required="required">
+                                            <input type="text" class="form-control" placeholder="Address *" name="street" value="{{old('street')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Suburb" name="city" value="{{old('city')}}" required="required">
+                                            <input type="text" class="form-control" placeholder="Suburb *" name="city" value="{{old('city')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="State" name="state" value="{{old('state')}}" required="required">
+                                            <input type="text" class="form-control" placeholder="State *" name="state" value="{{old('state')}}" required="required">
                                         </div>
                                         <div class="form-group">
                                             <select class="form-control" name="country_id" id="country_id" required="required">
@@ -70,10 +70,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Emergency ID Verification Code" name="emergency_id_verification_code" value="{{old('emergency_id_verification_code')}}" required="required">
+                                            <input type="text" class="form-control" placeholder="Emergency ID Verification Code *" name="emergency_id_verification_code" value="{{old('emergency_id_verification_code')}}" required="required">
                                         </div>
 
-                                        <p><strong>Were you referred to Interesting FX?</strong></p>
+                                        <p><strong>Were you referred to Interesting FX? *</strong></p>
 
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">
@@ -87,7 +87,7 @@
                                         </div>
 
                                         <div class="form-group referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
-                                            <input type="text" name="referral_code" class="form-control" placeholder="Referral Code" value="{{old('referral_code') ?? $referral_code}}">
+                                            <input type="text" name="referral_code" class="form-control" placeholder="Referral Code *" value="{{old('referral_code') ?? $referral_code}}">
                                         </div>
 
                                         <div class="form-check referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
@@ -97,7 +97,7 @@
 
                                         <p id="provide_later_text" style="display: {{ old('provide_later') == 'on' ? '' : 'none' }}">You have till the last day of next month to provide Referral Code.</p>
 
-                                        <p><strong>Do you have an Existing BTC wallet for withdrawals?</strong></p>
+                                        <p><strong>Do you have an Existing BTC wallet for withdrawals? *</strong></p>
 
                                         <div class="form-group">
                                             <div class="form-check form-check-inline">

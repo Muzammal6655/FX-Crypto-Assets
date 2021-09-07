@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     @include('frontend.messages')
-                    @if($user->photo_status == 0 && $user->passport_status == 0 )
+                    @if($user->photo_status == 0 || $user->passport_status == 0 || $user->photo_status == 2 || $user->passport_status == 2)
                     <p>Please upload your documents for account verification.
                         <a href="{{url('documents')}}" class="btn btn-primary"><i class="fa fa-upload"></i> Upload Documents</a>
                         @elseif(!CheckKYCStatus())
