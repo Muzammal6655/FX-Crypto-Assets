@@ -37,9 +37,11 @@
                                             <input type="email" class="form-control" name="email" maxlength="100" placeholder="Email *" value="{{old('email')}}" required="required">
                                         </div>
                                         <div class="form-group">
+                                            <span class="fa fa-fw fa-eye-slash password-field-icon toggle-password"></span>
                                             <input type="password" id="password" class="form-control" name="password" placeholder="Password *" value="{{old('password')}}" minlength="8" maxlength="30" required="required">
                                         </div>
                                         <div class="form-group">
+                                            <span class="fa fa-fw fa-eye-slash password-field-icon toggle-password"></span>
                                             <input type="password" class="form-control" placeholder="Confirm Password *" name="password_confirmation" value="{{old('password')}}" required="required">
                                         </div>
                                         <div class="form-group">
@@ -111,7 +113,7 @@
                                         </div>
 
                                         <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
-                                            <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}">
+                                            <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" minlength="42" maxlength="42">
                                         </div>
 
                                         <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
@@ -214,8 +216,11 @@
                     emailCheck: true
                 },
                 mobile_number: {
-                minlength: 8, maxlength: 30,number: true
-                }
+                    minlength: 8, maxlength: 30, mobileCheck: true
+                },
+                btc_wallet_address: {
+                    minlength: 42, maxlength: 42, walletAddressCheck: true
+                },
             },
 
             messages: {
@@ -228,7 +233,10 @@
                 },
                 mobile_number: {
                     mobileCheck: "Please enter a valid mobile number."
-                }
+                },
+                btc_wallet_address: {
+                    walletAddressCheck: "Minimum 42 characters and no special character are used."
+                },
             },
 
             highlight: function (e) {
@@ -268,8 +276,11 @@
         $.validator.addMethod("emailCheck", function (value) {
             return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         });
-        $.validator.addMethod("mobile_number", function (value) {
-            return /^(?=.*[0-9])(?=.*[_+-])(?=.*\d)(?=.*[_+-])[0-9\d_+-]{11,}/.test(value)
+        $.validator.addMethod("mobileCheck", function (value) {
+             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])[0-9\d]{11,}/.test(value)
+        });
+        $.validator.addMethod("walletAddressCheck", function (value) {
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
         });
     }); 
 
@@ -288,6 +299,22 @@
 
 
     });
+
+    $(".toggle-password").click(function() 
+    {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $(this).siblings('input');
+        if (input.attr("type") == "password") 
+        {
+            input.attr("type", "text");
+        }
+        else 
+        {
+            input.attr("type", "password");
+        }
+    });
+
+ 
 </script>
 
 @endsection

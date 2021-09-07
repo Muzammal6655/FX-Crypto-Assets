@@ -112,21 +112,6 @@
                                               </label>
                                             </div>
                                             
-                                            {{---- <h5>OTP Verification</h5>
-                                            <div class="form-group">
-                                                <label for="email_code">
-                                                    Email Code
-                                                    <button class="btn btn-outline-warning" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
-                                                </label>
-                                                <input type="number" class="form-control" id="email_code" name="email_code" value="{{ old('email_code') }}" minlength="6" maxlength="6" required="">
-                                            </div>
-                                            @if($user->otp_auth_status == 1)
-                                            <div class="form-group">
-                                                <label for="two_fa_code">2FA Code</label>
-                                                <input type="number" class="form-control" id="two_fa_code" name="two_fa_code" value="{{ old('two_fa_code') }}" required="">
-                                            </div>
-                                            @endif --}}
-
                                             <div class="bottom">
                                                 <div class="btn-wrap">
                                                     <button type="submit" class="btn-theme text-capitalize">Save
@@ -187,13 +172,25 @@
                     },
                     password_confirmation: {
                         equalTo: "#password"
-                    }
+                    },
+                    mobile_number: {
+                        minlength: 8, maxlength: 30, mobileCheck: true
+                    },
+                    btc_wallet_address: {
+                        walletAddressCheck: true
+                    },
                 },
 
                 messages: {
                     password: {
                         passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
-                    }
+                    },
+                    mobile_number: {
+                         mobileCheck: "Please enter a valid mobile number."
+                    },
+                    btc_wallet_address: {
+                        walletAddressCheck: "Minimum 42 characters and no special character are used."
+                    },
                 },
 
                 highlight: function (e) {
@@ -227,20 +224,12 @@
             $.validator.addMethod("passwordCheck", function (value) {
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
             });
-            // $("#generate_otp").click(function(){
-            //     $('#generate_otp_loading').show();
-            //     $('#generate_otp').prop('disabled',true);
-
-            //     $.ajax({
-            //         url: "{{ url('/otp-auth/send-email-code?type=profile') }}",
-            //         type: 'GET',
-            //         success: function(res) {
-            //             $('#generate_otp_loading').hide();
-            //             $('#generate_otp').prop('disabled',false);
-            //             alert(res);
-            //         }
-            //     });
-            // });
+            $.validator.addMethod("mobileCheck", function (value) {
+             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])[0-9\d]{11,}/.test(value)
+            });
+            $.validator.addMethod("walletAddressCheck", function (value) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
+            });
         });
 
     </script>
