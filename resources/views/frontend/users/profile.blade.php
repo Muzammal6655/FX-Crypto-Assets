@@ -228,7 +228,7 @@
              return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])[0-9\d]{11,}/.test(value)
             });
             $.validator.addMethod("walletAddressCheck", function (value) {
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)[A-Za-z0-9\d]{42,}/.test(value)
             });
         });
 
