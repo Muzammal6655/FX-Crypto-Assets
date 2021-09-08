@@ -79,13 +79,13 @@ class DepositController extends Controller
 
             $datatable = $datatable->editColumn('created_at', function($row)
             {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz($row->user->timezone)->format('d M, Y h:i:s A') ;
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
             });
 
             $datatable = $datatable->editColumn('approved_at', function($row)
             {    
                 if(!empty($row->approved_at ))
-                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz($row->user->timezone)->format('d M, Y h:i:s A') ;
+                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
                  return '';
             });
 
