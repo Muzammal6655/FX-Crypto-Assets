@@ -206,6 +206,21 @@
             focusInvalid: true,
 
             rules: {
+                name: {
+                    spaceCheckWithAlphabet: true
+                },
+                family_name: {
+                    spaceCheckWithAlphabet: true
+                },
+                street: {
+                    spaceCheck: true
+                },
+                city: {
+                    spaceCheckWithAlphabet: true
+                },
+                state: {
+                    spaceCheckWithAlphabet: true
+                },
                 password: {
                     passwordCheck: true
                 },
@@ -218,12 +233,35 @@
                 mobile_number: {
                     minlength: 8, maxlength: 30, mobileCheck: true
                 },
+                emergency_id_verification_code: {
+                    spaceCheck: true
+                },
                 btc_wallet_address: {
                     minlength: 42, maxlength: 42, walletAddressCheck: true
                 },
             },
 
             messages: {
+                name: {
+                    spaceCheckWithAlphabet: "Please enter valid name",
+                    
+                },
+                family_name: {
+                    spaceCheckWithAlphabet: "Please enter valid family name",
+                    
+                },
+                street: {
+                    spaceCheck: "Please enter valid address",
+                    
+                },
+                city: {
+                    spaceCheckWithAlphabet: "Please enter valid suburb name",
+                    
+                },
+                state: {
+                    spaceCheckWithAlphabet: "Please enter valid state",
+                    
+                },
                 password: {
                     passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
                     
@@ -233,6 +271,10 @@
                 },
                 mobile_number: {
                     mobileCheck: "Please enter a valid mobile number."
+                },
+                emergency_id_verification_code: {
+                    spaceCheck: "Please enter valid address",
+                    
                 },
                 btc_wallet_address: {
                     walletAddressCheck: "Minimum 42 characters and no special character are used."
@@ -269,6 +311,12 @@
                 //     scrollTop: $(validator.errorList[0].element).offset().top - 70
                 // }, 500);
             },
+        });
+        $.validator.addMethod("spaceCheckWithAlphabet", function (value) {
+            return /^[a-zA-Z][a-zA-Z]+/.test(value)
+        });
+        $.validator.addMethod("spaceCheck", function (value) {
+            return /^[^\s].+[^\s]/.test(value)
         });
         $.validator.addMethod("passwordCheck", function (value) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
