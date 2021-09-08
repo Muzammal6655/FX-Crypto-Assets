@@ -79,7 +79,7 @@
 	$(function(){
         $('#deposits-form').validate({
             errorElement: 'div',
-            errorClass: 'help-block',
+            errorClass: 'help-block text-danger',
             focusInvalid: true,
             
             highlight: function (e) {

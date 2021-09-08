@@ -167,6 +167,23 @@
                 focusInvalid: true,
 
                 rules: {
+                    name: {
+                        spaceCheckWithAlphabet: "Please enter valid name",
+                    },
+                    family_name: {
+                        spaceCheckWithAlphabet: "Please enter valid family name",
+                    },
+                    street: {
+                        spaceCheck: "Please enter valid address",
+                    },
+                    city: {
+                        spaceCheckWithAlphabet: "Please enter valid suburb name",
+                        
+                    },
+                    state: {
+                        spaceCheckWithAlphabet: "Please enter valid state",
+                        
+                    },
                     password: {
                         passwordCheck: true
                     },
@@ -182,6 +199,22 @@
                 },
 
                 messages: {
+                    name: {
+                        spaceCheckWithAlphabet: "Please enter valid name",
+                    },
+                    family_name: {
+                        spaceCheckWithAlphabet: "Please enter valid family name",
+                    },
+                    street: {
+                        spaceCheck: "Please enter valid address",
+                        
+                    },
+                    city: {
+                        spaceCheckWithAlphabet: "Please enter valid suburb name",
+                    },
+                    state: {
+                        spaceCheckWithAlphabet: "Please enter valid state",
+                    },
                     password: {
                         passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
                     },
@@ -220,6 +253,12 @@
                 },
                 invalidHandler: function (form,validator) {
                 },
+            });
+            $.validator.addMethod("spaceCheckWithAlphabet", function (value) {
+                return /^[a-zA-Z][a-zA-Z]+/.test(value)
+            });
+            $.validator.addMethod("spaceCheck", function (value) {
+                return /^[^\s].+[^\s]/.test(value)
             });
             $.validator.addMethod("passwordCheck", function (value) {
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)

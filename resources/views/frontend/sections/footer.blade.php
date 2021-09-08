@@ -30,6 +30,7 @@
                             <li><a href="{{ url('/pages/faq/') }}">Faqs</a></li>
                             <li><a href="{{ url('/pages/terms/') }}">Terms</a></li>
                             <li><a href="{{ url('/pages/privacy-policy/') }}">Privacy Policy</a></li>
+                            <li><a href="{{ url('/pages/service/') }}">Service</a></li>
                         </ul>
                     </div>
                 </div>
