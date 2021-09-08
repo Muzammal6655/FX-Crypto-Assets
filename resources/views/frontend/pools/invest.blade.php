@@ -45,6 +45,8 @@
 						{{ csrf_field() }}
 						<input type="hidden" class="form-control" name="pool_id" value="{{ $pool['id'] }}">
 						<input type="hidden" class="form-control" name="user_id" value="{{ $user['id'] }}">
+						<input name="id" type="hidden" value="{{ $model->id }}" />
+						<input type="hidden" name="action" value="{{$action}}" />
 						<div class="form-group">
 							<br>
 							<label for="Invest_amount">Enter Amount</label>
@@ -54,6 +56,7 @@
 								name="invest_amount" 
 								min="{{$pool->min_deposits}}" 
 								max="{{$user->account_balance >= $pool->max_deposits ? $pool->max_deposits : $user->account_balance}}" 
+								value="{{ ($action == 'Edit') ? $model->deposit_amount : old('invest_amount')}}"
 								placeholder="Enter the amount" 
 								required=""
 							>

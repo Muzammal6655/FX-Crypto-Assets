@@ -64,7 +64,7 @@
 			<div class="col-sm-12">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title card-top-title">Pool Profit History Graph</h5>
+						<h5 class="card-title card-top-title">Pool Investments & Profit History</h5>
 						<div class="col-sm-12">
 							<canvas id="poolInvestmentsChart" style="width:100%;"></canvas>
 						</div>

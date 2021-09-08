@@ -131,6 +131,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::get('balances', 'ListingController@balances');
             Route::get('current-month-statements', 'ListingController@currentMonthStatements');
             Route::get('pool-investments', 'PoolController@investments');
+            Route::get('pool-investments/{id}/edit', 'PoolController@investmentEdit');
             Route::get('pool-investments/{id}', 'PoolController@investmentDetail');
             Route::post('pool-investments/{id}/transfer', 'PoolController@transfer');
 

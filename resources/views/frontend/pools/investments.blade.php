@@ -47,7 +47,12 @@
 										<span class="badge bg-danger">Rejected</span>
 									@endif
 								</td>
-								<td><a href="{{ url('/pool-investments/' . Hashids::encode($poolinvestment->id)) }}" class="btn btn-xs btn-primary pull-right">View</a></td>
+								<td>
+								@if($poolinvestment->status != 1)
+									<a href="{{ url('/pool-investments/' . Hashids::encode($poolinvestment->id) .'/edit') }}" class="btn  btn-success"><i class="fa fa-edit"></i></a>
+								@endif
+									<a href="{{ url('/pool-investments/' . Hashids::encode($poolinvestment->id)) }}" class="btn btn-xs btn-primary pull-right">View</a>
+								</td>
 							</tr>
 						@empty
 							<tr>

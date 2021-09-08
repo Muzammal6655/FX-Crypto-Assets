@@ -63,11 +63,13 @@ class PoolController extends Controller
         $id = Hashids::decode($id)[0];
         $data['user'] = auth()->user();
         $data['pool'] = Pool::findOrFail($id);
+        $data['model'] = new PoolInvestment();
+        $data['action'] = "Add";
         return view('frontend.pools.invest')->with($data);
     }
 
     public function saveInvestment(Request $request)
-    {   
+    {    
         $validated = $request->validate([
             'invest_amount' => 'required',
         ]);
@@ -115,16 +117,30 @@ class PoolController extends Controller
         }
         
         if( $user->account_balance  >= $request->invest_amount)
-        {
-            $model = PoolInvestment::create([
-                'user_id' => $user->id,
-                'pool_id' => $pool->id,
-                'deposit_amount' => $request->invest_amount,
-                'profit_percentage' => $pool->profit_percentage,
-                'management_fee_percentage' => $pool->management_fee_percentage,
-                'status' => 0,
-            ]);
-
+        {   
+            if ($request->action == 'Edit') 
+            {   
+                $pool_investments= PoolInvestment::findOrFail($request->id);
+                $pool_investments->update([
+                    'deposit_amount' => $request->invest_amount,
+                    'status' => 0,
+                ]);
+                $flash_message = 'Amount has been update successfully.
+                                  Please wait for the admin approval.';
+            }
+            else
+            {
+                $model = PoolInvestment::create([
+                    'user_id' => $user->id,
+                    'pool_id' => $pool->id,
+                    'deposit_amount' => $request->invest_amount,
+                    'profit_percentage' => $pool->profit_percentage,
+                    'management_fee_percentage' => $pool->management_fee_percentage,
+                    'status' => 0,
+                ]);
+                $flash_message = 'Amount has been invested successfully.
+                                  Please wait for the admin approval.';
+ 
             $name = $user->name;
             $email = $user->email;
             $link = url('/admin/pool-investments/'.Hashids::encode($model->id));
@@ -143,12 +159,11 @@ class PoolController extends Controller
             $content  = str_replace($search,$replace,$content);
 
             sendEmail(settingValue('contact_email'), $subject, $content);
-
             session()->forget('investment_request_email_verification_otp');
+            }
             
-            $request->session()->flash('flash_success', 'Amount has been invested successfully. Please wait for the admin approval.');
+            $request->session()->flash('flash_success', $flash_message);
                 return redirect()->back();
-            
         }
         else
         {
@@ -172,7 +187,7 @@ class PoolController extends Controller
     }
 
     public function transfer(Request $request, $id)
-    {   
+    {      
         $id = Hashids::decode($id)[0];
         $model = PoolInvestment::findOrFail($id);
         $pool = Pool::findOrFail($request->pool_id);
@@ -187,9 +202,9 @@ class PoolController extends Controller
         }
 
         if($model->deposit_amount >= $pool->min_deposits && $model->deposit_amount <= $pool->max_deposits )
-        {
+        {  
             $model->update([
-                'pool_id' => $request->pool,
+                'pool_id' => $request->pool_id,
                 'profit_percentage' => $pool->profit_percentage,
                 'management_fee_percentage' => $pool->management_fee_percentage,
             ]);
@@ -199,9 +214,21 @@ class PoolController extends Controller
             return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
         }
         
-        $request->session()->flash('flash_success', 'Pool Investment successfully transfer to '.
-            $pool->name. '.');
+        $request->session()->flash('flash_success', 'Pool Investment successfully transfer to '.$pool->name. '.');
         return redirect()->back();
+   }
+
+   public function investmentEdit($id, Request $request)
+   {
+        $id = Hashids::decode($id)[0];
+        $user = auth()->user();
+        $data['user'] = $user;
+        $data['action'] = "Edit";
+        $data['model'] = PoolInvestment::findOrFail($id);
+        $data['pool'] = Pool::findOrFail($data['model']->pool_id);
+ 
+        return view('frontend.pools.invest')->with($data);
+
    }
 }
 
