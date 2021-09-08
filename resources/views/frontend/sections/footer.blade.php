@@ -57,7 +57,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{settingValue('google_plus')}}">
                                     <span class="icon-circle fa fa-google-plus"></span>
                                 </a>
                             </li>

@@ -131,13 +131,12 @@ class UserController extends Controller
     }
 
     public function uploadDocuments(Request $request)
-    {
+    { 
         $user = Auth::user();
        
         $validations = [
-            'passport' => 'required|file|image|mimes:jpg,jpeg,png',
-            'photo' => 'required|file|image|mimes:jpg,jpeg,png',
-            
+            'passport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
+            'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:5000',
         ];
         $validator = Validator::make($request->all(), $validations);
 

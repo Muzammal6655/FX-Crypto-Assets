@@ -68,10 +68,10 @@
               </div>
 
               <div class="form-group">
-                <label class="col-sm-3 control-label">Youtube</label>
+                <label class="col-sm-3 control-label">Google +</label>
                 <div class="col-sm-9">
-                  <input type="url" name="youtube" maxlength="200" class="form-control"
-                    value="{{isset($settings['youtube']) ? $settings['youtube'] : ''}}">
+                  <input type="url" name="google_plus" maxlength="200" class="form-control"
+                    value="{{isset($settings['google_plus']) ? $settings['google_plus'] : ''}}">
                 </div>
               </div>
 

@@ -82,7 +82,7 @@
 							<div class="form-group">
 								<label for="created_at" class="col-sm-3 control-label">Created At</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->created_at }}">
+									<input type="text" class="form-control" readonly="" value="{{ \Carbon\Carbon::createFromTimeStamp(strtotime($model->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A')}}">
 								</div>
 							</div>
 

@@ -92,7 +92,7 @@ class UserController extends Controller
 
                 if(have_right('investors-password'))
                 {
-                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/password').'" title="Transactions"><i class="fa fa-key"></i> </a>';
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/password').'" title="Password"><i class="fa fa-key"></i> </a>';
                 }
 
                 if(have_right('investors-balances'))
@@ -418,7 +418,7 @@ class UserController extends Controller
 
             $datatable = $datatable->editColumn('created_at', function($row)
             {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
             });
             
             $datatable = $datatable->rawColumns(['amount']);
@@ -448,7 +448,7 @@ class UserController extends Controller
 
             $datatable = $datatable->editColumn('created_at', function($row)
             {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y  h:i:s A') ;
             });
 
             $datatable = $datatable->addColumn('action', function($row)

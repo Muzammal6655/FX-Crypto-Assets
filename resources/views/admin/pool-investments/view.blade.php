@@ -127,7 +127,7 @@
 							<div class="form-group">
 								<label for="approved_at" class="col-sm-3 control-label">Approved At</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->approved_at }}">
+									<input type="text" class="form-control" readonly="" value="{{ \Carbon\Carbon::createFromTimeStamp(strtotime($model->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y') }}">
 								</div>
 							</div>
 

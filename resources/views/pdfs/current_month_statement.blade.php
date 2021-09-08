@@ -11,7 +11,7 @@
             <img style="text-align: center;" src="https://interestingfx.arhamsoft.org/images/logo.svg" alt="logo">
         </a>
         <h1 style="font-size: 30px; color: #000;background: #fafafa;text-align: center;padding: 10px;">Monthly Statement</h1>
-        <p style="font-weight: bold;text-align: center;color: #d0af3e">DateTime : {{Carbon\Carbon::now()}}</p>
+        <p style="font-weight: bold;text-align: center;color: #d0af3e">DateTime : {{Carbon\Carbon::now()->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')}}</p>
  
         <table cellpadding="0" cellspacing="0" style="padding-top: 30px;width: 500px;">
             <tr>
