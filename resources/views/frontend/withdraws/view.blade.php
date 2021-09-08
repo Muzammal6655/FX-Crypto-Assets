@@ -29,9 +29,9 @@
 						</tr>
 						<tr> 
 							<th scope="row">Approved At</th>
-							@if(!empty($withdraw->approved_at))
-							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
-							@endif
+							<td>@if(!empty($withdraw->approved_at))
+							{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}
+							@endif</td>
 						</tr>
 						<tr> 
 							<th scope="row">Status</th>

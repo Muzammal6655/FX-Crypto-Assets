@@ -50,9 +50,10 @@
 						
 						<tr> 
 							<th scope="row">Approved At</th>
+							<td>
 							@if(!empty($deposit->approved_at))
-							<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
-							@endif
+							{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}
+							@endif</td>
 						</tr>
 						
 						<tr> 
