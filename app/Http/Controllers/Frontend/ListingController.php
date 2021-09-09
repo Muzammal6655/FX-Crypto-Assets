@@ -40,6 +40,7 @@ class ListingController extends Controller
      */
     public function currentMonthStatements(Request $request)
     {
+       
         //Carbon::now()->month
         $current_month_statments = Transaction::where('user_id', auth()->user()->id)
             ->whereMonth('created_at', Carbon::now()->month)->orderBy('id', 'DESC')->get();

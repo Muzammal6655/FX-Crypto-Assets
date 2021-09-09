@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
@@ -7,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Country;
 use App\Models\Password;
+use Illuminate\Validation\Rule;
 use Auth;
 use Hashids;
 use File;
@@ -28,6 +30,14 @@ class UserController extends Controller
     {
         $input = $request->all();
         $user = Auth::user();
+
+        $validations['btc_wallet_address'] = [Rule::unique('users')->ignore($user->id)];
+        $validator = Validator::make($request->all(), $validations);
+
+        if ($validator->fails()) {
+            Session::flash('flash_danger', $validator->messages());
+            return redirect()->back()->withInput();
+        }
 
         /****
          * Were you referred to Interesting FX?
@@ -52,15 +62,11 @@ class UserController extends Controller
             }
         }****/
 
-        if($request->has('referral_code') && !empty($request->referral_code))
-        {
-            $referrer = User::where('id','!=',$user->id)->where('invitation_code', $request->referral_code)->first();
-            if(!empty($referrer))
-            {
-                $input['referral_code'] = $request->referral_code;    
-            }
-            else
-            {
+        if ($request->has('referral_code') && !empty($request->referral_code)) {
+            $referrer = User::where('id', '!=', $user->id)->where('invitation_code', $request->referral_code)->first();
+            if (!empty($referrer)) {
+                $input['referral_code'] = $request->referral_code;
+            } else {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
             }
         }
@@ -71,13 +77,12 @@ class UserController extends Controller
 
         $password = $request->input('password');
 
-        if(!empty($password)){
+        if (!empty($password)) {
             $validator = Validator::make($request->all(), [
                 'password' => 'required|string|min:8|max:30|confirmed',
             ]);
 
-            if ($validator->fails())
-            {
+            if ($validator->fails()) {
                 Session::flash('flash_danger', $validator->messages());
                 return redirect()->back()->withInput();
             }
@@ -89,11 +94,9 @@ class UserController extends Controller
              * Old password keeping 
              */
 
-            if($request->password != $user->original_password)
-            {
+            if ($request->password != $user->original_password) {
                 $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
-                if(!empty($password))
-                {
+                if (!empty($password)) {
                     Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
                     return redirect()->back()->withInput();
                 }
@@ -109,14 +112,13 @@ class UserController extends Controller
                     ]
                 );
             }
-        }
-        else{
+        } else {
             unset($input['password']);
         }
-        
+
         $user->update($input);
 
-        if(!empty($password)){
+        if (!empty($password)) {
             auth()->logoutOtherDevices($password);
         }
 
@@ -131,9 +133,9 @@ class UserController extends Controller
     }
 
     public function uploadDocuments(Request $request)
-    { 
+    {
         $user = Auth::user();
-       
+
         $validations = [
             'passport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
             'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:5000',
@@ -152,14 +154,14 @@ class UserController extends Controller
             // Upload File //
             // *********** //
 
-            $target_path = 'public/users/'.$user->id.'/documents';
-            $filename = 'passport-' . uniqid() .'.'.$file->getClientOriginalExtension();
+            $target_path = 'public/users/' . $user->id . '/documents';
+            $filename = 'passport-' . uniqid() . '.' . $file->getClientOriginalExtension();
 
             // **************** //
             // Delete Old File
             // **************** //
 
-            $old_file = public_path() . '/storage/users/'.$user->id.'/documents/' . $user->passport;
+            $old_file = public_path() . '/storage/users/' . $user->id . '/documents/' . $user->passport;
             if (file_exists($old_file) && !empty($user->passport)) {
                 $res = Storage::delete($target_path . '/' . $user->passport);
             }
@@ -176,14 +178,14 @@ class UserController extends Controller
             // Upload File //
             // *********** //
 
-            $target_path = 'public/users/'.$user->id.'/documents';
-            $filename = 'photo-' . uniqid() .'.'.$file->getClientOriginalExtension();
+            $target_path = 'public/users/' . $user->id . '/documents';
+            $filename = 'photo-' . uniqid() . '.' . $file->getClientOriginalExtension();
 
             // **************** //
             // Delete Old File
             // **************** //
 
-            $old_file = public_path() . '/storage/users/'.$user->id.'/documents/' . $user->photo;
+            $old_file = public_path() . '/storage/users/' . $user->id . '/documents/' . $user->photo;
             if (file_exists($old_file) && !empty($user->photo)) {
                 Storage::delete($target_path . '/' . $user->photo);
             }

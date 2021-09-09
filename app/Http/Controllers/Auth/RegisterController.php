@@ -62,8 +62,9 @@ class RegisterController extends Controller
             'name' => ['required','string','max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
+            'btc_wallet_address' => ['unique:users'],
         ]);
-
+       
         if ($validator->fails())
         {
             Session::flash('flash_danger', $validator->messages());
