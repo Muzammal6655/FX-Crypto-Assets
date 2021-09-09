@@ -246,7 +246,7 @@ class DepositController extends Controller
                           ->distinct('user_id')
                           ->count();
         
-        if($pool_investments_count >=  $pool->users_limit)
+        if($pool_investments_count > $pool->users_limit)
         { 
             return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
         }

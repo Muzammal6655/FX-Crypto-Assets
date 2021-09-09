@@ -39,10 +39,8 @@
                     @foreach( $current_month_statments as $statment)
                     <tr>
                         <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ucwords($statment->type)}}</td>
-                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{number_format($statment->actual_amount,2)}}</td>
-                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($statment->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i
-:s
- A') }}</td>
+                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{MonthStatmentSign($statment->type ,$statment->actual_amount )}}</td>
+                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($statment->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
                     </tr>
                     @endforeach
                 </tbody>

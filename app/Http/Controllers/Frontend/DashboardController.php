@@ -21,9 +21,11 @@ class DashboardController extends Controller
     public function index()
     {
         $data['user'] = auth()->user();
-        $data['total_investments'] = PoolInvestment::where(['user_id' => auth()->user()->id,
-            'status' => 1])->sum('deposit_amount');
-        
+        $data['total_investments'] = PoolInvestment::where([
+            'user_id' => auth()->user()->id,
+            'status' => 1
+        ])->sum('deposit_amount');
+
         $withdraws = Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
@@ -42,34 +44,37 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function monthlyStatement(Request $request)
-    { 
+    {
+
         $from =  Carbon::createFromFormat('d/m/Y', '01/' . $request->start_month)->format('Y-m-d');
-        $to =  Carbon::createFromFormat('d/m/Y',  $to = '31/' . $request->end_month)->format('Y-m-d');
+        $end_month_total_days = Carbon::parse('01/' . $request->end_month)->daysInMonth;
+        $to =  Carbon::createFromFormat('d/m/Y',  $end_month_total_days . '/' . $request->end_month)->format('Y-m-d');
+
         $monthly_statment_period = CarbonPeriod::create($from, '1 month', $to);
 
         $monthly_deposits = Deposit::where('user_id', auth()->user()->id)
-            ->where('status',1)
+            ->where('status', 1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_withdraws = Withdraw::where('user_id', auth()->user()->id)
-            ->where('status',1)
+            ->where('status', 1)
             ->whereBetween('created_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(created_at,"%Y-%m") month'), DB::raw('sum(amount) as total_amount'))
             ->groupBy('month')->get();
 
 
         $monthly_investments = PoolInvestment::where('user_id', auth()->user()->id)
-            ->where('status',1)
+            ->where('status', 1)
             ->whereBetween('approved_at', [$from, $to])
             ->select(DB::raw('DATE_FORMAT(approved_at,"%Y-%m") month'), DB::raw('sum(deposit_amount) as total_investment'), DB::raw('sum(profit) as total_profit'))
             ->groupBy('month')->orderby('approved_at')->get();
 
 
-       
-        $monthly_statment=[];
+
+        $monthly_statment = [];
         if (!$monthly_deposits->isEmpty() || !$monthly_withdraws->isEmpty() || !$monthly_investments->isEmpty()) {
 
             foreach ($monthly_deposits as $deposits) {
@@ -83,18 +88,17 @@ class DashboardController extends Controller
             }
             foreach ($monthly_investments as $investment) {
                 $monthly_statment[$investment->month]['total_monthly_investments'] = $investment->total_investment;
-                $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit,2);
+                $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit, 2);
             }
         }
- 
-        if(count($monthly_statment)){
-        
-        $data['monthly_statment'] = $monthly_statment;
-       // return view('pdfs.monthly_statement', $data);
-         $pdf = LaravelPDF::loadView('pdfs.monthly_statement', $data);
-        return $pdf->download('monthly_statment ' . Carbon::now('UTC')->format('Y-m-d H.i.s') . '.pdf');
-        }
-        else{
+
+        if (count($monthly_statment)) {
+
+            $data['monthly_statment'] = $monthly_statment;
+            return view('pdfs.monthly_statement', $data);
+           // $pdf = LaravelPDF::loadView('pdfs.monthly_statement', $data);
+            //return $pdf->download('monthly_statment ' . Carbon::now('UTC')->format('Y-m-d H.i.s') . '.pdf');
+        } else {
             return redirect()->back()->withErrors(['error' => "Sorry, you don't have any statement to download."]);
         }
     }
