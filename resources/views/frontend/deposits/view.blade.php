@@ -3,6 +3,31 @@
 @section('content')
 <div class="main-wrapper">
 	<div class="container">
+		@if(!empty($deposit->pool_id) && ($deposit->status != 1))
+			<div class="card mb-4">
+				<div class="card-header">
+					Deposit Transfer
+				</div>
+				<div class="card-body">
+					<form class="form-inline pool-transfer-form"
+							action="{{url('deposits/'.Hashids::encode($deposit->id).'/transfer')}}" method="post">
+					@csrf
+					<input type="hidden" name="action" value="{{$deposit->id}}"/>
+				    <div class="form-group mr-3">
+				     	<select class="form-control"  name="pool_id" required="required">
+				            <option value="">Select Pool</option>
+				            @foreach ($pools as $pool)
+				            <option value="{{$pool->id}}">{{$pool->name}}</option>
+				            @endforeach 
+				        </select>
+				    </div>   
+				    <button type="submit" class="btn btn-primary btn-fullrounded btn-apply">
+				          <span>Transfer</span>
+				    </button>
+		  			</form>
+				</div>
+			</div>
+		@endif
 		<div class="card">
 			<div class="card-header d-flex align-items-center justify-content-between">
 				Deposits View

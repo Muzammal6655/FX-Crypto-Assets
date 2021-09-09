@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use App\Models\Deposit;
 use App\Models\Pool;
+use App\Models\PoolInvestment;
 use App\Models\EmailTemplate;
 use Hashids;
 use Session;
 use GuzzleHttp\Client;
+use DB;
 
 class DepositController extends Controller
 {
@@ -200,9 +202,10 @@ class DepositController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    { 
         $id = Hashids::decode($id)[0];
         $data['deposit'] = Deposit::findOrFail($id);
+        $data['pools'] = Pool::where('id','!=',$data['deposit']->pool_id)->get();
         return view('frontend.deposits.view')->with($data);
     }
 
@@ -232,4 +235,37 @@ class DepositController extends Controller
 
         return view('frontend.deposits.create')->with($data);
     }
+
+    public function transfer(Request $request, $id)
+    {      
+        $id = Hashids::decode($id)[0];
+        $pool = Pool::findOrFail($request->pool_id);
+        $model = Deposit::findOrFail($id);
+        $pool_investments_count = DB::table('pool_investments')
+                          ->where('pool_id', '=' , $pool->id)
+                          ->distinct('user_id')
+                          ->count();
+        
+        if($pool_investments_count >=  $pool->users_limit)
+        { 
+            return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
+        }
+ 
+        if($model->amount >= $pool->min_deposits && $model->amount <= $pool->max_deposits )
+        {  
+            $model->update([
+                'pool_id' => $request->pool_id,
+                'status'  => 0,
+            ]);
+        }
+        else
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
+        }
+
+        $request->session()->flash('flash_success', 'Deposit amount successfully transfer to '
+                                  .$pool->name. '.');
+        return redirect()->back();
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\Referral;
 use App\Models\Password;
 use Auth;
 use Hashids;
@@ -25,39 +26,19 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
+    {   
         $input = $request->all();
         $user = Auth::user();
 
-        /****
-         * Were you referred to Interesting FX?
-         
-
-        if(empty(session()->get('profile_email_verification_otp')) || session()->get('profile_email_verification_otp') != $request->email_code)
-        {
-            return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
-        }
-
-        if($user->otp_auth_status)
-        {
-            // Initialise the 2FA class
-            $google2fa = app('pragmarx.google2fa');
-
-            // Add the secret key to the user data
-            $response = $google2fa->verifyKey($user->otp_auth_secret_key,$request->two_fa_code);
-
-            if(!$response)
-            {
-               return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
-            }
-        }****/
 
         if($request->has('referral_code') && !empty($request->referral_code))
-        {
+        {   
             $referrer = User::where('id','!=',$user->id)->where('invitation_code', $request->referral_code)->first();
+              
             if(!empty($referrer))
-            {
-                $input['referral_code'] = $request->referral_code;    
+            {   
+                $input['referral_code'] = $request->referral_code;  
+                $user->referrer_account_id = $referrer->id; 
             }
             else
             {
@@ -65,6 +46,7 @@ class UserController extends Controller
             }
         }
 
+        
         /**
          * Update password
          */
@@ -113,8 +95,19 @@ class UserController extends Controller
         else{
             unset($input['password']);
         }
-        
+         
         $user->update($input);
+ 
+
+        if(!empty($referrer))
+        {
+            $user->referrer_account_id = $referrer->id;
+
+            Referral::create([
+                'referrer_id' => $referrer->id,
+                'refer_member_id' => $user->id
+            ]);
+        }
 
         if(!empty($password)){
             auth()->logoutOtherDevices($password);

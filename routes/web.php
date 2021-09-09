@@ -126,6 +126,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
             Route::get('/pools/{id}', 'PoolController@show');
 
             Route::resource('deposits', 'DepositController');
+            Route::post('deposits/{id}/transfer', 'DepositController@transfer');
             Route::get('transactions', 'ListingController@transactions');
             Route::get('transactions/{id}', 'ListingController@transactionDetail');
             Route::get('balances', 'ListingController@balances');
