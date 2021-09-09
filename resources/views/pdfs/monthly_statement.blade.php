@@ -28,8 +28,8 @@
                     </tr>
                 </table>
                 @foreach( $monthly_statment as $key=>$value)
-                <p style="font-weight: bold;text-align: center;color: #d0af3e">Month : {{$key}}</p>
-                <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">
+                <p style="font-weight: bold;color: #d0af3e; padding: 20px 0 0; margin:0;">Month : {{$key}}</p>
+                <table cellpadding="0" cellspacing="0" width="100%" style="padding: 20px 0 20px;">
                     <tr>
                         <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">Total Deposits</td>
                         @if(!empty($monthly_statment[$key]['total_deposits']))
@@ -62,20 +62,16 @@
                         <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">0.0</td>
                         @endif
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <table width="100%" style="margin-top: 160px;border-collapse: collapse;font-size: 14px;line-height: 18px;">
-                                <tbody>
-                                    <tr>
-                                    <td width="50%" style="font-weight: 500;border-top: 1px solid rgba(0,0,0,.125); padding: 8px; text-align: center;">Interesting FX 2021. All Rights Reserved</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            
+                    </table>
         @endforeach
+                    <table width="100%" style="margin-top: 160px;border-collapse: collapse;font-size: 14px;line-height: 18px;">
+                        <tbody>
+                            <tr>
+                            <td width="50%" style="font-weight: 500;border-top: 1px solid rgba(0,0,0,.125); padding: 8px; text-align: center;">Interesting FX 2021. All Rights Reserved</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        
     </div>
 </body>
 

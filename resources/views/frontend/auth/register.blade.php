@@ -28,7 +28,9 @@
                                     <form class="text-left" id="signup-form" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="name" maxlength="100" placeholder="First Name *" value="{{old('name')}}" required="required">
+                                            <label alt='Name' placeholder='First Name *'></label>
+                                            <input type="text" class="form-control" name="name" maxlength="100"  value="{{old('name')}}" required="required">
+                                            
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="family_name" maxlength="30" placeholder="Family Name *" value="{{old('family_name')}}" required="required">
