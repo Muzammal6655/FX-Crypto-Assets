@@ -1332,7 +1332,7 @@ h5 {
         top: 32px;
         right: 16px;
 }
-#email-error, #city-error{
+#email-error, .text-danger{
     font-size: 14px;
 }
 
