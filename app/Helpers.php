@@ -232,4 +232,27 @@ function CheckKYCStatus()
         return true;
     }
 }
+
+function MonthStatmentSign($type, $amount)
+{
+    switch ($type) 
+    {
+        case $type == 'deposit':
+            return   '+ '. number_format($amount,2);
+            break;
+        case $type == 'investment':
+            return      '- '. number_format($amount,2);
+            break;
+        case $type == 'profit':
+            return   '+ '.  number_format($amount,2);
+            break;
+        case $type == 'commission':
+            return    '+ '. number_format($amount,2);
+            break; 
+        case $type == 'withdraw':
+            return   '- '. number_format($amount,2);
+            break;
+    }
+
+}
 ?>

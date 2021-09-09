@@ -406,11 +406,11 @@ class UserController extends Controller
                 $amount = '';
                 if ($row->amount <= 0)
                 {
-                    $amount = '<span style="color:red">'.$row->amount.'</span>';
+                    $amount = '<span style="color:red">'.number_format($row->amount,2).'</span>';
                 }
                 else
                 {
-                    $amount = '<span style="color:green">+'.$row->amount.'</span>';
+                    $amount = '<span style="color:green">+'.number_format($row->amount,2).'</span>';
                 }
 
                 return $amount;

@@ -212,7 +212,7 @@ class DepositController extends Controller
                 'type' => 'investment',
                 'amount' => $model->amount,
                 'actual_amount' => $model->amount,
-                'description' => 'Amount invested in '.$pool->name.' pool.',
+                'description' => 'Amount invested in '.$pool->name,
                 'deposit_id' => $model->id
             ]);
 

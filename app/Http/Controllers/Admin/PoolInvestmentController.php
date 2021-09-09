@@ -178,8 +178,8 @@ class PoolInvestmentController extends Controller
                           ->where('pool_id', '=' , $model->pool->id )
                           ->distinct('user_id')
                           ->count();
-
-        if($pool_investments_count >= $model->pool->users_limit)
+        
+        if($pool_investments_count > $model->pool->users_limit)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
         }
@@ -260,7 +260,7 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
                 $row[] = $record->pool_id;
-                $row[] = $record->pool->name;
+                $row[] = ($record->pool_id  != '') ? $record->pool->name : '';
                 $row[] = $record->id;
                 $row[] = $record->deposit_amount;
                 $row[] = $record->profit_percentage;
