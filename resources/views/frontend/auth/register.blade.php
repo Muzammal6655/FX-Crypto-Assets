@@ -28,8 +28,7 @@
                                     <form class="text-left" id="signup-form" method="POST" action="{{ route('register') }}">
                                         {{ csrf_field() }}
                                         <div class="form-group">
-                                            <label alt='Name' placeholder='First Name *'></label>
-                                            <input type="text" class="form-control" name="name" maxlength="100"  value="{{old('name')}}" required="required">
+                                            <input type="text" class="form-control" name="name" maxlength="100" placeholder="First Name *" value="{{old('name')}}" required="required">
                                             
                                         </div>
                                         <div class="form-group">
@@ -305,10 +304,8 @@
                     error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
                 } else if (element.is('.chosen-select')) {
                     error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-                } else{
-                    //error.insertAfter(element.parent());
-                    error.insertAfter(element);
-                }
+                } else
+                    error.insertAfter(element.parent());
             },
             invalidHandler: function (form,validator) {
                 // $('html, body, #v-pills-tabContent').animate({
