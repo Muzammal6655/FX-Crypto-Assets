@@ -303,8 +303,10 @@
                     error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
                 } else if (element.is('.chosen-select')) {
                     error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-                } else
-                    error.insertAfter(element.parent());
+                } else{
+                    //error.insertAfter(element.parent());
+                    error.insertAfter(element);
+                }
             },
             invalidHandler: function (form,validator) {
                 // $('html, body, #v-pills-tabContent').animate({
