@@ -32,7 +32,7 @@ class UserController extends Controller
         $input = $request->all();
         $user = Auth::user();
 
-         $validations['btc_wallet_address'] = [Rule::unique('users')->ignore($user->id)];
+        $validations['btc_wallet_address'] = [Rule::unique('users')->ignore($user->id)];
         $validator = Validator::make($request->all(), $validations);
 
         if ($validator->fails()) {
@@ -55,7 +55,6 @@ class UserController extends Controller
             }
         }
 
-        
         /**
          * Update password
          */
@@ -106,8 +105,6 @@ class UserController extends Controller
 
         if(!empty($referrer))
         {
-            $user->referrer_account_id = $referrer->id;
-
             Referral::create([
                 'referrer_id' => $referrer->id,
                 'refer_member_id' => $user->id
