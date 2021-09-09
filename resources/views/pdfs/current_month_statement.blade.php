@@ -32,7 +32,7 @@
                     <tr>
                         <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">Transaction Type</th>
                         <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">Amount</th>
-                        {{--<th>Commission</th>--}}
+                        <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">DateTime</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +40,9 @@
                     <tr>
                         <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ucwords($statment->type)}}</td>
                         <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{number_format($statment->actual_amount,2)}}</td>
-                    {{--<td>{{!empty($statment->commission)?$statment->commission:0.0 }}</td>--}}
+                        <td style="border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($statment->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i
+:s
+ A') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -55,20 +57,7 @@
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_deposit}}</td>
                         </tr>
  
-            <table cellpadding="0" cellspacing="0" style="padding-top: 30px;width: 500px;">
-                <tr>
-                    <td style="padding: 8px 0;font-weight: 700;">Name:</td>
-                    <td style="padding: 8px 0;">{{auth()->user()->name}}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px 0; font-weight: 700;">Email:</td>
-                    <td style="padding: 8px 0;">{{auth()->user()->email }}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px 0; font-weight: 700;">City, State, Country:</td>
-                    <td style="padding: 8px 0;">{{auth()->user()->city}}, {{auth()->user()->state}},  {{auth()->user()->country->name}}</td>
-                </tr>
-            </table>
+         
             <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">
                     <thead>
  
