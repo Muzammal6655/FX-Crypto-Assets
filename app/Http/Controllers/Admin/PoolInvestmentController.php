@@ -260,7 +260,7 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->user->name;
                 $row[] = $record->user->email;
                 $row[] = $record->pool_id;
-                $row[] = $record->pool->name;
+                $row[] = ($record->pool_id  != '') ? $record->pool->name : '';
                 $row[] = $record->id;
                 $row[] = $record->deposit_amount;
                 $row[] = $record->profit_percentage;
