@@ -16,15 +16,15 @@
 		<div class="panel">
 			<div class="panel-heading">
 				<h3 class="panel-title">Profits Listing</h3>
-				<div class="right">
+				<div class="right csv-buttons">
 				@if(have_right('profits-import'))
-					<a href="{{url('admin/profits/create')}}" class="pull-right">
+					<a href="{{url('admin/profits/create')}}">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Import</span>
 						</button>
 					</a>
 					@endif
-					<a href="{{ asset('ProfitSample.csv') }}" download="">
+					<a href="{{ asset('ProfitSample.csv') }}" download="" class="btn-file">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Download Sample File</span>
 						</button>

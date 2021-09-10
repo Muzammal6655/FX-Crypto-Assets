@@ -158,7 +158,9 @@ th {
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 9999;
 }
-
+.csv-buttons .btn-file{
+    margin-right: 5px;
+}
 @media screen and (max-width: 767px) {
     .screen-overlay {
         z-index: 0;
