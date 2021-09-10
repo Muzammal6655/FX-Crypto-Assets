@@ -31,6 +31,7 @@ class DashboardController extends Controller
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
 
         $data['depositYvalues'] = $this->graph($deposits, 'amount');
+    
         $data['withdrawYvalues'] = $this->graph($withdraws, 'actual_amount');
         $data['investmentsYvalues'] = $this->graph($investments, 'deposit_amount');
         $data['poolInvestmentsProfitYvalues'] = $this->graph($investments, 'profit');
