@@ -120,6 +120,7 @@
                     error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
                 } else
                     error.insertAfter(element.parent());
+                    // error.insertAfter(element);
             },
             invalidHandler: function(form) {}
         });

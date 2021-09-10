@@ -28,7 +28,7 @@ class ProfitsImport implements ToCollection
                     $actual_profit = $profit - $management_fee;
                     $commission = 0;
                     
-                    if(!empty($user->referral_code))
+                    if(!empty($user->referral_code) && !empty($user->referrer_account_id))
                     {
                         $referral_account = $user->referrerAccount;
                         $referral_balance = $referral_account->account_balance;

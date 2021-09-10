@@ -37,7 +37,7 @@ class ProfitController extends Controller
 
             $datatable = $datatable->editColumn('created_at', function($row)
             {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
             });
 
             $datatable = $datatable->addColumn('action', function($row)

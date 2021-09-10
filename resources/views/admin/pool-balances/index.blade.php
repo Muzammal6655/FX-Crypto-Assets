@@ -16,7 +16,7 @@
 		<div class="panel">
 			<div class="panel-heading">
 				<h3 class="panel-title">Pool Balances Listing</h3>
-				<div class="right">
+				<div class="right csv-buttons">
 					@if(have_right('pool-balances-import'))   
 					<a href="{{url('admin/pool-balances/create')}}" class="pull-right">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
@@ -24,7 +24,7 @@
 						</button>
 					</a>
 					@endif
-					<a href="{{ asset('PoolBalancesSample.csv') }}" download="">
+					<a href="{{ asset('PoolBalancesSample.csv') }}" download="" class="btn-file">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Download Sample File</span>
 						</button>
