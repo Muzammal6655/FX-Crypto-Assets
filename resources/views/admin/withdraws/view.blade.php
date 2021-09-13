@@ -104,7 +104,7 @@
 
 									@if(have_right('withdraws-approve'))
 										<a href="{{url('admin/withdraws/'. Hashids::encode($model->id) . '/approve')}}">
-											<button type="button" class="btn btn-success btn-fullrounded">
+											<button type="button" class="btn btn-success btn-fullrounded" onclick="myButtonClicked(this)">
 												<span>Approve</span>
 											</button>
 										</a>
@@ -172,6 +172,12 @@
             }
         });
     });
+
+    function myButtonClicked(el)
+	{
+    el.disabled = true; 
+	}
+
 
 </script>
 @endsection

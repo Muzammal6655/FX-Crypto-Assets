@@ -167,7 +167,7 @@
 
 									@if(have_right('pool-investments-approve'))
 										<a href="{{url('admin/pool-investments/'. Hashids::encode($model->id) . '/approve')}}">
-											<button type="button" class="btn btn-success btn-fullrounded">
+											<button type="button" class="btn btn-success btn-fullrounded" onclick="myButtonClicked(this)">
 												<span>Approve</span>
 											</button>
 										</a>
@@ -235,6 +235,11 @@
             }
         });
     });
+
+    function myButtonClicked(el)
+	{
+    el.disabled = true; 
+	}
 
 </script>
 @endsection
