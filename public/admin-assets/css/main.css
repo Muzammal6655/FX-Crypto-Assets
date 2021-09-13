@@ -161,6 +161,13 @@ th {
 .csv-buttons .btn-file{
     margin-right: 5px;
 }
+.btn-save{
+    margin-bottom: 5px
+}
+#profit-checkbox-error-div .error {
+    color: #a94442;
+    
+}
 @media screen and (max-width: 767px) {
     .screen-overlay {
         z-index: 0;
