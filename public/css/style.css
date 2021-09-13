@@ -1358,6 +1358,10 @@ h5 {
   
 }
 @media (max-width: 1199px){
+    .dashboard-body .card.box p {
+        font-size: 16px;
+        font-weight: 400;
+    }
     .site-header .container-fluid {
         padding-right: 20px;
         padding-left: 20px;
@@ -1583,6 +1587,9 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .dashboard-body #investmentsChart {
+        width: 100% !important;
+    }
     h1{
         font-size: 36px;
     }
@@ -1630,10 +1637,10 @@ h5 {
     .footer-contact {
         margin-top: 50px;
     }
-    .footer-top {
+    /* .footer-top {
         padding: 170px 0 30px;
         margin-top: -100px;
-    }
+    } */
     .footer-top .footer-content {
         margin-bottom: 20px;
     }
@@ -1712,9 +1719,9 @@ h5 {
         height: 40px;
         font-size: 14px;
     }
-    .footer-top {
+    /* .footer-top {
         padding: 140px 0 10px;
-    }
+    } */
     .footer-bottom.copyright p {
         font-size: 12px;
     }

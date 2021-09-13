@@ -18,8 +18,8 @@
                     <p>Your documents are under verification.Please wait for Admin approval.</p>
                     @else
                         <div class="row">
-                            <div class="col-sm-3">
-                                <div class="card bg-primary box">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                <div class="card bg-primary box mb-2">
                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                     <div class="card-body">
                                          <h3>{{number_format($user->account_balance,2)}}</h3>
@@ -27,8 +27,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <div class="card bg-danger box">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                <div class="card bg-danger box mb-2">
                                     <i class="fa fa-handshake-o" aria-hidden="true"></i>
                                     <div class="card-body">
                                        <h3>{{number_format($user->commission_total,2)}}</h3>
@@ -36,8 +36,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <div class="card bg-warning box">
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                <div class="card bg-warning box mb-2">
                                     <i class="fa fa-line-chart" aria-hidden="true"></i>
                                     <div class="card-body">
                                          <h3>{{number_format($user->profit_total,2)}}</h3>
@@ -45,8 +45,8 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="col-sm-3">
-                                <div class="card bg-success box">
+                             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6">
+                                <div class="card bg-success box mb-2">
                                     <i class="fa fa-money" aria-hidden="true"></i>
                                     <div class="card-body">
                                          <h3>{{number_format($total_investments,2)}}</h3>
@@ -57,7 +57,7 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Deposits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->deposit_total,2)}}</strong></h5>
@@ -66,7 +66,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Withdrawals ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->withdraw_total,2)}}</strong></h5>
