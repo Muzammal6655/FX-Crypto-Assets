@@ -58,7 +58,7 @@
                         <br>
                         <div class="row">
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <div class="card">
+                                <div class="card mb-2 mb-lg-0">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Deposits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->deposit_total,2)}}</strong></h5>
                                         <a href="{{ url('/deposits/create') }}" class="btn btn-yellow">Make New Deposit</a>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                                <div class="card">
+                                <div class="card mb-2 mb-lg-0">
                                     <div class="card-body">
                                         <h5 class="card-title">Total Withdrawals ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->withdraw_total,2)}}</strong></h5>
                                         <a href="{{ url('/withdraws/create') }}" class="btn btn-yellow">Make New Withdraw</a>
@@ -83,7 +83,7 @@
                             <div class="card deposit-form-des">
                                 <h3 class="mb-2">Download Overall Statistics</h3>
                                 <form id="deposits-form" method="POST" action="{{url('/monthly-statements')}}" enctype="multipart/form-data">
-                                    <div class="card-body d-flex justify-content-between">
+                                    <div class="card-body d-flex justify-content-between flex-lg-row flex-md-row flex-column">
                                     {{ csrf_field() }}
                                         <input type="text" class="form-control" id='start_month' name="start_month" value="{{\Carbon\Carbon::now()->subMonth()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}" autocomplete="off">
                                         <input type="text" class="form-control" id='end_month' name="end_month" value="{{\Carbon\Carbon::now()->format('m')}}/{{\Carbon\Carbon::now()->format('Y')}}"  autocomplete="off">
@@ -96,13 +96,13 @@
                         </div>
                         </br>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="graph-wrapper">
                                     <h3>Deposit History</h3>
                                     <canvas id="depositChart" style="width:100%;"></canvas>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="graph-wrapper">
                                     <h3>Withdraw History</h3>
                                     <canvas id="withdrawChart" style="width:100%;"></canvas>

@@ -1335,6 +1335,13 @@ h5 {
 #email-error, .text-danger{
     font-size: 14px;
 }
+.table thead th{
+    white-space: nowrap;
+}
+.deposit-table-des .table-responsive {
+    overflow-x: hidden;
+}
+
 
 /* Responsive Querries */
 @media (min-width: 1200px){
@@ -1419,6 +1426,10 @@ h5 {
     }
 }
 @media(max-width:991px){
+    .dashboard-body #investmentsChart {
+        width: 100% !important;
+        margin: 0 auto 30px;
+    }
     .site-header .masthead-des .navbar-light .navbar-toggler-icon {
         width: 24px;
         height: 18px;
@@ -1587,6 +1598,15 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .deposit-table-des .table-responsive {
+        overflow-x: auto;
+    }
+    .main-wrapper {
+        padding: 50px 0;
+    }
+    .deposit-form-des .form-control {
+        margin: 0 0 10px 0;
+    }
     .dashboard-body #investmentsChart {
         width: 100% !important;
     }
@@ -1669,6 +1689,9 @@ h5 {
     }
 }
 @media(max-width:575px){
+    .mbl-card-header .pull-right, .mbl-card-header .pull-right a{
+        width: 100%;
+    }
     .pool-sec.section-padding {
         padding: 40px 20px;
     }
@@ -1677,6 +1700,19 @@ h5 {
     }
 }
 @media (max-width: 480px){
+    .dashboard-body .card-body {
+        padding: 20px 10px;
+    }
+    .btn-yellow, .btn.btn-primary{
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .dashboard-body h3 {
+        font-size: 24px;
+    }
+    .dashboard-body .graph-wrapper {
+        padding: 10px 0;
+    }
     .site-banner .banner-content p.text-des {
         width: 70%;
         margin: 0 auto;
@@ -1737,5 +1773,7 @@ h5 {
     }
 }
 @media(max-width:375px){
-    
+    .dashboard-body h3 {
+        font-size: 20px;
+    }
 }
