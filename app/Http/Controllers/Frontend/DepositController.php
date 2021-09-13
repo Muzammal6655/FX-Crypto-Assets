@@ -126,7 +126,7 @@ class DepositController extends Controller
         $response_body = $response->getBody();
 
         $api_result = json_decode($response_body);
-        echo $api_result->result->status;
+        //echo $api_result->result->status;
 
         if ($api_result->result->status == 0 || $api_result->result->status == "") {
             return redirect()->back()->withInput()->withErrors(['error' => 'Invalid Transaction ID']);
