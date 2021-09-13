@@ -126,8 +126,8 @@ class ProfitController extends Controller
                     //referral account balance greater than 0.01
 
                     if ($referral_balance > 0.01 && $referral_account->status == 1) {
-                        $commission = $investment->management_fee * (10 / 100);
-
+                        $commission = $management_fee * (10 / 100);
+                        
                         /**
                          * User Account balance Update in referral case
                          */
