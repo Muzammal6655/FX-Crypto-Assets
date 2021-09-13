@@ -128,12 +128,17 @@ class UserController extends Controller
     public function uploadDocuments(Request $request)
     {
         $user = Auth::user();
-
+        //10240 
         $validations = [
             'passport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
-            'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:5 Mb',
+            'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:10240',
         ];
-        $validator = Validator::make($request->all(), $validations);
+
+        $messages = [
+            'passport.max' => "Passport size must be less then 10MB.",
+            'photo.max' => "Photo size must be less then 10MB.",
+        ];
+        $validator = Validator::make($request->all(), $validations, $messages);
 
         if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());

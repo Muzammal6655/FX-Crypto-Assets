@@ -32,14 +32,15 @@
         <!--End footer-->
     </div>
     <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="application/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('admin-assets/vendor/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('admin-assets/js/jquery.validate.js') }}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/aos.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/style.js')}}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  
+
     <script>
         AOS.init();
         if(!$('.alert').hasClass('persist-alert'))
