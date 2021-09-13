@@ -15,6 +15,8 @@
     <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{asset('css/aos.css')}}" />
     <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'rel='stylesheet'>
+
 </head>
 
 <body>
@@ -36,6 +38,8 @@
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/aos.js')}}"></script>
     <script type="application/javascript" src="{{asset('js/style.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
         AOS.init();
         if(!$('.alert').hasClass('persist-alert'))

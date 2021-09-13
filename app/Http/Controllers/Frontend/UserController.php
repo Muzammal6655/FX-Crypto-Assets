@@ -131,7 +131,7 @@ class UserController extends Controller
 
         $validations = [
             'passport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
-            'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:5000',
+            'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:5 Mb',
         ];
         $validator = Validator::make($request->all(), $validations);
 

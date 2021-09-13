@@ -49,7 +49,7 @@
                                                 <input type="text" class="form-control" placeholder="Mobile Number" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="date" class="form-control" placeholder="Date of Birth" name="dob" value="{{$user->dob}}" max="{{ date('Y-m-d', strtotime('-18 year')) }}" required="required">
+                                                <input type="text" class="form-control" placeholder="Date of Birth" name="dob" value="{{$user->dob}}" id="my_date_picker"  required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address" name="street" value="{{$user->street}}" required="required">
@@ -82,7 +82,7 @@
                                                     <input type="text" class="form-control" value="{{$user->referral_code}}" readonly="">
                                                 </div>
                                             @else
-                                                @if($user->referral_code_end_date >= date('Y-m-d'))
+                                                @if($user->referral_code_end_date >= date('Y-m-d') || $user->referral_code_end_date == null)
                                                     <p><strong>Referral Code.</strong></p>
                                                     <div class="form-group">
                                                         <input type="text" name="referral_code" class="form-control" placeholder="Referral Code">
@@ -271,6 +271,17 @@
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)[A-Za-z0-9\d]{42,}/.test(value)
             });
         });
+    
+    $(function() {
+        $( "#my_date_picker" ).datepicker({
+                dateFormat: 'yy-m-d',
+                changeMonth: true,
+                changeYear: true,
+                yearRanger : "-100",
+                minDate: new Date(1970,06,22),
+                maxDate: '-18Y',
+            });
+    });
 
     </script>
 

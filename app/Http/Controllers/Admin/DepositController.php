@@ -194,6 +194,7 @@ class DepositController extends Controller
             $pool_investments_count = DB::table('pool_investments')
                           ->where('pool_id', '=' , $model->pool->id )
                           ->distinct('user_id')
+                          ->where('status','=',1)
                           ->count();
                          
             if($pool_investments_count >= $model->pool->users_limit)

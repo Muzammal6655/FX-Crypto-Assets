@@ -49,7 +49,8 @@
                                             <input type="text" class="form-control" placeholder="Mobile Number *" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="date" class="form-control" placeholder="Date of Birth *" name="dob" value="{{old('dob')}}" max="{{ date('Y-m-d', strtotime('-18 year')) }}" required="required">
+                                            <input type="text" class="form-control" placeholder="Date of Birth *" name="dob" id="my_date_picker" value="{{( old('dob') == '') ? date('m/d/Y', strtotime('-18 year')):old('dob')}}"
+                                            required="required">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Address *" name="street" value="{{old('street')}}" required="required">
@@ -365,7 +366,16 @@
         }
     });
 
- 
+  
+    $(function() {
+        $( "#my_date_picker" ).datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRanger : "-100",
+                minDate: new Date(1970,06,22),
+                maxDate: '-18Y',
+            });
+    });
 </script>
 
 @endsection

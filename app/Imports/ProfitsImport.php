@@ -1,4 +1,4 @@
-<?php
+ <?php
 namespace App\Imports;
 
 use Illuminate\Support\Collection;
@@ -39,7 +39,7 @@ class ProfitsImport implements ToCollection
 
                         if($referral_balance > 0.01 && $referral_account->status == 1)
                         {
-                            $commission = $investment->management_fee_percentage * (10 /100);
+                            $commission = $investment->management_fee * (10 /100);
 
                             /**
                              * User Account balance Update in referral case

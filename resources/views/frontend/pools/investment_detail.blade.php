@@ -55,11 +55,11 @@
 						</tr>
 						<tr>
 							<th scope="row">Profit ({{config('constants.currency')['symbol']}})</th>
-							<td>{{ $model->profit }}</td>
+							<td>{{number_format($model->profit,2)}}</td>
 						</tr>
 						<tr> 
 							<th scope="row">Management Fee (%)</th>
-							<td>{{ $model->management_fee_percentage }}</td>
+							<td>{{number_format($model->management_fee_percentage,2)}}</td>
 						</tr>
 						<tr> 
 							<th scope="row">Management Fee  ({{config('constants.currency')['symbol']}})</th>

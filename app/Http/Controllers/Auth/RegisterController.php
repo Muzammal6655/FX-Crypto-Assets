@@ -62,9 +62,9 @@ class RegisterController extends Controller
             'name' => ['required','string','max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
-            'btc_wallet_address' => ['unique:users'],
+            'btc_wallet_address' => ['unique:users' , 'nullable'],
         ]);
-       
+ 
         if ($validator->fails())
         {
             Session::flash('flash_danger', $validator->messages());
@@ -142,7 +142,8 @@ class RegisterController extends Controller
         {
             $user->btc_wallet_address = NULL;
         }
-
+ 
+        $user->dob = \Carbon\Carbon::parse($user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
         $user->original_password = $data['password'];

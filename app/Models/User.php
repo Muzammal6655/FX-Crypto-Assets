@@ -52,7 +52,7 @@ class User extends Authenticatable
         {
           \File::deleteDirectory(public_path() . '/' . $path);
         }
-        
+        $referral_case = User::where('referral_code' , $model->invitation_code)->update(array('referral_code' => '' , 'referral_code_end_date' => null));
       });
 
       static::created(function ($user) {

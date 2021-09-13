@@ -69,7 +69,7 @@ class PoolController extends Controller
     }
 
     public function saveInvestment(Request $request)
-    {    
+    {     
         $validated = $request->validate([
             'invest_amount' => 'required',
         ]);
@@ -79,7 +79,9 @@ class PoolController extends Controller
         $pool_investments_count = DB::table('pool_investments')
                           ->where('pool_id', '=' , $pool->id )
                           ->distinct('user_id')
+                          ->where('status','=',1)
                           ->count();
+                 
         if ($user->email_otp_status == 1) {
             if(empty(session()->get('investment_request_email_verification_otp')) || session()->get('investment_request_email_verification_otp') != $request->email_code)
             {
@@ -101,7 +103,7 @@ class PoolController extends Controller
             }
         }
  
-        if($pool_investments_count > $pool->users_limit)
+        if($pool_investments_count >= $pool->users_limit)
         {
             return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
         }
@@ -194,6 +196,7 @@ class PoolController extends Controller
         $pool_investments_count = DB::table('pool_investments')
                           ->where('pool_id', '=' , $pool->id)
                           ->distinct('user_id')
+                          ->where('status','=',2)
                           ->count();
 
         if($pool_investments_count >=  $pool->users_limit)

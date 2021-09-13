@@ -241,28 +241,31 @@ class DepositController extends Controller
         $id = Hashids::decode($id)[0];
         $pool = Pool::findOrFail($request->pool_id);
         $model = Deposit::findOrFail($id);
-        $pool_investments_count = DB::table('pool_investments')
+        $deposit_investments_count = DB::table('deposits')
                           ->where('pool_id', '=' , $pool->id)
                           ->distinct('user_id')
+                          ->where('status','=',1)
                           ->count();
-        
-        if($pool_investments_count > $pool->users_limit)
+
+        if($deposit_investments_count >= $pool->users_limit)
         { 
             return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
         }
- 
-        if($model->amount >= $pool->min_deposits && $model->amount <= $pool->max_deposits )
-        {  
-            $model->update([
-                'pool_id' => $request->pool_id,
-                'status'  => 0,
-            ]);
-        }
-        else
+        
+        if( $model->amount < $pool->min_deposits)
         {
-            return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
+           return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount greater than or equal to '.$pool->min_deposits.'.']);
         }
 
+        if( $model->amount >  $pool->max_deposits)
+        {
+           return redirect()->back()->withInput()->withErrors(['error' => 'Please enter amount less than or equal to '.$pool->max_deposits.'.']);
+        }
+       
+        $model->update([
+                'pool_id' => $request->pool_id,
+                'status'  => 0,
+        ]);
         $request->session()->flash('flash_success', 'Deposit amount successfully transfer to '
                                   .$pool->name. '.');
         return redirect()->back();
