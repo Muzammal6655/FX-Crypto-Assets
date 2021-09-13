@@ -68,6 +68,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::post('withdraws/download-csv', 'WithdrawController@downloadCsv');
     Route::resource('withdraws', 'WithdrawController');
 
+    Route::post('preview-profits-import-file', 'ProfitController@previewFile');
     Route::resource('profits', 'ProfitController');
     Route::resource('pool-balances', 'PoolBalanceController');
 });
