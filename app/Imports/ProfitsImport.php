@@ -1,4 +1,4 @@
- <?php
+<?php
 namespace App\Imports;
 
 use Illuminate\Support\Collection;
@@ -13,7 +13,7 @@ class ProfitsImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
-       // $arr = [];
+        $arr = [];
         // foreach ($rows as $key => $row)
         // {
         //     if($key > 0)
@@ -37,15 +37,9 @@ class ProfitsImport implements ToCollection
                         
         //                 //referral account balance greater than 0.01
 
- 
-                        if($referral_balance > 0.01 && $referral_account->status == 1)
-                        {
-                            $commission = $investment->management_fee * (10 /100);
- 
         //                 if($referral_balance > 0.01 && $referral_account->status == 1)
         //                 {
         //                     $commission = $investment->management_fee_percentage * (10 /100);
- 
 
         //                     /**
         //                      * User Account balance Update in referral case
