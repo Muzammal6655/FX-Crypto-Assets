@@ -849,7 +849,7 @@ li .number.orange {
 .login-signup-wrapper .nav-pills .nav-link.active,.login-signup-wrapper .nav-pills .show>.nav-link {
     color: #181e28;
     background-color: #fff;
-    border-top-right-radius: 0;
+    /* border-top-right-radius: 0; */
     border-bottom-right-radius: 0;
 }
 .login-signup-wrapper .content-wrapper {
@@ -1338,7 +1338,7 @@ h5 {
 .table thead th{
     white-space: nowrap;
 }
-.deposit-table-des .table-responsive {
+.general-table-des .table-responsive {
     overflow-x: hidden;
 }
 
@@ -1426,6 +1426,16 @@ h5 {
     }
 }
 @media(max-width:991px){
+    .pool-view-des {
+        width: 100%;
+    }
+    .login-signup-wrapper .form-wrapper h2 {
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+    .login-page {
+        padding-top: 50px;
+    }
     .dashboard-body #investmentsChart {
         width: 100% !important;
         margin: 0 auto 30px;
@@ -1456,6 +1466,7 @@ h5 {
     }
     .login-signup-wrapper .nav-pills .nav-link{
         margin-bottom: 0;
+        margin: 0 1px;
     }
     .site-header .button-wrap {
         margin-left: 10px;
@@ -1598,7 +1609,7 @@ h5 {
     
 }
 @media (max-width: 767px){
-    .deposit-table-des .table-responsive {
+    .general-table-des .table-responsive {
         overflow-x: auto;
     }
     .main-wrapper {
@@ -1689,6 +1700,9 @@ h5 {
     }
 }
 @media(max-width:575px){
+    .mb-w-100{
+        width: 100%;
+    }
     .mbl-card-header .pull-right, .mbl-card-header .pull-right a{
         width: 100%;
     }
@@ -1703,7 +1717,7 @@ h5 {
     .dashboard-body .card-body {
         padding: 20px 10px;
     }
-    .btn-yellow, .btn.btn-primary{
+    .btn-yellow, .dashboard-body .btn.btn-primary{
         width: 100%;
         margin-bottom: 5px;
     }
@@ -1775,5 +1789,33 @@ h5 {
 @media(max-width:375px){
     .dashboard-body h3 {
         font-size: 20px;
+    }
+    .pool-view-des .card-footer{
+        display: flex;
+        flex-direction: column;
+    }
+    .pool-view-des .card-footer .btn-yellow, .pool-view-des .card-footer .btn.btn-primary{
+        width: 100%;
+    }
+    .pool-view-des .card-footer .btn.btn-primary{
+        margin-bottom: 5px;
+    }
+    .pool-page-des .pool-body .pool-body-info li, .pool-view-des .pool-body-info li{
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .pool-page-des .pool-body .pool-body-info .card-detail, .pool-page-des .pool-body .pool-body-info .card-title,
+    .pool-view-des .pool-body-info .card-title,.pool-view-des .pool-body-info .card-detail{
+        width: 100%;
+        text-align: center;
+    }
+    .pool-page-des .pool-body .card-footer, .pool-page-des .pool-body .card-footer a{
+        width: 100% !important;
+    }
+    .pool-page-des .pool-body .card-footer {
+        margin: 10px 0px 20px 0px;
+    }
+    .pool-page-des .pool-body .card-title {
+        margin: 0 0 10px 0;
     }
 }

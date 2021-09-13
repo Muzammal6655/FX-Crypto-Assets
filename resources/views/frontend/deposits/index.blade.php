@@ -10,7 +10,7 @@
 					<a href="{{url('/deposits/create')}}" class="btn btn-success mt-lg-0 mt-md-0 mt-sm-0 mt-2">Create Deposit</a>
 				</span>
 			</div>
-			<div class="card-body deposit-table-des">
+			<div class="card-body general-table-des">
 				<div class="table-responsive">
 					@include('frontend.messages')
 					<table class="table table-hover">
@@ -30,11 +30,11 @@
 							@forelse($deposits as $deposit)
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
-									<td style="min-width: 100px;">{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
-									<td style="min-width: 150px;">{{ $deposit->amount }}</td>
-									<td style="min-width: 300px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
-									<td style="min-width: 300px;">{{ !empty($deposit->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>
-									<td style="min-width: 150px;">
+									<td style="min-width: 60px;">{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
+									<td style="min-width: 100px;">{{ $deposit->amount }}</td>
+									<td style="min-width: 200px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
+									<td style="min-width: 200px;">{{ !empty($deposit->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>
+									<td style="min-width: 60px;">
 										@if($deposit->status == 0)
 											<span class="badge bg-warning">Pending</span>
 										@elseif($deposit->status == 1)
@@ -44,10 +44,12 @@
 										@endif
 									</td>
 									<td>
-										@if($deposit->status != 1)
-											<a href="{{ url('/deposits/' . Hashids::encode($deposit->id) .'/edit') }}" class="btn  btn-success"><i class="fa fa-edit"></i></a>
-										@endif
-										<a href="{{ url('/deposits/' . Hashids::encode($deposit->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+										<div class="d-flex flex-row align-items-center">
+											@if($deposit->status != 1)
+												<a href="{{ url('/deposits/' . Hashids::encode($deposit->id) .'/edit') }}" class="btn  btn-success mr-1"><i class="fa fa-edit"></i></a>
+											@endif
+											<a href="{{ url('/deposits/' . Hashids::encode($deposit->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+										</div>
 									</td>
 								</tr>
 							@empty
