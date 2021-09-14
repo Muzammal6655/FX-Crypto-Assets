@@ -10,6 +10,8 @@
 			<div class="card-body">
 				<h5 class="card-title">Fill the form below to create deposit</h5>
 				@include('frontend.messages')
+				<label for="wallet_address">Recipient Wallet Address</label>
+				<p>{{$wallet_address}}</p>
 				<form id="deposits-form" method="POST" action="{{url('/deposits')}}" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<input type="hidden" class="form-control" name="pool_id" value="{{ $pool_id }}">
@@ -30,8 +32,8 @@
 						</div>
 					@endif
 					<div class="form-group">
-						<label for="wallet_address">Recipient Wallet Address</label>
-						<input type="text" class="form-control" id="wallet_address" name="wallet_address" value="{{$wallet_address}}" readonly="">
+					
+						<input type="hidden" class="form-control" id="wallet_address" name="wallet_address" value="{{$wallet_address}}" readonly="">
 					</div>
 					<div class="form-group">
 						<label for="amount">Amount of BTC</label>
