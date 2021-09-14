@@ -278,7 +278,8 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRanger : "-100",
-                minDate: new Date(1970,06,22),
+                //minDate: new Date(1970,06,22),
+                minDate: new Date(1970,1 - 1),
                 maxDate: '-18Y',
             });
     });
