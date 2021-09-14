@@ -51,15 +51,15 @@
                     <table cellpadding="0" cellspacing="0" width="100%" style="padding: 40px 0;">
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;font-weight: bold;">Total Deposit</td>
-                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_deposit}}</td>
+                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{number_format($total_deposit,2)}}</td>
                         </tr>
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;font-weight: bold;">Total Withdraw</td>
-                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_withdraw}}</td>
+                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{number_format($total_withdraw,2)}}</td>
                         </tr>
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;font-weight: bold;">Total Investment</td>
-                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{$total_investment}}</td>
+                            <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;text-align: right;font-weight: 700;">{{number_format($total_investment,2)}}</td>
                         </tr>
                         <tr>
                             <td style="border-bottom: 1px solid rgba(0,0,0,.125);padding: 8px 0;font-weight: bold;">Total Profit</td>
@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <td style="padding: 8px 0;font-weight: bold;">Total Commission</td>
-                            <td style="padding: 8px 0;text-align: right;font-weight: 700;">{{$total_commission}}</td>
+                            <td style="padding: 8px 0;text-align: right;font-weight: 700;">{{number_format($total_commission,2)}}</td>
                         </tr>
                     </table>
                 </td>
