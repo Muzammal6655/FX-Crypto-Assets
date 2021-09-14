@@ -49,7 +49,7 @@
                                             <input type="text" class="form-control" placeholder="Mobile Number *" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Date of Birth *" name="dob" id="my_date_picker" value="{{( old('dob') == '') ? date('m/d/Y', strtotime('-18 year')):old('dob')}}"
+                                            <input type="text" class="form-control" placeholder="Date of Birth *" name="dob" id="my_date_picker" value="{{old('dob')}}"
                                             required="required">
                                         </div>
                                         <div class="form-group">
@@ -372,7 +372,7 @@
                 changeMonth: true,
                 changeYear: true,
                 yearRanger : "-100",
-                minDate: new Date(1970,06,22),
+                minDate: new Date(1970,1 - 1),
                 maxDate: '-18Y',
             });
     });

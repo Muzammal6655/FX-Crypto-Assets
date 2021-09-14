@@ -85,12 +85,21 @@ class ProfitController extends Controller
             $file->storeAs($target_path, $filename);
             $profitImportSheet = Excel::toArray(new ProfitsImport, $file);
             $rows = [];
+            $is_empty_value = 0;
             foreach (array_slice($profitImportSheet[0], 1) as $key => $value) {
+                if ($value[3] == "" || $value[5] == "" || $value[3] == 0 || $value[5] == 0) {
+                    $is_empty_value = 1;
+                    break;
+                }
                 $rows[] = $value;
+            }
+            if ($is_empty_value == 1) {
+                $request->session()->flash('flash_danger',  "please upload an excel sheet without an empty value.");
+                return redirect('admin/profits/create');
             }
             $data['profit_import_sheet_data'] = $rows;
             $data['filename'] =  $filename;
-            return view('admin.profits.form')->with($data);;
+            return view('admin.profits.form')->with($data);
         }
     }
 
@@ -127,7 +136,7 @@ class ProfitController extends Controller
 
                     if ($referral_balance > 0.01 && $referral_account->status == 1) {
                         $commission = $management_fee * (10 / 100);
-                        
+
                         /**
                          * User Account balance Update in referral case
                          */
@@ -234,11 +243,11 @@ class ProfitController extends Controller
                 } catch (\Exception $e) {
                     DB::rollback();
 
-                    $excelFile = public_path() . '/storage/profits/'. $input['excel_import_file'];
+                    $excelFile = public_path() . '/storage/profits/' . $input['excel_import_file'];
                     if (file_exists($excelFile)) {
                         $target_path = 'public/profits/';
-                   
-                        Storage::delete($target_path.'/'.$input['excel_import_file']);
+
+                        Storage::delete($target_path . '/' . $input['excel_import_file']);
                     }
                     $request->session()->flash('flash_danger',  $e->getMessage());
                     return redirect('admin/profits');
