@@ -1787,6 +1787,9 @@ h5 {
     }
 }
 @media(max-width:375px){
+    .site-header .btn-login,.site-header .btn-header{
+        padding: 8px 10px;
+    }
     .dashboard-body h3 {
         font-size: 20px;
     }
