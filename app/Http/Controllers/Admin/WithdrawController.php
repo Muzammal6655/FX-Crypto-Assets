@@ -61,6 +61,13 @@ class WithdrawController extends Controller
                 return $row->user->name;
             });
 
+            $datatable = $datatable->addColumn('amount', function($row)
+            {
+                return  number_format($row->amount,4);
+ 
+            });
+
+
             $datatable = $datatable->editColumn('created_at', function($row)
             {
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
