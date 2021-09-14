@@ -25,13 +25,13 @@
                 <td style="padding: 8px 0;">{{auth()->user()->city}}, {{auth()->user()->state}},  {{auth()->user()->country->name}}</td>
             </tr>
         </table>
-        <p style="font-weight: bold;text-align: center;color: #d0af3e; margin:0; padding: 30px 0 0px;">DateTime : {{Carbon\Carbon::now()->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')}}</p>
+        <p style="font-weight: bold;text-align: center;color: #d0af3e; margin:0; padding: 30px 0 0px;">Date And Time : {{Carbon\Carbon::now()->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')}}</p>
         <table cellpadding="0" cellspacing="0" width="100%" style="padding: 20px 0 40px;">
                 <thead>
                     <tr>
                         <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;font-size: 25px;">Transaction Type</th>
                         <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;font-size: 25px;">Amount</th>
-                        <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;font-size: 25px;">DateTime</th>
+                        <th style="text-align: left;border: 1px solid rgba(0,0,0,.125);padding:8px;width: 425px;font-size: 25px;">Date And Time</th>
                     </tr>
                 </thead>
                 <tbody>
