@@ -51,7 +51,7 @@
 								<thead>
 									<tr>
 										<th>YYMM</th>
-										<th>Customer</th>
+										<th>Customer Id</th>
 										<th>Pool Id</th>
 										<th>Investment Id</th>
 										<th>Amount</th>
