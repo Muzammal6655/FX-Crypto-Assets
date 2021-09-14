@@ -13,11 +13,11 @@
 					<ul class="list-unstyled pool-body-info">
 						<li class="d-flex">
 							<span class="card-title">Min Deposit:</span>
-							<span class="card-detail">{{$pool['min_deposits']}}({{config('constants.currency')['symbol']}})</span>
+							<span class="card-detail">{{number_format($pool['min_deposits'],2)}}({{config('constants.currency')['symbol']}})</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Max Deposit:</span>
-							<span class="card-detail">{{$pool['max_deposits']}}({{config('constants.currency')['symbol']}})</span>
+							<span class="card-detail">{{number_format($pool['max_deposits'],2)}}({{config('constants.currency')['symbol']}})</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Profit Percentage:</span>

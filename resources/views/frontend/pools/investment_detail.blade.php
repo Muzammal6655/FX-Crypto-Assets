@@ -47,7 +47,7 @@
 						</tr>
 						<tr>
 							<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
-							<td>{{ $model->deposit_amount }}</td>
+							<td>{{number_format( $model->deposit_amount,2)}}</td>
 						</tr>
 						<tr>
 							<th scope="row">Profit (%)</th>
@@ -73,9 +73,9 @@
 							<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
 
 							@if( !empty($model->commission))
-							<td style="color:red;">-{{ $model->commission  }}</td>
+							<td style="color:red;">-{{ number_format($model->commission,2)  }}</td>
 							@else
-								<td style="color:green;">{{ $model->commission  }}</td>
+								<td style="color:green;">{{  number_format($model->commission,2)  }}</td>
 							@endif
 						</tr>
 						<tr> 

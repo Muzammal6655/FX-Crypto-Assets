@@ -48,7 +48,7 @@
 							@endif
 							<tr>
 								<th scope="row">Amount({{config('constants.currency')['symbol']}})</th>
-								<td>{{ $deposit->amount }}</td>
+								<td>{{ number_format($deposit->amount,2) }}</td>
 							</tr>
 							<tr>
 								<th scope="row">Wallet Address</th>

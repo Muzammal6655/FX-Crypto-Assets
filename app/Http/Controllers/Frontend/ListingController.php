@@ -51,8 +51,8 @@ class ListingController extends Controller
             $data['total_withdraw'] = $this->monthStatmentByType('withdraw');
             $data['total_commission'] = $this->monthStatmentByType('commission');
             $data['total_profit'] = $this->monthStatmentByType('profit');
-          
-            //return view('pdfs.current_month_statement')->with($data);
+ 
+            // return view('pdfs.current_month_statement')->with($data);
    
             $pdf = LaravelPDF::loadView('pdfs.current_month_statement', $data);
             return $pdf->download('current_month_statement ' . Carbon::now('UTC')->format('Y-m-d H.i.s') . '.pdf');

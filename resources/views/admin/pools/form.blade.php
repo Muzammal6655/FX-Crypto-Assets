@@ -55,7 +55,7 @@
 								<label for="min_deposits" class="col-sm-3 control-label">Min Deposits ({{config('constants.currency')['symbol']}})*</label>
 								<div class="col-sm-9">
 									<input type="number" name="min_deposits" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('min_deposits') : $model->min_deposits}}">
+										value="{{ ($action == 'Add') ? old('min_deposits') : number_format($model->min_deposits,2)}}">
 								</div>
 							</div>
 
@@ -63,7 +63,7 @@
 								<label for="max_deposits" class="col-sm-3 control-label">Max Deposits ({{config('constants.currency')['symbol']}})*</label>
 								<div class="col-sm-9">
 									<input type="number" name="max_deposits" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('max_deposits') : $model->max_deposits}}">
+										value="{{ ($action == 'Add') ? old('max_deposits') : number_format($model->max_deposits,2)}}">
 								</div>
 							</div>
 
@@ -79,7 +79,7 @@
 								<label for="profit_percentage" class="col-sm-3 control-label">Profit (%)*</label>
 								<div class="col-sm-9">
 									<input type="number" name="profit_percentage" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('profit_percentage') : $model->profit_percentage}}">
+										value="{{ ($action == 'Add') ? old('profit_percentage') : number_format($model->profit_percentage,2)}}">
 								</div>
 							</div>
 
@@ -87,7 +87,7 @@
 								<label for="management_fee_percentage" class="col-sm-3 control-label">Management Fee (%)*</label>
 								<div class="col-sm-9">
 									<input type="number" name="management_fee_percentage" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('management_fee_percentage') : $model->management_fee_percentage}}">
+										value="{{ ($action == 'Add') ? old('management_fee_percentage') : number_format($model->management_fee_percentage,2)}}">
 								</div>
 							</div>
 

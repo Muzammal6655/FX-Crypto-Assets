@@ -81,14 +81,14 @@ class DashboardController extends Controller
             foreach ($monthly_deposits as $deposits) {
                 $monthly_statment[$deposits->month]['depositsmonth'] = $deposits->month;
 
-                $monthly_statment[$deposits->month]['total_deposits'] = $deposits->total_amount;
-            }
+                $monthly_statment[$deposits->month]['total_deposits'] = number_format($deposits->total_amount, 2);
+            } 
 
             foreach ($monthly_withdraws as $withdraw) {
-                $monthly_statment[$withdraw->month]['total_withdraws'] = $withdraw->total_amount;
+                $monthly_statment[$withdraw->month]['total_withdraws'] = number_format($withdraw->total_amount, 2);
             }
             foreach ($monthly_investments as $investment) {
-                $monthly_statment[$investment->month]['total_monthly_investments'] = $investment->total_investment;
+                $monthly_statment[$investment->month]['total_monthly_investments'] = number_format($investment->total_investment, 2);
                 $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit, 2);
             }
         }

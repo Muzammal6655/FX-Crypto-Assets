@@ -46,7 +46,7 @@
 							<div class="form-group">
 								<label for="amount" class="col-sm-3 control-label">Amount ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->amount }}">
+									<input type="text" class="form-control" readonly="" value="{{number_format($model->amount,2)}}">
 								</div>
 							</div>
 

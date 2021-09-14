@@ -17,7 +17,7 @@
 						<tbody>
 							<tr>
 								<th scope="row">Amount({{config('constants.currency')['symbol']}})</th>
-								<td>{{ $withdraw->amount }}</td>
+								<td>{{number_format($withdraw->amount,2)}}</td>
 							</tr>
 							<tr>
 								<th scope="row">Wallet Address</th>

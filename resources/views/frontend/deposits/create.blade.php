@@ -26,11 +26,11 @@
 						</div>
 						<div class="form-group">
 							<label for="pool_max_deposit">Pool Max Deposit</label>
-							<input type="text" class="form-control" id="pool_max_deposit"   value="{{$max_deposits}}" readonly="">
+							<input type="text" class="form-control" id="pool_max_deposit"   value="{{ number_format($max_deposits,2) }}" readonly="">
 						</div>
 						<div class="form-group">
 							<label for="pool_min_deposit">Pool Min Deposit</label>
-							<input type="text" class="form-control" id="pool_min_deposit"  value="{{$min_deposits}}" readonly="">
+							<input type="text" class="form-control" id="pool_min_deposit"  value="{{ number_format($min_deposits,2) }}" readonly="">
 						</div>
 					@endif
 					<div class="form-group">

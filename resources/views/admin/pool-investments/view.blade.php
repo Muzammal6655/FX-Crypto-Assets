@@ -49,7 +49,7 @@
 									<input type="text"
 									 class="form-control"
 									 readonly="" 
-									 value="{{ $model->deposit_amount}}"
+									 value="{{ number_format($model->deposit_amount,2)}}"
 									>
 								</div>
 							</div>
@@ -58,7 +58,7 @@
 								<label for="profit_percentage" class="col-sm-3 control-label">Profit (%) </label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly=""
-									 value="{{ $model->profit_percentage }}"
+									 value="{{ number_format($model->profit_percentage,2) }}"
 									 >
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 								<label for="management_fee" class="col-sm-3 control-label">Management Fee ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" 
-									value="{{($model->management_fee != '') ? -$model->management_fee : ''}}" >
+									value="{{($model->management_fee != '') ? -number_format($model->management_fee,2) : ''}}" >
 								</div>
 							</div> 
 
@@ -93,7 +93,7 @@
 									<input type="text"
 									 class="form-control"
 									 readonly="" 
-									 value="{{($model->commission != '') ? -$model->commission: ''}}"
+									 value="{{($model->commission != '') ? -number_format($model->commission,2): ''}}"
 									>
 								</div>
 							</div>

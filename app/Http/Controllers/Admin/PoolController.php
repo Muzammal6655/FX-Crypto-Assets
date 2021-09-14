@@ -32,6 +32,18 @@ class PoolController extends Controller
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();
 
+            $datatable = $datatable->editColumn('min_deposits', function($row)
+            {   
+                $min_deposits =  number_format($row->min_deposits,2);
+                return $min_deposits;
+            });
+
+            $datatable = $datatable->editColumn('max_deposits', function($row)
+            {   
+                $max_deposits =  number_format($row->max_deposits,2);
+                return $max_deposits;
+            });
+
             $datatable = $datatable->editColumn('status', function($row)
             {
                 $status = '<span class="label label-danger">Disable</span>';
