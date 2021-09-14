@@ -22,7 +22,7 @@
                                 <div class="card bg-primary box mb-2">
                                     <i class="fa fa-balance-scale" aria-hidden="true"></i>
                                     <div class="card-body">
-                                         <h3>{{number_format($user->account_balance,2)}}</h3>
+                                         <h3>{{number_format($user->account_balance,4)}}</h3>
                                          <p>Account Balance ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                 <div class="card bg-danger box mb-2">
                                     <i class="fa fa-handshake-o" aria-hidden="true"></i>
                                     <div class="card-body">
-                                       <h3>{{number_format($user->commission_total,2)}}</h3>
+                                       <h3>{{number_format($user->commission_total,4)}}</h3>
                                        <p>Total Commission ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                 <div class="card bg-warning box mb-2">
                                     <i class="fa fa-line-chart" aria-hidden="true"></i>
                                     <div class="card-body">
-                                         <h3>{{number_format($user->profit_total,2)}}</h3>
+                                         <h3>{{number_format($user->profit_total,4)}}</h3>
                                          <p>Total Profits ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                 <div class="card bg-success box mb-2">
                                     <i class="fa fa-money" aria-hidden="true"></i>
                                     <div class="card-body">
-                                         <h3>{{number_format($total_investments,2)}}</h3>
+                                         <h3>{{number_format($total_investments,4)}}</h3>
                                          <p>Total Investment ({{config('constants.currency')['symbol']}}):</p>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card mb-2 mb-lg-0">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Deposits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->deposit_total,2)}}</strong></h5>
+                                        <h5 class="card-title">Total Deposits ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->deposit_total,4)}}</strong></h5>
                                         <a href="{{ url('/deposits/create') }}" class="btn btn-yellow">Make New Deposit</a>
                                         <a href="{{ url('/deposits') }}" class="btn btn-primary">Deposits History</a>
                                     </div>
@@ -69,7 +69,7 @@
                             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                 <div class="card mb-2 mb-lg-0">
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Withdrawals ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->withdraw_total,2)}}</strong></h5>
+                                        <h5 class="card-title">Total Withdrawals ({{config('constants.currency')['symbol']}}): <strong>{{number_format($user->withdraw_total,4)}}</strong></h5>
                                         <a href="{{ url('/withdraws/create') }}" class="btn btn-yellow">Make New Withdraw</a>
                                         <a href="{{ url('/withdraws') }}" class="btn btn-primary">Withdrawals History</a>
                                     </div>

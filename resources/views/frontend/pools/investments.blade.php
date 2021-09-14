@@ -32,10 +32,13 @@
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
 									<td>{{ !empty($poolinvestment->pool_id) ? $poolinvestment->pool->name : '' }}</td>
-									<td>{{number_format( $poolinvestment->deposit_amount,2)}}</td>
-									<td>{{number_format($poolinvestment->profit_percentage,2) }}</td>
-									<td>{{number_format($poolinvestment->profit,2)}}</td>
-									<td>{{ number_format($poolinvestment->management_fee_percentage ,2)}}</td>
+									<td>{{number_format( $poolinvestment->deposit_amount,4)}}</td>
+									<td>{{number_format($poolinvestment->profit_percentage,4) }}</td>
+									<td>@if(!empty($poolinvestment->profit))
+										 {{number_format($poolinvestment->profit,4)}} 
+										@endif
+									</td>
+									<td>{{ number_format($poolinvestment->management_fee_percentage ,4)}}</td>
 									<td>{{  !empty($poolinvestment->start_date	) ?  \Carbon\Carbon::createFromTimeStamp($poolinvestment->start_date)->tz(auth()->user()->timezone)->format('d M, Y') : ''}}</td>
 									<td>{{ !empty($poolinvestment->start_date	) ?  \Carbon\Carbon::createFromTimeStamp($poolinvestment->end_date)->tz(auth()->user()->timezone)->format('d M, Y') : '' }}</td>
 									<td>{{ !empty($poolinvestment->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($poolinvestment->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y')  : '' }}</td>

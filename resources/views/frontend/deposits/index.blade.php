@@ -31,7 +31,7 @@
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
 									<td style="min-width: 60px;">{{ !empty($deposit->pool_id) ? $deposit->pool->name : '' }}</td>
-									<td style="min-width: 100px;">{{ number_format($deposit->amount,2) }}</td>
+									<td style="min-width: 100px;">{{ number_format($deposit->amount,4) }}</td>
 									<td style="min-width: 200px;">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 									<td style="min-width: 200px;">{{ !empty($deposit->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($deposit->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>
 									<td style="min-width: 60px;">

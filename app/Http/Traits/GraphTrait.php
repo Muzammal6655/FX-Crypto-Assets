@@ -24,7 +24,7 @@ trait GraphTrait
         
         $yValues = array();
         foreach ($monthsArr as $key => $value) {
-            $value= number_format($value,2);
+            $value= number_format($value,4);
             $value= floatval(preg_replace("/[^-0-9\.]/","",$value));
             $yValues[] = $value;
         }

@@ -21,11 +21,11 @@
 						</tr>
 						<tr>
 							<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
-							<td>{{  number_format($transaction->amount,2) }}</td>
+							<td>{{  number_format($transaction->amount,4) }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Actual Amount ({{config('constants.currency')['symbol']}})</th>
-							<td>{{ number_format($transaction->actual_amount,2) }}</td>
+							<td>{{ number_format($transaction->actual_amount,4) }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Description</th>
@@ -33,15 +33,22 @@
 						</tr>
 						<tr>
 							<th scope="row">Management Fee (%)</th>
-							<td>{{ $transaction->fee_percentage }}</td>
+							<td>@if(!empty($transaction->fee_percentage))
+							{{number_format($transaction->fee_percentage,4) }}
+							@endif</td>
 						</tr>
 						<tr> 
 							<th scope="row">Management Fee ({{config('constants.currency')['symbol']}})</th>
-							<td>{{ number_format($transaction->fee_amount,2) }}</td>
+							<td>@if(!empty($transaction->fee_amount))
+							{{number_format($transaction->fee_amount,4) }}
+							@endif</td>
 						</tr>
 						<tr> 
 							<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
-							<td>{{number_format($transaction->commission,2) }}</td>
+							<td>@if(!empty($transaction->commission))
+							{{number_format($transaction->commission,4) }}
+							@endif</td>
+							
 						</tr>
 						<tr> 
 							<th scope="row">Started Date</th>

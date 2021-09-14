@@ -37,7 +37,7 @@
 	                            <div class="form-group">
 									<label for="user" class="col-sm-3 control-label">Account Balance</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" readonly=""value="{{number_format($model->user->account_balance,2)}}">
+										<input type="text" class="form-control" readonly=""value="{{number_format($model->user->account_balance,4)}}">
 									</div>
 								</div>
 							@endif
@@ -45,7 +45,7 @@
                         	<div class="form-group">
 								<label for="amount" class="col-sm-3 control-label">Amount ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->amount,2)}}">
+									<input type="text" class="form-control" readonly="" value="{{number_format($model->amount,4)}}">
 								</div>
 							</div>
 

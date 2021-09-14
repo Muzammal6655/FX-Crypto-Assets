@@ -30,7 +30,7 @@
 							@forelse($withdraws as $withdraw)
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
-									<td>{{number_format($withdraw->amount,2)}}</td>
+									<td>{{number_format($withdraw->amount,4)}}</td>
 									<td>{{ $withdraw->wallet_address }}</td>
 									<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 									<td>{{ !empty($withdraw->approved_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($withdraw->approved_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A')  : '' }}</td>

@@ -40,14 +40,14 @@
 							<div class="form-group">
 								<label for="amount" class="col-sm-3 control-label">Amount ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->amount,2)}}">
+									<input type="text" class="form-control" readonly="" value="{{number_format($model->amount,4)}}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="amount" class="col-sm-3 control-label">Actual Amount ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->actual_amount,2)}}">
+									<input type="text" class="form-control" readonly="" value="{{number_format($model->actual_amount,4)}}">
 								</div>
 							</div>
 
@@ -61,21 +61,22 @@
 							<div class="form-group">
 								<label for="transaction_id" class="col-sm-3 control-label">Fee  ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->fee_amount,2)}}">
+									<input type="text" class="form-control" readonly="" value="{{ ($model->fee_amount == '') ? '' : number_format($model->fee_amount,4)}}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="transaction_id" class="col-sm-3 control-label">Management Fee (%)</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->fee_percentage,2)}}">
+									<input type="text" class="form-control" readonly="" value="{{ ($model->fee_percentage == '') ? '' : number_format($model->fee_percentage,4)}}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="commission" class="col-sm-3 control-label">Commission  ({{config('constants.currency')['symbol']}})</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{number_format($model->commission,2)}}">
+									<input type="text" class="form-control" readonly="" 
+									value="{{ ($model->commission == '') ? '' : number_format($model->commission,4)}}">
 								</div>
 							</div>
 

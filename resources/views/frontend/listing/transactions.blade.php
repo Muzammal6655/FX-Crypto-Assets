@@ -33,15 +33,23 @@
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
 									<td>{{ $transaction->type }}</td>
-									<td>{{number_format($transaction->amount,2) }}</td>
-									<td>{{number_format($transaction->actual_amount,2)}}</td>
-									<td>{{ number_format($transaction->fee_percentage,2) }}</td>
-									@if($transaction->fee_amount <= 0)
-									<td></td>
+									<td>{{number_format($transaction->amount,4) }}</td>
+									<td>{{number_format($transaction->actual_amount,4)}}</td>
+									@if(!empty($transaction->fee_percentage))
+									<td>{{ number_format($transaction->fee_percentage,4) }}</td>
 									@else
-									<td>{{number_format($transaction->fee_amount,2)}}</td>
+									<td></td>
 									@endif
-									<td>{{number_format($transaction->commission,2)}}</td>
+ 									@if(!empty($transaction->fee_amount))
+									<td>{{number_format($transaction->fee_amount,4)}}</td>
+									@else
+									<td></td>
+									@endif
+									@if(!empty($transaction->commission))
+									<td>{{number_format($transaction->commission,4)}}</td>
+									@else
+									<td></td>
+									@endif
 									<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 									<td>
 										<a href="{{ url('/transactions/' . Hashids::encode($transaction->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>

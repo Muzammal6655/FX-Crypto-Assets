@@ -77,13 +77,15 @@ class PoolInvestmentController extends Controller
 
             $datatable = $datatable->editColumn('profit', function($row)
             {   
-                $profit =  number_format($row->profit,2);
-                return $profit;
+                if(!empty($row->profit))
+                $row->profit =  number_format($row->profit,4);
+                return $row->profit;
+                return '';
             });
 
             $datatable = $datatable->editColumn('deposit_amount', function($row)
             {   
-                $deposit_amount =  number_format($row->deposit_amount,2);
+                $deposit_amount =  number_format($row->deposit_amount,4);
                 return $deposit_amount;
             });
 

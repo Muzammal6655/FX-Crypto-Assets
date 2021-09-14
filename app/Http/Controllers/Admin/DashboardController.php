@@ -23,7 +23,7 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function dashboard()
-    {
+    { 
     	$data['roles'] = DB::table('roles')->count();
     	$data['admins'] = DB::table('admins')->count();
         $data['users'] = DB::table('users')->count();

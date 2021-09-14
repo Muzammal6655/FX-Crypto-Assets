@@ -34,14 +34,26 @@ class PoolController extends Controller
 
             $datatable = $datatable->editColumn('min_deposits', function($row)
             {   
-                $min_deposits =  number_format($row->min_deposits,2);
+                $min_deposits =  number_format($row->min_deposits,4);
                 return $min_deposits;
             });
 
             $datatable = $datatable->editColumn('max_deposits', function($row)
             {   
-                $max_deposits =  number_format($row->max_deposits,2);
+                $max_deposits =  number_format($row->max_deposits,4);
                 return $max_deposits;
+            });
+
+            $datatable = $datatable->editColumn('profit_percentage', function($row)
+            {   
+                $profit_percentage =  number_format($row->profit_percentage,4);
+                return $profit_percentage;
+            });
+
+            $datatable = $datatable->editColumn('management_fee_percentage', function($row)
+            {   
+                $management_fee_percentage =  number_format($row->management_fee_percentage,4);
+                return $management_fee_percentage;
             });
 
             $datatable = $datatable->editColumn('status', function($row)

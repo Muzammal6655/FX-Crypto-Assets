@@ -19,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<label for="account_balance">Account Balance ({{config('constants.currency')['symbol']}})</label>
-						<input type="number" class="form-control" value="{{ number_format($user->account_balance,2)}}" id="account_balance" readonly="">
+						<input type="number" class="form-control" value="{{ number_format($user->account_balance,4)}}" id="account_balance" readonly="">
 					</div>
 					<div class="form-group">
 						<label for="amount">Amount of BTC</label>

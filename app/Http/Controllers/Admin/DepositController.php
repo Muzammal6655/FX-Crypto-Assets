@@ -77,6 +77,12 @@ class DepositController extends Controller
                 return '';
             });
 
+            $datatable = $datatable->addColumn('amount', function($row)
+            {
+                $amount =  number_format($row->amount,4);
+                return $amount;
+            });
+
             $datatable = $datatable->editColumn('created_at', function($row)
             {
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;

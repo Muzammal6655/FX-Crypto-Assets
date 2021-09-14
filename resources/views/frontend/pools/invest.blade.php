@@ -13,11 +13,11 @@
 					<ul class="list-unstyled pool-body-info">
 						<li class="d-flex">
 							<span class="card-title">Min Deposit:</span>
-							<span class="card-detail">{{number_format($pool['min_deposits'],2)}}({{config('constants.currency')['symbol']}})</span>
+							<span class="card-detail">{{number_format($pool['min_deposits'],4)}}({{config('constants.currency')['symbol']}})</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Max Deposit:</span>
-							<span class="card-detail">{{number_format($pool['max_deposits'],2)}}({{config('constants.currency')['symbol']}})</span>
+							<span class="card-detail">{{number_format($pool['max_deposits'],4)}}({{config('constants.currency')['symbol']}})</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Profit Percentage:</span>
@@ -37,7 +37,7 @@
 						</li>
 						<li class="d-flex">
 							<span class="card-title">User Total Balance:</span>
-							<span class="card-detail">{{number_format($user->account_balance,2)}}({{config('constants.currency')['symbol']}})</span>
+							<span class="card-detail">{{number_format($user->account_balance,4)}}({{config('constants.currency')['symbol']}})</span>
 						</li>
 					</ul>
 
@@ -94,7 +94,7 @@
 	$(function(){
 		$('#invest-form').validate({
 			errorElement: 'div',
-			errorClass: 'help-block',
+			errorClass: 'help-block text-danger',
 			focusInvalid: true,
 
 			highlight: function (e) {

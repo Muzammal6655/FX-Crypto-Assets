@@ -47,7 +47,7 @@
 						</tr>
 						<tr>
 							<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
-							<td>{{number_format( $model->deposit_amount,2)}}</td>
+							<td>{{number_format( $model->deposit_amount,4)}}</td>
 						</tr>
 						<tr>
 							<th scope="row">Profit (%)</th>
@@ -55,29 +55,32 @@
 						</tr>
 						<tr>
 							<th scope="row">Profit ({{config('constants.currency')['symbol']}})</th>
-							<td>{{number_format($model->profit,2)}}</td>
+							<td>@if(!empty($model->profit))
+								{{number_format($model->profit,4)}} 
+								@endif
+							</td>
 						</tr>
 						<tr> 
 							<th scope="row">Management Fee (%)</th>
-							<td>{{number_format($model->management_fee_percentage,2)}}</td>
-						</tr>
+							<td>@if(!empty($model->management_fee_percentage))
+								{{number_format($model->management_fee_percentage,4)}} 
+								@endif
+							</td>
+ 						</tr>
 						<tr> 
 							<th scope="row">Management Fee  ({{config('constants.currency')['symbol']}})</th>
-							@if( !empty($model->management_fee))
-							<td style="color:red;">-{{number_format($model->management_fee,2)}}</td>
-							@else
-								<td style="color:green;">{{number_format($model->management_fee,2)}}</td>
-							@endif
-						</tr>
+ 							<td style="color:red;">@if(!empty($model->management_fee))
+								-{{number_format($model->management_fee,4)}} 
+								@endif
+							</td>
+ 						</tr>
 						<tr> 
 							<th scope="row">Commission ({{config('constants.currency')['symbol']}})</th>
-
-							@if( !empty($model->commission))
-							<td style="color:red;">-{{ number_format($model->commission,2)  }}</td>
-							@else
-								<td style="color:green;">{{  number_format($model->commission,2)  }}</td>
-							@endif
-						</tr>
+							<td style="color:red;">@if(!empty($model->commission))
+								-{{number_format($model->commission,4)}} 
+								@endif
+							</td>
+ 						</tr>
 						<tr> 
 							<th scope="row">Started Date</th>
 							<td>

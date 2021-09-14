@@ -9,7 +9,7 @@
 				Balances History
 				<span class="pull-right">
 					<strong> Account Balance({{config('constants.currency')['symbol']}}):
-						{{number_format($user->account_balance,2)}}</strong>
+						{{number_format($user->account_balance,4)}}</strong>
 				</span>
 			</div>
 			<div class="card-body general-table-des">
@@ -31,9 +31,9 @@
 									<th scope="row">{{ $count++ }}</th>
 									<td>{{ ucwords($balance->type) }}</td>
 									@if( $balance->amount <= 0)
-										<td style="color:red;">{{number_format($balance->amount,2)}}</td>
+										<td style="color:red;">{{number_format($balance->amount,4)}}</td>
 									@else
-										<td style="color:green;">+{{number_format($balance->amount,2)}}</td>
+										<td style="color:green;">+{{number_format($balance->amount,4)}}</td>
 									@endif
 									<td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($balance->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
 								</tr>

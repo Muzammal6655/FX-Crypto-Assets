@@ -406,11 +406,11 @@ class UserController extends Controller
                 $amount = '';
                 if ($row->amount <= 0)
                 {
-                    $amount = '<span style="color:red">'.number_format($row->amount,2).'</span>';
+                    $amount = '<span style="color:red">'.number_format($row->amount,4).'</span>';
                 }
                 else
                 {
-                    $amount = '<span style="color:green">+'.number_format($row->amount,2).'</span>';
+                    $amount = '<span style="color:green">+'.number_format($row->amount,4).'</span>';
                 }
 
                 return $amount;
@@ -430,7 +430,7 @@ class UserController extends Controller
     }
 
     public function transactions(Request $request,$id)
-    {
+    { 
         if(!have_right('investors-transactions'))
             access_denied();
 
@@ -449,6 +449,20 @@ class UserController extends Controller
             $datatable = $datatable->editColumn('created_at', function($row)
             {
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y  h:i:s A') ;
+            });
+
+            $datatable = $datatable->editColumn('actual_amount', function($row)
+            {   
+                if(!empty($row->actual_amount))
+                $row->actual_amount =  number_format($row->actual_amount,4);
+                return $row->actual_amount;
+            });
+ 
+            $datatable = $datatable->editColumn('commission', function($row)
+            {   
+                if(!empty($row->commission))
+                $row->commission =  number_format($row->commission,4);
+                return $row->commission;
             });
 
             $datatable = $datatable->addColumn('action', function($row)

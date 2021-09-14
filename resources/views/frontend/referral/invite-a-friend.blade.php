@@ -50,7 +50,7 @@
                                                 <th scope="row">{{ $count++ }}</th>
                                                 <td>{{ $referral->referMember->name }}</td>
                                                 <td>{{ $referral->referMember->email }}</td>
-                                                <td>{{number_format( $referral->commission,2)}}</td>
+                                                <td>{{number_format( $referral->commission,4)}}</td>
                                                 <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($referral->created_at), "UTC")->tz(auth()->user()->timezone)->format('d M, Y h:i:s A') }}</td>
                                             </tr>
                                         @empty

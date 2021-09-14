@@ -31,10 +31,11 @@ class DashboardController extends Controller
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
 
         $data['depositYvalues'] = $this->graph($deposits, 'amount');
-    
+ 
         $data['withdrawYvalues'] = $this->graph($withdraws, 'actual_amount');
         $data['investmentsYvalues'] = $this->graph($investments, 'deposit_amount');
         $data['poolInvestmentsProfitYvalues'] = $this->graph($investments, 'profit');
+ 
         return view('frontend.dashboard.index', $data);
     }
 
@@ -81,15 +82,15 @@ class DashboardController extends Controller
             foreach ($monthly_deposits as $deposits) {
                 $monthly_statment[$deposits->month]['depositsmonth'] = $deposits->month;
 
-                $monthly_statment[$deposits->month]['total_deposits'] = number_format($deposits->total_amount, 2);
+                $monthly_statment[$deposits->month]['total_deposits'] = number_format($deposits->total_amount, 4);
             } 
 
             foreach ($monthly_withdraws as $withdraw) {
-                $monthly_statment[$withdraw->month]['total_withdraws'] = number_format($withdraw->total_amount, 2);
+                $monthly_statment[$withdraw->month]['total_withdraws'] = number_format($withdraw->total_amount, 4);
             }
             foreach ($monthly_investments as $investment) {
-                $monthly_statment[$investment->month]['total_monthly_investments'] = number_format($investment->total_investment, 2);
-                $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit, 2);
+                $monthly_statment[$investment->month]['total_monthly_investments'] = number_format($investment->total_investment, 4);
+                $monthly_statment[$investment->month]['total_monthly_investments_profit'] =  number_format($investment->total_profit, 4);
             }
         }
 

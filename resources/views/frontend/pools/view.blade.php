@@ -25,11 +25,11 @@
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Min Deposit:</span>
-							<span class="card-detail">{{number_format( $pool['min_deposits'],2)}}</span>
+							<span class="card-detail">{{number_format( $pool['min_deposits'],4)}}</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Max Deposit:</span>
-							<span class="card-detail">{{number_format( $pool['max_deposits'],2)}}</span>
+							<span class="card-detail">{{number_format( $pool['max_deposits'],4)}}</span>
 						</li>
 						<li class="d-flex">
 							<span class="card-title">Profit Percentage:</span>
