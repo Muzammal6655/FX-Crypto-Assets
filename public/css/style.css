@@ -1341,7 +1341,15 @@ h5 {
 .general-table-des .table-responsive {
     overflow-x: hidden;
 }
-
+.wallet-address-box p{
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0 0 0 20px;
+    background: #fafafa;
+    font-weight: 500;
+    font-size: 14px;
+}
 
 /* Responsive Querries */
 @media (min-width: 1200px){
@@ -1609,6 +1617,11 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .wallet-address-box p{
+        margin: 0;
+        word-break: break-all;
+        text-align: center;
+    }
     .general-table-des .table-responsive {
         overflow-x: auto;
     }
