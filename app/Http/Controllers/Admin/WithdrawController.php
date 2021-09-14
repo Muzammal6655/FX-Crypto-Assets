@@ -165,7 +165,7 @@ class WithdrawController extends Controller
                 'type' => 'withdraw',
                 'amount' => $model->amount,
                 'actual_amount' => $model->amount,
-                'description' => 'Amount has been withdrawn.',
+                'description' => 'your withdraw request has been approved by Admin.',
                 'withdraw_id' => $model->id
             ]);
 
@@ -182,7 +182,7 @@ class WithdrawController extends Controller
                 'type' => 'withdraw',
                 'amount' => $model->amount,
                 'actual_amount' =>  $user->account_balance,
-                'description' => 'Amount of account balance has been withdrawn.',
+                'description' => 'Requested amount was greater than the available balance so remaining amount is approved by Admin.',
                 'withdraw_id' => $model->id
             ]);
 
