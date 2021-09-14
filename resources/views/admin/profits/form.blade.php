@@ -53,7 +53,7 @@
 										<th>YYMM</th>
 										<th>Customer</th>
 										<th>Pool Id</th>
-										<th>Investment</th>
+										<th>Investment Id</th>
 										<th>Amount</th>
 										<th>Profit Percentage</th>
 										<th><input type="checkbox" name="select-all" id="select-all" /></th>
