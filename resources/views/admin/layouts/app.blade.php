@@ -56,7 +56,7 @@
 		<footer>
 			<div class="container-fluid">
 				<p class="copyright">&copy; {{ date('Y') }} By <a href="https://www.arhamsoft.com"
-						target="_blank">Arhamsoft</a>. All Rights Reserved.</p>
+						target="_blank">Corporate hi-tech</a>. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>
