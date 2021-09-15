@@ -929,8 +929,11 @@ li .number.orange {
     box-shadow: none;
     border-color: #d0af3e;
 }
-.login-signup-wrapper .form-wrapper form a {
+.login-signup-wrapper .form-wrapper form .button-color a {
     color: #fff;
+}
+.login-signup-wrapper .form-wrapper form a {
+    color: #d00000;
 }
 .login-signup-wrapper .form-wrapper .forget{
     color: #d00000;
@@ -1617,6 +1620,10 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .pool-invest-group .pool-body-info {
+        width: 100%;
+        padding: 20px 10px;
+    }
     .pool-transfer-form .form-group,.pool-transfer-form .form-group select, .pool-transfer-form .btn.btn-primary{
         width: 100%;
     }
@@ -1801,14 +1808,6 @@ h5 {
     .form-wrapper .bottom p{
         font-size: 12px;
     }
-}
-@media(max-width:375px){
-    .site-header .btn-login,.site-header .btn-header{
-        padding: 8px 10px;
-    }
-    .dashboard-body h3 {
-        font-size: 20px;
-    }
     .pool-view-des .card-footer{
         display: flex;
         flex-direction: column;
@@ -1819,15 +1818,23 @@ h5 {
     .pool-view-des .card-footer .btn.btn-primary{
         margin-bottom: 5px;
     }
-    .pool-page-des .pool-body .pool-body-info li, .pool-view-des .pool-body-info li{
+    .pool-page-des .pool-body .pool-body-info li, .pool-view-des .pool-body-info li, .pool-invest-group .pool-body-info li{
         flex-wrap: wrap;
         align-items: center;
     }
     .pool-page-des .pool-body .pool-body-info .card-detail, .pool-page-des .pool-body .pool-body-info .card-title,
-    .pool-view-des .pool-body-info .card-title,.pool-view-des .pool-body-info .card-detail{
+    .pool-view-des .pool-body-info .card-title,.pool-view-des .pool-body-info .card-detail,
+    .pool-invest-group .pool-body-info .card-title, .pool-invest-group .pool-body-info .card-detail{
         width: 100%;
         text-align: center;
     }
+    .site-header .btn-login,.site-header .btn-header{
+        padding: 8px 10px;
+    }
+    .dashboard-body h3 {
+        font-size: 20px;
+    }
+  
     .pool-page-des .pool-body .card-footer, .pool-page-des .pool-body .card-footer a{
         width: 100% !important;
     }
@@ -1837,4 +1844,7 @@ h5 {
     .pool-page-des .pool-body .card-title {
         margin: 0 0 10px 0;
     }
+}
+@media(max-width:375px){
+    
 }
