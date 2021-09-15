@@ -46,7 +46,7 @@
 									@endif
 								</td>
 							</tr>
-							@if(!empty($withdraw->reason))
+							@if(!empty($withdraw->reason) && $withdraw->status == 2)
 							<tr> 
 								<th scope="row">Rejection Reason</th>
 								<td>{{$withdraw->reason}}</td>
