@@ -71,7 +71,8 @@
     <div class="footer-bottom copyright">
         <div class="container">
             <div class="copyright-content">
-                <p>Copyright © {{env('APP_NAME')}} {{ date('Y') }}. All Rights Reserved</p>
+                  <p class="copyright">&copy; {{ date('Y') }} By <a href="#"
+                        target="_blank">Corporate hi-tech</a>. All Rights Reserved.</p>
                 <div class="chat">
                     <img src="{{asset('images/chat.png')}}" alt="chat icon" class="img-fluid" />
                 </div>
@@ -84,3 +85,6 @@
         </div>
     </div>
 </footer>
+
+
+ 
