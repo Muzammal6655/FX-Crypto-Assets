@@ -17,9 +17,11 @@ class UserCheckStatus
     public function handle($request, Closure $next)
     {
         $flag = false;
+        // deleted line
+        
         //! $request->user()->status
         //! $request->user()->is_approved
-        if ($request->user()->status != 1) {
+        if ($request->user()->status != 1 ) {
             if ($request->user()->status == 0)
                 $message = 'Your account has been disabled. Please contact Admin in case of any concerns.';
             else if ($request->user()->status == 2)
@@ -34,6 +36,7 @@ class UserCheckStatus
                 $message = 'Your account is rejected by admin. Please contact Admin in case of any concerns.';
             $flag = true;
         }
+
 
         if ($flag) {
             Auth::guard()->logout();
