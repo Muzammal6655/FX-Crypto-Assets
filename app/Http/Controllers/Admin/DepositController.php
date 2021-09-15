@@ -174,26 +174,6 @@ class DepositController extends Controller
         $model = Deposit::findOrFail($id);
  
         $user = $model->user;
-        $user->update([
-            'account_balance' => $user->account_balance + $model->amount,
-            'deposit_total' => $user->deposit_total + $model->amount,
-            'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
-        ]);
-
-        Transaction::create([
-            'user_id' => $user->id,
-            'type' => 'deposit',
-            'amount' => $model->amount,
-            'actual_amount' => $model->amount,
-            'description' => 'The amount has been deposited in the admin wallet.',
-            'deposit_id' => $model->id
-        ]);
-
-        Balance::create([
-            'user_id' => $user->id,
-            'type' => 'deposit',
-            'amount' => $model->amount,
-        ]);
 
         if(!empty($model->pool_id))
         {
@@ -242,10 +222,31 @@ class DepositController extends Controller
             ]);
         }
 
+        $user->update([
+            'account_balance' => $user->account_balance + $model->amount,
+            'deposit_total' => $user->deposit_total + $model->amount,
+            'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
+        ]);
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+            'actual_amount' => $model->amount,
+            'description' => 'The amount has been deposited in the admin wallet.',
+            'deposit_id' => $model->id
+        ]);
+
+        Balance::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+        ]);
+
         $model->approved_at = date('Y-m-d H:i:s');
         $model->status = 1;
         $model->save();
-        $request->session()->flash('flash_success', 'Deposit has been approved successfully.');
+        $request->session()->flash('flash_success','Deposit has been approved successfully.');
         return redirect('admin/deposits');
     }
 
