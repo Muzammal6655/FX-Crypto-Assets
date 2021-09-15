@@ -28,106 +28,91 @@ class DepositController extends Controller
      */
     public function index(Request $request)
     {
-        if(!have_right('deposits-list'))
+        if (!have_right('deposits-list'))
             access_denied();
 
         $data = [];
-        $data['users'] = User::where('status',1)->get();
-        $data['pools'] = Pool::where('status',1)->get();
+        $data['users'] = User::where('status', 1)->get();
+        $data['pools'] = Pool::where('status', 1)->get();
         $data['statuses'] = array(0 => 'Pending', 1 => 'Approved', 2 => 'Rejected');
         $data['from'] = $from = date('Y-m-d', strtotime("-1 months"));
         $data['to'] = $to = date('Y-m-d');
 
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $data['from'] = $from = $request->from . ' 00:00:00';
             $data['to'] = $to = $request->to . ' 23:59:59';
 
             $db_record = Deposit::whereBetween('created_at', [$from, $to]);
 
-            if($request->has('user_id') && !empty($request->user_id))
-            {
-                $db_record = $db_record->where('user_id',$request->user_id);
+            if ($request->has('user_id') && !empty($request->user_id)) {
+                $db_record = $db_record->where('user_id', $request->user_id);
             }
 
-            if($request->has('status') && $request->status != "")
-            {
-                $db_record = $db_record->where('status',$request->status);
+            if ($request->has('status') && $request->status != "") {
+                $db_record = $db_record->where('status', $request->status);
             }
 
-            if($request->has('pool_id') && $request->pool_id != "")
-            {
-                $db_record = $db_record->where('pool_id',$request->pool_id);
+            if ($request->has('pool_id') && $request->pool_id != "") {
+                $db_record = $db_record->where('pool_id', $request->pool_id);
             }
 
-            $db_record = $db_record->orderBy('created_at','DESC');
+            $db_record = $db_record->orderBy('created_at', 'DESC');
 
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();
 
-            $datatable = $datatable->addColumn('user', function($row)
-            {
+            $datatable = $datatable->addColumn('user', function ($row) {
                 return $row->user->name;
             });
 
-            $datatable = $datatable->addColumn('pool', function($row)
-            {
-                if(!empty($row->pool_id))
+            $datatable = $datatable->addColumn('pool', function ($row) {
+                if (!empty($row->pool_id))
                     return $row->pool->name;
                 return '';
             });
 
-            $datatable = $datatable->addColumn('amount', function($row)
-            {
-                $amount =  number_format($row->amount,4);
+            $datatable = $datatable->addColumn('amount', function ($row) {
+                $amount =  number_format($row->amount, 4);
                 return $amount;
             });
 
-            $datatable = $datatable->editColumn('created_at', function($row)
-            {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
+            $datatable = $datatable->editColumn('created_at', function ($row) {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A');
             });
 
-            $datatable = $datatable->editColumn('approved_at', function($row)
-            {    
-                if(!empty($row->approved_at ))
-                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A') ;
-                 return '';
+            $datatable = $datatable->editColumn('approved_at', function ($row) {
+                if (!empty($row->approved_at))
+                    return Carbon::createFromTimeStamp(strtotime($row->approved_at), "UTC")->tz(session('timezone'))->format('d M, Y h:i:s A');
+                return '';
             });
 
-            $datatable = $datatable->editColumn('status', function($row)
-            {
+            $datatable = $datatable->editColumn('status', function ($row) {
                 $status = '<span class="label label-warning">Pending</span>';
-                if ($row->status == 1)
-                {
+                if ($row->status == 1) {
                     $status = '<span class="label label-success">Approved</span>';
-                }
-                else if ($row->status == 2)
-                {
+                } else if ($row->status == 2) {
                     $status = '<span class="label label-danger">Rejected</span>';
                 }
 
                 return $status;
             });
 
-            $datatable = $datatable->addColumn('action', function($row)
-            {
+            $datatable = $datatable->addColumn('action', function ($row) {
                 $actions = '<span class="actions">';
 
-                if(have_right('deposits-view'))
-                {
-                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/deposits/" . Hashids::encode($row->id)).'" title="View"><i class="fa fa-eye"></i></a>';
+                if (have_right('deposits-view')) {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="' . url("admin/deposits/" . Hashids::encode($row->id)) . '" title="View"><i class="fa fa-eye"></i></a>';
                 }
 
                 $actions .= '</span>';
                 return $actions;
             });
 
-            $datatable = $datatable->rawColumns(['status','action']);
+            $datatable = $datatable->rawColumns(['status', 'action']);
             $datatable = $datatable->make(true);
             return $datatable;
         }
-        return view('admin.deposits.index',$data);
+        return view('admin.deposits.index', $data);
     }
 
     /**
@@ -156,7 +141,7 @@ class DepositController extends Controller
      */
     public function show($id)
     {
-        if(!have_right('deposits-view'))
+        if (!have_right('deposits-view'))
             access_denied();
 
         $id = Hashids::decode($id)[0];
@@ -167,39 +152,67 @@ class DepositController extends Controller
 
     public function approve(Request $request, $id)
     {
-        if(!have_right('deposits-approve'))
+        if (!have_right('deposits-approve'))
             access_denied();
-   
+
         $id = Hashids::decode($id)[0];
         $model = Deposit::findOrFail($id);
- 
-        $user = $model->user;
-
-        if(!empty($model->pool_id))
-        {
+        if (!empty($model->pool_id)) {
             $pool_investments_count = DB::table('pool_investments')
-                          ->where('pool_id', '=' , $model->pool->id )
-                          ->distinct('user_id')
-                          ->where('status','=',1)
-                          ->count();
-                         
-            if($pool_investments_count >= $model->pool->users_limit)
-            {
+                ->where('pool_id', '=', $model->pool->id)
+                ->distinct('user_id')
+                ->where('status', '=', 1)
+                ->count();
+
+            if ($pool_investments_count >= $model->pool->users_limit) {
                 return redirect()->back()->withInput()->withErrors(['error' => 'User limit of pool is exceeded.']);
             }
+        }
+
+        $user = $model->user;
+
+        $user->update([
+            'account_balance' => $user->account_balance + $model->amount,
+            'deposit_total' => $user->deposit_total + $model->amount,
+            'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
+        ]);
+
+        $message="The amount has been deposited in the admin wallet.";
+        if(!empty($model->pool_id)){
+            $message="the amount has been deposited in " . $model->pool->name.".";
+        }
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+            'actual_amount' => $model->amount,
+            'description' => $message,
+            'deposit_id' => $model->id
+        ]);
+
+        Balance::create([
+            'user_id' => $user->id,
+            'type' => 'deposit',
+            'amount' => $model->amount,
+        ]);
+
+        if (!empty($model->pool_id)) {
+            
             $pool = $model->pool;
 
             $user->update([
                 'account_balance' => $user->account_balance - $model->amount,
                 'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
+            
 
             Transaction::create([
                 'user_id' => $user->id,
                 'type' => 'investment',
                 'amount' => $model->amount,
                 'actual_amount' => $model->amount,
-                'description' => 'the amount has been deposited in'.$pool->name,
+                'description' => 'the amount has been invested in ' . $pool->name,
                 'deposit_id' => $model->id
             ]);
 
@@ -222,31 +235,12 @@ class DepositController extends Controller
             ]);
         }
 
-        $user->update([
-            'account_balance' => $user->account_balance + $model->amount,
-            'deposit_total' => $user->deposit_total + $model->amount,
-            'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
-        ]);
 
-        Transaction::create([
-            'user_id' => $user->id,
-            'type' => 'deposit',
-            'amount' => $model->amount,
-            'actual_amount' => $model->amount,
-            'description' => 'The amount has been deposited in the admin wallet.',
-            'deposit_id' => $model->id
-        ]);
-
-        Balance::create([
-            'user_id' => $user->id,
-            'type' => 'deposit',
-            'amount' => $model->amount,
-        ]);
 
         $model->approved_at = date('Y-m-d H:i:s');
         $model->status = 1;
         $model->save();
-        $request->session()->flash('flash_success','Deposit has been approved successfully.');
+        $request->session()->flash('flash_success', 'Deposit has been approved successfully.');
         return redirect('admin/deposits');
     }
 
@@ -257,31 +251,26 @@ class DepositController extends Controller
 
         $db_record = Deposit::whereBetween('created_at', [$from, $to]);
 
-        if($request->has('user_id') && !empty($request->user_id))
-        {
-            $db_record = $db_record->where('user_id',$request->user_id);
+        if ($request->has('user_id') && !empty($request->user_id)) {
+            $db_record = $db_record->where('user_id', $request->user_id);
         }
 
-        if($request->has('status') && $request->status != "")
-        {
-            $db_record = $db_record->where('status',$request->status);
+        if ($request->has('status') && $request->status != "") {
+            $db_record = $db_record->where('status', $request->status);
         }
 
-        if($request->has('pool_id') && $request->pool_id != "")
-        {
-            $db_record = $db_record->where('pool_id',$request->pool_id);
+        if ($request->has('pool_id') && $request->pool_id != "") {
+            $db_record = $db_record->where('pool_id', $request->pool_id);
         }
-        
+
         $db_record = $db_record->get();
 
-        if(!$db_record->isEmpty())
-        {
+        if (!$db_record->isEmpty()) {
             $filename = 'deposits-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Date','Customer Id','Customer Name','Customer Email','Pool','Amount'));
+            fputcsv($file, array('Date', 'Customer Id', 'Customer Name', 'Customer Email', 'Pool', 'Amount'));
 
-            foreach ($db_record as $record) 
-            {
+            foreach ($db_record as $record) {
                 $row = [];
                 $row[] = Carbon::createFromTimeStamp(strtotime($record->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
                 $row[] = $record->user_id;
@@ -298,12 +287,10 @@ class DepositController extends Controller
             // tell the browser it's going to be a csv file
             header('Content-Type: application/csv');
             // tell the browser we want to save it instead of displaying it
-            header('Content-Disposition: attachment; filename="'.$filename.'";');
+            header('Content-Disposition: attachment; filename="' . $filename . '";');
             // make php send the generated csv lines to the browser
             fpassthru($file);
-        }
-        else
-        {
+        } else {
             $request->session()->flash('flash_danger', 'No data available for export.');
             return redirect()->back();
         }
