@@ -227,7 +227,7 @@ class ProfitController extends Controller
                      * Transaction table entry
                      */
 
-                    $transaction_message =  "Profit earned from " . $investment->pool->name . ' Pool';
+                    $transaction_message =  "Profit earned from " . $investment->pool->name ;
 
                     Transaction::create([
                         'user_id' => $user->id,
