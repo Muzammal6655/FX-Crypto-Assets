@@ -12,7 +12,8 @@
 				@include('frontend.messages')
 				<form id="withdraws-form" method="POST" action="{{url('/withdraws')}}" enctype="multipart/form-data">
 					{{ csrf_field() }}
-
+					<input type="hidden" name="action" value="{{$action}}" />
+					<input name="id" type="hidden" value="{{ $model->id }}" />
 					<div class="form-group">
 						<label for="wallet_address">Wallet Address</label>
 						<input type="text" class="form-control" id="wallet_address" value="{{$wallet_address}}" readonly="">
@@ -23,7 +24,7 @@
 					</div>
 					<div class="form-group">
 						<label for="amount">Amount of BTC</label>
-						<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ old('amount') }}" required="">
+						<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ ($action == 'Edit') ? $model->amount : old('amount')}}" required="">
 					</div>
 
 					@if($user->email_otp_status == 1)
@@ -56,7 +57,7 @@
 	$(function(){
         $('#withdraws-form').validate({
             errorElement: 'div',
-            errorClass: 'help-block',
+            errorClass: 'help-block text-danger',
             focusInvalid: true,
             
             highlight: function (e) {

@@ -44,7 +44,12 @@
 										@endif
 									</td>
 									<td>
+										<div class="d-flex flex-row align-items-center">
+										@if($withdraw->status != 1)
+											<a href="{{ url('/withdraws/' . Hashids::encode($withdraw->id) .'/edit') }}" class="btn  btn-success mr-1"><i class="fa fa-edit"></i></a>
+										@endif
 										<a href="{{ url('/withdraws/' . Hashids::encode($withdraw->id)) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+										</div>
 									</td>
 								</tr>
 							@empty

@@ -48,6 +48,8 @@ class WithdrawController extends Controller
         }
 
         $data = array();
+        $data['model'] = new Withdraw();
+        $data['action'] = "Add";
         $data['wallet_address'] = $user->btc_wallet_address;
         $data['user'] = $user;
 
@@ -61,7 +63,7 @@ class WithdrawController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
         $input = $request->all();
         $user = auth()->user();
 
@@ -99,7 +101,15 @@ class WithdrawController extends Controller
             }
         }
 
-        $model = new Withdraw();
+        if ($input['action'] == 'Add') {
+            $model = new Withdraw();
+            $flash_message = 'Withdraw has been created successfully.';
+        } else {
+            $model = Withdraw::find($request->id);
+            $flash_message = 'Withdraw has been update successfully.';
+        }
+
+       
         $model->fill($input);
         $model->user_id = $user->id;
         $model->wallet_address = $user->btc_wallet_address;
@@ -127,7 +137,7 @@ class WithdrawController extends Controller
 
         session()->forget('withdraw_request_email_verification_otp');
 
-        $request->session()->flash('flash_success', 'Withdraw has been created successfully. Please wait until admin approves your withdraw.');
+        $request->session()->flash('flash_success', $flash_message);
         return redirect('/withdraws');
     }
 
@@ -141,5 +151,17 @@ class WithdrawController extends Controller
         $id = Hashids::decode($id)[0];
         $data['withdraw'] = Withdraw::findOrFail($id);
         return view('frontend.withdraws.view')->with($data);
+    }
+
+    public function edit($id, Request $request)
+    {
+        $id = Hashids::decode($id)[0];
+        $user = auth()->user();
+        $data['user'] = $user;
+        $data['action'] = "Edit";
+        $data['wallet_address'] = $user->btc_wallet_address;
+        $data['model'] = Withdraw::findOrFail($id);
+
+        return view('frontend.withdraws.create')->with($data);
     }
 }
