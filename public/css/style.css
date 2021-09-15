@@ -1617,6 +1617,9 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .pool-transfer-form .form-group,.pool-transfer-form .form-group select, .pool-transfer-form .btn.btn-primary{
+        width: 100%;
+    }
     .wallet-address-box p{
         margin: 0;
         word-break: break-all;

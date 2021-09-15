@@ -9,11 +9,11 @@
 					Deposit Transfer
 				</div>
 				<div class="card-body">
-					<form class="form-inline pool-transfer-form"
+					<form class="form-inline pool-transfer-form d-flex flex-lg-row flex-md-row flex-column"
 							action="{{url('deposits/'.Hashids::encode($deposit->id).'/transfer')}}" method="post">
 					@csrf
 					<input type="hidden" name="action" value="{{$deposit->id}}"/>
-				    <div class="form-group mr-3">
+				    <div class="form-group mr-lg-3 mr-md-3 mr-0 mbl-lg-0 mb-md-0 mb-2">
 				     	<select class="form-control"  name="pool_id" required="required">
 				            <option value="">Select Pool</option>
 				            @foreach ($pools as $pool)

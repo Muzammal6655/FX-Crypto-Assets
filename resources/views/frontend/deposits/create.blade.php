@@ -10,9 +10,9 @@
 			<div class="card-body">
 				<h5 class="card-title">Fill the form below to create deposit</h5>
 				@include('frontend.messages')
-				<div class="wallet-address-box d-flex flex-lg-row flex-column align-items-center">
-					<label for="wallet_address" class="mb-lg-0 mb-md-2">Recipient Wallet Address:</label>
-					<p class="mb-lg-0 mb-md-5">{{$wallet_address}}</p>
+				<div class="wallet-address-box d-flex flex-lg-row flex-md-row flex-column align-items-lg-center align-items-md-center align-items-start">
+					<label for="wallet_address" class="mb-lg-0 mb-md-0 mb-2">Recipient Wallet Address:</label>
+					<p class="mb-lg-0 mb-md-0 mb-4">{{$wallet_address}}</p>
 				</div>
 				<form id="deposits-form" method="POST" action="{{url('/deposits')}}" enctype="multipart/form-data">
 					{{ csrf_field() }}
