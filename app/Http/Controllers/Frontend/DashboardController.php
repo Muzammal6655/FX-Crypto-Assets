@@ -26,6 +26,11 @@ class DashboardController extends Controller
             'status' => 1
         ])->sum('deposit_amount');
 
+
+        $data['deposit_total'] =  Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->sum('amount');
+        $data['withdraw_total'] =  Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->sum('actual_amount');
+        $data['profit_total'] =  PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->sum('profit');
+
         $withdraws = Withdraw::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $deposits = Deposit::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
         $investments = PoolInvestment::where(['user_id' => auth()->user()->id, 'status' => 1])->get();
