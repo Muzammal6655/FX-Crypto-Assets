@@ -98,7 +98,7 @@
 				<table id="pool-investments-datatable" class="table table-hover" style="width:100%">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th>ID</th>
 							<th>Pool</th>
 							<th>Investor</th>
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
@@ -150,7 +150,7 @@
                 }
             },
 			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+				{data: 'id', name: 'id', orderable: false, searchable: false},
 				{data: 'pool', name: 'pool'},
 				{data: 'user', name: 'user'},
 				{data: 'deposit_amount', name: 'deposit_amount'},
