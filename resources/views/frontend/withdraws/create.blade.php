@@ -10,13 +10,17 @@
 			<div class="card-body">
 				<h5 class="card-title">Fill the form below to create withdraw</h5>
 				@include('frontend.messages')
+				<div class="wallet-address-box d-flex flex-lg-row flex-md-row flex-column align-items-lg-center align-items-md-center align-items-start">
+					<label for="wallet_address" class="mb-lg-0 mb-md-0 mb-2">Recipient Wallet Address:</label>
+					<p class="mb-lg-0 mb-md-0 mb-4">{{$wallet_address}}</p>
+				</div>
 				<form id="withdraws-form" method="POST" action="{{url('/withdraws')}}" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<input type="hidden" name="action" value="{{$action}}" />
 					<input name="id" type="hidden" value="{{ $model->id }}" />
 					<div class="form-group">
-						<label for="wallet_address">Wallet Address</label>
-						<input type="text" class="form-control" id="wallet_address" value="{{$wallet_address}}" readonly="">
+						<!-- <label for="wallet_address">Wallet Address</label> -->
+						<input type="hidden" class="form-control" id="wallet_address" value="{{$wallet_address}}" readonly="">
 					</div>
 					<div class="form-group">
 						<label for="account_balance">Account Balance ({{config('constants.currency')['symbol']}})</label>
