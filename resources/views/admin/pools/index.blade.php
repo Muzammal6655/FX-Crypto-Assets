@@ -30,7 +30,7 @@
 				<table id="pools-datatable" class="table table-hover" style="width:100%">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th>ID</th>
 							<th>Name</th>
 							<th>Min Deposits ({{config('constants.currency')['symbol']}})</th>
 							<th>Max Deposits ({{config('constants.currency')['symbol']}})</th>
@@ -73,7 +73,7 @@
 			serverSide: true,
 			ajax: "{{ url('admin/pools') }}",
 			columns: [
-				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+				{data: 'id', name: 'id', orderable: false, searchable: false},
 				{data: 'name', name: 'name'},
 				{data: 'min_deposits', name: 'min_deposits'},
 				{data: 'max_deposits', name: 'max_deposits'},

@@ -91,11 +91,11 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Approval Status</label>
 								<div class="col-sm-9">
-									@if($user->status == 0)
+									@if($user->is_approved == 0)
 										<span class="label label-warning">Pending</span>
-									@elseif($user->status == 1)
+									@elseif($user->is_approved == 1)
 										<span class="label label-success">Approved</span>
-									@elseif($user->status == 2)
+									@elseif($user->is_approved == 2)
 										<span class="label label-danger">Rejected</span>
 									@endif
 								</div>
