@@ -32,7 +32,7 @@
 							@forelse($transactions as $transaction)
 								<tr>
 									<th scope="row">{{ $count++ }}</th>
-									<td>{{ $transaction->type }}</td>
+									<td>{{ ucwords($transaction->type) }}</td>
 									<td>{{number_format($transaction->amount,4) }}</td>
 									<td>{{number_format($transaction->actual_amount,4)}}</td>
 									@if(!empty($transaction->fee_percentage))
