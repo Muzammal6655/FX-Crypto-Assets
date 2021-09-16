@@ -38,7 +38,7 @@
 						<input type="hidden" class="form-control" id="wallet_address" name="wallet_address" value="{{$wallet_address}}" readonly="">
 					</div>
 					<div class="form-group">
-						<label for="amount">Amount of BTC</label>
+						<label for="amount">Amount of (BTC)</label>
 						<input type="number" class="form-control" min="{{ $min_deposits }}" max="{{ $max_deposits }}" minlength="1" maxlength="8" id="amount" name="amount"
 						value="{{ ($action == 'Edit') ? $model->amount : old('amount')}}" required="">
 					</div>
