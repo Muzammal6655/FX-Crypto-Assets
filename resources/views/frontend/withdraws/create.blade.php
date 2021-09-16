@@ -28,7 +28,11 @@
 					</div>
 					<div class="form-group">
 						<label for="amount">Amount of BTC</label>
-						<input type="number" class="form-control" min="0.00000001" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ ($action == 'Edit') ? $model->amount : old('amount')}}" required="">
+						<!--
+							old min amount is set in textfield
+							min="0.00000001"
+						-->
+						<input type="number" class="form-control" max="{{ $user->account_balance }}" id="amount" name="amount" value="{{ ($action == 'Edit') ? $model->amount : old('amount')}}" required="">
 					</div>
 
 					@if($user->email_otp_status == 1)
@@ -63,7 +67,18 @@
             errorElement: 'div',
             errorClass: 'help-block text-danger',
             focusInvalid: true,
-            
+            rules: {
+                amount: {
+                    minStrict: 0
+                },
+			},
+			messages: {
+                amount: {
+                    minStrict: "Please enter value greater then zero",
+                    
+                },
+			},
+			
             highlight: function (e) {
             	$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
             },
@@ -91,7 +106,9 @@
             invalidHandler: function (form,validator) {
             }
         });
-
+		$.validator.addMethod('minStrict', function(value, el, param) {
+			return value > param;
+		});
         $("#generate_otp").click(function(){
         	$('#generate_otp_loading').show();
         	$('#generate_otp').prop('disabled',true);
