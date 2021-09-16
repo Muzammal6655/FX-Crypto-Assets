@@ -14,7 +14,7 @@
                         <p>Join the world's largest crypto exchange</p>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link" href="{{ url('/login') }}">Log In</a>
+                        <a class="nav-link mr-lg-0 mr-1" href="{{ url('/login') }}">Log In</a>
                         <a class="nav-link active" href="{{ url('/register') }}">Sign Up</a>
                     </div>
                 </div>

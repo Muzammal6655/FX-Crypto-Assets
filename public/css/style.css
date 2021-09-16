@@ -1033,7 +1033,7 @@ input[type=number] {
     color: #fff;
 }
 .dashboard-body .card.box p{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
     text-align: center;
     margin:  0 0 15px 0;
@@ -1145,6 +1145,8 @@ h5 {
 }
 .form-control{
     height: 45px;
+    overflow: scroll; 
+  -webkit-overflow-scrolling: touch;
 }
 .form-control:focus {
     border-color: #d0af3e;
@@ -1445,7 +1447,7 @@ h5 {
         margin-top: 20px;
     }
     .login-page {
-        padding-top: 50px;
+        padding-top: 80px;
     }
     .dashboard-body #investmentsChart {
         width: 100% !important;
@@ -1620,6 +1622,15 @@ h5 {
     
 }
 @media (max-width: 767px){
+    .upload-doc{
+        font-size: 16px;
+        text-align: center;
+        margin: 0;
+    }
+    .upload-doc a{
+        width: 100%;
+        margin-top: 8px;
+    }
     .pool-invest-group .pool-body-info {
         width: 100%;
         padding: 20px 10px;
@@ -1771,12 +1782,8 @@ h5 {
     h2{
         font-size: 22px;
     }
-    h3{
-        font-size: 16px;
-    }
-    p{
-        font-size: 12px;
-    }
+   
+   
     .btn-theme {
         width: 120px;
         height: 40px;

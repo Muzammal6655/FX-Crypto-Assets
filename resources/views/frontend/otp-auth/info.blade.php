@@ -15,8 +15,8 @@
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
-                            <a class="nav-link" href="{{ url('/profile') }}">Profile</a>
-                            <a class="nav-link" href="{{ url('/documents') }}">KYC</a>
+                            <a class="nav-link mr-lg-0 mr-1" href="{{ url('/profile') }}">Profile</a>
+                            <a class="nav-link mr-lg-0 mr-1" href="{{ url('/documents') }}">KYC</a>
                             <a class="nav-link active" href="{{ url('/otp-auth/info') }}">2FA</a>
                         </div>
                     </div>

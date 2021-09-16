@@ -15,7 +15,7 @@
                         </div>
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                             aria-orientation="vertical">
-                            <a class="nav-link active" href="{{ url('/login') }}">Log In</a>
+                            <a class="nav-link active mr-lg-0 mr-1" href="{{ url('/login') }}">Log In</a>
                             <a class="nav-link" href="{{ url('/register') }}">Sign Up</a>
                         </div>
                     </div>
