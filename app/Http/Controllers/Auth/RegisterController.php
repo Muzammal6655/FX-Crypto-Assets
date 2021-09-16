@@ -59,14 +59,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $validator = Validator::make($data, [
-            'name' => ['required','string','max:100'],
+            'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
-            'btc_wallet_address' => ['unique:users' , 'nullable'],
+            'btc_wallet_address' => ['unique:users', 'nullable'],
         ]);
- 
-        if ($validator->fails())
-        {
+
+        if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
         }
 
@@ -90,35 +89,23 @@ class RegisterController extends Controller
 
         $referrer = NULL;
 
-        if($data['ReferredOptions'] == "yes")
-        {
-            if(isset($data['provide_later']) && $data['provide_later'] == "on")
-            {
+        if ($data['ReferredOptions'] == "yes") {
+            if (isset($data['provide_later']) && $data['provide_later'] == "on") {
                 $user->referral_code = NULL;
                 $user->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));
-            }
-            else
-            {
-                if(!empty($data['referral_code']))
-                {
+            } else {
+                if (!empty($data['referral_code'])) {
                     $referrer = User::where('invitation_code', $data['referral_code'])->first();
-                    if(!empty($referrer))
-                    {
-                        $user->referral_code = $data['referral_code'];    
-                    }
-                    else
-                    {
+                    if (!empty($referrer)) {
+                        $user->referral_code = $data['referral_code'];
+                    } else {
                         return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
                     }
-                }
-                else
-                {
+                } else {
                     return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is required.']);
                 }
-            }   
-        }
-        else
-        {
+            }
+        } else {
             $user->referral_code = NULL;
             $user->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));
         }
@@ -127,22 +114,16 @@ class RegisterController extends Controller
          * Do you have an Existing BTC wallet for withdrawals?
          */
 
-        if($data['BTCOptions'] == "yes")
-        {
-            if(!empty($data['btc_wallet_address']))
-            {
+        if ($data['BTCOptions'] == "yes") {
+            if (!empty($data['btc_wallet_address'])) {
                 $user->btc_wallet_address = $data['btc_wallet_address'];
-            }
-            else
-            {
+            } else {
                 return redirect()->back()->withInput()->withErrors(['error' => 'BTC wallet is required.']);
             }
-        }
-        else
-        {
+        } else {
             $user->btc_wallet_address = NULL;
         }
- 
+
         $user->dob = \Carbon\Carbon::parse($user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
@@ -151,8 +132,7 @@ class RegisterController extends Controller
         $user->ip_address = $_SERVER['REMOTE_ADDR'];
         $user->save();
 
-        if(!empty($referrer))
-        {
+        if (!empty($referrer)) {
             $user->referrer_account_id = $referrer->id;
 
             Referral::create([
@@ -164,21 +144,36 @@ class RegisterController extends Controller
         $user->invitation_code = Hashids::encode($user->id);
         $user->save();
 
-        $email_template = EmailTemplate::where('type','sign_up_confirmation')->first();
-        
+        $email_template = EmailTemplate::where('type', 'sign_up_confirmation')->first();
+
         $email = $user->email;
         $subject = $email_template->subject;
         $content = $email_template->content;
 
         $hashId = Hashids::encode($user->id);
-        $link = url('/verify-account/'.$hashId);
-        
-        $search = array("{{name}}","{{app_name}}","{{link}}");
-        $replace = array($user->username,env('APP_NAME'),$link);
-        $content  = str_replace($search,$replace,$content);
+        $link = url('/verify-account/' . $hashId);
+
+        $search = array("{{name}}", "{{app_name}}", "{{link}}");
+        $replace = array($user->name, env('APP_NAME'), $link);
+        $content  = str_replace($search, $replace, $content);
 
         sendEmail($email, $subject, $content);
 
+        //Send Email to admin
+        $email_template = EmailTemplate::where('type', 'account_approve_request')->first();
+
+        $email = $user->email;
+        $subject = $email_template->subject;
+        $content = $email_template->content;
+
+        $hashId = Hashids::encode($user->id);
+        $link = url('/admin/investors/' . Hashids::encode($user->id));
+
+        $search = array("{{name}}","{{email}}", "{{app_name}}", "{{link}}");
+        $replace = array($user->name,$user->email, env('APP_NAME'), $link);
+        $content  = str_replace($search, $replace, $content);
+
+        sendEmail(settingValue('contact_email'), $subject, $content);
         return $user;
     }
 
@@ -212,7 +207,8 @@ class RegisterController extends Controller
             ?: redirect($this->redirectPath());
     }
 
-    public function sendRegisterResponse() {
+    public function sendRegisterResponse()
+    {
         return redirect($this->redirectPath())
             ->with('flash_success', 'Account verification link has been sent to your account.');
     }

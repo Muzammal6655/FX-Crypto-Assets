@@ -47,8 +47,8 @@ Tap the button below to reset your account password. If you didn\'t request for 
                 'info' => '{"name":"User full name","link":"Link for reset password","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2019-11-13 17:38:27',
-                'updated_at' => '2021-04-29 09:17:44',
+                'created_at' => '2019-11-13 22:38:27',
+                'updated_at' => '2021-04-29 14:17:44',
             ),
             1 => 
             array (
@@ -79,8 +79,8 @@ Thank you for signing up. Click the button below to verify your {{app_name}} acc
                 'info' => '{"name":"User full name","link":"Link for Verify Email Address","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2019-12-03 18:28:21',
-                'updated_at' => '2021-04-29 09:20:02',
+                'created_at' => '2019-12-03 23:28:21',
+                'updated_at' => '2021-04-29 14:20:02',
             ),
             2 => 
             array (
@@ -104,8 +104,8 @@ Hi {{name}},
                 'info' => '{"name":"User full name","app_name":"Website name","password":"Account Password"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2020-02-28 07:34:55',
-                'updated_at' => '2021-04-29 09:22:12',
+                'created_at' => '2020-02-28 12:34:55',
+                'updated_at' => '2021-04-29 14:22:12',
             ),
             3 => 
             array (
@@ -148,8 +148,8 @@ Please open Google Authenticator App and reset your 2FA by adding below details:
                 'info' => '{"name":"User full name","app_name":"Website name","email":"User email","secret_key":"Google Authenticator Secret Key For Reset Two Factor Authentication"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2020-10-05 07:47:13',
-                'updated_at' => '2021-04-29 09:24:02',
+                'created_at' => '2020-10-05 12:47:13',
+                'updated_at' => '2021-04-29 14:24:02',
             ),
             4 => 
             array (
@@ -173,8 +173,8 @@ Hi {{name}},
                 'info' => '{"name":"User full name","app_name":"Website name","code":"6 Digits Code"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-12 10:19:04',
-                'updated_at' => '2021-08-12 11:38:52',
+                'created_at' => '2021-08-12 15:19:04',
+                'updated_at' => '2021-08-12 16:38:52',
             ),
             5 => 
             array (
@@ -200,8 +200,8 @@ Hi Admin,
                 'info' => '{"name":"User full name","email":"Email Address","link":"Link for view deposit request","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-13 12:53:50',
-                'updated_at' => '2021-08-16 07:30:48',
+                'created_at' => '2021-08-13 17:53:50',
+                'updated_at' => '2021-08-16 12:30:48',
             ),
             6 => 
             array (
@@ -227,8 +227,8 @@ Hi Admin,
                 'info' => '{"name":"User full name","email":"Email Address","link":"Link for view withdrawal request","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-13 12:56:05',
-                'updated_at' => '2021-08-16 07:31:06',
+                'created_at' => '2021-08-13 17:56:05',
+                'updated_at' => '2021-08-16 12:31:06',
             ),
             7 => 
             array (
@@ -254,8 +254,8 @@ Hi Admin,
                 'info' => '{"name":"User full name","email":"Email Address","link":"Link for view investment request","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-26 13:06:46',
-                'updated_at' => '2021-08-26 13:06:46',
+                'created_at' => '2021-08-26 18:06:46',
+                'updated_at' => '2021-08-26 18:06:46',
             ),
             8 => 
             array (
@@ -278,8 +278,8 @@ Hi {{name}},
                 'info' => '{"name":"User full name","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-30 08:07:22',
-                'updated_at' => '2021-08-30 08:07:22',
+                'created_at' => '2021-08-30 13:07:22',
+                'updated_at' => '2021-08-30 13:07:22',
             ),
             9 => 
             array (
@@ -302,8 +302,35 @@ Hi {{name}},
                 'info' => '{"name":"User full name","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
-                'created_at' => '2021-08-30 08:13:05',
-                'updated_at' => '2021-08-30 08:13:05',
+                'created_at' => '2021-08-30 13:13:05',
+                'updated_at' => '2021-08-30 13:13:05',
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'type' => 'account_approve_request',
+                'subject' => 'Account Approval By Admin Request',
+                'content' => '<div style="padding: 10px 30px;">
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 22px; margin-top: 20px; color: rgb(0, 0, 0);">Registered New User</h3><h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; line-height: 25px; font-weight: normal;">
+Hi Admin, 
+</h3>
+<p style="line-height: 25px; margin-top: 40px; margin-bottom: 40px;"><font color="#555555" face="Segoe, Segoe UI, sans-serif"><span style="font-size: 17px;">New Investor registered on your website&nbsp;</span><br><span style="font-size: 17px;"><b>Name:</b></span><b style="font-size: 17px;">{{name}} </b><br><b style="font-size: 17px;">Email:{{email}}</b><span style="font-size: 17px;">.</span><br><span style="font-size: 17px;">Click on the button below to view the request.&nbsp;</span></font></p>
+<div style="margin: 40px 0; text-align: center;">
+<a href="{{link}}" target="_blank" style="display: inline-block;padding: 12px 15px;font-family: \'Source Sans Pro\', Helvetica, Arial, sans-serif;font-size: 16px;color: #ffffff;text-decoration: none;border-radius: 6px;width: 130px;background-color:#787759;text-align: center;" referrerpolicy="origin">View Request</a>
+</div>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers,</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","email":"Email Address","link":"Link for view register request","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-09-16 18:06:46',
+                'updated_at' => '2021-09-16 10:00:50',
             ),
         ));
         
