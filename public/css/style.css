@@ -1439,6 +1439,9 @@ h5 {
     }
 }
 @media(max-width:991px){
+    #forgot-password .btn-theme {
+        width: auto;
+    }
     .pool-view-des {
         width: 100%;
     }
