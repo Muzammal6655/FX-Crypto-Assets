@@ -140,7 +140,7 @@
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
 			ajax: {
-                url: '/admin/pool-investments',
+                url: "{{ route('admin.pool-investments.index') }}",
                 data: function (d) {
                     d.user_id = $('#user_id option:selected').val();
                     d.pool_id = $('#pool_id option:selected').val();

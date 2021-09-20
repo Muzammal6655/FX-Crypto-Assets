@@ -124,7 +124,7 @@
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
 			ajax: {
-                url: '/admin/withdraws',
+                url: "{{ route('admin.withdraws.index') }}",
                 data: function (d) {
                     d.user_id = $('#user_id option:selected').val();
                     d.status = $('#status option:selected').val();

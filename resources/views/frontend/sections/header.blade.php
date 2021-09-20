@@ -10,7 +10,7 @@ $segment_2 = Request::segment(2);
                 <!-- navbar-->
                 <nav class="navbar navbar-expand-lg navbar-light main-nav fill">
                     <a class="navbar-brand js-scroll-trigger" href="{{ url('/') }}">
-                        <img class="logo-img" src="{{asset('images/logo.svg')}}" alt="logo"></a>
+                        <img class="logo-img" src="{{asset(env('PUBLIC_URL').'images/logo.svg')}}" alt="logo"></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -59,22 +59,22 @@ $segment_2 = Request::segment(2);
                         @else
                             <ul class="navbar-nav list-unstyled">
                                 <li class="nav-item active">
-                                    <a class="nav-link active" href="{{ url('/pages/home') }}" data-menu-name="Home">Home</a>
+                                    <a class="nav-link active" href="{{config('constants.wordpress_base_url')}}" data-menu-name="Home">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pages/about-us') }}" data-menu-name="About us">About us</a>
+                                    <a class="nav-link" href="{{config('constants.wordpress_base_url')}}about-us/" data-menu-name="About us">About us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pages/fees') }}" data-menu-name="Fees">Fees</a>
+                                    <a class="nav-link" href="{{config('constants.wordpress_base_url')}}fees/" data-menu-name="Fees">Fees</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pages/how-to-get-started') }}" data-menu-name="How to Get Started">How to Get Started</a>
+                                    <a class="nav-link" href="{{config('constants.wordpress_base_url')}}how-to-get-started/" data-menu-name="How to Get Started">How to Get Started</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pages/pool-information/') }}" data-menu-name="Pool Information">Pool Information</a>
+                                    <a class="nav-link" href="{{config('constants.wordpress_base_url')}}pool-information/" data-menu-name="Pool Information">Pool Information</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/pages/contact-us/') }}" data-menu-name="Contact us">Contact us</a>
+                                    <a class="nav-link" href="{{config('constants.wordpress_base_url')}}contact-us/" data-menu-name="Contact us">Contact us</a>
                                 </li>
                             </ul>
                             <div class="button-wrap">

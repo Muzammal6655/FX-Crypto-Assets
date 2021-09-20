@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top admin-pannel-styling">
     <div class="brand logo-sty">
         <a href="{{route('admin.dashboard')}}">
-            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-responsive logo" style="width: 250px;">
+            <img src="{{ asset(env('PUBLIC_URL').'images/logo.png') }}" alt="logo" class="img-responsive logo" style="width: 250px;">
         </a>
         <div id="tour-fullwidth" class="navbar-btn-togl">
             <button type="button" class="btn-toggle-fullwidth"><i class="ti-arrow-circle-left"></i></button>

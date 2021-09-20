@@ -15,11 +15,11 @@
                     <div class="footer-content">
                         <h4>Our Service</h4>
                         <ul class="list-styled">
-                            <li><a href="{{ url('/pages/fees') }}">Fees</a></li>
-                            <li><a href="{{ url('/pages/how-to-get-started') }}">How to Get Started</a></li>
-                            <li><a href="{{ url('/pages/pool-information/') }}">Pool Information</a></li>
-                            <li><a href="{{ url('/pages/contact-us/') }}">Contact us</a></li>
-                            <li><a href="{{ url('/pages/sitemap/') }}">Sitemap</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}fees/">Fees</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}how-to-get-started/">How to Get Started</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}pool-information/">Pool Information</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}contact-us/">Contact us</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}sitemap/">Sitemap</a></li>
                         </ul>
                     </div>
                 </div>
@@ -27,10 +27,10 @@
                     <div class="footer-content">
                         <h4>Legal</h4>
                         <ul class="list-styled">
-                            <li><a href="{{ url('/pages/faq/') }}">Faqs</a></li>
-                            <li><a href="{{ url('/pages/terms/') }}">Terms & Conditions</a></li>
-                            <li><a href="{{ url('/pages/privacy-policy/') }}">Privacy Policy</a></li>
-                            <li><a href="{{ url('/pages/service/') }}">Service</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}faq/">Faqs</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}pages/terms/">Terms & Conditions</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}pages/privacy-policy/">Privacy Policy</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}pages/service/">Service</a></li>
                         </ul>
                     </div>
                 </div>

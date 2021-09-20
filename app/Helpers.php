@@ -15,11 +15,11 @@ function checkImage($path = '', $placeholder = '', $filename = '')
         if (file_exists($url) && !empty($filename))
             return $path;
         else
-            return asset('images/' . $placeholder);
+            return asset(env('PUBLIC_URL').'images/' . $placeholder);
     }
     else
     {
-        return asset('images/' . $placeholder);
+        return asset(env('PUBLIC_URL').'images/' . $placeholder);
     }
 }
 
