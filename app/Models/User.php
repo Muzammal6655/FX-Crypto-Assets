@@ -47,7 +47,7 @@ class User extends Authenticatable
         ** Delete user's files
         */
 
-        $path = 'storage/users/'.$model->id;
+        $path = env('PUBLIC_URL').'storage/users/'.$model->id;
         if (\File::exists(public_path() . '/' . $path)) 
         {
           \File::deleteDirectory(public_path() . '/' . $path);

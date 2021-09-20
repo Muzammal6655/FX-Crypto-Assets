@@ -47,7 +47,7 @@ class ProfitController extends Controller
             $datatable = $datatable->addColumn('action', function ($row) {
                 $actions = '<span class="actions">';
 
-                $actions .= '&nbsp;<a class="btn btn-primary" href="' . asset('storage/profits/' . $row->name) . '" title="Download" download=""><i class="fa fa-download"></i></a>';
+                $actions .= '&nbsp;<a class="btn btn-primary" href="' . asset(env('PUBLIC_URL').'storage/profits/' . $row->name) . '" title="Download" download=""><i class="fa fa-download"></i></a>';
 
                 $actions .= '</span>';
                 return $actions;

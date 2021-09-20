@@ -9,7 +9,7 @@
                 <div class="col-lg-5 left p-0 ">
                     <div class="content">
                         <div class="logo">
-                            <a href="{{ url('/') }}"><img src="{{asset('images/logo.svg')}}" alt="" class="img-fluid" /></a>
+                            <a href="{{ url('/') }}"><img src="{{asset(env('PUBLIC_URL').'images/logo.svg')}}" alt="" class="img-fluid" /></a>
                         </div>
                         <p>Join the world's largest crypto exchange</p>
                     </div>

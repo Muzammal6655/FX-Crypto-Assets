@@ -20,7 +20,7 @@
                             <span>{{ Auth::user()->name }}</span>
                         </div>
                         <div class="user-img-sty">
-                            <img src="{{checkImage(asset('storage/admins/profile-images/' . Auth::user()->profile_image),'avatar.png',Auth::user()->profile_image)}}"
+                            <img src="{{checkImage(asset(env('PUBLIC_URL').'storage/admins/profile-images/' . Auth::user()->profile_image),'avatar.png',Auth::user()->profile_image)}}"
                                 alt="Avatar">
                         </div>
 

@@ -57,7 +57,7 @@
                                             <div class="form-group">
                                                 <div>
                                                     @if (!empty($user->passport) && \File::exists(public_path() . '/storage/users/' . $user->id . '/documents/' . $user->passport))
-                                                        <a href="{{ checkImage(asset('storage/users/' . $user->id . '/documents/' . $user->passport),'placeholder.png',$user->passport) }}" download="">Download</a>
+                                                        <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->passport),'placeholder.png',$user->passport) }}" download="">Download</a>
                                                     @else
                                                         <strong><i>No passport provided</i></strong>
                                                     @endif
@@ -86,8 +86,8 @@
                                             </p>
                                             <div class="form-group">
                                                 <div>
-                                                    @if (!empty($user->photo) && \File::exists(public_path() . '/storage/users/' . $user->id . '/documents/' . $user->photo))
-                                                        <a href="{{ checkImage(asset('storage/users/' . $user->id . '/documents/' . $user->photo),'placeholder.png',$user->photo) }}" download="">Download</a>
+                                                    @if (!empty($user->photo) && \File::exists(public_path() .'/storage/users/' . $user->id . '/documents/' . $user->photo))
+                                                        <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->photo),'placeholder.png',$user->photo) }}" download="">Download</a>
                                                     @else
                                                         <strong><i>No photo provided</i></strong>
                                                     @endif

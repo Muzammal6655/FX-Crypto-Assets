@@ -24,7 +24,7 @@
 						</button>
 					</a>
 					@endif
-					<a href="{{ asset('ProfitSample.csv') }}" download="" class="btn-file">
+					<a href="{{ asset(env('PUBLIC_URL').'ProfitSample.csv') }}" download="" class="btn-file">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Download Sample File</span>
 						</button>

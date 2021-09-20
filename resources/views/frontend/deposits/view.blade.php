@@ -63,7 +63,7 @@
 								<td>
 
 									@if (!empty($deposit->proof) && \File::exists(public_path() . '/storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof))
-										<a class="btn btn-secondary" href="{{ checkImage(asset('storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof),'placeholder.png',$deposit->proof) }}" download="">Download</a>
+										<a class="btn btn-secondary" href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $deposit->user_id . '/deposits/' . $deposit->proof),'placeholder.png',$deposit->proof) }}" download="">Download</a>
 									@else
 										<strong><i>No proof provided</i></strong>
 									@endif

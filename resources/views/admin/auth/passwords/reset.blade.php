@@ -6,7 +6,7 @@
 <div class="content">
     <div class="header">
         <div class="logo text-center">
-            <img src="{{ asset('images/logo.png') }}" alt="">
+            <img src="{{env('PUBLIC_URL'). asset('images/logo.png') }}" alt="">
             <!-- <div class="logo-name">{{ env('APP_NAME') }}</div> -->
         </div>
         <h4 class="lead">Reset Password</h4>

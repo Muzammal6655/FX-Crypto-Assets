@@ -10,7 +10,7 @@
 
     <div style="max-width:600px; margin:auto;  background:#fff; color:#222; font-size:17px; position: relative;">
         <div style="width:100%; padding:15px 0px 35px; text-align:center; margin-bottom: 15px;background-size: cover;">
-            <img src="{{ asset('images/logo.png') }}">
+            <img src="{{ asset(env('PUBLIC_URL').'images/logo.png') }}">
         </div>
         {!! $content !!}
         <div style="margin-top: 40px; text-align: center; background: #F7F8FC;padding:10px 20px 10px;  ">

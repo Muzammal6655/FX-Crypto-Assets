@@ -47,7 +47,7 @@
                                     pixels.
                                     <br><br>
                                     <div style="width: 100px; height: auto">
-                                        <img src="{{checkImage(asset('storage/admins/profile-images/' . Auth::user()->profile_image),'avatar.png',Auth::user()->profile_image)}}"
+                                        <img src="{{checkImage(asset(env('PUBLIC_URL').'storage/admins/profile-images/' . Auth::user()->profile_image),'avatar.png',Auth::user()->profile_image)}}"
                                             class="img-responsive" alt="Avatar" id="profile_image">
                                     </div>
                                 </div>

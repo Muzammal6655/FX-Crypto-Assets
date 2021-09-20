@@ -68,7 +68,7 @@
 								<label for="proof" class="col-sm-3 control-label">Proof</label>
 								<div class="col-sm-9">
 									@if (!empty($model->proof) && \File::exists(public_path() . '/storage/users/' . $model->user_id . '/deposits/' . $model->proof))
-										<a href="{{ checkImage(asset('storage/users/' . $model->user_id . '/deposits/' . $model->proof),'placeholder.png',$model->proof) }}" download="">Download</a>
+										<a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $model->user_id . '/deposits/' . $model->proof),'placeholder.png',$model->proof) }}" download="">Download</a>
 									@else
 										<strong><i>No proof provided</i></strong>
 									@endif

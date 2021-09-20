@@ -8,12 +8,12 @@
     <title>{{env('APP_NAME')}}</title>
     <link rel="icon" href="{{asset('images/favicon.png')}}" type="image/x-icon">
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
-    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}" />
-    <link href="{{asset('css/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="{{asset('css/aos.css')}}" />
-    <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset(env('PUBLIC_URL').'css/bootstrap.min.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset(env('PUBLIC_URL').'css/font-awesome.min.css')}}" />
+    <link href="{{asset(env('PUBLIC_URL').'css/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset(env('PUBLIC_URL').'css/owl.theme.default.min.css')}}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{asset(env('PUBLIC_URL').'css/aos.css')}}" />
+    <link type="text/css" rel="stylesheet" href="{{asset(env('PUBLIC_URL').'css/style.css')}}" />
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                         <!-- navbar-->
                         <nav class="navbar navbar-expand-lg navbar-light main-nav fill">
                             <a class="navbar-brand js-scroll-trigger" href="{{ url('/') }}">
-                                <img class="logo-img" src="{{asset('images/logo.svg')}}" alt="logo"></a>
+                                <img class="logo-img" src="{{asset(env('PUBLIC_URL').'images/logo.svg')}}" alt="logo"></a>
                         </nav>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
         <!--End-->
         <div class="under-construction">
            <div class="image">
-               <img src="{{asset('images/under-construction.jpg')}}" alt="Under Construction" class="img-fluid" />
+               <img src="{{asset(env('PUBLIC_URL').'images/under-construction.jpg')}}" alt="Under Construction" class="img-fluid" />
            </div>
         </div>
         <footer class="footer">
