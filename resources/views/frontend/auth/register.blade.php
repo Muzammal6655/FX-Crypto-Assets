@@ -122,8 +122,8 @@
 
                                         <div class="form-group">
                                             <div class="form-check">
-                                                <input data-is-link-open=0 data-term-and-condition-link="{{ url('/pages/terms/') }}" id="term_and_condition" type="checkbox" name="agree" class="form-check-input" required="" {{ old('agree') == 'on' ? 'checked' : '' }}>
-                                                <label class="form-check-label">I have read and agree to the <a href="{{ url('/pages/terms/') }}" target="_blank">T&C</a></label>
+                                                <input data-is-link-open=0 data-term-and-condition-link="{{ url('/terms') }}" id="term_and_condition" type="checkbox" name="agree" class="form-check-input" required="" {{ old('agree') == 'on' ? 'checked' : '' }}>
+                                                <label class="form-check-label">I have read and agree to the <a href="{{ url('/terms') }}" target="_blank">T&C</a></label>
                                             </div>
                                         </div>
 
