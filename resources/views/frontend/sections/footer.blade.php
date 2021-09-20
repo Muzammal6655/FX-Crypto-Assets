@@ -28,9 +28,9 @@
                         <h4>Legal</h4>
                         <ul class="list-styled">
                             <li><a href="{{config('constants.wordpress_base_url')}}faq/">Faqs</a></li>
-                            <li><a href="{{config('constants.wordpress_base_url')}}pages/terms/">Terms & Conditions</a></li>
-                            <li><a href="{{config('constants.wordpress_base_url')}}pages/privacy-policy/">Privacy Policy</a></li>
-                            <li><a href="{{config('constants.wordpress_base_url')}}pages/service/">Service</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}terms/">Terms & Conditions</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}privacy-policy/">Privacy Policy</a></li>
+                            <li><a href="{{config('constants.wordpress_base_url')}}service/">Service</a></li>
                         </ul>
                     </div>
                 </div>
@@ -74,11 +74,11 @@
                   <p class="copyright">&copy; {{ date('Y') }} By <a href="#"
                         target="_blank">Corporate hi-tech</a>. All Rights Reserved.</p>
                 <div class="chat">
-                    <img src="{{asset('images/chat.png')}}" alt="chat icon" class="img-fluid" />
+                    <img src="{{asset(env('PUBLIC_URL').'images/chat.png')}}" alt="chat icon" class="img-fluid" />
                 </div>
                 <div class="asoft">
                     <a href="#">
-                        <img src="{{asset('images/asoft.png')}}" alt="ArhamSoft Logo" class="img-fluid" />
+                        <img src="{{asset(env('PUBLIC_URL').'images/asoft.png')}}" alt="ArhamSoft Logo" class="img-fluid" />
                     </a>
                 </div>
             </div>
