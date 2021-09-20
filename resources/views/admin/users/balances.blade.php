@@ -17,9 +17,9 @@
 				<h3 class="panel-title">Balances Listing</h3>
 				<div class="right">
 					<span class="label label-default" style="font-size: 90%;">{{$user->name.' - '.$user->email}}</span>
-					<span >Total Balance:{{$user->account_balance}}</span>
+					<span >Total Balance:{{number_format($user->account_balance,4)}}</span>
 				</div>
-			</div>
+			</div> 
 			<div class="panel-body">
 				<table id="balances-datatable" class="table table-hover" style="width:100%">
 					<thead>

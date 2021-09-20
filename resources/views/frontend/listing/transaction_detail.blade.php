@@ -17,7 +17,7 @@
 						</tr>
 						<tr>
 							<th scope="row">Type</th>
-							<td>{{ $transaction->type }}</td>
+							<td>{{ ucwords($transaction->type) }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Amount ({{config('constants.currency')['symbol']}})</th>
@@ -29,7 +29,7 @@
 						</tr>
 						<tr>
 							<th scope="row">Description</th>
-							<td>{{ $transaction->description }}</td>
+							<td>{{ ucwords($transaction->description) }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Management Fee (%)</th>

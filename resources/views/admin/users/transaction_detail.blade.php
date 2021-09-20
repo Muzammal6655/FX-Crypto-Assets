@@ -33,7 +33,8 @@
 							<div class="form-group">
 								<label for="user" class="col-sm-3 control-label">Type</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->type }}">
+									<input type="text" class="form-control" readonly=""
+									 value="{{ ucwords($model->type) }}">
 								</div>
 							</div>
 
@@ -54,7 +55,7 @@
 							<div class="form-group">
 								<label for="transaction_id" class="col-sm-3 control-label">Description </label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $model->description }}">
+									<input type="text" class="form-control" readonly="" value="{{ ucwords($model->description) }}">
 								</div>
 							</div>
 

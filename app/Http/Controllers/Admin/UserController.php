@@ -446,6 +446,11 @@ class UserController extends Controller
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();
 
+            $datatable = $datatable->editColumn('type', function($row)
+            {
+                return   $row->type =  ucwords($row->type);
+            });
+
             $datatable = $datatable->editColumn('created_at', function($row)
             {
                 return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y  h:i:s A') ;
