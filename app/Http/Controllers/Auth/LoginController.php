@@ -155,7 +155,7 @@ class LoginController extends Controller
           session(['timezone' => $request->timezone]);
           $cookie_name = 'app_user_id';
           $cookie_id = $user->id;
-          setcookie($cookie_name, $cookie_id, "/");  
+          setcookie($cookie_name, $cookie_id, 0, "/");
           return redirect()->intended(route('frontend.dashboard'));
         }
       }
@@ -166,7 +166,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
       Auth::guard('web')->logout();
-      setcookie("app_user_id", "", time() - 3600);
+      setcookie('app_user_id', null, -1, "/"); 
       return redirect()->route('login');
     }
 }
