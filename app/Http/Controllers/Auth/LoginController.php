@@ -166,6 +166,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
       Auth::guard('web')->logout();
+      setcookie("app_user_id", "", time() - 3600);
       return redirect()->route('login');
     }
 }
