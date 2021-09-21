@@ -99,7 +99,6 @@ class LoginController extends Controller
         $user->password_attempts_date = Null;
         $user->timezone = $request->timezone;
         $user->save();
-
         $message = '';
         $is_user_active = true;
         $is_approved = true;
@@ -154,6 +153,9 @@ class LoginController extends Controller
         {
           // if successful, then redirect to their intended location
           session(['timezone' => $request->timezone]);
+          $cookie_name = 'app_user_id';
+          $cookie_id = $user->id;
+          setcookie($cookie_name, $cookie_id, "/");  
           return redirect()->intended(route('frontend.dashboard'));
         }
       }
