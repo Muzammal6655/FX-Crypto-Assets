@@ -9,7 +9,8 @@
     <div style="width: 100%;max-width: 850px;min-width: 850px;margin: auto;">
    
         <a style="display: block;text-align: center;width: 100%; margin: 0 auto; padding: 20px 0;" href="{{ url('/') }}">
-            <img style="text-align: center;" src="https://interestingfx.arhamsoft.org/images/logo.svg" alt="logo">
+            <img style="text-align: center; margin-left: 180px;" src="{{ asset(env('PUBLIC_URL').'images/logo.png') }}" alt="logo">
+
         </a>
         <h1 style="font-size: 30px; color: #000;background: #fafafa;text-align: center;padding: 10px;">Overall Statistics</h1>
       
