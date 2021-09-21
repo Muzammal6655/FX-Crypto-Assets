@@ -266,7 +266,7 @@ class PoolInvestmentController extends Controller
         {
             $filename = 'pool-investments-' . date('d-m-Y') . '.csv';
             $file = fopen('php://memory', 'w');
-            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool Id','Pool Name','Pool Investment Id','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Started Date','End Date'));
+            fputcsv($file, array('Customer Id','Customer Name','Customer Email','Pool Id','Pool Name','Pool Investment Id','Amount','Profit Percentage','Management Fee Percentage','Commission','Management Fee','Status','Started Date','End Date'));
 
             foreach ($db_record as $record) 
             {
@@ -281,11 +281,22 @@ class PoolInvestmentController extends Controller
                 $row[] = $record->profit_percentage;
                 $row[] = $record->management_fee_percentage;
                 $row[] = $record->commission;
-                $row[] = $record->management_fee;                
-                $row[] = Carbon::createFromTimeStamp($record->start_date)->tz(session('timezone'))->format('d M, Y');
-                $row[] =  Carbon::createFromTimeStamp($record->end_date)->tz(session('timezone'))->format('d M, Y');
-
-
+                $row[] = $record->management_fee;
+                if($record->status == 0)
+                {
+                     $record->status = 'Pending';
+                } 
+                else if ($record->status == 1) 
+                {
+                       $record->status = 'Approved';
+                }  
+                else  
+                {
+                       $record->status = 'Rejected';
+                }   
+                $row[] = $record->status;        
+                $row[] = ($record->start_date  != '') ? Carbon::createFromTimeStamp($record->start_date)->tz(session('timezone'))->format('d M, Y') : '';
+                $row[] =  ($record->end_date  != '') ? Carbon::createFromTimeStamp($record->end_date)->tz(session('timezone'))->format('d M, Y') : '';
                 fputcsv($file, $row);
             }
 
