@@ -223,7 +223,7 @@ function convertToByte($p_sFormatted) {
 function CheckKYCStatus()
 {
     $user = \Auth::user();
-    if ($user['photo_status'] == 0 || $user['passport_status'] == 0 || $user['photo_status'] == 2 || $user['passport_status'] == 2 )
+    if ($user['photo_status'] == 0 || $user['passport_status'] == 0 || $user['photo_status'] == 2 || $user['passport_status'] == 2 || $user['au_doc_verification_status'] == 2 || $user['au_doc_verification_status'] == 2 )
     {
         return false;
     }

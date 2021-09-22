@@ -28,7 +28,7 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {   
+    {
         $input = $request->all();
         $user = Auth::user();
 
@@ -40,17 +40,13 @@ class UserController extends Controller
             return redirect()->back()->withInput();
         }
 
-        if($request->has('referral_code') && !empty($request->referral_code))
-        {   
-            $referrer = User::where('id','!=',$user->id)->where('invitation_code', $request->referral_code)->first();
-              
-            if(!empty($referrer))
-            {   
-                $input['referral_code'] = $request->referral_code;  
-                $user->referrer_account_id = $referrer->id; 
-            }
-            else
-            {
+        if ($request->has('referral_code') && !empty($request->referral_code)) {
+            $referrer = User::where('id', '!=', $user->id)->where('invitation_code', $request->referral_code)->first();
+
+            if (!empty($referrer)) {
+                $input['referral_code'] = $request->referral_code;
+                $user->referrer_account_id = $referrer->id;
+            } else {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
             }
         }
@@ -101,10 +97,9 @@ class UserController extends Controller
         }
 
         $user->update($input);
- 
 
-        if(!empty($referrer))
-        {
+
+        if (!empty($referrer)) {
             Referral::create([
                 'referrer_id' => $referrer->id,
                 'refer_member_id' => $user->id
@@ -132,11 +127,13 @@ class UserController extends Controller
         $validations = [
             'passport' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
             'photo' => 'required|file|image|mimes:jpg,jpeg,png|max:10240',
+            'au_doc_verification' => 'required|file|mimes:jpg,jpeg,png,pdf|max:10240',
         ];
 
         $messages = [
             'passport.max' => "Passport size must be less then 10MB.",
             'photo.max' => "Photo size must be less then 10MB.",
+            'au_doc_verification.max' => "Au doc size must be less then 10MB.",
         ];
         $validator = Validator::make($request->all(), $validations, $messages);
 
@@ -193,6 +190,29 @@ class UserController extends Controller
             $user->photo_status = 0;
         }
 
+        if (!empty($request->files) && $request->hasFile('au_doc_verification')) {
+            $file = $request->file('au_doc_verification');
+
+            // *********** //
+            // Upload File //
+            // *********** //
+
+            $target_path = 'public/users/' . $user->id . '/documents';
+            $filename = 'au-doc-file-' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            // **************** //
+            // Delete Old File
+            // **************** //
+
+            $old_file = public_path() . '/storage/users/' . $user->id . '/documents/' . $user->au_doc_verification;
+            if (file_exists($old_file) && !empty($user->au_doc_verification)) {
+                Storage::delete($target_path . '/' . $user->au_doc_verification);
+            }
+
+            $path = $file->storeAs($target_path, $filename);
+            $user->au_doc_verification = $filename;
+            $user->au_doc_verification_status = 0;
+        }
         $user->save();
 
         $request->session()->flash('flash_success', 'Documents have been uploaded successfully!');

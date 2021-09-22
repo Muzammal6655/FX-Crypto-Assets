@@ -85,7 +85,35 @@
 									</label>
 								</div>
 							</div>
+							<div class="form-group">
+								<label for="passport" class="col-sm-3 control-label">Au Doc</label>
+								<div class="col-sm-9">
+									@if (!empty($user->au_doc_verification) && \File::exists(public_path() . '/storage/users/' . $user->id . '/documents/' . $user->au_doc_verification))
+										<a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->au_doc_verification),'placeholder.png',$user->au_doc_verification) }}" download="">Download</a>
+									@else
+										<strong><i>No AU Doc provided</i></strong>
+									@endif
+								</div>
+							</div>
 
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Au Doc Status</label>
+								<div class="col-sm-9">
+									@php $au_doc_verification_status = $user->au_doc_verification_status @endphp
+									<label class="fancy-radio">
+										<input name="au_doc_verification_status" value="0" type="radio" {{ ($au_doc_verification_status == 0) ? 'checked' : '' }}>
+										<span><i></i>Pending</span>
+									</label>
+									<label class="fancy-radio">
+										<input name="au_doc_verification_status" value="1" type="radio" {{ ($au_doc_verification_status == 1) ? 'checked' : '' }}>
+										<span><i></i>Approved</span>
+									</label>
+									<label class="fancy-radio">
+										<input name="au_doc_verification_status" value="2" type="radio" {{ ($au_doc_verification_status == 2) ? 'checked' : '' }}>
+										<span><i></i>Rejected</span>
+									</label>
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="au_doc_verification" class="col-sm-3 control-label">AU Doc Verification Service</label>
 								<div class="col-sm-9">
