@@ -46,7 +46,7 @@
                                                 <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" value="{{$user->original_password}}">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control"  placeholder="+61 4 1234 56789 *" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
+                                                <input type="text" class="form-control"  placeholder="Mobile Number(+61 4 1234 56789 )*" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Date of Birth (M/D/Y)*" name="dob" value="{{date('m-d-Y', strtotime($user->dob))}}" id="my_date_picker"  required="required">

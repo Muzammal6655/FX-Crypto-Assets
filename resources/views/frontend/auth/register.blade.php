@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
-                                            placeholder="+61 4 1234 56789 *" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
+                                            placeholder="Mobile Number(+61 4 1234 56789 )*" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
