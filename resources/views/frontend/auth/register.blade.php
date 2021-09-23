@@ -46,10 +46,12 @@
                                             <input type="password" class="form-control" placeholder="Confirm Password *" name="password_confirmation" value="{{old('password')}}" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Mobile Number *" name="mobile_number" value="{{old('mobile_number')}}" minlength="8" maxlength="20" required="required">
+                                            <input type="text" class="form-control" 
+                                            placeholder="+61 4 1234 56789 *" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Date of Birth *" name="dob" id="my_date_picker" value="{{old('dob')}}"
+                                            <input type="text" class="form-control" 
+                                            placeholder="Date of Birth (M/D/Y)*" name="dob" id="my_date_picker" value="{{old('dob')}}"
                                             required="required">
                                         </div>
                                         <div class="form-group">
@@ -273,7 +275,7 @@
                     emailCheck: "Please enter a valid email address."
                 },
                 mobile_number: {
-                    mobileCheck: "Please enter a valid mobile number."
+                    mobileCheck: "Please enter a valid mobile number e.g +61 123456789."
                 },
                 emergency_id_verification_code: {
                     spaceCheck: "Please enter valid address",
@@ -330,7 +332,7 @@
             return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         });
         $.validator.addMethod("mobileCheck", function (value) {
-             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])[0-9\d]{11,}/.test(value)
+             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])(?=.*[+])[0-9\d+]{12,}/.test(value)
         });
         $.validator.addMethod("walletAddressCheck", function (value) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
@@ -370,6 +372,7 @@
   
     $(function() {
         $( "#my_date_picker" ).datepicker({
+                dateFormat: 'mm-dd-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRanger : "-100",

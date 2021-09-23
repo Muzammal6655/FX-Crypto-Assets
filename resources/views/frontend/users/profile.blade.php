@@ -46,10 +46,10 @@
                                                 <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" value="{{$user->original_password}}">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Mobile Number" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
+                                                <input type="text" class="form-control"  placeholder="+61 4 1234 56789 *" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Date of Birth" name="dob" value="{{$user->dob}}" id="my_date_picker"  required="required">
+                                                <input type="text" class="form-control" placeholder="Date of Birth (M/D/Y)*" name="dob" value="{{date('m-d-Y', strtotime($user->dob))}}" id="my_date_picker"  required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address" name="street" value="{{$user->street}}" required="required">
@@ -219,7 +219,7 @@
                         passwordCheck: "Minimum 8 or more characters, at least one uppercase letter, one lowercase letter, one number and one special character.",
                     },
                     mobile_number: {
-                         mobileCheck: "Please enter a valid mobile number."
+                         mobileCheck: "Please enter a valid mobile number e.g +61 123456789."
                     },
                     btc_wallet_address: {
                         walletAddressCheck: "Minimum 42 characters and no special character are used."
@@ -265,7 +265,7 @@
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.#])[A-Za-z\d@$!%*?&_.#]{8,}/.test(value)
             });
             $.validator.addMethod("mobileCheck", function (value) {
-             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])[0-9\d]{11,}/.test(value)
+             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])(?=.*[+])[0-9\d+]{12,}/.test(value)
             });
             $.validator.addMethod("walletAddressCheck", function (value) {
                 return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)[A-Za-z0-9\d]{42,}/.test(value)
@@ -274,7 +274,7 @@
     
     $(function() {
         $( "#my_date_picker" ).datepicker({
-                dateFormat: 'yy-m-d',
+                 dateFormat: 'mm-dd-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRanger : "-100",

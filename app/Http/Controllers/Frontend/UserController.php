@@ -28,7 +28,7 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
+    { 
         $input = $request->all();
         $user = Auth::user();
 
@@ -95,7 +95,8 @@ class UserController extends Controller
         } else {
             unset($input['password']);
         }
-
+        $dob = $request->input('dob');
+        $input['dob']= \Carbon\Carbon::parse($dob)->format('Y-m-d');
         $user->update($input);
 
 
