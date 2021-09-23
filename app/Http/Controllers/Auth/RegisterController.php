@@ -123,8 +123,9 @@ class RegisterController extends Controller
         } else {
             $user->btc_wallet_address = NULL;
         }
-
-        $user->dob = \Carbon\Carbon::parse($user->dob)->format('Y-m-d');
+ 
+ 
+        $user->dob = \Carbon\Carbon::createFromFormat('m-d-Y', $user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
         $user->original_password = $data['password'];

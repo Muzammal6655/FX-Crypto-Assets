@@ -96,7 +96,9 @@ class UserController extends Controller
             unset($input['password']);
         }
         $dob = $request->input('dob');
-        $input['dob']= \Carbon\Carbon::parse($dob)->format('Y-m-d');
+        $input['dob'] = \Carbon\Carbon::createFromFormat('m-d-Y', $dob)->format('Y-m-d');
+         // = \Carbon\Carbon::parse($dob)->format('Y-m-d');
+        // dd($user ,$dob , $input['dob']);
         $user->update($input);
 
 
