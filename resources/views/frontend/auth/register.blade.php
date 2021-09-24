@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
-                                            placeholder="Mobile Number(+61 4 1234 56789 )*" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
+                                            placeholder="Mobile Number(+614123456789 )*" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
@@ -332,7 +332,7 @@
             return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
         });
         $.validator.addMethod("mobileCheck", function (value) {
-             return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])(?=.*[+])[0-9\d+]{12,}/.test(value)
+        return /^(([+][(]?[0-9]{1,3}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})$/.test(value) 
         });
         $.validator.addMethod("walletAddressCheck", function (value) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
