@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/artisan-call', function() {
+    Artisan::call('storage:link');
+	dd('storage link done.123');
+});
 
 // ******************** //
 //     Admin Routes
