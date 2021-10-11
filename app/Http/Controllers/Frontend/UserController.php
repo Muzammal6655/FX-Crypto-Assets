@@ -29,6 +29,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     { 
+
         $input = $request->all();
         $user = Auth::user();
 
@@ -50,6 +51,14 @@ class UserController extends Controller
                 return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
             }
         }
+
+        /**
+         * Update password Check for previous one
+         */
+        // dd($user->original_password);
+        // if ($request->password  == $user->original_password ) {
+        //     return redirect()->back()->withInput()->withErrors(['error' => 'You have already used this password. Please choose a different one.']);
+        // }
 
         /**
          * Update password
@@ -75,20 +84,20 @@ class UserController extends Controller
              */
 
             if ($request->password != $user->original_password) {
+                
                 $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
                 if (!empty($password)) {
                     Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
                     return redirect()->back()->withInput();
                 }
 
-                Password::updateOrCreate(
+                Password::Create(
                     [
+                        // 'user_id' => $user->id,
+                        // 'password' => $user->original_password
+                     
                         'user_id' => $user->id,
-                        'password' => $user->original_password
-                    ],
-                    [
-                        'user_id' => $user->id,
-                        'password' => $user->original_password
+                        'password' => $request->password
                     ]
                 );
             }

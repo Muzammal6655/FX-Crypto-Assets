@@ -36,7 +36,7 @@ class HomeController extends Controller
         //     return redirect()->route('frontend.dashboard.index');
         // }
 
-        Session::flash('flash_success', 'Your account has been verified successfully');
+        Session::flash('flash_success', 'Email address has been verified as there are additional verification steps that are required.');
         return redirect()->route('login');
     }
 

@@ -52,7 +52,12 @@ class DeleteUsers extends Command
 
                 if($current_date->gt($user_deleted_date))
                 {    
-                    $user->delete();
+                    // $user->delete();
+                    $user->update([
+                        'status' => 0,
+                        'is_approved' => 0,
+                    ]); 
+
                 }
             }
         }
