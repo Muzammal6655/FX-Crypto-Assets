@@ -15,11 +15,7 @@
 		<div class="panel">
 			<div class="panel-heading">
 				<h3 class="panel-title">Passwords Listing</h3>
-				<div class="right">
-					<span class="label label-default" style="font-size: 90%;">Current Password: {{$user->original_password}}</span>
-				</div>
 			</div>
-
 			<div class="panel-body">
 				<table id="password-datatable" class="table table-hover" style="width:100%">
 					<thead>

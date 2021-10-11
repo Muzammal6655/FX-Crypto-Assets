@@ -132,5 +132,4 @@ class User extends Authenticatable
     {
       return $this->attributes['country_name'] = !empty($this->country_id) ? $this->country->name : '';
     }
-
 }

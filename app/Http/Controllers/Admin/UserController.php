@@ -317,9 +317,7 @@ class UserController extends Controller
             access_denied();
 
         $id = Hashids::decode($id)[0];
-        $model = User::findOrFail($input['id']);
-        
-        // User::destroy($id);
+        User::destroy($id);
         Session::flash('flash_success', 'Investor has been deleted successfully.');
 
         if($request->has('page') && $request->page == 'dashboard' )
@@ -385,7 +383,6 @@ class UserController extends Controller
         
         if(!have_right('investors-balances'))
             access_denied();
-
 
         $data = [];
         $data['id'] = $id;
@@ -560,12 +557,11 @@ class UserController extends Controller
     {    
         if(!have_right('investors-password'))
             access_denied();
-    
+         
         $data = [];
         $data['id'] = $id;
         $id = Hashids::decode($id)[0];
         $data['user'] = User::find($id);
-
        
         if ($request->ajax())
         {
@@ -573,11 +569,6 @@ class UserController extends Controller
 
             $datatable = Datatables::of($db_record);
             $datatable = $datatable->addIndexColumn();
-
-            // $datatable = $datatable->editColumn('current_password', function($row)
-            // {
-            //     return ucwords($row->user->original_password);
-            // });
 
             $datatable = $datatable->editColumn('password', function($row)
             {

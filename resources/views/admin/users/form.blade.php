@@ -190,20 +190,20 @@
 
 							<h4 class="heading">
 								Password & Confirm Password
-								<!-- @if($action == 'Edit')
+								@if($action == 'Edit')
 								<a href="{{url('admin/investors/send-password/'.Hashids::encode($user->id))}}" class="pull-right">
 									<button type="button" class="btn btn-primary btn-sm btn-fullrounded">
 										<i class="fa fa-paper-plane"></i><span>Send Password</span>
 									</button>
 								</a>
-								@endif -->
+								@endif
 							</h4>
 
 							<div class="form-group">
 								<label for="password" class="col-sm-3 control-label">Password</label>
 								<div class="col-sm-9">
 									<span class="fa fa-fw fa-eye password-field-icon toggle-password"></span>
-									<input type="password" name="password" id="password" minlength="8" maxlength="30"  readonly 
+									<input type="password" name="password" id="password" minlength="8" maxlength="30"
 										class="password form-control" value="{{$user->original_password}}" required="">
 								</div>
 							</div>
@@ -212,7 +212,7 @@
 								<label for="confirm_password" class="col-sm-3 control-label">Confirm Password</label>
 								<div class="col-sm-9">
 									<span class="fa fa-fw fa-eye password-field-icon toggle-password"></span>
-									<input type="password" name="confirm_password" class="password form-control" readonly 
+									<input type="password" name="confirm_password" class="password form-control"
 										value="{{$user->original_password}}" required="">
 								</div>
 							</div>
