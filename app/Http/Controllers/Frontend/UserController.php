@@ -41,6 +41,15 @@ class UserController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $newdate = date("d-m-Y", strtotime("-18 year"));
+        // dd(date('-18Y'));
+        // dd($newdate , $user->dob);
+        if (  $user->dob < $newdate ) 
+        {
+            
+            return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
+        }  
+
         if ($request->has('referral_code') && !empty($request->referral_code)) {
             $referrer = User::where('id', '!=', $user->id)->where('invitation_code', $request->referral_code)->first();
 
@@ -105,7 +114,7 @@ class UserController extends Controller
             unset($input['password']);
         }
         $dob = $request->input('dob');
-        $input['dob'] = \Carbon\Carbon::createFromFormat('m-d-Y', $dob)->format('Y-m-d');
+        $input['dob'] = \Carbon\Carbon::createFromFormat('d-m-Y', $dob)->format('Y-m-d');
          // = \Carbon\Carbon::parse($dob)->format('Y-m-d');
         // dd($user ,$dob , $input['dob']);
         $user->update($input);

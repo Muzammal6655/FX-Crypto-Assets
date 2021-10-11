@@ -276,7 +276,7 @@
     
     $(function() {
         $( "#my_date_picker" ).datepicker({
-                 dateFormat: 'mm-dd-yy',
+                   dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
                 yearRanger : "-100",

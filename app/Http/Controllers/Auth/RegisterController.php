@@ -87,15 +87,16 @@ class RegisterController extends Controller
          * Check Date OF Birthdays
          */
 
-        $newdate = date("m-d-Y", strtotime("-18 year"));
+        $newdate = date("d-m-Y", strtotime("-18 year"));
         // dd(date('-18Y'));
         // dd($newdate , $user->dob);
-        if ( $newdate > $user->dob ) 
+        if (  $user->dob < $newdate ) 
         {
+            
             return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
         }  
 
-
+      
         /**
          * Were you referred to Interesting FX?
          */
@@ -138,7 +139,7 @@ class RegisterController extends Controller
         }
  
  
-        $user->dob = \Carbon\Carbon::createFromFormat('m-d-Y', $user->dob)->format('Y-m-d');
+        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
         $user->original_password = $data['password'];
