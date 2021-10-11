@@ -46,10 +46,10 @@
                                                 <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" value="{{$user->original_password}}">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control"  placeholder="Mobile Number(614123456789 )*" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
+                                                <input type="text" class="form-control"  placeholder="Mobile Number+61 xxxxxxxxx 04xxxxxxxx  +61xxxxxxxxx*" name="mobile_number" value="{{$user->mobile_number}}" minlength="8" maxlength="20" required="required">
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Date of Birth (DD/MM/YYYY)*" name="dob" value="{{date('m-d-Y', strtotime($user->dob))}}" id="my_date_picker"  required="required">
+                                                <input type="text" class="form-control" placeholder="Date of Birth (DD-MM-YYY)*" name="dob" value="{{date('m-d-Y', strtotime($user->dob))}}" id="my_date_picker"  required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Address" name="street" value="{{$user->street}}" required="required">
@@ -283,7 +283,8 @@
                 //minDate: new Date(1970,06,22),
                 yearRange: "-100:+0",
                 minDate: new Date(1970,1 - 1),
-                maxDate: '-18Y',
+                // maxDate: '-18Y',
+                 maxDate: '-1D',
             });
     });
 

@@ -47,12 +47,12 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
-                                            placeholder="Mobile Number(614123456789 )*" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
+                                            placeholder="Mobile Number+61 xxxxxxxxx 04xxxxxxxx  +61xxxxxxxxx*" name="mobile_number" value="{{old('mobile_number')}}" minlength="12" maxlength="20" required="required">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" 
-                                            placeholder="Date of Birth (DD/MM/YYYY)*" name="dob" id="my_date_picker" value="{{old('dob')}}"
-                                            required="required">
+                                            placeholder="Date of Birth (DD-MM-YYYY)*" name="dob" id="my_date_picker" value="{{old('dob')}}"
+                                            required="required" autocomplete="off">
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Address *" name="street" value="{{old('street')}}" required="required">
@@ -380,7 +380,7 @@
                 // yearRanger : "-100",
                 yearRange: "-100:+0",
                 minDate: new Date(1970,1 - 1),
-                maxDate: '-18Y',
+                maxDate: '-1D',
             });
     });
 </script>

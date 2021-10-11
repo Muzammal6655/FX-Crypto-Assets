@@ -32,7 +32,7 @@
                                     </div>
                                     @else
                                      <div class="alert alert-danger persist-alert" role="alert">
-                                         Passport size must be less then 5MB.
+                                         Document size must be less then 5MB.
                                     </div>
                                     @endif
 

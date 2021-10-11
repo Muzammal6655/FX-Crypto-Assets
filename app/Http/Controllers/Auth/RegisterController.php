@@ -84,6 +84,19 @@ class RegisterController extends Controller
         $user->fill($data);
 
         /**
+         * Check Date OF Birthdays
+         */
+
+        $newdate = date("m-d-Y", strtotime("-18 year"));
+        // dd(date('-18Y'));
+        // dd($newdate , $user->dob);
+        if ( $newdate > $user->dob ) 
+        {
+            return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
+        }  
+
+
+        /**
          * Were you referred to Interesting FX?
          */
 
