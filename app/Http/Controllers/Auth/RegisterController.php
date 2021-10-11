@@ -205,12 +205,14 @@ class RegisterController extends Controller
         $this->sendRegisterResponse();
 
         return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+            ?: redirect()->route('login');
     }
 
     public function sendRegisterResponse()
     {
-        return redirect($this->redirectPath())
-            ->with('flash_success', 'Account verification link has been sent to your account.');
+        return redirect()->route('login')
+            ->with('flash_success', 'Thank you for registering, a confimation link has been sent to you email account.');
+        // return redirect()
+        //     ->with('flash_success', 'Account verification link has been sent to your account.');
     }
 }

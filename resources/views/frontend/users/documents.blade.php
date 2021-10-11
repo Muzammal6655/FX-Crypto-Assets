@@ -30,6 +30,10 @@
                                     <div class="alert alert-danger persist-alert" role="alert">
                                         Your documents are under verification!
                                     </div>
+                                    @else
+                                     <div class="alert alert-danger persist-alert" role="alert">
+                                         Passport size must be less then 5MB.
+                                    </div>
                                     @endif
 
                                     @include('frontend.messages')
@@ -55,7 +59,7 @@
                                         <div class="form-group">
                                             <div>
                                                 @if (!empty($user->passport) && \File::exists(public_path() . '/storage/users/' . $user->id . '/documents/' . $user->passport))
-                                                <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->passport),'placeholder.png',$user->passport) }}" download="">Download</a>
+                                               <!--  <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->passport),'placeholder.png',$user->passport) }}" download="">Download</a> -->
                                                 @else
                                                 <strong><i>No passport provided</i></strong>
                                                 @endif
@@ -63,7 +67,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="file" class="form-control" name="passport">
+                                           <!--  <input type="file" class="form-control" name="passport" accept="image/jpeg,image/png"> -->
+                                            <input type="file" class="form-control"    name="passport"  accept=".pdf,.jpeg,.png,.jpg,.image/"/>
                                         </div>
 
                                         <p>
@@ -85,7 +90,7 @@
                                         <div class="form-group">
                                             <div>
                                                 @if (!empty($user->photo) && \File::exists(public_path() .'/storage/users/' . $user->id . '/documents/' . $user->photo))
-                                                <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->photo),'placeholder.png',$user->photo) }}" download="">Download</a>
+                                               <!--  <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->photo),'placeholder.png',$user->photo) }}" download="">Download</a> -->
                                                 @else
                                                 <strong><i>No photo provided</i></strong>
                                                 @endif
@@ -93,7 +98,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="file" class="form-control" name="photo">
+                                            <input type="file" class="form-control" name="photo" accept=".pdf,.jpeg,.png,.jpg,.image/">
                                         </div>
                                         <p>
                                             <strong>AU DOC:</strong>
@@ -114,7 +119,7 @@
                                         <div class="form-group">
                                             <div>
                                                 @if (!empty($user->au_doc_verification) && \File::exists(public_path() . '/storage/users/' . $user->id . '/documents/' . $user->au_doc_verification))
-                                                <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->au_doc_verification),'placeholder.png',$user->au_doc_verification) }}" download="">Download</a>
+                                                <!-- <a href="{{ checkImage(asset(env('PUBLIC_URL').'storage/users/' . $user->id . '/documents/' . $user->au_doc_verification),'placeholder.png',$user->au_doc_verification) }}" download="">Download</a> -->
                                                 @else
                                                 <strong><i>No AU Doc  provided</i></strong>
                                                 @endif
@@ -122,7 +127,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="file" class="form-control" name="au_doc_verification">
+                                            <input type="file" class="form-control" name="au_doc_verification" accept=".pdf,.jpeg,.png,.jpg,.image/">
                                         </div>
                                         @if(!empty($user->documents_rejection_reason))
                                         @if( $user->photo_status == 2 || $user->passport_status == 2 ||$user->au_doc_verification_status == 2 )
