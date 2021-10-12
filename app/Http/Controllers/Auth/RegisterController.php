@@ -89,9 +89,11 @@ class RegisterController extends Controller
         /**
          * Check Date OF Birthdays
          */
-        // $newdate = date("d-m-Y", strtotime("-18 year"));
-        // $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
-        // $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
+        
+       // $newdate = date("d-m-Y", strtotime("-18 year"));
+        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+
+        //$newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
          
         // dd(date('-18Y'));
         // $user->dob = '11-10-2021';
