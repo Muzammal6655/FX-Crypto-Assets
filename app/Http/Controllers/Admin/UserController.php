@@ -315,11 +315,9 @@ class UserController extends Controller
     {
         if(!have_right('investors-delete'))
             access_denied();
-
         $id = Hashids::decode($id)[0];
-        $model = User::findOrFail($input['id']);
-        
-        // User::destroy($id);
+        // $model = User::findOrFail($id);
+        User::destroy($id);
         Session::flash('flash_success', 'Investor has been deleted successfully.');
 
         if($request->has('page') && $request->page == 'dashboard' )
