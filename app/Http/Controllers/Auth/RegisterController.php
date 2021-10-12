@@ -90,10 +90,10 @@ class RegisterController extends Controller
         $newdate = date("d-m-Y", strtotime("-18 year"));
         // dd(date('-18Y'));
         // dd($newdate , $user->dob);
-        if ( $newdate  > $user->dob) 
-        {
-            return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        }  
+        // if ( $newdate  > $user->dob) 
+        // {
+        //     return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
+        // }  
 
       
         /**
