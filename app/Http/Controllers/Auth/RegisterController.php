@@ -85,26 +85,6 @@ class RegisterController extends Controller
     {
         $user = new User();
         $user->fill($data);
-
-        /**
-         * Check Date OF Birthdays
-         */
-        
-       // $newdate = date("d-m-Y", strtotime("-18 year"));
-        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
-
-        //$newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
-         
-        // dd(date('-18Y'));
-        // $user->dob = '11-10-2021';
-        // dd($newdate , $user->dob); 
-        // if ($user->dob > $newdate) 
-        // { 
-           
-        //      return redirect()->route('register')
-        //     ->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        // }  
-        
       
         /**
          * Were you referred to Interesting FX?
@@ -146,10 +126,8 @@ class RegisterController extends Controller
         } else {
             $user->btc_wallet_address = NULL;
         }
- 
-        // dd('asdasasd');
-        // $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
-        // dd($user->dob);
+        
+        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
         $user->original_password = $data['password'];
