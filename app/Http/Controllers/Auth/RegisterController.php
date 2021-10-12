@@ -58,16 +58,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        
+         $messages = [
+            'dob.before' => 'You must be atleast 18 years old to setup a account.',
+        ];
         $validator = Validator::make($data, [
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
             'btc_wallet_address' => ['unique:users', 'nullable'],
             'dob'                   => ['required','date','before:-18 years']
-        ]);
-        
-
+        ], $messages);
+  
         if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
         }
