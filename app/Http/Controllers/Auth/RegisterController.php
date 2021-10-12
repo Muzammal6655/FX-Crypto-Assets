@@ -58,17 +58,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
         $validator = Validator::make($data, [
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
             'btc_wallet_address' => ['unique:users', 'nullable'],
+            'dob'                   => ['required','date','before:-18 years']
         ]);
+        
 
         if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
         }
-
+       
         return $validator;
     }
 
@@ -86,19 +89,19 @@ class RegisterController extends Controller
         /**
          * Check Date OF Birthdays
          */
-        $newdate = date("d-m-Y", strtotime("-18 year"));
-        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
-        $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
+        // $newdate = date("d-m-Y", strtotime("-18 year"));
+        // $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+        // $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
          
         // dd(date('-18Y'));
         // $user->dob = '11-10-2021';
         // dd($newdate , $user->dob); 
-        if ($user->dob > $newdate) 
-        { 
+        // if ($user->dob > $newdate) 
+        // { 
            
-             return redirect()->route('register')
-            ->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        }  
+        //      return redirect()->route('register')
+        //     ->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
+        // }  
         
       
         /**
