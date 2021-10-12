@@ -86,15 +86,20 @@ class RegisterController extends Controller
         /**
          * Check Date OF Birthdays
          */
-
         $newdate = date("d-m-Y", strtotime("-18 year"));
+        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+        $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
+         
         // dd(date('-18Y'));
-        // dd($newdate , $user->dob);
-        // if ( $newdate  > $user->dob) 
-        // {
-        //     return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        // }  
-
+        // $user->dob = '11-10-2021';
+        // dd($newdate , $user->dob); 
+        if ($user->dob > $newdate) 
+        { 
+           
+             return redirect()->route('register')
+            ->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
+        }  
+        
       
         /**
          * Were you referred to Interesting FX?
@@ -137,8 +142,9 @@ class RegisterController extends Controller
             $user->btc_wallet_address = NULL;
         }
  
- 
-        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+        // dd('asdasasd');
+        // $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+        // dd($user->dob);
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
         $user->original_password = $data['password'];
@@ -225,7 +231,6 @@ class RegisterController extends Controller
     {
         return redirect()->route('login')
             ->with('flash_success', 'Thank you for registering, a confimation link has been sent to you email account.');
-        // return redirect()
-        //     ->with('flash_success', 'Account verification link has been sent to your account.');
+        
     }
 }

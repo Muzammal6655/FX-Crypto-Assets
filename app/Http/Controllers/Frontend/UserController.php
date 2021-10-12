@@ -42,13 +42,13 @@ class UserController extends Controller
         }
 
         $newdate = date("d-m-Y", strtotime("-18 year"));
-        // dd(date('-18Y'));
-        // dd($newdate , $user->dob);
-        if (   $newdate  > $user->dob ) 
-        {
-            
+        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
+        $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
+  
+       if ($user->dob > $newdate) 
+        { 
             return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        }  
+        }   
 
         if ($request->has('referral_code') && !empty($request->referral_code)) {
             $referrer = User::where('id', '!=', $user->id)->where('invitation_code', $request->referral_code)->first();
