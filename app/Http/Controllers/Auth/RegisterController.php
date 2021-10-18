@@ -214,7 +214,7 @@ class RegisterController extends Controller
     public function sendRegisterResponse()
     {
         return redirect()->route('login')
-            ->with('flash_success', 'Thank you for registering, a confimation link has been sent to you email account.');
+            ->with('flash_success', 'Thank you for registering, a confirmation link has been sent to you email account.');
         
     }
 }

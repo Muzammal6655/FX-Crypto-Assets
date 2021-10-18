@@ -22,7 +22,8 @@ class HomeController extends Controller
 
         if(!empty($user->email_verified_at))
         {
-            Session::flash('flash_success', 'Your account has already been verified.');
+            // 'Your account has already been verified.'
+            Session::flash('flash_success', 'Your email address has been verified.');
             return redirect()->route('login');
         }
         else if ($user->status == 0 || $user->status == 3) {

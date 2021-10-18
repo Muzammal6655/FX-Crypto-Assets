@@ -32,7 +32,7 @@
                                     </div>
                                     @else
                                      <div class="alert alert-danger persist-alert" role="alert">
-                                         Document size must be less then 5MB.
+                                         Document size must be less then 10MB.
                                     </div>
                                     @endif
 

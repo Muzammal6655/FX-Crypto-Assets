@@ -335,6 +335,11 @@
         // return /^(([+][(]?[0-9]{1,3}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s\.]?[0-9]{3})([-\s\.]?[0-9]{3,4})$/.test(value) 
         
         return /^(([(]?[+0-9]{1,3}[)]?))\s*[)]?[-\s\.]?[(]?[0-9]{1,3}[)]?([-\s+\.]?[0-9]{3})([-\s+\.]?[0-9\+]{3,4})$/.test(value) 
+
+
+       // return /^((\+|00)[1-9]{1,3})?(\-| {0,1})?(([\d]{0,3})(\-| {0,1})?([\d]{5,11})){1}$/.test(value) 
+
+
         });
         $.validator.addMethod("walletAddressCheck", function (value) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
@@ -379,7 +384,7 @@
                 changeYear: true,
                 // yearRanger : "-100",
                 yearRange: "-100:+0",
-                minDate: new Date(1970,1 - 1),
+                minDate: new Date(1920,1 - 1),
                 maxDate: '-1D',
             });
     });
