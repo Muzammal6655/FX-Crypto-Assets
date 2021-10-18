@@ -37,7 +37,7 @@ class HomeController extends Controller
         //     return redirect()->route('frontend.dashboard.index');
         // }
 
-        Session::flash('flash_success', 'Email address has been verified as there are additional verification steps that are required.');
+        Session::flash('flash_success', 'Email address has been verified, your account is under review by Admin. Please contact with Admin in case of any concerns.');
         return redirect()->route('login');
     }
 

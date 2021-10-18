@@ -383,8 +383,8 @@
                 changeMonth: true,
                 changeYear: true,
                 // yearRanger : "-100",
-                yearRange: "-100:+0",
-                minDate: new Date(1920,1 - 1),
+                yearRange: "-800:+0",
+                minDate: new Date(1220,1 - 1),
                 maxDate: '-1D',
             });
     });
