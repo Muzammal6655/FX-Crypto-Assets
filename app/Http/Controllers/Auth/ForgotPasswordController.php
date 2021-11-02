@@ -34,8 +34,7 @@ class ForgotPasswordController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (!$user)
-        {
+        if (!$user) {
             return redirect()->back()->withInput()->withErrors(['error' => "We can't find a user with that e-mail address."]);
         }
 
@@ -47,20 +46,19 @@ class ForgotPasswordController extends Controller
             ]
         );
 
-        if ($user && $passwordReset)
-        {
+        if ($user && $passwordReset) {
             $name = $user->name;
             $email = $user->email;
-            $reset_link = url('/reset-password/'.$passwordReset->token);
+            $reset_link = url('/reset-password/' . $passwordReset->token);
 
-            $email_template = EmailTemplate::where('type','reset_password')->first();
-            
+            $email_template = EmailTemplate::where('type', 'reset_password')->first();
+
             $subject = $email_template->subject;
             $content = $email_template->content;
 
-            $search = array("{{name}}","{{link}}","{{app_name}}");
-            $replace = array($name,$reset_link,env('APP_NAME'));
-            $content  = str_replace($search,$replace,$content);
+            $search = array("{{name}}", "{{link}}", "{{app_name}}");
+            $replace = array($name, $reset_link, env('APP_NAME'));
+            $content  = str_replace($search, $replace, $content);
 
             sendEmail($email, $subject, $content);
 
@@ -72,15 +70,13 @@ class ForgotPasswordController extends Controller
     public function resetPasswordForm(Request $request, $token)
     {
         $passwordReset = PasswordReset::where('token', $token)->first();
-        
-        if (!$passwordReset)
-        {
+
+        if (!$passwordReset) {
             Session::flash('flash_danger', 'The password reset token is invalid.');
             return redirect('forgot-password');
         }
 
-        if (Carbon::parse($passwordReset->updated_at)->addMinutes(60)->isPast()) 
-        {
+        if (Carbon::parse($passwordReset->updated_at)->addMinutes(60)->isPast()) {
             $passwordReset->delete();
 
             Session::flash('flash_danger', 'This password reset token is expired.');
@@ -89,7 +85,8 @@ class ForgotPasswordController extends Controller
 
         $data = [];
         $data['email'] = $passwordReset->email;
-
+        $user = User::where('email', $passwordReset->email)->first();
+        $data["security_questions"] = $user->securityQuestionAnswer;
         return view('frontend.auth.passwords.reset')->with($data);
     }
 
@@ -100,22 +97,19 @@ class ForgotPasswordController extends Controller
             'password' => 'required|string|min:8|max:30|confirmed',
         ]);
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             Session::flash('flash_danger', $validator->messages());
             return redirect()->back()->withInput();
         }
-            
+
         $user = User::where('email', $request->email)->first();
-        if (!$user)
-        {
+        if (!$user) {
             Session::flash('flash_danger', "We can't find a user with that e-mail address.");
             return redirect()->back()->withInput();
         }
 
         $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
-        if(!empty($password))
-        {
+        if (!empty($password)) {
             Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
             return redirect()->back()->withInput();
         }
@@ -130,13 +124,13 @@ class ForgotPasswordController extends Controller
                 'password' => $user->original_password
             ]
         );
-            
+
         $user->original_password = $request->password;
         $user->password = Hash::make($request->password);
         $user->password_attempts_count = 0;
         $user->password_attempts_date = null;
-        $user->otp_attempts_count = 0;  
-        $user->otp_attempts_date = null;    
+        $user->otp_attempts_count = 0;
+        $user->otp_attempts_date = null;
         $user->save();
 
         $passwordReset = PasswordReset::where('email', $request->email)->delete();

@@ -16,7 +16,10 @@ Route::get('/artisan-call', function() {
     Artisan::call('storage:link');
 	dd('storage link done.123');
 });
-
+Route::get('/migrate', function () {
+    $re = Artisan::call('migrate');
+    dd('migration done.123');
+});
 // ******************** //
 //     Admin Routes
 // ******************** //
@@ -75,6 +78,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::post('preview-profits-import-file', 'ProfitController@previewFile');
     Route::resource('profits', 'ProfitController');
     Route::resource('pool-balances', 'PoolBalanceController');
+    Route::resource('security-questions', 'SecurityQuestionController');
+   
 });
 
 // ******************* //

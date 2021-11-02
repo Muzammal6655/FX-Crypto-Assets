@@ -121,6 +121,13 @@ $segment_3 = Request::segment(3);
                     </a>
                 </li>
             @endif
+            @if(have_right('security-questions-list'))
+                <li>
+                    <a href="{{  url('admin/security-questions') }}" class="{{($segment_2 == 'security-questions') ? 'active' : ''}}">
+                        <i class="fa fa-envelope"></i><span class="title">Security Questions</span>
+                    </a>
+                </li>
+            @endif
 
             @if(have_right('site-settings'))
                 <li>

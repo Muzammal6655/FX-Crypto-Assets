@@ -111,6 +111,10 @@ class User extends Authenticatable
     {
       return $this->belongsTo('App\Models\User','referrer_account_id'); 
     }
+    public function securityQuestionAnswer(){
+
+      return $this->hasMany('App\Models\SecurityQuestionAnswer', 'user_id');
+    }
     
     // ************************** //
     //  Append Extra Attributes   //

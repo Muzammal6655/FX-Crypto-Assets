@@ -75,10 +75,16 @@
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @php $i=0 ;@endphp
+                                        @foreach ($security_questions as $security_question)
+                                        <p><strong>{{$security_question->question}} *</strong></p>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Emergency ID Verification Code *" name="emergency_id_verification_code" value="{{old('emergency_id_verification_code')}}" required="required">
+                                        <input type="hidden" name="question_id{{$i}}" value="{{$security_question->id}}" required="required">
+                                            <input type="text" class="form-control" placeholder="Answer*" name="answer{{$i}}" value="{{old('answer')}}" required="required">
                                         </div>
-
+                                        @php $i++ ; @endphp
+                                        @endforeach
+                                       
                                         <p><strong>Were you referred to Interesting FX? *</strong></p>
 
                                         <div class="form-group">

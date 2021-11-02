@@ -8,6 +8,7 @@ use App\Models\EmailTemplate;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Referral;
+use App\Models\SecurityQuestion;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -58,7 +59,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-         $messages = [
+
+        $messages = [
             'dob.before' => 'You must be atleast 18 years old to setup a account.',
         ];
         $validator = Validator::make($data, [
@@ -66,13 +68,21 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:30', 'confirmed'],
             'btc_wallet_address' => ['unique:users', 'nullable'],
-            'dob'                   => ['required','date','before:-18 years']
+            'dob'             => ['required', 'date', 'before:-18 years'],
+            'question_id0'    => ['required'],
+            'answer0'    => ['required'],
+            'question_id1'    => ['required'],
+            'answer1'    => ['required'],
+            'question_id2'    => ['required'],
+            'answer2'    => ['required'],
+
         ], $messages);
-  
+
         if ($validator->fails()) {
+
             Session::flash('flash_danger', $validator->messages());
         }
-       
+
         return $validator;
     }
 
@@ -84,9 +94,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         $user = new User();
         $user->fill($data);
-      
+
         /**
          * Were you referred to Interesting FX?
          */
@@ -127,7 +138,7 @@ class RegisterController extends Controller
         } else {
             $user->btc_wallet_address = NULL;
         }
-        
+
         $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
         $user->status = 2; // pending
         $user->is_approved = 0; // pending
@@ -147,7 +158,16 @@ class RegisterController extends Controller
 
         $user->invitation_code = Hashids::encode($user->id);
         $user->save();
+        if ($user) {
+            for ($i = 0; $i <= 2; $i++) {
+                $security_answer = $user->securityQuestionAnswer()->create([
+                    'trip_id' => $user->id,
+                    'question_id' =>  $data['question_id' . $i],
+                    'answer' => $data['answer' . $i],
 
+                ]);
+            }
+        }
         $email_template = EmailTemplate::where('type', 'sign_up_confirmation')->first();
 
         $email = $user->email;
@@ -173,8 +193,8 @@ class RegisterController extends Controller
         $hashId = Hashids::encode($user->id);
         $link = url('/admin/investors/' . Hashids::encode($user->id));
 
-        $search = array("{{name}}","{{email}}", "{{app_name}}", "{{link}}");
-        $replace = array($user->name,$user->email, env('APP_NAME'), $link);
+        $search = array("{{name}}", "{{email}}", "{{app_name}}", "{{link}}");
+        $replace = array($user->name, $user->email, env('APP_NAME'), $link);
         $content  = str_replace($search, $replace, $content);
 
         sendEmail(settingValue('contact_email'), $subject, $content);
@@ -190,6 +210,7 @@ class RegisterController extends Controller
     {
         $data['countries'] = Country::all();
         $data['referral_code'] = $request->has('ref') ? $request->ref : '';
+        $data['security_questions'] = SecurityQuestion::where('status', 1)->orderby('id', 'DESC')->limit(3)->get();
         return view('frontend.auth.register')->with($data);
     }
 
@@ -215,6 +236,5 @@ class RegisterController extends Controller
     {
         return redirect()->route('login')
             ->with('flash_success', 'Thank you for registering, a confirmation link has been sent to you email account.');
-        
     }
 }
