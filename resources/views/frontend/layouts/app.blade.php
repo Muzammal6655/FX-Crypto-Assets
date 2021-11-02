@@ -42,6 +42,11 @@
   
 
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         AOS.init();
         if(!$('.alert').hasClass('persist-alert'))
         {

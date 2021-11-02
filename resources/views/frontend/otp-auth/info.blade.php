@@ -37,9 +37,29 @@
                                         <p>Android, iOS, and Blackberry—<strong><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en" target="_blank">Google Authenticator</a></strong></p>
 
                                         @if($user->otp_auth_status)
-                                            <a href="{{url('otp-auth/disable-two-factor-authentication')}}">
+                                           <!--  <a href="{{url('otp-auth/disable-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Disable</button>
-                                            </a>
+                                            </a> -->
+                                        <p>2FA Disable</p>
+                                        <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" method="POST">
+                                        {{ csrf_field() }}
+                                        <!-- <input type="checkbox" class="child" name="radio-group" checked> -->
+                                         <input type="checkbox" name="checkbox" id="checkbox-email" value="1"  /> 
+                                        <label for="Email">Email</label>
+                                        <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+                                        <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code" /> 
+                                          <br>
+                                        <input type="checkbox" name="checkbox" id="checkbox-2fa-code" 
+                                         value="2"/> 
+                                        <label for="2FA Code">2FA Code</label>
+                                        <input id="showthis2FA"  class="showthis" name="two_fa_code"  
+                                         type="text"  placeholder="Enter the 2FA Code" /> 
+                                         <br>
+                                        <input type="checkbox" name="checkbox" id="checkbox-both" value="both" /> 
+                                        <label for="both"> Both</label>
+                                        <br>
+                                         <button type="submit" id="disable" class="btn-primary">Disable</button>
+                                        </form>     
                                         @else
                                             <a href="{{url('otp-auth/setup-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Configure</button>
@@ -54,4 +74,75 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+ $(function () {
+        $('.showthis').hide(); 
+        $('#generate_otp').hide();
+        $('#disable').attr("disabled", true);
+        $('#checkbox-email').on('click', function () {
+            if($('#checkbox-email').is(':checked')){
+            $('#showthis').show();
+            $('.showthis2FA').show();
+            $("#checkbox-2fa-code").attr("disabled", true);
+            $('#disable').attr("disabled", false);
+            }else{
+            $('#showthis').hide();
+            $('#disable').attr("disabled", true);
+            $('.showthis2FA').hide();
+            $("#checkbox-2fa-code").attr("disabled", false);
+            }
+        });
+         $('#checkbox-2fa-code').on('click', function () {
+            if($('#checkbox-2fa-code').is(':checked')){
+            $('#showthis2FA').show();
+            $("#checkbox-email").attr("disabled", true);
+            $('#disable').attr("disabled", false);
+            }else{
+            $('#showthis2FA').hide();
+            $("#checkbox-email").attr("disabled", false);
+            $("#checkbox-2fa-code").attr("disabled", false);
+            $('#disable').attr("disabled", true);
+
+            }
+        });
+          $('#checkbox-both').on('click', function () {
+            if($('#checkbox-both').is(':checked')){
+            $('#showthis').show();
+            $('.showthis2FA').show();
+            $('#checkbox-email').prop('checked', true);
+            $('#checkbox-2fa-code').prop('checked', true);
+            $("#checkbox-email").attr("disabled", false);
+            $('#disable').attr("disabled", false);
+            $("#checkbox-2fa-code").attr("disabled", false);
+            $('#showthis2FA').show();
+            }else{
+            $('#disable').attr("disabled", true);
+            $('#showthis').hide();
+            $('.showthis2FA').hide();
+             $('#checkbox-email').prop('checked', false);
+            $('#checkbox-2fa-code').prop('checked', false);
+            $('#showthis2FA').hide();
+
+            }
+        });
+    });
+  $("#generate_otp").click(function(){
+            $('#generate_otp_loading').show();
+            $('#generate_otp').prop('disabled',true);
+
+            $.ajax({
+                url: "{{ url('/otp-auth/send-email-code?type=deposit_request') }}",
+                type: 'GET',
+                success: function(res) {
+                    $('#generate_otp_loading').hide();
+                    $('#generate_otp').prop('disabled',false);
+                    alert(res);
+                }
+            });
+        });
+</script>
+
 @endsection

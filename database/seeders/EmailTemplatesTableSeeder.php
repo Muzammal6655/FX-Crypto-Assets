@@ -311,7 +311,8 @@ Hi {{name}},
                 'type' => 'account_approve_request',
                 'subject' => 'Account Approval By Admin Request',
                 'content' => '<div style="padding: 10px 30px;">
-<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 22px; margin-top: 20px; color: rgb(0, 0, 0);">Registered New User</h3><h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; line-height: 25px; font-weight: normal;">
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 22px; margin-top: 20px; color: rgb(0, 0, 0);">Registered New User</h3>
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; line-height: 25px; font-weight: normal;">
 Hi Admin, 
 </h3>
 <p style="line-height: 25px; margin-top: 40px; margin-bottom: 40px;"><font color="#555555" face="Segoe, Segoe UI, sans-serif"><span style="font-size: 17px;">New Investor registered on your website&nbsp;</span><br><span style="font-size: 17px;"><b>Name:</b></span><b style="font-size: 17px;">{{name}} </b><br><b style="font-size: 17px;">Email:{{email}}</b><span style="font-size: 17px;">.</span><br><span style="font-size: 17px;">Click on the button below to view the request.&nbsp;</span></font></p>
@@ -327,6 +328,59 @@ Hi Admin,
 </div>
 </div>',
                 'info' => '{"name":"User full name","email":"Email Address","link":"Link for view register request","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-09-16 18:06:46',
+                'updated_at' => '2021-09-16 10:00:50',
+            ),
+            11 => 
+            array (
+                'id' => 12,
+                'type' => 'document_req',
+                'subject' => 'Customer Send Documentation',
+                'content' => '<div style=" padding:10px 30px 10px; 
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;">Customer Send Documentation</h3>
+<h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+Hi {{name}}, 
+</h3>                
+<h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+Thank you for sending the document. Please 10 days are required to verify your document.</h3>
+</div>
+
+<div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+<div style="margin-top: 30px;  font-size: 15px; color: #555;">
+<p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers</p>
+{{app_name}}
+</div>
+</div>',
+                'info' => '{"name":"User full name","email":"Email Address","link":"Link for view register request","app_name":"Website name"}',
+                'status' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2021-09-16 18:06:46',
+                'updated_at' => '2021-09-16 10:00:50',
+            ),
+            12 => 
+            array (
+                'id' => 13,
+                'type' => '2fa_disable',
+                'subject' => '2FA Disable',
+                'content' => '<div style=" padding:10px 30px 10px; 
+                <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;">Your 2FA is disabled</h3>
+                <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+                Hi {{name}}, 
+                </h3>                
+                <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
+                Your 2FA is disabled because you forgot your password and App.&nbsp; Please contact with Admin in case of any concerns.</h3>
+                </div>
+
+                <div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
+                <div style="margin-top: 30px;  font-size: 15px; color: #555;">
+                <p style="font-size: 15px; font-style: italic; font-weight: 600; margin-bottom: 0;">Cheers</p>
+                {{app_name}}
+                </div>
+                </div>',
+
+                'info' => '{"name":"User full name","email":"Email Address","app_name":"Website name"}',
                 'status' => 1,
                 'deleted_at' => NULL,
                 'created_at' => '2021-09-16 18:06:46',

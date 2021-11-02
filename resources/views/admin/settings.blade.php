@@ -95,6 +95,16 @@
                 </div>
               </div>
 
+              <h4 class="heading">Verify the Document</h4>
+
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Document Approved Days</label>
+                <div class="col-sm-9">
+                  <input type="number" name="doc_approval_days" min="0" max="100" class="form-control"
+                    value="{{isset($settings['doc_approval_days']) ? $settings['doc_approval_days'] : ''}}">
+                </div>
+              </div>
+
               <div class="text-right">
                 <a href="{{url('admin')}}">
                   <button type="button" class="btn cancel btn-fullrounded">

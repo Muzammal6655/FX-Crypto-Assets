@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Country;
+use App\Models\EmailTemplate;
 use App\Models\Referral;
 use App\Models\Password;
+use App\Models\kycDocuments;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use Auth;
 use Hashids;
@@ -32,6 +35,9 @@ class UserController extends Controller
 
         $input = $request->all();
         $user = Auth::user();
+        $validations = [
+          'dob' => ['required','date','before:-18 years']
+        ];
 
         $validations['btc_wallet_address'] = [Rule::unique('users')->ignore($user->id)];
         $validator = Validator::make($request->all(), $validations);
@@ -40,15 +46,14 @@ class UserController extends Controller
             Session::flash('flash_danger', $validator->messages());
             return redirect()->back()->withInput();
         }
-
-        $newdate = date("d-m-Y", strtotime("-18 year"));
-        $user->dob = \Carbon\Carbon::createFromFormat('d-m-Y', $user->dob)->format('Y-m-d');
-        $newdate = \Carbon\Carbon::createFromFormat('d-m-Y', $newdate)->format('Y-m-d');
-  
-       if ($user->dob > $newdate) 
-        { 
-            return redirect()->back()->withInput()->withErrors(['error' => 'You must be atleast 18 years old to setup a account.']);
-        }   
+       
+        
+        $change_format   = $input['dob'];
+       
+        // $change_format =  Carbon::parse($change_format)->format('m-d-Y');
+        $change_format = \Carbon\Carbon::CreateFromFormat('d-m-Y', $change_format)->format('d-m-Y');
+        $update_Date =  Carbon::parse($user->dob)->format('m-d-Y');
+      
 
         if ($request->has('referral_code') && !empty($request->referral_code)) {
             $referrer = User::where('id', '!=', $user->id)->where('invitation_code', $request->referral_code)->first();
@@ -114,12 +119,18 @@ class UserController extends Controller
             unset($input['password']);
         }
         $dob = $request->input('dob');
-        $input['dob'] = \Carbon\Carbon::createFromFormat('d-m-Y', $dob)->format('Y-m-d');
-         // = \Carbon\Carbon::parse($dob)->format('Y-m-d');
-        // dd($user ,$dob , $input['dob']);
+         
+            $flash_message = 'profile has been update';
+        if ($request->name != $user->name   || $change_format != $update_Date  ) 
+        {       
+             $flash_message = 'Your profile has been update please upload the documentation again.';
+             $user->photo_status = 0;
+             $user->passport_status = 0;
+             $user->au_doc_verification_status = 0;
+
+        }
+        $input['dob'] = \Carbon\Carbon::createFromFormat('d-m-Y', $change_format)->format('Y-m-d');
         $user->update($input);
-
-
         if (!empty($referrer)) {
             Referral::create([
                 'referrer_id' => $referrer->id,
@@ -131,7 +142,7 @@ class UserController extends Controller
             auth()->logoutOtherDevices($password);
         }
 
-        $request->session()->flash('flash_success', 'Profile has been updated successfully!');
+        $request->session()->flash('flash_success', $flash_message);
         return redirect('/profile');
     }
 
@@ -142,7 +153,8 @@ class UserController extends Controller
     }
 
     public function uploadDocuments(Request $request)
-    {
+    {   
+         
         $user = Auth::user();
         //10240 
         $validations = [
@@ -234,9 +246,81 @@ class UserController extends Controller
             $user->au_doc_verification = $filename;
             $user->au_doc_verification_status = 0;
         }
+
+        $data['document'][1] = $user->passport;
+        $data['document'][2] = $user->photo;
+        $data['document'][3] = $user->au_doc_verification;
+        
+        foreach ($data['document'] as $key => $value) {
+            $kyc_doc = new kycDocuments();
+            $kyc_doc->user_id = $user->id;
+            $kyc_doc->document = $data['document'][$key];
+            $kyc_doc->doc_type = $key;
+            $kyc_doc->status = 1;   
+            $kyc_doc->save();    
+        }
+        
+        $email_template = EmailTemplate::where('type', 'document_req')->first();
+         
+
+        $name = $user->name;
+        $email = $user->email;
+
+        $subject = $email_template->subject;
+        $content = $email_template->content;
+
+        $hashId = Hashids::encode($user->id);
+       
+        $search = array("{{name}}", "{{app_name}}");
+        $replace = array($user->name, env('APP_NAME'));
+        $content  = str_replace($search, $replace, $content);
+
+        sendEmail($email, $subject, $content);
+
+ 
         $user->save();
 
         $request->session()->flash('flash_success', 'Documents have been uploaded successfully!');
         return redirect('/documents');
     }
+
+    public function updateEmail(Request $request)
+    {
+
+        $user = Auth::user();
+        $data['user'] = $user;
+        return view('frontend.users.update_email')->with($data);
+    }
+
+    public function emailUpdate(Request $request)
+    {
+         
+        $input = $request->all();
+        $user = auth()->user();
+     
+         $validations = [
+            'otp_code' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $validations);
+
+        if ($validator->fails()) {
+            Session::flash('flash_danger', $validator->messages());
+            return redirect()->back()->withInput();
+        }
+        
+        if ($user->email_otp_status == 1) {
+            if (empty(session()->get('send_otp_email_verification_otp')) || session()->get('send_otp_email_verification_otp') != $input['otp_code']) {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+            }
+        }
+
+        $user->email = $input['update_email'];
+        $user->save();
+        $flash_message = 'Email has been update';
+        $request->session()->flash('flash_success', $flash_message);
+        return redirect('/profile');
+    }
+
+    
 }

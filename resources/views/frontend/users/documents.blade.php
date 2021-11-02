@@ -28,7 +28,7 @@
 
                                     @if((!empty($user->passport) && $user->passport_status == 0) || (!empty($user->photo) && $user->photo_status == 0))
                                     <div class="alert alert-danger persist-alert" role="alert">
-                                        Your documents are under verification!
+                                        Your documents are under verification {{settingValue('doc_approval_days')}} days are required to verify the documentation.
                                     </div>
                                     @else
                                      <div class="alert alert-danger persist-alert" role="alert">
@@ -138,7 +138,7 @@
                                    
                                         <div class="bottom">
                                             <div class="btn-wrap">
-                                                <button type="submit" class="btn-theme text-capitalize">Save
+                                                <button type="submit" class="btn-theme text-capitalize" id="btn-submit">Save
                                                     <span class="btn-theme__inner">
                                                         <span class="btn-theme__blobs">
                                                             <span class="btn-theme__blob"></span>
@@ -170,4 +170,14 @@
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+ $(document).ready(function () {
+        $("#documents-form").submit(function (e) {
+            $("#btn-submit").attr("disabled", true);
+            return true;
+        });
+    });
+</script>
 @endsection

@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/artisan-call', function() {
     Artisan::call('storage:link');
-	dd('storage link done.123');
+    dd('storage link done.123');
 });
-Route::get('/migrate', function () {
-    $re = Artisan::call('migrate');
-    dd('migration done.123');
-});
+
 // ******************** //
 //     Admin Routes
 // ******************** //
@@ -53,6 +50,10 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::get('investors/{id}/transactions', 'UserController@transactions');
     Route::get('investors/{id}/password', 'UserController@password');
     Route::get('investors/{id}/balances', 'UserController@balances');
+    Route::get('investors/{id}/document-history', 'UserController@documentHistory');
+
+
+    
     Route::get('investors/{id}/documents', 'UserController@documents');
     Route::get('transactions/{id}/detail', 'UserController@transactionDetail');
     Route::post('investors/verify-documents', 'UserController@verifyDocuments');
@@ -78,8 +79,6 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::post('preview-profits-import-file', 'ProfitController@previewFile');
     Route::resource('profits', 'ProfitController');
     Route::resource('pool-balances', 'PoolBalanceController');
-    Route::resource('security-questions', 'SecurityQuestionController');
-   
 });
 
 // ******************* //
@@ -119,15 +118,21 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::post('/monthly-statements', 'DashboardController@monthlyStatement');
         Route::get('/profile', 'UserController@profile');
         Route::post('/profile', 'UserController@updateProfile');
+        Route::get('/update_email', 'UserController@updateEmail');
 
         Route::get('/documents', 'UserController@documents');
         Route::post('/documents', 'UserController@uploadDocuments');
+        Route::post('/email', 'UserController@emailUpdate');
+
 
         Route::get('otp-auth/info', 'OtpAuthController@info');
         Route::get('otp-auth/setup-two-factor-authentication', 'OtpAuthController@setupTwoFactorAuthentication');
         Route::post('otp-auth/enable-two-factor-authentication', 'OtpAuthController@enableTwoFactorAuthentication');
-        Route::get('otp-auth/disable-two-factor-authentication', 'OtpAuthController@disableTwoFactorAuthentication');
+        Route::POST('otp-auth/disable-two-factor-authentication', 'OtpAuthController@disableTwoFactorAuthentication');
         Route::get('otp-auth/send-email-code', 'OtpAuthController@sendEmailCode');
+
+        Route::POST('update-email/send-email-code', 'OtpAuthController@updateEmailCode');
+
 
         Route::group(['middleware'=> ['user.check.kyc']], function () {
             Route::get('/pools/{id}/invest', 'PoolController@invest');

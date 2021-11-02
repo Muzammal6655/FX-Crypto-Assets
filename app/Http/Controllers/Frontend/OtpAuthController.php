@@ -99,7 +99,26 @@ class OtpAuthController extends Controller
 
     public function disableTwoFactorAuthentication(Request $request)
     {
+       
         $user = auth()->user();
+
+        if ($user->email_otp_status == 1 && $request->checkbox == 1) {
+           
+            if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+            }
+        }
+
+        if ($user->otp_auth_status == 1  && $request->checkbox == 2) {
+            // Initialise the 2FA class
+            $google2fa = app('pragmarx.google2fa');
+           // Add the secret key to the user data
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key, $request->two_fa_code);
+
+            if (!$response) {
+                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            }
+        }
 
         $user->update([
             'otp_auth_secret_key' => Null,
@@ -212,6 +231,7 @@ class OtpAuthController extends Controller
 
     public function sendEmailCode(Request $request)
     {
+
         $code = random_int(100000, 999999);
         session()->put($request->type.'_email_verification_otp', $code);
         
@@ -235,5 +255,35 @@ class OtpAuthController extends Controller
         sendEmail($email, $subject, $content);
 
         return "A verification code has been sent to your email address.";
+    }
+
+
+    public function updateEmailCode(Request $request)
+    {
+  
+        $data = $request->all();
+        $code = random_int(100000, 999999);
+        session()->put($request->type.'_email_verification_otp', $code);
+        
+        $user = auth()->user();
+        $name = $user->name;
+        $email = $data['name'];
+ 
+        // ********************* //
+        // Send email to Support //
+        // ********************* // 
+
+        $email_template = EmailTemplate::where('type','email_verification_otp')->first();
+
+        $subject = $email_template->subject;
+        $content = $email_template->content;
+
+        $search = array("{{name}}","{{email}}","{{app_name}}","{{code}}");
+        $replace = array($name,$email,env('APP_NAME'),$code);
+        $content  = str_replace($search,$replace,$content);
+
+        sendEmail($email, $subject, $content);
+
+        return "An email has been sent to your new email address.please check your email account and enter the verification code.";
     }
 }

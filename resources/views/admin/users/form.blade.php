@@ -114,6 +114,21 @@
 								</div>
 							</div>
 
+							<div class="form-group">
+								<label class="col-sm-3 control-label">2FA Status</label>
+								<div class="col-sm-9">
+									@php $otp_auth_status = ($action == 'Add') ? old('otp_auth_status') : $user->otp_auth_status @endphp
+									<label class="fancy-radio">
+										<input name="otp_auth_status" value="1" type="radio" {{ ($otp_auth_status == 1) ? 'checked' : '' }}>
+										<span><i></i>Enable</span>
+									</label>
+									<label class="fancy-radio">
+										<input name="otp_auth_status" value="0" type="radio" {{ ($otp_auth_status == 0) ? 'checked' : '' }}>
+										<span><i></i>Disable</span>
+									</label>
+								</div>
+							</div>
+
 							<hr>
 
 							<h4 class="heading">Address Information</h4>

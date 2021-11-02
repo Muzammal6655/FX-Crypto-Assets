@@ -271,6 +271,18 @@ class RightsTableSeeder extends Seeder
                 'name' => 'pool-balances-import',
                 'status' => 1,
             ),
+            42 => 
+            array (
+                'module_id' => 1,
+                'name' => 'kyc-document-history',
+                'status' => 1,
+            ),
+            43 => 
+            array (
+                'module_id' => 1,
+                'name' => 'document-history-view',
+                'status' => 1,
+            ),
         ));
         
         

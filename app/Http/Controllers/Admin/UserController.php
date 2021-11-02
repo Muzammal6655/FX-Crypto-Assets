@@ -12,6 +12,7 @@ use App\Models\EmailTemplate;
 use App\Models\Balance;
 use App\Models\Transaction;
 use App\Models\Password;
+use App\Models\kycDocuments;
 use App\Models\Referral;
 use Carbon\Carbon;
 use Auth;
@@ -83,6 +84,11 @@ class UserController extends Controller
                 if(have_right('investors-referrals'))
                 {
                     $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/referrals').'" title="Referrals"><i class="fa fa-users"></i></a>';
+                }
+
+                if(have_right('kyc-document-history'))
+                {
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="'.url("admin/investors/" . Hashids::encode($row->id).'/document-history').'" title="Document History"><i class="fa fa-history"></i></a>';
                 }
 
                 if(have_right('investors-transactions'))
@@ -170,6 +176,7 @@ class UserController extends Controller
         $data['user'] = User::findOrFail($id);
         $data['timezones'] = Timezone::all();
         $data['countries'] = Country::all();
+
         return view('admin.users.form')->with($data);
     }
 
@@ -182,7 +189,7 @@ class UserController extends Controller
     public function store(Request $request)
     { 
         $input = $request->all();
-
+       
         if($input['action'] == 'Add')
         {
             $validator = Validator::make($request->all(), [
@@ -258,6 +265,24 @@ class UserController extends Controller
 
         
         $model->deleted_at = ($input['status'] == "3") ? date("Y-m-d H:i:s") : Null;
+
+        if ($request->otp_auth_status == 0 && $model->otp_auth_secret_key != '' ) 
+        { 
+            $name = $model->name;
+            $email = $model->email;
+            $email_template = EmailTemplate::where('type','2fa_disable')->first();
+            
+            $subject = $email_template->subject;
+            $content = $email_template->content;
+            $model->otp_auth_secret_key = '';
+             
+            $search = array("{{name}}","{{email}}","{{app_name}}");
+            $replace = array($name,$email,env('APP_NAME'));
+            $content  = str_replace($search,$replace,$content);
+
+            sendEmail($email, $subject, $content);
+        }
+
         if ($request->is_approved == 1 && $model->is_approved == 0) 
         { 
             $name = $model->name;
@@ -273,9 +298,10 @@ class UserController extends Controller
 
             sendEmail($email, $subject, $content);
         }
+
         $model->fill($input);
         $model->save();
-
+        // dd($model);
         if($input['action'] == 'Add')
         {
             $model->invitation_code = Hashids::encode($model->id);
@@ -594,4 +620,108 @@ class UserController extends Controller
 
         return view('admin.users.password',$data);
     }
+
+    public function documentHistory(Request $request,$id)
+    {
+         
+         if(!have_right('kyc-document-history'))
+            access_denied();
+    
+        $data = [];
+        $data['id'] = $id;
+        $id = Hashids::decode($id)[0];
+        $data['user'] = User::find($id);
+        // $data['db_records'] = kycDocuments::where('user_id',$id)->orderBy('id','DESC')->get();
+        
+        if ($request->ajax())
+        {
+            $db_record = kycDocuments::where('user_id',$id)->orderBy('id','DESC');
+
+            $datatable = Datatables::of($db_record);
+            $datatable = $datatable->addIndexColumn();
+
+            
+            // $datatable = $datatable->editColumn('doc_type', function($row)
+            // {
+              
+            //     if ($row->doc_type == 1)
+            //     {
+
+            //         $doc_type = $row->document.'&nbsp;<a class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"target="_blank"</a>';
+            //     }
+            //     else if ($row->doc_type == 2)
+            //     {
+            //        $doc_type = $row->document.'&nbsp;Photo&nbsp;<a class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"target="_blank"</a>';
+            //     }
+            //     else if ($row->doc_type == 3)
+            //     {
+            //        $doc_type = $row->document.'&nbsp;Passport&nbsp;<a   class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document).'"   target="_blank" </a>';
+            //     }
+
+            //     return $doc_type;
+            // });
+
+
+            // $datatable = $datatable->editColumn('document', function($row)
+            // {
+              
+            //     if ($row->doc_type == 1)
+            //     {
+            //         $document = $row->document.'&nbsp;Au Document&nbsp;<a class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"download=""</a>';
+            //     }
+            //     else if ($row->doc_type == 2)
+            //     {
+            //        $document = $row->document.'&nbsp;Photo&nbsp;<a class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"download=""</a>';
+            //     }
+            //     else if ($row->doc_type == 3)
+            //     {
+            //        $document = $row->document.'&nbsp;Passport<a  class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document).'"   download="" </a>';
+            //     }
+
+            //     return $document;
+            // });
+
+    
+            $datatable = $datatable->editColumn('created_at', function($row)
+            {
+                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s') ;
+            });
+
+
+             $datatable = $datatable->addColumn('status', function($row)
+            {
+                $status = '<span class="actions">';
+
+             if(have_right('document-history-view'))
+                {
+                 if ($row->doc_type == 1)
+                    {
+                        $status .=  '&nbsp;<a class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"download=""</a>';
+                        $status .='&nbsp;<a  class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '" target="_blank"</a>';
+
+                    }
+                    else if ($row->doc_type == 2)
+                    {
+                       $status .=  '&nbsp; <a class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '"download=""</a>';
+                        $status .='&nbsp;<a  class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document). '" target="_blank"</a>';
+                    }
+                    else if ($row->doc_type == 3)
+                    {
+                       $status .= '&nbsp; <a  class="fa fa-download" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document).'"   download="" </a>';
+                        $status .=  '&nbsp;<a   class="fa fa-eye" href="'.checkImage(asset(env("PUBLIC_URL")."storage/users/".$row->user_id."/documents/". $row->document) ,"placeholder.png", $row->document).'"   target="_blank" </a>';
+                    }
+                 return $status;
+                }
+            });
+
+
+            
+            $datatable = $datatable->rawColumns(['doc_type', 'document' , 'status']);
+            $datatable = $datatable->make(true);
+            return $datatable;
+        }
+
+        return view('admin.users.doc_history',$data);
+    }
+
 }

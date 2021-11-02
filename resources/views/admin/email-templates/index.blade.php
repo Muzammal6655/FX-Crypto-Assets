@@ -18,13 +18,13 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Email Templates Listing</h3>
 				@if(have_right('email-templates-create'))
-				<div class="right">
-					<!-- <a href="{{url('admin/email-templates/create')}}" class="pull-right">
+				<!-- <div class="right">
+					<a href="{{url('admin/email-templates/create')}}" class="pull-right">
 						<button type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Add</span>
 						</button>
-					</a> -->
-				</div>
+					</a>
+				</div> -->
 				@endif
 			</div>
 			<div class="panel-body">
