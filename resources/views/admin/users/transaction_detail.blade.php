@@ -1,14 +1,14 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Investors')
+@section('title', 'Customers')
 @section('sub-title', 'Transaction Detail')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-money"></i>investors</a></li>
-			<li><a href="{{url("admin/investors/" . Hashids::encode($model->user->id).'/transactions')}}"><i class="fa fa-exchange"></i>Transactions</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-money"></i>Customers</a></li>
+			<li><a href="{{url("admin/customers/" . Hashids::encode($model->user->id).'/transactions')}}"><i class="fa fa-exchange"></i>Transactions</a></li>
 			<li>Detail</li>
 		</ul>
 	</div>
@@ -24,7 +24,7 @@
 						<div class="form-horizontal label-left" >
 							
 							<div class="form-group">
-								<label for="user" class="col-sm-3 control-label">Investor</label>
+								<label for="user" class="col-sm-3 control-label">Customer</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->user->name }}">
 								</div>
@@ -89,7 +89,7 @@
 							</div>
 
 							<div class="text-right">						 
-								<a href="{{url("admin/investors/" . Hashids::encode($model->user->id).'/transactions')}}")}}">
+								<a href="{{url("admin/customers/" . Hashids::encode($model->user->id).'/transactions')}}")}}">
 									<button type="button" class="btn cancel btn-fullrounded">
 										<span>Back</span>
 									</button>

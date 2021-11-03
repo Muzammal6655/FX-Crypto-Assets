@@ -32,7 +32,7 @@
 						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="form-group">
 								<select class="form-control" id="user_id">
-									<option value="">Select Investor</option>
+									<option value="">Select Customers</option>
 									@foreach ($users as $user)
 										<option value="{{$user->id}}">{{$user->name}}</option>
 									@endforeach
@@ -88,7 +88,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Investor</th>
+							<th>Customer</th>
 							<th>Amount ({{config('constants.currency')['symbol']}})</th>
 							<th>Created At</th>
 							<th>Approved At</th>

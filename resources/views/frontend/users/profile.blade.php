@@ -39,8 +39,7 @@
                                             <div class="form-group">
                                                 <input type="email" class="form-control" name="email" maxlength="100" placeholder="Email" value="{{$user->email}}" readonly="">
                                                  <!-- onClick="window.open('update_email');" -->
-                                                <a href="{{ url('update_email') }}" title="update Email"><i class="fa fa-refresh"></i></a>
-                                                
+                                                <a   class="btn-theme float-right"  href="{{ url('update_email') }}" title="update Email" style="color: #fff;margin-top: 10px;  padding: 5px, 15px;"> Update Email</a> 
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" id="password" class="form-control" name="password" placeholder="Password" minlength="8" maxlength="30" value="{{$user->original_password}}">

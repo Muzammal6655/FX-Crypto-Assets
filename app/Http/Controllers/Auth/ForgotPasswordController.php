@@ -9,8 +9,10 @@ use App\Models\User;
 use App\Models\EmailTemplate;
 use App\Models\PasswordReset;
 use App\Models\Password;
+use App\Models\SecurityQuestion;
 use Session;
 use Hash;
+use Auth;
 use Carbon\Carbon;
 
 class ForgotPasswordController extends Controller
@@ -87,14 +89,22 @@ class ForgotPasswordController extends Controller
         $data['email'] = $passwordReset->email;
         $user = User::where('email', $passwordReset->email)->first();
         $data["security_questions"] = $user->securityQuestionAnswer;
+        // dd($data["security_questions"]);
         return view('frontend.auth.passwords.reset')->with($data);
     }
 
     public function resetPassword(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string|min:8|max:30|confirmed',
+            'question_id0'    => ['required'],
+            'answer0'    => ['required'],
+            'question_id1'    => ['required'],
+            'answer1'    => ['required'],
+            'question_id2'    => ['required'],
+            'answer2'    => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -102,40 +112,78 @@ class ForgotPasswordController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $data = [];
+        $data['email'] = $request->email;
         $user = User::where('email', $request->email)->first();
-        if (!$user) {
-            Session::flash('flash_danger', "We can't find a user with that e-mail address.");
+        $data["security_questions"] = $user->securityQuestionAnswer;
+
+       // Verify the secutity question
+        $count = 0;
+        if($data["security_questions"][2]->securityquestion->id ==  $request->question_id2)
+        {
+          if($data["security_questions"][2]->answer == $request->answer2)
+          {
+            
+            $count +=1;
+          }
+        }
+        
+        if($data["security_questions"][1]->securityquestion->id ==  $request->question_id1)
+        {
+          if($data["security_questions"][1]->answer == $request->answer1)
+          {
+            $count +=1;
+          }
+        }
+ 
+        if($data["security_questions"][0]->securityquestion->id ==  $request->question_id0)
+        {
+          if($data["security_questions"][0]->answer == $request->answer0)
+          {
+            $count +=1;
+          }
+        }
+        if($count >= 2)
+        {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                Session::flash('flash_danger', "We can't find a user with that e-mail address.");
+                return redirect()->back()->withInput();
+            }
+            $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
+            if (!empty($password)) {
+                Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
+                return redirect()->back()->withInput();
+            }
+
+            Password::updateOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'password' => $user->original_password
+                ],
+                [
+                    'user_id' => $user->id,
+                    'password' => $user->original_password
+                ]
+            );
+
+            $user->original_password = $request->password;
+            $user->password = Hash::make($request->password);
+            $user->password_attempts_count = 0;
+            $user->password_attempts_date = null;
+            $user->otp_attempts_count = 0;
+            $user->otp_attempts_date = null;
+            $user->save();
+
+            $passwordReset = PasswordReset::where('email', $request->email)->delete();
+
+            Session::flash('flash_success', "Your password has been updated successfully.");
+            return redirect('login');
+        }
+        else
+        {
+            Session::flash('flash_danger', "Your Provided Answer is not correct.Please provide Answer again.");
             return redirect()->back()->withInput();
         }
-
-        $password = Password::where(['user_id' => $user->id, 'password' => $request->password])->first();
-        if (!empty($password)) {
-            Session::flash('flash_danger', "You have already used this password. Please choose a different one.");
-            return redirect()->back()->withInput();
-        }
-
-        Password::updateOrCreate(
-            [
-                'user_id' => $user->id,
-                'password' => $user->original_password
-            ],
-            [
-                'user_id' => $user->id,
-                'password' => $user->original_password
-            ]
-        );
-
-        $user->original_password = $request->password;
-        $user->password = Hash::make($request->password);
-        $user->password_attempts_count = 0;
-        $user->password_attempts_date = null;
-        $user->otp_attempts_count = 0;
-        $user->otp_attempts_date = null;
-        $user->save();
-
-        $passwordReset = PasswordReset::where('email', $request->email)->delete();
-
-        Session::flash('flash_success', "Your password has been updated successfully.");
-        return redirect('login');
     }
 }

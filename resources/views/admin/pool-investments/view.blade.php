@@ -37,7 +37,7 @@
 							@endif
 
 							<div class="form-group">
-								<label for="user" class="col-sm-3 control-label">Investor</label>
+								<label for="user" class="col-sm-3 control-label">Customer</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $model->user->name }}">
 								</div>

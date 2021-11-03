@@ -10,5 +10,9 @@ class SecurityQuestionAnswer extends Model
    'user_id','question_id','answer','status'
   ];
 
+  public function securityquestion()
+  {
+    return $this->belongsTo('App\Models\SecurityQuestion', 'question_id');
+  }
  
 }

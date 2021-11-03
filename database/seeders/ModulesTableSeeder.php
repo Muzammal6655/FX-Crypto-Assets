@@ -22,7 +22,7 @@ class ModulesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => 'Investors',
+                'name' => 'Customers',
                 'status' => 1,
             ),
             1 => 

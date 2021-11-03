@@ -32,6 +32,7 @@
                                             <div class="form-group">
                                                 <input type="email" class="form-control" name="email" placeholder="Email" required >
                                             </div>
+                                            
                                             <div class="btn-wrap">
                                                 <button type="submit" class="btn-theme text-capitalize">Forgot Password
                                                     <span class="btn-theme__inner">

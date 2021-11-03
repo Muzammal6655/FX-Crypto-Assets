@@ -58,10 +58,10 @@ $segment_3 = Request::segment(3);
                 </li>
             @endif
 
-            @if(have_right('investors-list'))
+            @if(have_right('customers-list'))
                 <li>
-                    <a href="{{  url('admin/investors') }}" class="{{($segment_2 == 'investors') ? 'active' : ''}}">
-                        <i class="fa fa-users"></i><span class="title">Investors</span>
+                    <a href="{{  url('admin/customers') }}" class="{{($segment_2 == 'customers') ? 'active' : ''}}">
+                        <i class="fa fa-users"></i><span class="title">Customers</span>
                     </a>
                 </li>
             @endif

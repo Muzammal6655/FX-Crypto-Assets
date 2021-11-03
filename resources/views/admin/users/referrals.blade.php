@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
-@section('title', 'Investors')
+@section('title', 'Customers')
 @section('sub-title', 'Referrals')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-user"></i>Investors</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
 			<li>Referrals</li>
 		</ul>
 	</div>
@@ -14,7 +14,7 @@
 		<!-- DATATABLE -->
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">Referrals Listing</h3>
+				<h3 class="panel-title">Customers Listing</h3>
 				<div class="right">
 					<span class="label label-default" style="font-size: 90%;">{{$user->name.' - '.$user->email}}</span>
 				</div>
@@ -57,7 +57,7 @@
 			// dom: 'Bfrtip',
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
-			ajax: "{{url('admin/investors/'.$id.'/referrals')}}",
+			ajax: "{{url('admin/customers/'.$id.'/referrals')}}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'name', name: 'name'},

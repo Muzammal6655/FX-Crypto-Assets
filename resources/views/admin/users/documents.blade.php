@@ -1,14 +1,14 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Investors')
-@section('sub-title', 'Investor Documents')
+@section('title', 'Customers')
+@section('sub-title', 'Customers Documents')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-user"></i>Investors</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
 			<li>Documents Verification</li>
 		</ul>
 	</div>
@@ -21,7 +21,7 @@
 					</div>
 					<div class="panel-body">
 						@include('admin.messages')
-						<form id="investors-form" class="form-horizontal label-left" action="{{url('admin/investors/verify-documents')}}" enctype="multipart/form-data" method="POST">
+						<form id="investors-form" class="form-horizontal label-left" action="{{url('admin/customers/verify-documents')}}" enctype="multipart/form-data" method="POST">
 							@csrf
 
 							<input name="id" type="hidden" value="{{ $user->id }}" />
@@ -129,7 +129,7 @@
 							</div>
 
 							<div class="text-right">
-								<a href="{{url('admin/investors')}}">
+								<a href="{{url('admin/customers')}}">
 									<button type="button" class="btn cancel btn-fullrounded">
 										<span>Cancel</span>
 									</button>

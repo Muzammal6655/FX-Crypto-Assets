@@ -1,14 +1,14 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Investors')
-@section('sub-title', $action.' Investor')
+@section('title', 'Customers')
+@section('sub-title', $action.' Customers')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-user"></i>Investors</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
 			<li>{{$action}}</li>
 		</ul>
 	</div>
@@ -17,11 +17,11 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">{{$action}} Investor</h3>
+						<h3 class="panel-title">{{$action}} Customers</h3>
 					</div>
 					<div class="panel-body">
 						@include('admin.messages')
-						<form id="investors-form" class="form-horizontal label-left" action="{{url('admin/investors')}}"
+						<form id="investors-form" class="form-horizontal label-left" action="{{url('admin/customers')}}"
 							enctype="multipart/form-data" method="POST">
 							@csrf
 
@@ -192,7 +192,7 @@
 							<h4 class="heading">
 								In Case Of Wrong Password /2FA Attempt
 								@if($action == 'Edit')
-								<a href="{{url('admin/investors/enable-login/'.Hashids::encode($user->id))}}" class="pull-right">
+								<a href="{{url('admin/customers/enable-login/'.Hashids::encode($user->id))}}" class="pull-right">
 									<button type="button" class="btn btn-primary btn-sm btn-fullrounded">
 										<i class="fa fa-arrow-circle-down"></i><span>Enable Login</span>
 									</button>
@@ -206,7 +206,7 @@
 							<h4 class="heading">
 								Password & Confirm Password
 								<!-- @if($action == 'Edit')
-								<a href="{{url('admin/investors/send-password/'.Hashids::encode($user->id))}}" class="pull-right">
+								<a href="{{url('admin/customers/send-password/'.Hashids::encode($user->id))}}" class="pull-right">
 									<button type="button" class="btn btn-primary btn-sm btn-fullrounded">
 										<i class="fa fa-paper-plane"></i><span>Send Password</span>
 									</button>
@@ -233,7 +233,7 @@
 							</div>
 
 							<div class="text-right">
-								<a href="{{url('admin/investors')}}">
+								<a href="{{url('admin/customers')}}">
 									<button type="button" class="btn cancel btn-fullrounded">
 										<span>Cancel</span>
 									</button>

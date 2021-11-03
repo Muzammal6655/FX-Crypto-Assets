@@ -112,7 +112,7 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12">
-                                <h3>Investments History</h3>
+                                <h3>Customers History</h3>
                                 <canvas id="investmentsChart" style="width:100%;"></canvas>
                             </div>
                         </div>

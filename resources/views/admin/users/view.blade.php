@@ -1,14 +1,14 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Investors')
-@section('sub-title', $action.' Investor')
+@section('title', 'Customers')
+@section('sub-title', $action.' customer')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-user"></i>Investors</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
 			<li>{{$action}}</li>
 		</ul>
 	</div>
@@ -17,7 +17,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">{{$action}} Investor</h3>
+						<h3 class="panel-title">{{$action}} Customer</h3>
 					</div>
 					<div class="panel-body">
 						<form class="form-horizontal label-left">
@@ -198,7 +198,7 @@
 							</div> -->
 
 							<div class="text-right">
-								<a href="{{url('admin/investors')}}">
+								<a href="{{url('admin/customers')}}">
 									<button type="button" class="btn btn-primary btn-fullrounded">
 										<span>Back</span>
 									</button>

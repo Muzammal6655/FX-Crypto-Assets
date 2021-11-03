@@ -191,7 +191,7 @@ class RegisterController extends Controller
         $content = $email_template->content;
 
         $hashId = Hashids::encode($user->id);
-        $link = url('/admin/investors/' . Hashids::encode($user->id));
+        $link = url('/admin/customers/' . Hashids::encode($user->id));
 
         $search = array("{{name}}", "{{email}}", "{{app_name}}", "{{link}}");
         $replace = array($user->name, $user->email, env('APP_NAME'), $link);
@@ -222,6 +222,7 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));

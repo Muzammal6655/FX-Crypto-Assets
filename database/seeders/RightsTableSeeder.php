@@ -22,25 +22,25 @@ class RightsTableSeeder extends Seeder
             0 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-list',
+                'name' => 'customers-list',
                 'status' => 1,
             ),
             1 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-create',
+                'name' => 'customers-create',
                 'status' => 1,
             ),
             2 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-edit',
+                'name' => 'customers-edit',
                 'status' => 1,
             ),
             3 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-delete',
+                'name' => 'customers-delete',
                 'status' => 1,
             ),
             4 => 
@@ -124,7 +124,7 @@ class RightsTableSeeder extends Seeder
             17 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-view',
+                'name' => 'customers-view',
                 'status' => 1,
             ),
             18 => 
@@ -154,25 +154,25 @@ class RightsTableSeeder extends Seeder
             22 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-referrals',
+                'name' => 'customers-referrals',
                 'status' => 1,
             ),
             23 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-transactions',
+                'name' => 'customers-transactions',
                 'status' => 1,
             ),
             24 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-balances',
+                'name' => 'customers-balances',
                 'status' => 1,
             ),
             25 => 
             array (
                 'module_id' => 1,
-                'name' => 'investors-kyc',
+                'name' => 'customers-kyc',
                 'status' => 1,
             ),
             26 => 

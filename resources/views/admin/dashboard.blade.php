@@ -41,7 +41,7 @@
 									<span class="icon-wrapper custom-bg-blue"><i class="fa fa-users"></i></span>
 									<div class="right">
 										<span class="value">{{ $users }}</span>
-										<span class="title">Investors</span>
+										<span class="title">Customer</span>
 									</div>
 								</div>
 							</div>
@@ -116,14 +116,14 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>Investments</h3>
+						<h3>Customers</h3>
 						<canvas id="investmentsChart" style="width:100%;"></canvas>
 					</div>
 				</div>
 			</div>
 		</div>
 		<br>
-		@if(have_right('investors-list') && count($deleted_users) > 0)
+		@if(have_right('customers-list') && count($deleted_users) > 0)
 		<div class="alert alert-danger persist-alert" role="alert">
 			<center>
 			Following users will be deleted on specific deletion datetime
@@ -161,14 +161,14 @@
 									</td>
 									<td>
 										<span class="actions">
-											@if(have_right('investors-edit'))
+											@if(have_right('customers-edit'))
 											<a class="btn btn-primary" title="Edit" target="_blank"
-												href="{{url('admin/investors/' . Hashids::encode($user->id) . '/edit')}}"><i
+												href="{{url('admin/customers/' . Hashids::encode($user->id) . '/edit')}}"><i
 											class="fa fa-pencil-square-o"></i></a>
 											@endif
-											@if(have_right('investors-delete'))
+											@if(have_right('customers-delete'))
 											<form method="POST"
-												action="{{url('admin/investors/'.Hashids::encode($user->id)) }}"
+												action="{{url('admin/customers/'.Hashids::encode($user->id)) }}"
 												accept-charset="UTF-8" style="display:inline">
 												<input type="hidden" name="_method" value="DELETE">
 												<input type="hidden" name="page" value="dashboard">

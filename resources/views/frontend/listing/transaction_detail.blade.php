@@ -12,7 +12,7 @@
 				<table class="table table-hover">
 					<tbody>
 						<tr>
-							<th scope="row">Invester</th>
+							<th scope="row">Customer</th>
 							<td>{{ $transaction->User->name }}</td>
 						</tr>
 						<tr>

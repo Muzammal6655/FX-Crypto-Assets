@@ -42,7 +42,7 @@
 						</tr>
 						@endif
 						<tr>
-							<th scope="row">Invester</th>
+							<th scope="row">Customer</th>
 							<td>{{ $model->User->name }}</td>
 						</tr>
 						<tr>

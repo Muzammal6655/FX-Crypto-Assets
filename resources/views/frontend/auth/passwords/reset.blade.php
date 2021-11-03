@@ -25,20 +25,30 @@
                                 <div class="tab-pane fade show active" id="v-pills-password" role="tabpanel"
                                     aria-labelledby="v-pills-password-tab">
                                     <div class="form-wrapper">
-                                        <h2>Reset Password</h2>
+                                        <h4>Please Provided the Security Question Answer</h4>
                                         @include('frontend.messages')
-                                        <form class="text-right" id="reset-password" method="post" action="{{ route('auth.reset-password') }}">
+                                        <form class="text-left" id="reset-password" method="post" action="{{ route('auth.reset-password') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="email" class="form-control" name="email" value="{{$email}}" readonly="">
+                                            <input type="email" class="form-control" name="email" value="{{$email}}" readonly="">
                                             </div>
+                                            @php $i=0 ;@endphp
+                                            @foreach ($security_questions as $security_question)
+                                            <p><strong>{{$security_question->securityquestion->question}}*</strong></p>
+                                            <div class="form-group">
+                                            <input type="hidden" name="question_id{{$i}}" value="{{$security_question->securityquestion->id}}" required="required">
+                                            <input type="text" class="form-control" placeholder="Answer*" name="answer{{$i}}" value="{{old('answer')}}" required="required">
+                                            </div>
+                                            @php $i++ ; @endphp
+                                            @endforeach
+                                            <h4>Reset Password</h4>
                                             <div class="form-group">
                                                 <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required="required">
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required="required">
                                             </div>
-                                            <div class="btn-wrap">
+                                            <div class="btn-wrap text-right">
                                                 <button type="submit" class="btn-theme"> Reset Password
                                                     <span class="btn-theme__inner">
                                                         <span class="btn-theme__blobs">

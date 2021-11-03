@@ -41,25 +41,38 @@
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Disable</button>
                                             </a> -->
                                         <p>2FA Disable</p>
-                                        <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" method="POST">
+                                        
+                                        <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" class="2form" method="POST" >
                                         {{ csrf_field() }}
                                         <!-- <input type="checkbox" class="child" name="radio-group" checked> -->
-                                         <input type="checkbox" name="checkbox" id="checkbox-email" value="1"  /> 
-                                        <label for="Email">Email</label>
-                                        <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
-                                        <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code" /> 
-                                          <br>
+                                       <div style=" display: flex; justify-content: space-evenly;">
+                                        <input type="checkbox" name="checkbox" id="checkbox-email" value="1"  /> 
+                                        <label for="Email" style="margin-top: -4px;">Email</label>
+                                        <br>
                                         <input type="checkbox" name="checkbox" id="checkbox-2fa-code" 
                                          value="2"/> 
-                                        <label for="2FA Code">2FA Code</label>
-                                        <input id="showthis2FA"  class="showthis" name="two_fa_code"  
-                                         type="text"  placeholder="Enter the 2FA Code" /> 
-                                         <br>
-                                        <input type="checkbox" name="checkbox" id="checkbox-both" value="both" /> 
-                                        <label for="both"> Both</label>
+                                        <label for="2FA Code" style="margin-top: -4px;">2FA Code</label>
                                         <br>
-                                         <button type="submit" id="disable" class="btn-primary">Disable</button>
-                                        </form>     
+                                        <input type="checkbox" name="checkbox" id="checkbox-both" value="both" /> 
+                                        <label for="both" style="margin-top: -4px;"> Both</label>
+                                       </div>
+                                        <br>
+                                        <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code" style="margin-bottom: 10px;padding: 8px 17px;margin-right: 15px;font-size: 14px;"  /> 
+                                        <input id="showthis2FA"  class="showthis" name="two_fa_code"  
+                                         type="text"  placeholder="Enter the 2FA Code" style="padding: 8px 17px;font-size: 14px;"  /> 
+                                          <br> 
+                                           <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp" style="margin-bottom: 35px;">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+                                           <br> 
+                                         <button type="submit" id="disable" class="btn-theme">Disable</button>
+                                        
+                                        </form>   
+                                        <!-- <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+
+                                        <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code"  /> 
+                                        <input id="showthis2FA"  class="showthis" name="two_fa_code"  
+                                         type="text"  placeholder="Enter the 2FA Code" style="display: inline-block;margin-top: 10px;margin-left: 132px;margin-bottom: 10px;" /> 
+                                          <br>  
+                                         <button type="submit" id="disable" class="btn-primary">Disable</button> -->
                                         @else
                                             <a href="{{url('otp-auth/setup-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Configure</button>
@@ -144,5 +157,11 @@
             });
         });
 </script>
+<style>
+    .2form{
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
 
 @endsection

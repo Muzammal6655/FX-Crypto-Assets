@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/artisan-call', function() {
+
+Route::get('/artisan-call', function () {
     Artisan::call('storage:link');
     dd('storage link done.123');
 });
@@ -44,26 +45,26 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
 
     Route::resource('sub-admins', 'AdminController');
 
-    Route::get('investors/send-password/{id}', 'UserController@sendPassword');
-    Route::get('investors/enable-login/{id}', 'UserController@enableLogin');
-    Route::get('investors/{id}/referrals', 'UserController@referrals');
-    Route::get('investors/{id}/transactions', 'UserController@transactions');
-    Route::get('investors/{id}/password', 'UserController@password');
-    Route::get('investors/{id}/balances', 'UserController@balances');
-    Route::get('investors/{id}/document-history', 'UserController@documentHistory');
+    Route::get('customers/send-password/{id}', 'UserController@sendPassword');
+    Route::get('customers/enable-login/{id}', 'UserController@enableLogin');
+    Route::get('customers/{id}/referrals', 'UserController@referrals');
+    Route::get('customers/{id}/transactions', 'UserController@transactions');
+    Route::get('customers/{id}/password', 'UserController@password');
+    Route::get('customers/{id}/balances', 'UserController@balances');
+    Route::get('customers/{id}/document-history', 'UserController@documentHistory');
 
 
-    
-    Route::get('investors/{id}/documents', 'UserController@documents');
-    Route::get('transactions/{id}/detail', 'UserController@transactionDetail');
-    Route::post('investors/verify-documents', 'UserController@verifyDocuments');
-    Route::resource('investors', 'UserController');
+
+    Route::get('customers/{id}/documents', 'UserController@documents');
+    Route::get('customers/{id}/detail', 'UserController@transactionDetail');
+    Route::post('customers/verify-documents', 'UserController@verifyDocuments');
+    Route::resource('customers', 'UserController');
 
     Route::resource('roles', 'RoleController');
     Route::resource('email-templates', 'EmailTemplateController');
 
     Route::resource('pools', 'PoolController');
-    
+
     Route::get('deposits/{id}/approve', 'DepositController@approve');
     Route::post('deposits/download-csv', 'DepositController@downloadCsv');
     Route::resource('deposits', 'DepositController');
@@ -79,6 +80,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::post('preview-profits-import-file', 'ProfitController@previewFile');
     Route::resource('profits', 'ProfitController');
     Route::resource('pool-balances', 'PoolBalanceController');
+    Route::resource('security-questions', 'SecurityQuestionController');
 });
 
 // ******************* //
@@ -113,7 +115,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     //     Auth Routes
     // *************************** //
 
-    Route::group(['middleware'=> ['auth','user.check.status']], function () {
+    Route::group(['middleware' => ['auth', 'user.check.status']], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
         Route::post('/monthly-statements', 'DashboardController@monthlyStatement');
         Route::get('/profile', 'UserController@profile');
@@ -134,7 +136,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
         Route::POST('update-email/send-email-code', 'OtpAuthController@updateEmailCode');
 
 
-        Route::group(['middleware'=> ['user.check.kyc']], function () {
+        Route::group(['middleware' => ['user.check.kyc']], function () {
             Route::get('/pools/{id}/invest', 'PoolController@invest');
             Route::post('/invest', 'PoolController@saveInvestment');
             Route::get('/pools', 'PoolController@index');

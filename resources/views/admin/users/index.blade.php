@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Investors')
+@section('title', 'Customer')
 @section('sub-title', 'Listing')
 @section('content')
 <div class="main-content">
@@ -7,7 +7,7 @@
 
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li>Investors</li>
+			<li>Customer</li>
 		</ul>
 	</div>
 	<div class="container-fluid">
@@ -15,10 +15,10 @@
 		<!-- DATATABLE -->
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">Investors Listing</h3>
-				@if(have_right('investors-create'))
+				<h3 class="panel-title">Customers Listing</h3>
+				@if(have_right('customers-create'))
 				<div class="right">
-					<a href="{{url('admin/investors/create')}}" class="pull-right">
+					<a href="{{url('admin/customers/create')}}" class="pull-right">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Add</span>
 						</button>
@@ -66,7 +66,7 @@
 			// dom: 'Bfrtip',
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
-			ajax: "{{ url('admin/investors') }}",
+			ajax: "{{ url('admin/customers') }}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'name', name: 'name'},

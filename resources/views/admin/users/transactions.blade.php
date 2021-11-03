@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
-@section('title', 'Investors')
+@section('title', 'Customers')
 @section('sub-title', 'Transactions')
 @section('content')
 <div class="main-content">
 	<div class="content-heading clearfix">
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
-			<li><a href="{{url('admin/investors')}}"><i class="fa fa-user"></i>Investors</a></li>
+			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
 			<li>Transactions</li>
 		</ul>
 	</div>
@@ -61,7 +61,7 @@
 			// dom: 'Bfrtip',
 			lengthMenu: [[5, 10, 25, 50, 100, 200, -1], [5, 10, 25, 50, 100, 200, "All"]],
 			serverSide: true,
-			ajax: "{{url('admin/investors/'.$id.'/transactions')}}",
+			ajax: "{{url('admin/customers/'.$id.'/transactions')}}",
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{data: 'type', name: 'type'},
