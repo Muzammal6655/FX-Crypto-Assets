@@ -126,20 +126,33 @@
 		        }
 		    	else
         		{	 
-        		 let name = $("input[name=update_email]").val();
+        		 let email = $("input[name=update_email]").val();
         		 $.ajax({
         		        url: "{{ url('/update-email/send-email-code?type=send_otp') }}",
         		        type: 'POST',
         		         data:{
-				          name:name,
+				          email:email,
 				        },
+
         		        success: function(res) {
-        		        		 $("#update_email").prop("readonly", true);
-        		        	 	  $('#generate_otp_loading').hide();
-		        		    	  $('#update_email_btn').show();
-		        		    	  $('.generate_otp').hide();	
-		        		          $('.generate_otp').prop('disabled',false);
-		        		          alert(res);
+                            if(res != null && res != undefined)
+                            {
+                                if(res.status == 2)
+                                {
+                                 $("#update_email").prop("readonly", true);
+                                  $('#generate_otp_loading').hide();
+                                  $('#update_email_btn').show();
+                                  $('.generate_otp').hide();    
+                                  $('.generate_otp').prop('disabled',false);
+                                  alert(res.message);   
+                                }
+                                else
+                                {
+               
+                                    alert(res.message);
+                                }
+                            }
+        		        		 
         		        },
         		         error: function(error) {
 				         console.log(error);

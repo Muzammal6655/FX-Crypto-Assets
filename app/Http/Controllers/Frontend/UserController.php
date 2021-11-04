@@ -296,11 +296,14 @@ class UserController extends Controller
     {
          
         $input = $request->all();
+
         $user = auth()->user();
-     
+    
          $validations = [
             'otp_code' => 'required',
+            
         ];
+
 
         $validator = Validator::make($request->all(), $validations);
 

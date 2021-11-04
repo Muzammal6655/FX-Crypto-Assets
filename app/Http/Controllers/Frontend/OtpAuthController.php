@@ -262,12 +262,21 @@ class OtpAuthController extends Controller
     {
   
         $data = $request->all();
+        $user = User::where('email', $data['email'])->first();
+        // dd($user);
+        if ($user) {
+            return response()->json([
+                    'status' => 1,
+                    'message' => 'This Email has already used.Please try other Email..'
+                ], 200, ['Content-Type' => 'application/json']);
+        }
+        
         $code = random_int(100000, 999999);
         session()->put($request->type.'_email_verification_otp', $code);
         
         $user = auth()->user();
         $name = $user->name;
-        $email = $data['name'];
+        $email = $data['email'];
  
         // ********************* //
         // Send email to Support //
@@ -284,6 +293,10 @@ class OtpAuthController extends Controller
 
         sendEmail($email, $subject, $content);
 
-        return "An email has been sent to your new email address.please check your email account and enter the verification code.";
+        return response()->json([
+                    'status' => 2,
+                    'message' => 'An email has been sent to your new email address.please check your email account and enter the verification code.'
+                ], 200, ['Content-Type' => 'application/json']);
+        
     }
 }
