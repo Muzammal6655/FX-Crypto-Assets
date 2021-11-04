@@ -18,6 +18,12 @@ Route::get('/artisan-call', function () {
     dd('storage link done.123');
 });
 
+Route::get('/db-seed-artisan-call', function () {
+    Artisan::call('db:seed --class=ModulesTableSeeder');
+    Artisan::call('db:seed --class=RightsTableSeeder');
+    Artisan::call('db:seed --class=EmailTemplatesTableSeeder');
+    dd('db seed link done.123');
+});
 // ******************** //
 //     Admin Routes
 // ******************** //
