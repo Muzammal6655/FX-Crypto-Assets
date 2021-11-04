@@ -40,7 +40,7 @@
                                            <!--  <a href="{{url('otp-auth/disable-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Disable</button>
                                             </a> -->
-                                        <p>2FA Disable</p>
+                                        <p>Please Select the CheckBox to disable the 2FA.</p>
                                         
                                         <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" class="2form" method="POST" >
                                         {{ csrf_field() }}
@@ -59,7 +59,7 @@
                                         <br>
                                         <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code" style="margin-bottom: 10px;padding: 8px 17px;margin-right: 15px;font-size: 14px;"  /> 
                                         <input id="showthis2FA"  class="showthis" name="two_fa_code"  
-                                         type="text"  placeholder="Enter the 2FA Code" style="padding: 8px 17px;font-size: 14px;"  /> 
+                                         type="text"  placeholder="Enter the 2FA Code" required="required" style="padding: 8px 17px;font-size: 14px;"  /> 
                                           <br> 
                                            <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp" style="margin-bottom: 35px;">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
                                            <br> 
