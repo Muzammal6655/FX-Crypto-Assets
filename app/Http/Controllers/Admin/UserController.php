@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Timezone;
 use App\Models\Country;
+use App\Models\PasswordReset;
 use App\Models\EmailTemplate;
 use App\Models\Balance;
 use App\Models\Transaction;
@@ -189,6 +190,7 @@ class UserController extends Controller
             $model = new User();
             $flash_message = 'Customer has been created successfully.';
         } else {
+
             $validator = Validator::make($request->all(), [
                 'email' => ['required', 'string', Rule::unique('users')->ignore($input['id'])],
                 'name' => ['required', 'string', 'max:100'],
@@ -202,6 +204,52 @@ class UserController extends Controller
 
             $model = User::findOrFail($input['id']);
             $flash_message = 'Customer has been updated successfully.';
+            
+            /**
+             * Email send to new email address and update email 
+             */
+            if($input['email'] != $model->email)
+            {
+                $passwordReset = PasswordReset::updateOrCreate(
+                    ['email' => $input['email']],
+                    [
+                        'email' => $input['email'],
+                        'token' => \Str::random(60)
+                    ]
+                );  
+               
+                $name = $model->name;
+                $email = $input['email'];
+                $reset_link = url('/reset-password/' . $passwordReset->token);
+              
+                $email_template = EmailTemplate::where('type', 'reset_password')->first();
+          
+                $subject = $email_template->subject;
+                $content = $email_template->content;
+
+                $search = array("{{name}}", "{{link}}", "{{app_name}}");
+                $replace = array($name, $reset_link, env('APP_NAME'));
+                $content  = str_replace($search, $replace, $content);
+
+                sendEmail($email, $subject, $content);
+
+                /**
+                 * Email send to previous Email address 
+                 */
+                $name = $model->name;
+                $email = $model->email;
+                $email_template = EmailTemplate::where('type', 'email_informed')->first();
+            
+                $subject = $email_template->subject;
+                $content = $email_template->content;
+
+                $search = array("{{name}}", "{{email}}", "{{app_name}}");
+                $replace = array($name, $email, env('APP_NAME'));
+                $content  = str_replace($search, $replace, $content);
+
+                sendEmail($email, $subject, $content);
+            }
+            //End Email functionality 
 
             if (!empty($input['password'])) {
                 $input['original_password'] = $input['password'];
@@ -270,7 +318,7 @@ class UserController extends Controller
 
         $model->fill($input);
         $model->save();
-        // dd($model);
+
         if ($input['action'] == 'Add') {
             $model->invitation_code = Hashids::encode($model->id);
             $model->referral_code_end_date = date("Y-m-t", strtotime("+1 month"));

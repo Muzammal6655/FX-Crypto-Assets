@@ -283,6 +283,12 @@ class RightsTableSeeder extends Seeder
                 'name' => 'document-history-view',
                 'status' => 1,
             ),
+            44 => 
+            array (
+                'module_id' => 1,
+                'name' => 'email-edit',
+                'status' => 1,
+            ),
         ));
         
         

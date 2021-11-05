@@ -53,10 +53,12 @@
                                             </div>
                                         </div>
                                         
-
+                                        
                                         <div class="bottom">
                                             <p>Have no account <a href="{{ url('/register') }}">click here</a> to create an account
                                             </p>
+                                             
+
                                             <div class="btn-wrap">
                                                 <button type="submit" class="btn-theme text-capitalize">Log In
                                                     <span class="btn-theme__inner">

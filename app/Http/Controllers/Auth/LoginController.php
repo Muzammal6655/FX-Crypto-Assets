@@ -43,17 +43,30 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+      
       // Validate the form data
       $this->validate($request, [
         'email'   => 'required|email',
         'password' => 'required'
       ]);
 
+      $user = User::where('email',$request->email)->first();
+      /**
+       * Not found Email 
+       */
+      if(empty($user))
+      {
+       
+        $flash_message  = "In case of any query plase contact us the sport team." . " ".
+           settingValue('sport_number');
+        $request->session()->flash('sport_message', $flash_message);
+        return redirect('/login');
+      }
       /**
        * Password attempt handling 
        */
 
-      $user = User::where('email',$request->email)->first();
+      
       if(!empty($user))
       {
         if(date('Y-m-d') == $user->password_attempts_date)

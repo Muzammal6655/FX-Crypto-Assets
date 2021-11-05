@@ -28,7 +28,7 @@
 
                                     @if((!empty($user->passport) && $user->passport_status == 0) || (!empty($user->photo) && $user->photo_status == 0))
                                     <div class="alert alert-danger persist-alert" role="alert">
-                                        Your documents are under verification {{settingValue('doc_approval_days')}} days are required to verify the documentation.
+                                        Your uploaded documents are under verification. <br>{{settingValue('doc_approval_days')}} days are required to verify the documents.
                                     </div>
                                     @else
                                      <div class="alert alert-danger persist-alert" role="alert">

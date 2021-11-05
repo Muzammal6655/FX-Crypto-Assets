@@ -25,7 +25,7 @@
                                 <div class="tab-pane fade show active" id="v-pills-password" role="tabpanel"
                                     aria-labelledby="v-pills-password-tab">
                                     <div class="form-wrapper">
-                                        <h4>Please Provided the Security Question Answer</h4>
+                                        <h4>Please Provide the Security Question Answers</h4>
                                         @include('frontend.messages')
                                         <form class="text-left" id="reset-password" method="post" action="{{ route('auth.reset-password') }}">
                                             @csrf

@@ -66,12 +66,12 @@
 								</div>
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="emergency_id_verification_code" class="col-sm-3 control-label">Emergency Id Verification Code</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" readonly="" value="{{ $user->emergency_id_verification_code }}">
 								</div>
-							</div>
+							</div> -->
 
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Status</label>

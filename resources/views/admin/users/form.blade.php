@@ -45,14 +45,22 @@
 										value="{{ ($action == 'Add') ? old('family_name') : $user->family_name}}">
 								</div>
 							</div>
-
+							@if(have_right('email-edit'))
 							<div class="form-group">
 								<label for="email" class="col-sm-3 control-label">Email*</label>
 								<div class="col-sm-9">
 									<input type="email" name="email" maxlength="100" class="form-control"
-										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="" @if($action == 'Edit') readonly="readonly" @endif>
+										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="" @if($action == 'Edit')   @endif >
 								</div>
 							</div>
+							@endif
+							<!-- <div class="form-group">
+								<label for="email" class="col-sm-3 control-label">Email*</label>
+								<div class="col-sm-9">
+									<input type="email" name="email" maxlength="100" class="form-control"
+										value="{{ ($action == 'Add') ? old('email') : $user->email}}" required="" @if($action == 'Edit') readonly="readonly" @endif >
+								</div>
+							</div> -->
 
 							<div class="form-group">
 								<label for="mobile_number" class="col-sm-3 control-label">Mobile Number*</label>

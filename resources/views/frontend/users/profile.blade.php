@@ -74,9 +74,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Emergency ID Verification Code" name="emergency_id_verification_code" value="{{$user->emergency_id_verification_code}}" required="required">
-                                            </div>
+                                            </div> -->
 
                                             @if(!empty($user->referral_code))
                                                 <p><strong>Referral Code.</strong></p>

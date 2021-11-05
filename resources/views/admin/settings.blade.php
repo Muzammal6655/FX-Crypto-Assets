@@ -105,6 +105,14 @@
                 </div>
               </div>
 
+               <div class="form-group">
+                <label class="col-sm-3 control-label">Sport Number</label>
+                <div class="col-sm-9">
+                  <input type="number" name="sport_number" maxlength="50" class="form-control"
+                    value="{{isset($settings['sport_number']) ? $settings['sport_number'] : ''}}">
+                </div>
+              </div>
+
               <div class="text-right">
                 <a href="{{url('admin')}}">
                   <button type="button" class="btn cancel btn-fullrounded">

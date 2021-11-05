@@ -148,7 +148,8 @@
                                 }
                                 else
                                 {
-               
+                                    $('#generate_otp_loading').show();  
+                                    $('.generate_otp').prop('disabled',false);
                                     alert(res.message);
                                 }
                             }
