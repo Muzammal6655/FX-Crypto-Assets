@@ -261,8 +261,8 @@ class UserController extends Controller
         }
         
         $email_template = EmailTemplate::where('type', 'document_req')->first();
-         
-
+        
+        $setting_days = settingValue('doc_approval_days');
         $name = $user->name;
         $email = $user->email;
 
@@ -271,8 +271,9 @@ class UserController extends Controller
 
         $hashId = Hashids::encode($user->id);
        
-        $search = array("{{name}}", "{{app_name}}");
-        $replace = array($user->name, env('APP_NAME'));
+        $search = array("{{name}}", "{{app_name}}" , "{{setting_days}}");
+        $replace = array($user->name,env('APP_NAME'), $setting_days);
+        
         $content  = str_replace($search, $replace, $content);
 
         sendEmail($email, $subject, $content);
