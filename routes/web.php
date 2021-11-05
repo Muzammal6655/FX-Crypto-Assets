@@ -85,6 +85,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
 
     Route::post('preview-profits-import-file', 'ProfitController@previewFile');
     Route::resource('profits', 'ProfitController');
+    Route::post('preview-pool-balances', 'PoolBalanceController@previewFile');
     Route::resource('pool-balances', 'PoolBalanceController');
     Route::resource('security-questions', 'SecurityQuestionController');
 });

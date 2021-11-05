@@ -100,7 +100,7 @@ class SecurityQuestionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'start_date' => 'before:end_date',
+            'question' => 'required',
         ]);
 
         if ($validator->fails())
