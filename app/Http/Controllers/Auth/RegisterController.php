@@ -210,7 +210,7 @@ class RegisterController extends Controller
     {
         $data['countries'] = Country::all();
         $data['referral_code'] = $request->has('ref') ? $request->ref : '';
-        $data['security_questions'] = SecurityQuestion::where('status', 1)->orderby('id', 'DESC')->limit(3)->get();
+        $data['security_questions'] = SecurityQuestion::where('status', 1)->orderby('id', 'DESC')->get();
         return view('frontend.auth.register')->with($data);
     }
 
