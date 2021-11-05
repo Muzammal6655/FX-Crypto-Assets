@@ -75,7 +75,7 @@
                                         <p><b>Please select three security questions below. These questions will help us to verify your identity in case of forgetting password. Please remember answers are case sensitive. </b></p>
                                         @for($i=0;$i<=2;$i++) 
                                             <div class="form-group">
-                                                <select class="form-control questions" name="question_id{{$i}}" id="question{{$i}}">
+                                                <select class="form-control questions" name="question_id{{$i}}" >
                                                     <option>Select your Questions</option>
                                                     @foreach ($security_questions as $security_question)
                                                     <option value="{{$security_question->id}}">{{$security_question->question}}</option>
@@ -400,9 +400,9 @@ $(document).ready(function() {
     'question_id{{$i}}': 'null',
   };
 
-  $('.questions select').change(function() {
-    alert('asdasdads');
-    var selectId = $(this).attr('question{{$i}}');
+  $('select').change(function() {
+   
+    var selectId = $(this).attr('.questions');
     var selectedOptionValue = $(this).val();
      
 
