@@ -116,7 +116,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-12">
-						<h3>Customers</h3>
+						<h3>Investments</h3>
 						<canvas id="investmentsChart" style="width:100%;"></canvas>
 					</div>
 				</div>

@@ -72,11 +72,10 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <p><b> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </b></p>
-
-                                             @for($i=0;$i<=2;$i++) 
+                                        <p><b>Please select three security questions below. These questions will help us to verify your identity in case of forgetting password. Please remember answers are case sensitive. </b></p>
+                                        @for($i=0;$i<=2;$i++) 
                                             <div class="form-group">
-                                                <select class="form-control" name="question_id">
+                                                <select class="form-control questions" name="question_id{{$i}}" id="question{{$i}}">
                                                     <option>Select your Questions</option>
                                                     @foreach ($security_questions as $security_question)
                                                     <option value="{{$security_question->id}}">{{$security_question->question}}</option>
@@ -177,6 +176,7 @@
 @endsection
 
 @section('js')
+ 
 <script>
     $(function() {
         $('input[name=BTCOptions]').change(function() {
@@ -392,6 +392,37 @@
             maxDate: '-1D',
         });
     });
+
+    
+
+$(document).ready(function() {
+  var selectState = {
+    'question_id{{$i}}': 'null',
+  };
+
+  $('.questions select').change(function() {
+    alert('asdasdads');
+    var selectId = $(this).attr('question{{$i}}');
+    var selectedOptionValue = $(this).val();
+     
+
+    // for each other select element
+    $('select[id!="' + selectId + '"]').each(function(index) {
+      // enable the old option
+      $(this).find('option[value="' + selectState[selectedOptionValue] + '"]').removeAttr('disabled');
+
+      if (selectedOptionValue !== 'null') { // if selected a real option
+        // disable the new option
+        $(this).find('option[value="' + selectedOptionValue + '"]').attr('disabled', 'disabled');
+      }
+    });
+
+    selectState[selectId] = selectedOptionValue; // update the new state at the end
+  });
+});
+
+
+
 </script>
 
 @endsection
