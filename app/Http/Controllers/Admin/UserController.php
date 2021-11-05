@@ -343,6 +343,8 @@ class UserController extends Controller
         $id = Hashids::decode($id)[0];
         $data['action'] = "View";
         $data['user'] = User::findOrFail($id);
+        $data["security_questions"] = $data['user']->securityQuestionAnswer;
+        // dd($data["security_questions"]);
         return view('admin.users.view')->with($data);
     }
 

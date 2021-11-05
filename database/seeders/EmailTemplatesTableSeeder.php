@@ -337,14 +337,14 @@ Hi Admin,
             array (
                 'id' => 12,
                 'type' => 'document_req',
-                'subject' => 'Customer Send Documentation',
+                'subject' => 'Documents uploaded Successfully',
                 'content' => '<div style=" padding:10px 30px 10px; 
-<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;">Customer Send Documents</h3>
+<h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;">Documents uploaded Successfully</h3>
 <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
 Hi {{name}}, 
 </h3>                
 <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
-Thank you for sending the documents. Please 10 days are required to verify your documents.</h3>
+Thank you for uploading the documents. We will review your documents, {{setting_days}} days are required for the verification purpose.</h3><h3 style="font-size:18px;line-height: 25px;font-weight: normal;">In case of any concern, contact admin.&nbsp;</h3>
 </div>
 
 <div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">
@@ -418,3 +418,6 @@ Thank you for sending the documents. Please 10 days are required to verify your 
         
     }
 }
+
+
+ 

@@ -17,13 +17,13 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Security Question Listing</h3>
 				@if(have_right('security-questions-create'))
-				<div class="right">
+				<!-- <div class="right">
 					<a href="{{url('admin/security-questions/create')}}" class="pull-right">
 						<button title="Add" type="button" class="btn btn-primary btn-lg btn-fullrounded">
 							<span>Add</span>
 						</button>
 					</a>
-				</div>
+				</div> -->
 				@endif
 			</div>
 			<div class="panel-body">

@@ -62,10 +62,10 @@
 								<tbody>
 									@foreach ( $pool_balance_import_sheet_data as $key => $row)
 									<tr>
-										<td><input type="hidden" name="year_month[]" id="year_month-{{$key}}" value="{{$row[0]}}" />{{$row[0]}}</td>
-										<td><input type="hidden" name="pool_id[]" id="pool_id-{{$key}}" value="{{$row[1]}}" />{{$row[1]}}</td>
-										<td><input type="text" name="gross_amount[]" id="gross_amount-{{$key}}" value="{{$row[2]}}" /></td>
-										<td><input type="text" name="net_amount[]" id="net_amount-{{$key}}" value="{{$row[3]}}" /></td>
+										<td><input class="form-control mt-5" type="hidden" name="year_month[]" id="year_month-{{$key}}" value="{{$row[0]}}" />{{$row[0]}}</td>
+										<td><input class="form-control mt-5"  type="hidden" name="pool_id[]" id="pool_id-{{$key}}" value="{{$row[1]}}" />{{$row[1]}}</td>
+										<td><input class="form-control"  type="text" name="gross_amount[]" id="gross_amount-{{$key}}" value="{{$row[2]}}" /></td>
+										<td><input class="form-control" class="form-control"  type="text" name="net_amount[]" id="net_amount-{{$key}}" value="{{$row[3]}}" /></td>
 									</tr>
 									@endforeach
 								</tbody>

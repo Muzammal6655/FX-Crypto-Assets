@@ -190,12 +190,16 @@
 								</div>
 							</div>
 							
-							<!-- <div class="form-group">
-								<label for="timezone" class="col-sm-3 control-label">Timezone</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" readonly="" value="{{ $user->timezone }}">
-								</div>
-							</div> -->
+							<hr>
+							<h4 class="heading">Security Questions and Answers </h4>
+							@foreach ($security_questions as $seq_q)
+							<div class="form-group">
+								 <p><strong class="col-sm-3 control-label">{{$seq_q->securityquestion->question}}</strong></p>	
+								 	<div class="col-sm-9">
+									<input type="text" class="form-control" readonly="" value="{{$seq_q->answer}}">
+								</div> 
+							</div>
+							@endforeach
 
 							<div class="text-right">
 								<a href="{{url('admin/customers')}}">
