@@ -36,7 +36,7 @@ class UserController extends Controller
         $input = $request->all();
         $user = Auth::user();
         $validations = [
-          'dob' => ['required','date','before:-18 years']
+          'dob' => ['required','before:-18 years']
         ];
 
         $validations['btc_wallet_address'] = [Rule::unique('users')->ignore($user->id)];
@@ -124,9 +124,12 @@ class UserController extends Controller
         if ($request->name != $user->name   || $change_format != $update_Date  ) 
         {       
              $flash_message = 'Your profile has been update please upload the documentation again.';
-             $user->photo_status = 0;
-             $user->passport_status = 0;
+             $user->photo_status = null;
+             $user->passport_status = null;
              $user->au_doc_verification_status = 0;
+             $user->photo = null;
+             $user->passport = null;
+             $user->au_doc_verification =null;
 
         }
         $input['dob'] = \Carbon\Carbon::createFromFormat('d-m-Y', $change_format)->format('Y-m-d');

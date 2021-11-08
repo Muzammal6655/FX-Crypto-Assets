@@ -102,6 +102,49 @@ class OtpAuthController extends Controller
        
         $user = auth()->user();
 
+        if($request->checkbox == 'both')
+        {
+            $validations = [
+                'email_code' => ['required'],
+                'two_fa_code' => ['required']
+            ];
+
+            $validator = Validator::make($request->all(), $validations);
+
+            if ($validator->fails()) {
+                Session::flash('flash_danger', $validator->messages());
+                return redirect()->back()->withInput();
+            }
+        }
+
+        if($request->checkbox == 1)
+        {    
+            $validations = [
+                'email_code' => ['required']
+            ];
+
+            $validator = Validator::make($request->all(), $validations);
+
+            if ($validator->fails()) {
+                Session::flash('flash_danger', $validator->messages());
+                return redirect()->back()->withInput();
+            }
+        }
+
+        if($request->checkbox == 2)
+        {   
+            $validations = [
+                'two_fa_code' => ['required']
+            ];
+
+            $validator = Validator::make($request->all(), $validations);
+
+            if ($validator->fails()) {
+                Session::flash('flash_danger', $validator->messages());
+                return redirect()->back()->withInput();
+            }
+        }
+
         if ($user->email_otp_status == 1 && $request->checkbox == 1) {
            
             if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {

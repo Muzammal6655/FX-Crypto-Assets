@@ -392,12 +392,12 @@ Thank you for uploading the documents. We will review your documents, {{setting_
                 'type' => 'email_informed',
                 'subject' => 'Email Change',
                 'content' => '<div style=" padding:10px 30px 10px; 
-                <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;">Your 2FA is disabled</h3>
+                <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, sans-serif; color: rgb(0, 0, 0); font-size: 22px;"> </h3>
                 <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
                 Hi {{name}}, 
                 </h3>                
                 <h3 style="font-size:18px;line-height: 25px;font-weight: normal;">
-                Your Email is changed. Send the link to the new email address that is open and set the new password. Please contact with Admin in case of any concerns.</h3>
+                Your Email is changed. The reset password link is sent to the new email address. Please contact with Admin in case of any concerns.</h3>
                 </div>
 
                 <div style=" padding:30px 30px 10px;  font-family: Segoe, \'Segoe UI\', \'sans-serif\';">

@@ -57,7 +57,7 @@ class LoginController extends Controller
       if(empty($user))
       {
        
-        $flash_message  = "In case of any query plase contact us the sport team." . " ".
+        $flash_message  = "In case of any query please our sport team." . " ".
            settingValue('sport_number');
         $request->session()->flash('sport_message', $flash_message);
         return redirect('/login');

@@ -54,12 +54,12 @@
                                         <label for="2FA Code" style="margin-top: -4px;">2FA Code</label>
                                         <br>
                                         <input type="checkbox" name="checkbox" id="checkbox-both" value="both" /> 
-                                        <label for="both" style="margin-top: -4px;"> Both</label>
+                                        <label for="both" style="margin-top: -4px;"  value="3"> Both</label>
                                        </div>
                                         <br>
                                         <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code" style="margin-bottom: 10px;padding: 8px 17px;margin-right: 15px;font-size: 14px;"  /> 
                                         <input id="showthis2FA"  class="showthis" name="two_fa_code"  
-                                         type="text"  placeholder="Enter the 2FA Code" required="required" style="padding: 8px 17px;font-size: 14px;"  /> 
+                                         type="text"  placeholder="Enter the 2FA Code"   style="padding: 8px 17px;font-size: 14px;"  /> 
                                           <br> 
                                            <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp" style="margin-bottom: 35px;">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
                                            <br> 
@@ -72,7 +72,7 @@
                                         <input id="showthis2FA"  class="showthis" name="two_fa_code"  
                                          type="text"  placeholder="Enter the 2FA Code" style="display: inline-block;margin-top: 10px;margin-left: 132px;margin-bottom: 10px;" /> 
                                           <br>  
-                                         <button type="submit" id="disable" class="btn-primary">Disable</button> -->
+                                        -->
                                         @else
                                             <a href="{{url('otp-auth/setup-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Configure</button>
@@ -97,15 +97,17 @@
         $('#disable').attr("disabled", true);
         $('#checkbox-email').on('click', function () {
             if($('#checkbox-email').is(':checked')){
-            $('#showthis').show();
-            $('.showthis2FA').show();
-            $("#checkbox-2fa-code").attr("disabled", true);
-            $('#disable').attr("disabled", false);
-            }else{
-            $('#showthis').hide();
-            $('#disable').attr("disabled", true);
-            $('.showthis2FA').hide();
-            $("#checkbox-2fa-code").attr("disabled", false);
+                $('#showthis').show();
+                $('.showthis2FA').show();
+                $("#checkbox-2fa-code").attr("disabled", true);
+                $('#disable').attr("disabled", false);
+            }
+            else
+            {
+                $('#showthis').hide();
+                $('#disable').attr("disabled", true);
+                $('.showthis2FA').hide();
+                $("#checkbox-2fa-code").attr("disabled", false);
             }
         });
          $('#checkbox-2fa-code').on('click', function () {
@@ -152,6 +154,7 @@
                 success: function(res) {
                     $('#generate_otp_loading').hide();
                     $('#generate_otp').prop('disabled',false);
+                     $('#disable').attr("disabled", false);
                     alert(res);
                 }
             });
