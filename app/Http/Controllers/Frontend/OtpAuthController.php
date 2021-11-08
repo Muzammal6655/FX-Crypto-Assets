@@ -136,11 +136,14 @@ class OtpAuthController extends Controller
 
         if($request->checkbox == 2)
         {   
+             $messages = [
+            'two_fa_code' => '2FA code is incorrect.',
+            ];
             $validations = [
                 'two_fa_code' => ['required']
             ];
 
-            $validator = Validator::make($request->all(), $validations);
+            $validator = Validator::make($request->all(), $validations , $messages);
 
             if ($validator->fails()) {
                 Session::flash('flash_danger', $validator->messages());
