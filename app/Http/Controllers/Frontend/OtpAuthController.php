@@ -104,12 +104,15 @@ class OtpAuthController extends Controller
 
         if($request->checkbox == 'both')
         {
+             $messages = [
+            'two_fa_code' => '2FA code is incorrect.',
+            ];
             $validations = [
                 'email_code' => ['required'],
                 'two_fa_code' => ['required']
             ];
 
-            $validator = Validator::make($request->all(), $validations);
+            $validator = Validator::make($request->all(), $validations , $messages );
 
             if ($validator->fails()) {
                 Session::flash('flash_danger', $validator->messages());
@@ -162,6 +165,24 @@ class OtpAuthController extends Controller
                 return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
             }
         }
+
+        if($request->checkbox == 'both')
+        {
+            $google2fa = app('pragmarx.google2fa');
+           // Add the secret key to the user data
+            $response = $google2fa->verifyKey($user->otp_auth_secret_key, $request->two_fa_code);
+
+            if (!$response) {
+                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+            }
+
+            if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+            }
+        }
+
+
+
 
         $user->update([
             'otp_auth_secret_key' => Null,

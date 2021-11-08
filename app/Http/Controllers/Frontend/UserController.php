@@ -123,7 +123,7 @@ class UserController extends Controller
             $flash_message = 'profile has been update';
         if ($request->name != $user->name   || $change_format != $update_Date  ) 
         {       
-             $flash_message = 'Your profile has been update please upload the documentation again.';
+             $flash_message = 'Your profile has been updated.Please upload the documents again.';
              $user->photo_status = null;
              $user->passport_status = null;
              $user->au_doc_verification_status = 0;
@@ -324,7 +324,7 @@ class UserController extends Controller
 
         $user->email = $input['update_email'];
         $user->save();
-        $flash_message = 'Email has been update';
+        $flash_message = 'Email has been updated successfully.';
         $request->session()->flash('flash_success', $flash_message);
         return redirect('/profile');
     }
