@@ -161,7 +161,7 @@ class RegisterController extends Controller
         if ($user) {
             for ($i = 0; $i <= 2; $i++) {
                 $security_answer = $user->securityQuestionAnswer()->create([
-                    'trip_id' => $user->id,
+                    'user_id' => $user->id,
                     'question_id' =>  $data['question_id' . $i],
                     'answer' => $data['answer' . $i],
 

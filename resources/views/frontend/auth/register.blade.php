@@ -73,98 +73,96 @@
                                             </select>
                                         </div>
                                         <p><b>Please select three security questions below. These questions will help us to verify your identity in case of forgetting password. Please remember answers are case sensitive. </b></p>
-                                        @for($i=0;$i<=2;$i++) 
-                                            <div class="form-group">
-                                                <select class="form-control questions" name="question_id{{$i}}" >
-                                                    <option>Select your Questions</option>
-                                                    @foreach ($security_questions as $security_question)
-                                                    <option value="{{$security_question->id}}">{{$security_question->question}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" class="form-control" placeholder="Answer*" name="answer{{$i}}" value="{{old('answer')}}" required="required">
-                                            </div>
-                                            @endfor
-
-                                            <p><strong>Were you referred to Interesting FX? *</strong></p>
-
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="ReferredOptions" value="yes" id="ReferredOptions1" required="" {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="ReferredOptions1">Yes</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="ReferredOptions" value="no" id="ReferredOptions2" {{ old('ReferredOptions') == 'no' ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="ReferredOptions2">No</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
-                                                <input type="text" name="referral_code" class="form-control" placeholder="Referral Code *" value="{{old('referral_code') ?? $referral_code}}">
-                                            </div>
-
-                                            <div class="form-check referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
-                                                <input type="checkbox" class="form-check-input" name="provide_later" id="provide_later" {{ old('provide_later') == 'on' ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="provide_later">Provide Later</label>
-                                            </div>
-
-                                            <p id="provide_later_text" style="display: {{ old('provide_later') == 'on' ? '' : 'none' }}">You have till the last day of next month to provide Referral Code.</p>
-
-                                            <p><strong>Do you have an Existing BTC wallet for withdrawals? *</strong></p>
-
-                                            <div class="form-group">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="BTCOptions" value="yes" id="BTCOptions1" required="" {{ old('BTCOptions') == 'yes' ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="BTCOptions1">Yes</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="BTCOptions" value="no" id="BTCOptions2" {{ old('BTCOptions') == 'no' ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="BTCOptions2">No</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
-                                                <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" minlength="42" maxlength="42">
-                                            </div>
-
-                                            <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
-
-                                            <div class="form-group">
-                                                <div class="form-check">
-                                                    <input data-is-link-open=0 data-term-and-condition-link="{{config('constants.wordpress_base_url')}}terms/" id="term_and_condition" type="checkbox" name="agree" class="form-check-input" required="" {{ old('agree') == 'on' ? 'checked' : '' }}>
-
-                                                    <label class="form-check-label">I have read and agree to the <a href="{{config('constants.wordpress_base_url')}}terms/" target="_blank">T&C</a></label>
-                                                </div>
-                                            </div>
-
-                                            <div class="bottom">
-                                                <p>Already have an account <a href="{{ url('/login') }}">click here</a> to login
-                                                </p>
-                                                <div class="btn-wrap">
-                                                    <button type="submit" class="btn-theme text-capitalize">Create
-                                                        Account
-                                                        <span class="btn-theme__inner">
-                                                            <span class="btn-theme__blobs">
-                                                                <span class="btn-theme__blob"></span>
-                                                                <span class="btn-theme__blob"></span>
-                                                                <span class="btn-theme__blob"></span>
-                                                                <span class="btn-theme__blob"></span>
-                                                            </span>
-                                                        </span>
-                                                    </button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="btn-svg">
-                                                        <defs>
-                                                            <filter id="goo">
-                                                                <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
-                                                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
-                                                                <feBlend in2="goo" in="SourceGraphic" result="mix">
-                                                                </feBlend>
-                                                            </filter>
-                                                        </defs>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                    </form>
+                                        @for($i=0;$i<=2;$i++) <div class="form-group">
+                                            <select class="form-control questions" name="question_id{{$i}}" id="question_id{{$i}}">
+                                                <option>Select your Questions</option>
+                                                @foreach ($security_questions as $security_question)
+                                                <option value="{{$security_question->id}}">{{$security_question->question}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="text" class="form-control" placeholder="Answer*" name="answer{{$i}}" value="{{old('answer')}}" required="required">
                                 </div>
+                                @endfor
+
+                                <p><strong>Were you referred to Interesting FX? *</strong></p>
+
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="ReferredOptions" value="yes" id="ReferredOptions1" required="" {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="ReferredOptions1">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="ReferredOptions" value="no" id="ReferredOptions2" {{ old('ReferredOptions') == 'no' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="ReferredOptions2">No</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
+                                    <input type="text" name="referral_code" class="form-control" placeholder="Referral Code *" value="{{old('referral_code') ?? $referral_code}}">
+                                </div>
+
+                                <div class="form-check referral-code" style="display: {{ (old('ReferredOptions') == 'yes' || !empty($referral_code)) ? '' : 'none' }}">
+                                    <input type="checkbox" class="form-check-input" name="provide_later" id="provide_later" {{ old('provide_later') == 'on' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="provide_later">Provide Later</label>
+                                </div>
+
+                                <p id="provide_later_text" style="display: {{ old('provide_later') == 'on' ? '' : 'none' }}">You have till the last day of next month to provide Referral Code.</p>
+
+                                <p><strong>Do you have an Existing BTC wallet for withdrawals? *</strong></p>
+
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="BTCOptions" value="yes" id="BTCOptions1" required="" {{ old('BTCOptions') == 'yes' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="BTCOptions1">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="BTCOptions" value="no" id="BTCOptions2" {{ old('BTCOptions') == 'no' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="BTCOptions2">No</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
+                                    <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" minlength="42" maxlength="42">
+                                </div>
+
+                                <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input data-is-link-open=0 data-term-and-condition-link="{{config('constants.wordpress_base_url')}}terms/" id="term_and_condition" type="checkbox" name="agree" class="form-check-input" required="" {{ old('agree') == 'on' ? 'checked' : '' }}>
+
+                                        <label class="form-check-label">I have read and agree to the <a href="{{config('constants.wordpress_base_url')}}terms/" target="_blank">T&C</a></label>
+                                    </div>
+                                </div>
+
+                                <div class="bottom">
+                                    <p>Already have an account <a href="{{ url('/login') }}">click here</a> to login
+                                    </p>
+                                    <div class="btn-wrap">
+                                        <button type="submit" class="btn-theme text-capitalize">Create
+                                            Account
+                                            <span class="btn-theme__inner">
+                                                <span class="btn-theme__blobs">
+                                                    <span class="btn-theme__blob"></span>
+                                                    <span class="btn-theme__blob"></span>
+                                                    <span class="btn-theme__blob"></span>
+                                                    <span class="btn-theme__blob"></span>
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="btn-svg">
+                                            <defs>
+                                                <filter id="goo">
+                                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                                                    <feBlend in2="goo" in="SourceGraphic" result="mix">
+                                                    </feBlend>
+                                                </filter>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -173,10 +171,11 @@
         </div>
     </div>
 </div>
+</div>
 @endsection
 
 @section('js')
- 
+
 <script>
     $(function() {
         $('input[name=BTCOptions]').change(function() {
@@ -393,36 +392,33 @@
         });
     });
 
-    
-
-$(document).ready(function() {
-  var selectState = {
-    'question_id{{$i}}': 'null',
-  };
-
-  $('select').change(function() {
-   
-    var selectId = $(this).attr('.questions');
-    var selectedOptionValue = $(this).val();
-     
-
-    // for each other select element
-    $('select[id!="' + selectId + '"]').each(function(index) {
-      // enable the old option
-      $(this).find('option[value="' + selectState[selectedOptionValue] + '"]').removeAttr('disabled');
-
-      if (selectedOptionValue !== 'null') { // if selected a real option
-        // disable the new option
-        $(this).find('option[value="' + selectedOptionValue + '"]').attr('disabled', 'disabled');
-      }
-    });
-
-    selectState[selectId] = selectedOptionValue; // update the new state at the end
-  });
-});
 
 
+    $(document).ready(function() {
+        var selectState = {
+            'question_id0': 'null',
+            'question_id1': 'null',
+            'question_id2': 'null'
+        };
 
+        $('.questions').change(function() {
+            var selectId = $(this).attr('id');
+            var selectedOptionValue = $(this).val();
+
+            // for each other select element
+            $('select[id!="' + selectId + '"]').each(function(index) {
+                // enable the old option
+                $(this).find('option[value="' + selectState[selectId] + '"]').removeAttr('disabled');
+
+                if (selectedOptionValue !== 'null') { // if selected a real option
+                    // disable the new option
+                    $(this).find('option[value="' + selectedOptionValue + '"]').attr('disabled', 'disabled');
+                }
+            });
+
+            selectState[selectId] = selectedOptionValue; // update the new state at the end
+        });
+    })
 </script>
 
 @endsection
