@@ -58,7 +58,7 @@
                                             <div class="p-alignment">
                                                 <p>Have no account <a href="{{ url('/register') }}">click here</a> to create an account
                                                 </p>
-                                                <p class="mt-2">In case of any query please our sport team. {{settingValue('sport_number')}}</p>
+                                                <p class="mt-2">In case of any query, please contact our support team. {{settingValue('sport_number')}}</p>
                                             </div>
 
                                             <div class="btn-wrap">

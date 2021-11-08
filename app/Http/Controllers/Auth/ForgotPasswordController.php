@@ -143,7 +143,7 @@ class ForgotPasswordController extends Controller
             $count +=1;
           }
         }
-        if($count >= 2)
+        if($count >= 3)
         {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
