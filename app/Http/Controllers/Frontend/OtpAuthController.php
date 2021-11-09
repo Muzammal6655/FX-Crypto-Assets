@@ -104,6 +104,7 @@ class OtpAuthController extends Controller
 
         if($request->checkbox == 'both')
         {
+             
              $messages = [
             'two_fa_code' => '2FA code is incorrect.',
             ];
@@ -121,7 +122,7 @@ class OtpAuthController extends Controller
         }
 
         if($request->checkbox == 1)
-        {    
+        {      
             $validations = [
                 'email_code' => ['required']
             ];
@@ -135,7 +136,7 @@ class OtpAuthController extends Controller
         }
 
         if($request->checkbox == 2)
-        {   
+        {     
              $messages = [
             'two_fa_code' => '2FA code is incorrect.',
             ];
@@ -152,8 +153,8 @@ class OtpAuthController extends Controller
         }
 
         if ($user->email_otp_status == 1 && $request->checkbox == 1) {
-           
-            if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {
+            
+            if (empty(session()->get('2fa_request_email_verification_otp')) || session()->get('2fa_request_email_verification_otp') != $request->email_code) {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
             }
         }
@@ -165,7 +166,7 @@ class OtpAuthController extends Controller
             $response = $google2fa->verifyKey($user->otp_auth_secret_key, $request->two_fa_code);
 
             if (!$response) {
-                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
+                return redirect()->back()->withInput()->withErrors(['error' => '2FA code is incorrect.']);
             }
         }
 
@@ -179,7 +180,7 @@ class OtpAuthController extends Controller
                 return redirect()->back()->withInput()->withErrors(['error' => '2FA code is not correct.']);
             }
 
-            if (empty(session()->get('deposit_request_email_verification_otp')) || session()->get('deposit_request_email_verification_otp') != $request->email_code) {
+            if (empty(session()->get('2fa_request_email_verification_otp')) || session()->get('2fa_request_email_verification_otp') != $request->email_code) {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
             }
         }

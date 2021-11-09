@@ -149,7 +149,7 @@
             $('#generate_otp').prop('disabled',true);
 
             $.ajax({
-                url: "{{ url('/otp-auth/send-email-code?type=deposit_request') }}",
+                url: "{{ url('/otp-auth/send-email-code?type=2fa_request') }}",
                 type: 'GET',
                 success: function(res) {
                     $('#generate_otp_loading').hide();
