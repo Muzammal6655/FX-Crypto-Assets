@@ -97,7 +97,7 @@ class RegisterController extends Controller
 
         $user = new User();
         $user->fill($data);
-
+        
         /**
          * Were you referred to Interesting FX?
          */

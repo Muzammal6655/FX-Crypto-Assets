@@ -123,6 +123,8 @@
 
                                 <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
                                     <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" minlength="42" maxlength="42">
+
+                                     <input type="text" name="memo_address" class="form-control" placeholder="Memo Address" value="{{old('memo_address')}}" minlength="42" maxlength="42">
                                 </div>
 
                                 <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>

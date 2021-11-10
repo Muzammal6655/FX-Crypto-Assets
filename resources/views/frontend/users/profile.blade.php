@@ -100,6 +100,12 @@
                                                 <input type="text" name="btc_wallet_address" minlength="42" maxlength="42" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
                                             </div>
 
+                                            <p><strong>Memo Address</strong></p>
+
+                                            <div class="form-group" id="btc_wallet_address">
+                                                <input type="text" name="memo_address" minlength="42" maxlength="42" class="form-control" placeholder="Memo Address" value="{{$user->memo_address}}"  >
+                                            </div>
+
                                             <p><strong>Email OTP Verification</strong></p>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="email_otp_status" id="enable" value="1" {{ ($user->email_otp_status == 1) ? 'checked' : '' }}>
