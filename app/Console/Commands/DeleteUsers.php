@@ -61,5 +61,6 @@ class DeleteUsers extends Command
                 }
             }
         }
+
     }
 }

@@ -55,7 +55,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::get('customers/enable-login/{id}', 'UserController@enableLogin');
     Route::get('customers/{id}/referrals', 'UserController@referrals');
     Route::get('customers/{id}/transactions', 'UserController@transactions');
-    Route::get('customers/{id}/password', 'UserController@password');
+    Route::get('customers/{id}/resetpassword', 'UserController@password');
     Route::get('customers/{id}/balances', 'UserController@balances');
     Route::get('customers/{id}/document-history', 'UserController@documentHistory');
 
@@ -84,6 +84,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.', 'prefix' => 'admin', 'mi
     Route::resource('withdraws', 'WithdrawController');
 
     Route::post('preview-profits-import-file', 'ProfitController@previewFile');
+    Route::post('profit-delete-file/{id}','ProfitController@profitDelete');
     Route::resource('profits', 'ProfitController');
     Route::post('preview-pool-balances', 'PoolBalanceController@previewFile');
     Route::resource('pool-balances', 'PoolBalanceController');

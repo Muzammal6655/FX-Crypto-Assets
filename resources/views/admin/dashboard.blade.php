@@ -143,7 +143,7 @@
 									<th>Id</th>
 									<th>Name</th>
 									<th>Email</th>
-									<th>Deletion DateTime</th>
+									<th>Delete DateTime</th>
 									<th>Status</th>
 									<th>Actions</th>
 								</tr>

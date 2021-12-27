@@ -122,9 +122,9 @@
                                 </div>
 
                                 <div class="form-group" id="btc_wallet_address" style="display: {{ old('BTCOptions') == 'yes' ? '' : 'none' }}">
-                                    <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" minlength="42" maxlength="42">
+                                    <input type="text" name="btc_wallet_address" class="form-control" placeholder="BTC Wallet Address" value="{{old('btc_wallet_address')}}" >
 
-                                     <input type="text" name="memo_address" class="form-control" placeholder="Memo Address" value="{{old('memo_address')}}" minlength="42" maxlength="42">
+                                     <input type="text" name="memo_address" class="form-control" placeholder="Memo Address" value="{{old('memo_address')}}" >
                                 </div>
 
                                 <p id="binance" style="display: {{ old('BTCOptions') == 'no' ? '' : 'none' }};"><a href="https://www.binance.com/en/register?ref=CBPE2Z8R" target="_blank">Binance</a> - Interesting FX is paid a referral fee for referring our customers to Binance. Interesting FX does not require you to use Binance we offer this link purely as a service.</p>
@@ -252,8 +252,8 @@
                     spaceCheck: true
                 },
                 btc_wallet_address: {
-                    minlength: 42,
-                    maxlength: 42,
+                    // minlength: 25,
+                    // maxlength: 35,
                     walletAddressCheck: true
                 },
             },
@@ -294,7 +294,7 @@
 
                 },
                 btc_wallet_address: {
-                    walletAddressCheck: "Minimum 42 characters and no special character are used."
+                    walletAddressCheck: "Please enter valid wallet address and no special character are used."
                 },
             },
 
@@ -351,7 +351,7 @@
 
         });
         $.validator.addMethod("walletAddressCheck", function(value) {
-            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]{42,}/.test(value)
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[0-9])[A-Za-z0-9\d]/.test(value)
         });
     });
 
@@ -383,6 +383,9 @@
 
 
     $(function() {
+        var maxBirthdayDate = new Date();
+        maxBirthdayDate.setFullYear( maxBirthdayDate.getFullYear() - 18 );
+        // maxBirthdayDate.setMonth(11,31)
         $("#my_date_picker").datepicker({
             dateFormat: 'dd-mm-yy',
             changeMonth: true,
@@ -390,7 +393,7 @@
             // yearRanger : "-100",
             yearRange: "-800:+0",
             minDate: new Date(1220, 1 - 1),
-            maxDate: '-1D',
+            maxDate: maxBirthdayDate,
         });
     });
 

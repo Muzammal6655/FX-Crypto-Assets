@@ -102,6 +102,22 @@ class OtpAuthController extends Controller
        
         $user = auth()->user();
 
+            $validations = [
+                'emailCode' => ['required']
+            ];
+            $validator = Validator::make($request->all(), $validations);
+
+            if ($validator->fails()) {
+                Session::flash('flash_danger', $validator->messages());
+                return redirect()->back()->withInput();
+            }
+            if ($user->email_otp_status == 1 && !empty($request->emailCode)) {
+            
+                if (empty(session()->get('2fa_request_email_verification_otp')) || session()->get('2fa_request_email_verification_otp') != $request->emailCode) {
+                    return redirect()->back()->withInput()->withErrors(['error' => 'Email code is not correct.']);
+                }
+            }
+
         if($request->checkbox == 'both')
         {
              

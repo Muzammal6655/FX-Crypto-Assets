@@ -205,7 +205,7 @@ class DepositController extends Controller
                 'account_balance' => $user->account_balance - $model->amount,
                 'account_balance_timestamp' => Carbon::now('UTC')->timestamp,
             ]);
-            
+
 
             Transaction::create([
                 'user_id' => $user->id,
@@ -236,7 +236,7 @@ class DepositController extends Controller
         }
 
 
-
+        
         $model->approved_at = date('Y-m-d H:i:s');
         $model->status = 1;
         $model->save();

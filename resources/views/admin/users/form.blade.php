@@ -29,20 +29,19 @@
 							<input name="id" type="hidden" value="{{ $user->id }}" />
 
 							<h4 class="heading">Basic Information</h4>
-
 							<div class="form-group">
 								<label for="name" class="col-sm-3 control-label">First Name*</label>
 								<div class="col-sm-9">
-									<input type="text" name="name" maxlength="30" class="form-control" required=""
-										value="{{ ($action == 'Add') ? old('name') : $user->name}}">
+									<input type="text" name="name" maxlength="30" class="form-control" required="" @if($action == 'Edit') readonly="readonly" @endif
+									value="{{ ($action == 'Add') ? old('name') : $user->name}}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="family_name" class="col-sm-3 control-label">Family Name*</label>
 								<div class="col-sm-9">
-									<input type="text" name="family_name" maxlength="30" class="form-control" required="" 
-										value="{{ ($action == 'Add') ? old('family_name') : $user->family_name}}">
+									<input type="text" name="family_name" maxlength="30" class="form-control" required=""  @if($action == 'Edit') readonly="readonly" @endif
+									value="{{ ($action == 'Add') ? old('family_name') : $user->family_name}}">
 								</div>
 							</div>
 							@if(have_right('email-edit'))
@@ -69,11 +68,10 @@
 										value="{{ ($action == 'Add') ? old('mobile_number') : $user->mobile_number}}" required="">
 								</div>
 							</div>
-
 							<div class="form-group">
 								<label for="dob" class="col-sm-3 control-label">Date of Birth*</label>
 								<div class="col-sm-9">
-									<input type="date" max="{{ date('Y-m-d', strtotime('-18 year')) }}" name="dob" class="form-control" value="{{ ($action == 'Add') ? old('dob') : $user->dob}}" required="">
+									<input type="date" max="{{ date('Y-m-d', strtotime('-18 year')) }}" name="dob" class="form-control" value="{{($action == 'Add') ? old('dob') : $user->dob}}" required="" @if($action == 'Edit') readonly="readonly" @endif>
 								</div>
 							</div>
 
@@ -86,7 +84,7 @@
 										<span><i></i>Active</span>
 									</label>
 									<label class="fancy-radio">
-										<input name="status" value="0" type="radio" {{ ($status == 0) ? 'checked' : '' }}>
+										<input name="status" value="0" type="radio" {{ ($status == 0 ) ? 'checked' : '' }}>
 										<span><i></i>Disable</span>
 									</label>
 									@if($action == 'Edit')
@@ -208,25 +206,26 @@
 								@endif
 							</h4>
 							@endif
-
+							
+							@if($action=='Add')
 							<hr>
-
-							<h4 class="heading">
+							
+								<!-- <h4 class="heading">
 								Password & Confirm Password
-								<!-- @if($action == 'Edit')
+							 @if($action == 'Edit')
 								<a href="{{url('admin/customers/send-password/'.Hashids::encode($user->id))}}" class="pull-right">
 									<button type="button" class="btn btn-primary btn-sm btn-fullrounded">
 										<i class="fa fa-paper-plane"></i><span>Send Password</span>
 									</button>
 								</a>
-								@endif -->
-							</h4>
+								@endif
+							</h4> -->
 
 							<div class="form-group">
 								<label for="password" class="col-sm-3 control-label">Password</label>
 								<div class="col-sm-9">
-									<span class="fa fa-fw fa-eye password-field-icon toggle-password"></span>
-									<input type="password" name="password" id="password" minlength="8" maxlength="30"  readonly 
+									<span class="fa fa-fw fa-eye-slash password-field-icon toggle-password"></span>
+									<input type="password" name="password" id="password" minlength="8" maxlength="30" 
 										class="password form-control" value="{{$user->original_password}}" required="">
 								</div>
 							</div>
@@ -234,12 +233,12 @@
 							<div class="form-group">
 								<label for="confirm_password" class="col-sm-3 control-label">Confirm Password</label>
 								<div class="col-sm-9">
-									<span class="fa fa-fw fa-eye password-field-icon toggle-password"></span>
-									<input type="password" name="confirm_password" class="password form-control" readonly 
+									<span class="fa fa-fw fa-eye-slash password-field-icon toggle-password"></span>
+									<input type="password" name="confirm_password" class="password form-control"
 										value="{{$user->original_password}}" required="">
 								</div>
 							</div>
-
+							@endif
 							<div class="text-right">
 								<a href="{{url('admin/customers')}}">
 									<button type="button" class="btn cancel btn-fullrounded">

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Murich\PhpCryptocurrencyAddressValidation\Validation\BTC as BTCValidator;
 use Session;
 use Hashids;
 
@@ -222,7 +223,23 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+        if(!empty($request->btc_wallet_address)){
+            $validator = new BTCValidator($request->btc_wallet_address);
+            $result= $validator->validate();
+            if($result==1){
+                $this->validator($request->all())->validate();
 
+                event(new Registered($user = $this->create($request->all())));
+        
+                $this->sendRegisterResponse();
+        
+                return $this->registered($request, $user)
+                    ?: redirect()->route('login');
+            }
+            else{
+                return redirect()->back()->withInput()->withErrors(['error' => 'BTC wallet address is not valid.']);
+            }
+        }
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -236,6 +253,6 @@ class RegisterController extends Controller
     public function sendRegisterResponse()
     {
         return redirect()->route('login')
-            ->with('flash_success', 'Thank you for registering, a confirmation link has been sent to you email account.');
+            ->with('flash_success', 'Thank you for registering, a confirmation link has been sent to your email account.');
     }
 }

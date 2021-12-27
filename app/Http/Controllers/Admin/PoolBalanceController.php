@@ -38,7 +38,22 @@ class PoolBalanceController extends Controller
             $datatable = $datatable->addColumn('pool', function ($row) {
                 return $row->pool->name;
             });
-
+            
+            $datatable = $datatable->addColumn('action', function ($row) {
+                $actions = '<span class="actions">';
+                if (have_right('pool-balances-delete')) {
+                    $actions .= '&nbsp;<form method="POST" action="' . url("admin/pool-balances/" . Hashids::encode($row->id)) . '" accept-charset="UTF-8" style="display:inline">';
+                    $actions .= '<input type="hidden" name="_method" value="DELETE">';
+                    $actions .= '<input name="_token" type="hidden" value="' . csrf_token() . '">';
+                    $actions .= '<button class="btn  btn-danger" onclick="return confirm(\'Are you sure you want to delete this record?\');" title="Delete">';
+                    $actions .= '<i class="fa fa-trash"></i>';
+                    $actions .= '</button>';
+                    $actions .= '</form>';
+                }
+            $actions .= '</span>';
+            return $actions;
+            });
+            $datatable = $datatable->rawColumns(['action']);
             $datatable = $datatable->make(true);
             return $datatable;
         }
@@ -133,5 +148,20 @@ class PoolBalanceController extends Controller
 
         $request->session()->flash('flash_success', 'Pool balances file has been imported successfully.');
         return redirect('admin/pool-balances');
+    }
+    public function destroy($id, Request $request)
+    {
+        if (!have_right('pool-balances-delete'))
+            access_denied();
+        $id = Hashids::decode($id)[0];
+        // $model = User::findOrFail($id);
+        PoolBalance::destroy($id);
+        Session::flash('flash_success', 'Record deleted successfully.');
+
+        if ($request->has('page') && $request->page == 'dashboard') {
+            return redirect('admin/dashboard');
+        } else {
+            return redirect('admin/pool-balances');
+        }
     }
 }

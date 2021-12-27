@@ -40,6 +40,7 @@
 							<th>YYMM</th>
 							<th>EOM Pool Gross</th>
 							<th>EOM Pool Net</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -76,6 +77,7 @@
 				{data: 'year_month', name: 'year_month'},
 				{data: 'gross_amount', name: 'gross_amount'},
 				{data: 'net_amount', name: 'net_amount'},
+				{data: 'action', name: 'action', orderable: false, searchable: false},
 			]
 		}).on( 'length.dt', function () {
 			showOverlayLoader();

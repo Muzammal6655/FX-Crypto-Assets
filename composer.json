@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "maatwebsite/excel": "^3.1",
+        "murich/php-cryptocurrency-address-validation": "dev-master",
         "nesbot/carbon": "^2.46",
         "niklasravnsborg/laravel-pdf": "^4.0",
         "orangehill/iseed": "^3.0",

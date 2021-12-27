@@ -289,6 +289,18 @@ class RightsTableSeeder extends Seeder
                 'name' => 'email-edit',
                 'status' => 1,
             ),
+            45 => 
+            array (
+                'module_id' => 10,
+                'name' => 'profits-delete',
+                'status' => 1,
+            ),
+            46 => 
+            array (
+                'module_id' => 11,
+                'name' => 'pool-balances-delete',
+                'status' => 1,
+            ),
         ));
         
         

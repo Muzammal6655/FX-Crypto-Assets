@@ -85,7 +85,7 @@ class UserController extends Controller
                 }
 
                 if (have_right('customers-password')) {
-                    $actions .= '&nbsp;<a class="btn btn-primary" href="' . url("admin/customers/" . Hashids::encode($row->id) . '/password') . '" title="Password"><i class="fa fa-key"></i> </a>';
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="' . url("admin/customers/" . Hashids::encode($row->id) . '/resetpassword') . '" title="Reset Password"><i class="fa fa-key"></i> </a>';
                 }
 
                 if (have_right('customers-balances')) {
@@ -193,8 +193,8 @@ class UserController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'email' => ['required', 'string', Rule::unique('users')->ignore($input['id'])],
-                'name' => ['required', 'string', 'max:100'],
-                'password' => 'required|string|min:8|max:30',
+                // 'name' => ['required', 'string', 'max:100'],
+                // 'password' => 'required|string|min:8|max:30',
             ]);
 
             if ($validator->fails()) {
@@ -203,8 +203,12 @@ class UserController extends Controller
             }
 
             $model = User::findOrFail($input['id']);
+
+            if($model->name!= $input['name'] || $model->family_name!=$input['family_name'] || $model->dob!=$input['dob']){
+                Session::flash('flash_danger', "un-successful, Please don't try to change Name and Date-of-Birth.");
+                return redirect()->back()->withInput();
+            }
             $flash_message = 'Customer has been updated successfully.';
-            
             /**
              * Email send to new email address and update email 
              */
@@ -589,31 +593,31 @@ class UserController extends Controller
         $data['user'] = User::find($id);
 
 
-        if ($request->ajax()) {
-            $db_record = Password::where('user_id', $id)->orderBy('id', 'DESC');
+        // if ($request->ajax()) {
+        //     $db_record = Password::where('user_id', $id)->orderBy('id', 'DESC');
 
-            $datatable = Datatables::of($db_record);
-            $datatable = $datatable->addIndexColumn();
+        //     $datatable = Datatables::of($db_record);
+        //     $datatable = $datatable->addIndexColumn();
 
             // $datatable = $datatable->editColumn('current_password', function($row)
             // {
             //     return ucwords($row->user->original_password);
             // });
 
-            $datatable = $datatable->editColumn('password', function ($row) {
-                return ucwords($row->password);
-            });
+        //     $datatable = $datatable->editColumn('password', function ($row) {
+        //         return ucwords($row->password);
+        //     });
 
-            $datatable = $datatable->editColumn('created_at', function ($row) {
-                return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
-            });
+        //     $datatable = $datatable->editColumn('created_at', function ($row) {
+        //         return Carbon::createFromTimeStamp(strtotime($row->created_at), "UTC")->tz(session('timezone'))->format('d M, Y H:i:s');
+        //     });
 
-            $datatable = $datatable->rawColumns(['amount']);
-            $datatable = $datatable->make(true);
-            return $datatable;
-        }
+        //     $datatable = $datatable->rawColumns(['amount']);
+        //     $datatable = $datatable->make(true);
+        //     return $datatable;
+        // }
 
-        return view('admin.users.password', $data);
+        return view('admin.users.reset_password', $data);
     }
 
     public function documentHistory(Request $request, $id)
@@ -698,9 +702,6 @@ class UserController extends Controller
                     return $status;
                 }
             });
-
-
-
             $datatable = $datatable->rawColumns(['doc_type', 'document', 'status']);
             $datatable = $datatable->make(true);
             return $datatable;

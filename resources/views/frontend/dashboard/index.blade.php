@@ -4,6 +4,32 @@
 @section('content')
 <div class="main-wrapper dashboard-body">
     <div class="container">
+        @if(empty($user->btc_wallet_address) && $user->otp_auth_status == 0  && $_COOKIE['dialog'] == 0) 
+        <div id="dialog" style="display: none" onclick='{{setcookie('dialog',1,0,"/")}}'>
+            <div class="btc_wallet">
+                <label for="btc_wallet-dialog">BTC Wallet Address is Missing</label>
+                <button class='btn  btc-button-dialog' onclick="location.href='{{ url('/profile') }}'">BTC Wallet</button>
+            </div>
+            <div class="dialog-2FA">
+                <label for="2FA">2FA Missing</label>
+                <button class='btn  dialog-2fa-button' onclick="location.href='{{ url('/otp-auth/info') }}'">2 FA</button>
+            </div>
+        </div>
+        @elseif($user->otp_auth_status == 0  && $_COOKIE['dialog'] == 0)
+        <div id="dialog" style="display: none" onclick='{{setcookie('dialog',1,0,"/")}}'>
+            <div class="dialog-2FA">
+                <label for="2FA">2FA Missing</label>
+                <button class='btn  dialog-2fa-button float-none' onclick="location.href='{{ url('/otp-auth/info') }}'">2 FA</button>
+            </div>
+        </div>
+        @elseif(empty($user->btc_wallet_address)  && $_COOKIE['dialog'] == 0)
+        <div id="dialog" style="display: none" onclick='{{setcookie('dialog',1,0,"/")}}'>
+            <div class="btc_wallet">
+                <label for="btc_wallet-dialog">BTC Wallet Address is Missing</label>
+                <button class='btn  btc-button-dialog' onclick="location.href='{{ url('/profile') }}'">BTC Wallet</button>
+            </div>
+        </div>
+        @endif
         <div class="card-group">
             <div class="card">
                 <div class="card-header">
@@ -127,14 +153,32 @@
 
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<!-- <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" /> -->
+<script  type='text/javascript'>
+      $(function () {
+        $("#dialog").dialog({
+            modal: true,
+            title: "Missing Credentials",
+            height: 'auto',
+            width: 'auto',
+            align: 'center',
+            position: 'center',
+            draggable: false,            
+        });
+        
+    });
+
+</script>
 <script>
-    
+
     var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var depositYvalues = JSON.parse("{{$depositYvalues}}");
     var withdrawYvalues = JSON.parse("{{$withdrawYvalues}}");
     var investmentsYvalues = JSON.parse("{{$investmentsYvalues}}");
     var poolInvestmentsProfitYvalues = JSON.parse("{{$poolInvestmentsProfitYvalues}}");
-   
+    
     new Chart("depositChart", {
         type: "line",
         data: {

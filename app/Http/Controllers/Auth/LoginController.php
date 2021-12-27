@@ -169,6 +169,7 @@ class LoginController extends Controller
           $cookie_name = 'app_user_id';
           $cookie_id = $user->id;
           setcookie($cookie_name, $cookie_id, 0, "/");
+          setcookie('dialog',0,0,'/');
           return redirect()->intended(route('frontend.dashboard'));
         }
       }
@@ -179,7 +180,8 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
       Auth::guard('web')->logout();
-      setcookie('app_user_id', null, -1, "/"); 
+      setcookie('app_user_id', null, -1, "/");
+      setcookie('dialog', null, -1, "/"); 
       return redirect()->route('login');
     }
 }

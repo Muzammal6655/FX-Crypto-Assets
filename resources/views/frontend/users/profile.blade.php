@@ -97,13 +97,13 @@
                                             <p><strong>Wallet Address</strong></p>
 
                                             <div class="form-group" id="btc_wallet_address">
-                                                <input type="text" name="btc_wallet_address" minlength="42" maxlength="42" class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
+                                                <input type="text" name="btc_wallet_address"  class="form-control" placeholder="BTC Wallet Address" value="{{$user->btc_wallet_address}}" required="required">
                                             </div>
 
                                             <p><strong>Memo Address</strong></p>
 
                                             <div class="form-group" id="btc_wallet_address">
-                                                <input type="text" name="memo_address" minlength="42" maxlength="42" class="form-control" placeholder="Memo Address" value="{{$user->memo_address}}"  >
+                                                <input type="text" name="memo_address"  class="form-control" placeholder="Memo Address" value="{{$user->memo_address}}"  >
                                             </div>
 
                                             <p><strong>Email OTP Verification</strong></p>
@@ -230,7 +230,7 @@
                          mobileCheck: "Please enter a valid mobile number e.g +61 123456789."
                     },
                     btc_wallet_address: {
-                        walletAddressCheck: "Minimum 42 characters and no special character are used."
+                        walletAddressCheck: "Please enter valid wallet address and no special character are used."
                     },
                 },
 
@@ -278,11 +278,13 @@
              // return /^(?=.*[0-9])(?=.*\d)(?=.*[0-9])(?=.*[+])[0-9\d+]{12,}/.test(value)
             });
             $.validator.addMethod("walletAddressCheck", function (value) {
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)[A-Za-z0-9\d]{42,}/.test(value)
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\d)[A-Za-z0-9\d]/.test(value)
             });
         });
     
     $(function() {
+        var maxBirthdayDate = new Date();
+        maxBirthdayDate.setFullYear( maxBirthdayDate.getFullYear() - 18 );
         $( "#my_date_picker" ).datepicker({
                 dateFormat: 'dd-mm-yy',
                 changeMonth: true,
@@ -292,7 +294,7 @@
                 yearRange: "-800:+0",
                 minDate: new Date(1220,1 - 1),
                 // maxDate: '-18Y',
-                 maxDate: '-1D',
+                 maxDate: maxBirthdayDate,
             });
     });
 

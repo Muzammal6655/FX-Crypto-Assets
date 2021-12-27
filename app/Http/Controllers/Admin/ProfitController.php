@@ -46,9 +46,18 @@ class ProfitController extends Controller
 
             $datatable = $datatable->addColumn('action', function ($row) {
                 $actions = '<span class="actions">';
+                
+                    $actions .= '&nbsp;<a class="btn btn-primary" href="' . asset(env('PUBLIC_URL').'storage/profits/' . $row->name) . '" title="Download" download=""><i class="fa fa-download"></i></a>';
 
-                $actions .= '&nbsp;<a class="btn btn-primary" href="' . asset(env('PUBLIC_URL').'storage/profits/' . $row->name) . '" title="Download" download=""><i class="fa fa-download"></i></a>';
-
+                    if (have_right('profits-delete')) {
+                        $actions .= '&nbsp;<form method="POST" action="' . url("admin/profits/" . Hashids::encode($row->id)) . '" accept-charset="UTF-8" style="display:inline">';
+                        $actions .= '<input type="hidden" name="_method" value="DELETE">';
+                        $actions .= '<input name="_token" type="hidden" value="' . csrf_token() . '">';
+                        $actions .= '<button class="btn  btn-danger" title="Preview Delete File">';
+                        $actions .= '<i class="fa fa-trash"></i>';
+                        $actions .= '</button>';
+                        $actions .= '</form>';
+                    }
                 $actions .= '</span>';
                 return $actions;
             });
@@ -116,7 +125,7 @@ class ProfitController extends Controller
         // $arr = [];
         foreach ($input['profits'] as $key => $row) {
             $row = json_decode($row, true);
-
+            
             $investment = PoolInvestment::find($row[3]);
 
             if (!empty($investment)) {
@@ -260,6 +269,195 @@ class ProfitController extends Controller
         $request->session()->flash('flash_success', 'Profit file has been imported successfully. Investment records are updated.');
         return redirect('admin/profits');
     }
+
+    public function destroy($id){
+        if (!have_right('profits-delete'))
+        access_denied();
+        $id = Hashids::decode($id)[0];
+        // $model = User::findOrFail($id);
+        $profit=ProfitFile::find($id);
+        $path=file(storage_path('app/public/profits/'.$profit->name,FILE_IGNORE_NEW_LINES));
+  
+        $rows = [];
+        foreach($path as $key=>$value){
+            if($key>=1){
+            $trim_value=trim($value,"\r\n");
+            $rows[$key]=explode(',',$trim_value);
+        }
+        }
+        $data['profit_import_sheet_data'] = $rows;
+        $data['filename'] =  $profit->name;
+        $data['id']=$id;
+        return view('admin.profits.delete_form')->with($data);
+    }
+
+    public function profitDelete($id,Request $request){
+        $input = $request->all();
+        foreach ($input['profits'] as $key => $row) {
+            $row = json_decode($row, true);
+
+            $investment = PoolInvestment::find($row[3]);
+            if (!empty($investment)) {
+                $user = $investment->user;
+                $profit = $investment->deposit_amount * ($row[5] / 100);
+                $management_fee = $profit * ($investment->management_fee_percentage / 100);
+                $actual_profit = $profit - $management_fee;
+                $commission = 0;
+                /**
+                 * Pool Investment table update
+                 */
+            
+                DB::beginTransaction();
+                try {
+                    $investment->update([
+                    'user_id' =>  $user->id,
+                    'profit' => $actual_profit,
+                    'management_fee' =>$management_fee + $commission,
+                    'commission' => $commission,
+                    ]);
+            
+                    /**
+                     * User table balance Update
+                     */
+                    
+                    $user->update([
+                    'account_balance' => $user->account_balance - ($actual_profit + $investment->deposit_amount),
+                    'profit_total' => $user->profit_total - $actual_profit,
+                    ]);
+            
+                    /**
+                     * Balance table Delete entry
+                     */
+            
+                    $Balance=Balance::where([
+                        ['user_id' ,$user->id],
+                        ['type','profit'],
+                        [ 'amount' ,$actual_profit + $investment->deposit_amount]])->orderBy('id','desc')->first();
+                                    
+                        $Balance->delete();
+            
+                    /**
+                     * Transaction table delete entry
+                     */
+            
+            
+                    $Transaction=Transaction::where([
+                        ['user_id' , $user->id],
+                        ['type' , 'profit'],
+                        ['amount' , $profit],
+                        ['actual_amount' , $actual_profit],
+                        ['fee_percentage' , $investment->management_fee_percentage]])->orderBy('id','desc')->first();
+                                    
+                        $Transaction->delete();
+            
+                        DB::commit();
+                    } catch (\Exception $e) {
+                        DB::rollback();
+                        $request->session()->flash('flash_danger',  $e->getMessage());
+                        return redirect('admin/profits');
+                    }
+                }
+            }
+
+        Session::flash('flash_success', 'Record deleted successfully.');
+        ProfitFile::destroy($id);
+        if ($request->has('page') && $request->page == 'dashboard') {
+            return redirect('admin/dashboard');
+        } else {
+            return redirect('admin/profits');
+        }
+    }
+            
+    // public function destroy($id, Request $request)
+    // {
+    //     if (!have_right('profits-delete'))
+    //         access_denied();
+    //     $id = Hashids::decode($id)[0];
+    //     // $model = User::findOrFail($id);
+    //     $profit=ProfitFile::find($id);
+
+    //     $file['data']=Storage::get('public/profits/'.$profit->name);
+    //     // String to array conversion
+    //     $file['data_array']=explode(',',$file['data']);
+    //     $row=[];
+    //     foreach(array_slice($file['data_array'],6) as $key=>$value){
+    //         $row[]=(int)trim($value,"\r\n");
+    //     }
+    //         $temp=0;
+    //         foreach($row as $key=>$value){
+    //         if($temp<count($row)){
+    //         $investment = PoolInvestment::find($row[2+$temp]);
+    //         if (!empty($investment)) {
+    //             $user = $investment->user;
+    //             $profit = $investment->deposit_amount * ($row[4+$temp] / 100);
+    //             $management_fee = $profit * ($investment->management_fee_percentage / 100);
+    //             $actual_profit = $profit - $management_fee;
+    //             $commission = 0;
+    //             /**
+    //              * Pool Investment table update
+    //              */
+
+    //             DB::beginTransaction();
+    //             try {
+    //                 $investment->update([
+    //                     'user_id' =>  $user->id,
+    //                     'profit' => $actual_profit,
+    //                     'management_fee' =>$management_fee + $commission,
+    //                     'commission' => $commission,
+    //                 ]);
+
+    //                 /**
+    //                  * User table balance Update
+    //                  */
+    //                 $account_balance=$user->account_balance - ($actual_profit + $investment->deposit_amount);
+    //                 $user->update([
+    //                     'account_balance' => $account_balance,
+    //                     'profit_total' => $user->profit_total - $actual_profit,
+    //                 ]);
+
+    //                 /**
+    //                  * Balance table Delete entry
+    //                  */
+
+    //                 $Balance=Balance::where([
+    //                     ['user_id' ,$user->id],
+    //                     ['type','profit'],
+    //                     [ 'amount' ,$actual_profit + $investment->deposit_amount]])->orderBy('id','desc')->first();
+                        
+    //                     $Balance->delete();
+
+    //                 /**
+    //                  * Transaction table delete entry
+    //                  */
+
+
+    //                 $Transaction=Transaction::where([
+    //                     ['user_id' , $user->id],
+    //                     ['type' , 'profit'],
+    //                     ['amount' , $profit],
+    //                     ['actual_amount' , $actual_profit],
+    //                     ['fee_percentage' , $investment->management_fee_percentage]])->orderBy('id','desc')->first();
+                        
+    //                     $Transaction->delete();
+    //                     $temp=$temp+5;
+
+    //                 DB::commit();
+    //             } catch (\Exception $e) {
+    //                 DB::rollback();
+    //                 $request->session()->flash('flash_danger',  $e->getMessage());
+    //                 return redirect('admin/profits');
+    //             }
+    //         }
+    //     }
+    //     }
+    //     Session::flash('flash_success', 'Record deleted successfully.');
+    //     ProfitFile::destroy($id);
+    //     if ($request->has('page') && $request->page == 'dashboard') {
+    //         return redirect('admin/dashboard');
+    //     } else {
+    //         return redirect('admin/profits');
+    //     }
+    // }
 
     /**
      * Store a newly created resource in storage.

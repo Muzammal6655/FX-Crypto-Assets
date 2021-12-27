@@ -1858,3 +1858,20 @@ h5 {
 @media(max-width:375px){
     
 }
+    .btc-button-dialog {
+    margin-left: 20px;
+    background: #e78f08;
+    color: white;
+    }
+
+    .dialog-2fa-button{
+        background-color: #e78f08;
+        color: white;
+        float: right;
+    }
+    .dialog-2fa-button{
+        padding: 5px 38px;
+    }
+    .dialog-2FA{
+        padding-top: 10px;
+    }

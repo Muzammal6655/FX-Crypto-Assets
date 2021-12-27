@@ -7,32 +7,36 @@
 		<ul class="breadcrumb">
 			<li><a href="{{url('admin/dashboard')}}"><i class="fa fa-home"></i> Home</a></li>
 			<li><a href="{{url('admin/customers')}}"><i class="fa fa-user"></i>Customers</a></li>
-			<li>Password</li>
+			<li>Reset Password</li>
 		</ul>
 	</div>
 	<div class="container-fluid">
 		<!-- DATATABLE -->
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title">Passwords Listing</h3>
-				<div class="right">
+				<h3 class="panel-title">Customer E-mail</h3>
+				<!-- <div class="right">
 					<span class="label label-default" style="font-size: 90%;">Current Password: {{$user->original_password}}</span>
-				</div>
+				</div> -->
 			</div>
-
+			@include('admin.messages')
 			<div class="panel-body">
-				<table id="password-datatable" class="table table-hover" style="width:100%">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Password</th>
-							<th>Created At</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
+			<form id="forgot-password" class="text-right" action="{{ route('auth.send-reset-link-email') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" name="email"  value="{{$user->email}}" readonly placeholder="Email" required >
+                </div>                    
+				<div class="text-right">
+					<a href="{{url('admin/customers')}}">
+						<button type="button" class="btn cancel btn-fullrounded">
+							<span>Cancel</span>
+						</button>
+					</a>
+					<button type="submit" class="btn btn-primary btn-fullrounded">
+						<span>Reset </span>
+					</button>
+				</div>
+            </form>
 		</div>
 		<!-- END DATATABLE -->
 	</div>
@@ -40,6 +44,21 @@
 @endsection
 @section('js')
 <script>
+$(function(){
+		$('#forgot-password').validate({
+            focusInvalid: true,
+            submitHandler: function (form,validator) {
+            	if($(validator.errorList).length == 0)
+            	{
+            		document.getElementById("page-overlay").style.display = "block";
+            		return true;
+            	}
+            }
+        });
+    });
+
+</script>
+<!-- <script>
 	$(function()
     {
 		$('#password-datatable').dataTable(
@@ -72,5 +91,5 @@
     		showOverlayLoader();
 		});
 	});
-</script>
+</script> -->
 @endsection

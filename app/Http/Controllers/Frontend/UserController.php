@@ -13,6 +13,7 @@ use App\Models\Password;
 use App\Models\kycDocuments;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use Murich\PhpCryptocurrencyAddressValidation\Validation\BTC as BTCValidator;
 use Auth;
 use Hashids;
 use File;
@@ -63,6 +64,19 @@ class UserController extends Controller
                 $user->referrer_account_id = $referrer->id;
             } else {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Referral Code is not valid.']);
+            }
+        }
+
+        // Update btc wallet address check
+        if(!empty($request->btc_wallet_address)){
+            $validator = new BTCValidator($request->btc_wallet_address);
+            $result= $validator->validate();
+            if($result==1){
+                $input['btc_wallet_address']=$request->btc_wallet_address;
+                $user->btc_wallet_address=$request->btc_wallet_address;
+            }
+            else{
+                return redirect()->back()->withInput()->withErrors(['error' => 'BTC wallet address is not valid.']);
             }
         }
 

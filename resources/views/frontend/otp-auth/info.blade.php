@@ -40,11 +40,21 @@
                                            <!--  <a href="{{url('otp-auth/disable-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Disable</button>
                                             </a> -->
-                                        <p>Please Select the CheckBox to disable the 2FA.</p>
+                                        <!-- <p>Please Select the CheckBox to disable the 2FA.</p> -->
                                         
-                                        <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" class="2form" method="POST" >
+                                        <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" class="2form" method="POST" id='FA_form'>
                                         {{ csrf_field() }}
-                                        <!-- <input type="checkbox" class="child" name="radio-group" checked> -->
+                                        <div class="form-group" style="margin:0;">
+                                            <input id="emailCode" class="emailCode" name="emailCode" type="text" placeholder="Enter the Email Code" style="padding: 8px 17px; font-size: 14px; width: -webkit-fill-available" required='required'/>
+                                            <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp" style="margin: 5px;">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+                                        </div>
+                                           <br> 
+                                         <button type="submit" id="disable" class="btn-theme">Disable</button>
+                                        
+                                        </form>  
+                                        <!-- <form action="{{ url('otp-auth/disable-two-factor-authentication') }}" enctype="multipart/form-data" class="2form" method="POST" >
+                                        {{ csrf_field() }}  
+                                        <input type="checkbox" class="child" name="radio-group" checked>
                                        <div style=" display: flex; justify-content: space-evenly;">
                                         <input type="checkbox" name="checkbox" id="checkbox-email" value="1"  /> 
                                         <label for="Email" style="margin-top: -4px;">Email</label>
@@ -66,13 +76,13 @@
                                          <button type="submit" id="disable" class="btn-theme">Disable</button>
                                         
                                         </form>   
-                                        <!-- <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
+                                        <button class="btn btn-outline-warning showthis2FA" type="button" id="generate_otp">Generate OTP <i class="fa fa-spinner fa-spin" id="generate_otp_loading" style="display: none;"></i></button>
 
                                         <input id="showthis" class="showthis" name="email_code" type="text" placeholder="Enter the Email Code"  /> 
                                         <input id="showthis2FA"  class="showthis" name="two_fa_code"  
                                          type="text"  placeholder="Enter the 2FA Code" style="display: inline-block;margin-top: 10px;margin-left: 132px;margin-bottom: 10px;" /> 
-                                          <br>  
-                                        -->
+                                          <br>   -->
+                                       
                                         @else
                                             <a href="{{url('otp-auth/setup-two-factor-authentication')}}">
                                                 <button type="button" class="btn btn-primary btn-fullrounded">Configure</button>
@@ -89,82 +99,117 @@
     </div>
 @endsection
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script>
- $(function () {
-        $('.showthis').hide(); 
-        $('#generate_otp').hide();
-        $('#disable').attr("disabled", true);
-        $('#checkbox-email').on('click', function () {
-            if($('#checkbox-email').is(':checked')){
-                $('#showthis').show();
-                $('.showthis2FA').show();
-                $("#checkbox-2fa-code").attr("disabled", true);
-                $('#disable').attr("disabled", false);
-            }
-            else
-            {
-                $('#showthis').hide();
-                $('#disable').attr("disabled", true);
-                $('.showthis2FA').hide();
-                $("#checkbox-2fa-code").attr("disabled", false);
-            }
-        });
-         $('#checkbox-2fa-code').on('click', function () {
-            if($('#checkbox-2fa-code').is(':checked')){
-            $('#showthis2FA').show();
-            $("#checkbox-email").attr("disabled", true);
-            $('#disable').attr("disabled", false);
-            }else{
-            $('#showthis2FA').hide();
-            $("#checkbox-email").attr("disabled", false);
-            $("#checkbox-2fa-code").attr("disabled", false);
-            $('#disable').attr("disabled", true);
+    $(function() {
+        $('#FA_form').validate({
+            errorElement: 'div',
+			errorClass:'help-block text-danger',
+			focusInvalid: true,
 
-            }
+			highlight: function(e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+			success: function(e) {
+				$(e).closest('.form-group').removeClass('has-error');
+				$(e).remove();
+			},
+			errorPlacement: function(error, element) {
+				error.insertAfter(element);
+			},
+            invalidHandler: function(form) {
+			}
         });
-          $('#checkbox-both').on('click', function () {
-            if($('#checkbox-both').is(':checked')){
-            $('#showthis').show();
-            $('.showthis2FA').show();
-            $('#checkbox-email').prop('checked', true);
-            $('#checkbox-2fa-code').prop('checked', true);
-            $("#checkbox-email").attr("disabled", false);
-            $('#disable').attr("disabled", false);
-            $("#checkbox-2fa-code").attr("disabled", false);
-            $('#showthis2FA').show();
-            }else{
-            $('#disable').attr("disabled", true);
-            $('#showthis').hide();
-            $('.showthis2FA').hide();
-             $('#checkbox-email').prop('checked', false);
-            $('#checkbox-2fa-code').prop('checked', false);
-            $('#showthis2FA').hide();
+        $("#generate_otp").click(function(){
+                $('#generate_otp_loading').show();
+                $('#generate_otp').prop('disabled',true);
 
-            }
-        });
+                    $.ajax({
+                        url: "{{ url('/otp-auth/send-email-code?type=2fa_request') }}",
+                        type: 'GET',
+                        success: function(res) {
+                            $('#generate_otp_loading').hide();
+                            $('#generate_otp').prop('disabled',false);
+                            $('#disable').attr("disabled", false);
+                            alert(res);
+                        }
+                    });
+                });
     });
-  $("#generate_otp").click(function(){
-            $('#generate_otp_loading').show();
-            $('#generate_otp').prop('disabled',true);
+//  $(function () {
+    //     $('.showthis').hide(); 
+    //     $('#generate_otp').hide();
+    //     $('#disable').attr("disabled", true);
+    //     $('#checkbox-email').on('click', function () {
+    //         if($('#checkbox-email').is(':checked')){
+    //             $('#showthis').show();
+    //             $('.showthis2FA').show();
+    //             $("#checkbox-2fa-code").attr("disabled", true);
+    //             $('#disable').attr("disabled", false);
+    //         }
+    //         else
+    //         {
+    //             $('#showthis').hide();
+    //             $('#disable').attr("disabled", true);
+    //             $('.showthis2FA').hide();
+    //             $("#checkbox-2fa-code").attr("disabled", false);
+    //         }
+    //     });
+    //      $('#checkbox-2fa-code').on('click', function () {
+    //         if($('#checkbox-2fa-code').is(':checked')){
+    //         $('#showthis2FA').show();
+    //         $("#checkbox-email").attr("disabled", true);
+    //         $('#disable').attr("disabled", false);
+    //         }else{
+    //         $('#showthis2FA').hide();
+    //         $("#checkbox-email").attr("disabled", false);
+    //         $("#checkbox-2fa-code").attr("disabled", false);
+    //         $('#disable').attr("disabled", true);
 
-            $.ajax({
-                url: "{{ url('/otp-auth/send-email-code?type=2fa_request') }}",
-                type: 'GET',
-                success: function(res) {
-                    $('#generate_otp_loading').hide();
-                    $('#generate_otp').prop('disabled',false);
-                     $('#disable').attr("disabled", false);
-                    alert(res);
-                }
-            });
-        });
+    //         }
+    //     });
+    //       $('#checkbox-both').on('click', function () {
+    //         if($('#checkbox-both').is(':checked')){
+    //         $('#showthis').show();
+    //         $('.showthis2FA').show();
+    //         $('#checkbox-email').prop('checked', true);
+    //         $('#checkbox-2fa-code').prop('checked', true);
+    //         $("#checkbox-email").attr("disabled", false);
+    //         $('#disable').attr("disabled", false);
+    //         $("#checkbox-2fa-code").attr("disabled", false);
+    //         $('#showthis2FA').show();
+    //         }else{
+    //         $('#disable').attr("disabled", true);
+    //         $('#showthis').hide();
+    //         $('.showthis2FA').hide();
+    //          $('#checkbox-email').prop('checked', false);
+    //         $('#checkbox-2fa-code').prop('checked', false);
+    //         $('#showthis2FA').hide();
+
+    //         }
+    //     });
+    // });
+    // $("#generate_otp").click(function(){
+    //         $('#generate_otp_loading').show();
+    //         $('#generate_otp').prop('disabled',true);
+
+    //         $.ajax({
+    //             url: "{{ url('/otp-auth/send-email-code?type=2fa_request') }}",
+    //             type: 'GET',
+    //             success: function(res) {
+    //                 $('#generate_otp_loading').hide();
+    //                 $('#generate_otp').prop('disabled',false);
+    //                  $('#disable').attr("disabled", false);
+    //                 alert(res);
+    //             }
+    //         });
+    //     });
 </script>
-<style>
+<!-- <style>
     .2form{
         display: flex;
         justify-content: space-evenly;
     }
-</style>
+</style> -->
 
 @endsection
